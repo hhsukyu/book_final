@@ -11,7 +11,6 @@ import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
 import { SignupAdminDto } from "./dto/signup-admin.dto";
-import { CreateAdminDto } from "src/user/dto/create-admin.dto";
 
 @Injectable()
 export class AuthService {
