@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+    BadRequestException,
+    Injectable,
+    NotFoundException,
+} from "@nestjs/common";
 import { Store } from "../entity/store.entity";
 import { Repository } from "typeorm";
 import { CreateStoreDto } from "./dto/create-store.dto";
@@ -55,6 +59,13 @@ export class StoreService {
     //지점 등록
     async createStore(createStoreDto: CreateStoreDto, userid: number) {
         const user = await this.userService.findUserById(userid);
+
+        if (user.role === 0) {
+            throw new BadRequestException(
+                "지점 사장만 지점 생성이 가능합니다.",
+            );
+        }
+
         const store = await this.storeRepository.save({
             ...createStoreDto,
             admin: user,
