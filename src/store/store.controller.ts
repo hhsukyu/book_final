@@ -65,4 +65,11 @@ export class StoreController {
     }
 
     //지점 삭제 (회원탈퇴시 자동으로 삭제하도록?)
+
+    @ApiBearerAuth("accessToken")
+    @UseGuards(accessTokenGuard)
+    @Post("/check")
+    async check(@UserId() userid: number) {
+        return await this.storeService.check(userid);
+    }
 }

@@ -10,6 +10,8 @@ import { LoginUserDto } from "./dto/login-user.dto";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
+import { SignupAdminDto } from "./dto/signup-admin.dto";
+import { CreateAdminDto } from "src/user/dto/create-admin.dto";
 
 @Injectable()
 export class AuthService {
@@ -19,7 +21,7 @@ export class AuthService {
         private readonly jwtService: JwtService,
     ) {}
 
-    /// 회원가입
+    /// 유저 회원가입
     async signup(singupUserDto: SignupUserDto) {
         const { checkPassword, ...createUserDto } = singupUserDto;
 
@@ -36,6 +38,29 @@ export class AuthService {
 
         const userId = await this.userService.create({
             ...createUserDto,
+            password: hashPassword,
+        });
+
+        return userId;
+    }
+
+    /// 사장(지점장) 회원가입
+    async adminsignup(signupAdminDto: SignupAdminDto) {
+        const { checkPassword, ...createAdminDto } = signupAdminDto;
+
+        if (createAdminDto.password !== checkPassword) {
+            throw new BadRequestException(
+                "비밀번호와 확인 비밀번호가 일치하지 않습니다.",
+            );
+        }
+
+        const saltRounds = +this.configService.get<number>("SALT_ROUNDS");
+        const salt = await bcrypt.genSalt(saltRounds);
+
+        const hashPassword = await bcrypt.hash(createAdminDto.password, salt);
+
+        const userId = await this.userService.admincreate({
+            ...createAdminDto,
             password: hashPassword,
         });
 

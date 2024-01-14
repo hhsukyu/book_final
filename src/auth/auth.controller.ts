@@ -13,6 +13,7 @@ import { ApiBearerAuth } from "@nestjs/swagger";
 import { refreshTokenGuard } from "./guard/refresh-token.guard";
 import { accessTokenGuard } from "./guard/access-token.guard";
 import { Request } from "express";
+import { SignupAdminDto } from "./dto/signup-admin.dto";
 
 @Controller("auth")
 export class AuthController {
@@ -21,6 +22,11 @@ export class AuthController {
     @Post("signup")
     signup(@Body() singupUserDto: SignupUserDto) {
         return this.authService.signup(singupUserDto);
+    }
+
+    @Post("signup/admin")
+    adminsignup(@Body() signupadminDto: SignupAdminDto) {
+        return this.authService.adminsignup(signupadminDto);
     }
 
     @Post("login")

@@ -9,6 +9,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "../entity/user.entity";
 import { ConfigService } from "@nestjs/config";
 import { CreateUserDto } from "./dto/create-user.dto";
+import { CreateAdminDto } from "./dto/create-admin.dto";
 
 @Injectable()
 export class UserService {
@@ -18,6 +19,7 @@ export class UserService {
         private readonly configService: ConfigService,
     ) {}
 
+    //유저 회원가입
     async create(createUserDto: CreateUserDto) {
         const { email } = createUserDto;
 
@@ -32,6 +34,24 @@ export class UserService {
         return user.id;
     }
 
+    //사장님 회원가입
+    async admincreate(createAdminDto: CreateAdminDto) {
+        const { email } = createAdminDto;
+
+        const isAdmin = await this.findUserByEmail(email);
+
+        if (isAdmin) {
+            throw new ConflictException("이미 존재하는 이메일입니다.");
+        }
+
+        const user = await this.userRepository.save({
+            ...createAdminDto,
+            role: 1,
+        });
+
+        return user;
+    }
+
     async findAll() {
         return await this.userRepository.find({
             select: ["id", "email", "name", "createdAt", "updatedAt"],
@@ -41,7 +61,7 @@ export class UserService {
     async findUserById(id: number) {
         return await this.userRepository.findOne({
             where: { id },
-            select: ["id", "email", "name", "createdAt", "updatedAt"],
+            select: ["id", "email", "name", "createdAt", "updatedAt", "role"],
         });
     }
 

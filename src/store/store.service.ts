@@ -81,4 +81,19 @@ export class StoreService {
 
         return { message: "지점 정보가 수정되었습니다." };
     }
+
+    //지점 삭제
+
+    //체크
+    async check(userid: number) {
+        const user = await this.userService.findUserById(userid);
+
+        console.log(user);
+
+        if (user.role === 0) {
+            console.log("user 로그인 입니다.");
+        } else if (user.role === 1) {
+            console.log("사장님 로그인 입니다.");
+        }
+    }
 }
