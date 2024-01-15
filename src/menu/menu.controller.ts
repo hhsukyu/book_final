@@ -41,7 +41,7 @@ export class MenuController {
         );
     }
 
-    //메뉴 수정
+    //메뉴 수정.
     @ApiBearerAuth("accessToken")
     @UseGuards(accessTokenGuard)
     @Put("/storeid/:storeid/:menuid")
