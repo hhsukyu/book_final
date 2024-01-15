@@ -30,7 +30,7 @@ export class StoreController {
     //본인 지점 조회
     @ApiBearerAuth("accessToken")
     @UseGuards(accessTokenGuard)
-    @Get("")
+    @Get("/mystore")
     findMyStoreById(@UserId() userid: number) {
         return this.storeService.findMystoreByid(userid);
     }
