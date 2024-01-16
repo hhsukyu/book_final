@@ -4,6 +4,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  UpdateDateColumn,
+  Relation,
 } from 'typeorm';
 import { Store } from './store.entity';
 // import { StoreReview } from '.';
@@ -24,10 +26,13 @@ export class AdminReview {
   content: string;
 
   @CreateDateColumn()
-  date: Date;
+  createdAt: Date;
 
-  @ManyToOne(() => Store, (store) => store.adminReview)
-  store: Store[];
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @ManyToOne(() => Store, (store) => store.adminReviews)
+  store: Relation<Store>;
 
   //   @ManyToOne(() => StoreReview, (storeReview) => storeReview.adminReview)
   //   storeReview: Realation<StoreReview>[];
