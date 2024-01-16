@@ -74,11 +74,14 @@ export class AuthController {
   //       (res as any).status(500).json({ error: 'Internal Server Error' });
   //     }
   //   }
-
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
   @Get('naver')
   @UseGuards(AuthGuard('naver'))
   async naverLogin(): Promise<void> {}
 
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
   @Get('naver/callback')
   @UseGuards(AuthGuard('naver'))
   async naverLoginCallback(@Req() req, @Res() res): Promise<void> {
