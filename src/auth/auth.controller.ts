@@ -23,8 +23,8 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  signup(@Body() singupUserDto: SignupUserDto) {
-    return this.authService.signup(singupUserDto);
+  signup(@Body() signupUserDto: SignupUserDto) {
+    return this.authService.signup(signupUserDto);
   }
 
   @Post('signup/admin')
@@ -74,20 +74,17 @@ export class AuthController {
   //       (res as any).status(500).json({ error: 'Internal Server Error' });
   //     }
   //   }
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
+
   @Get('naver')
   @UseGuards(AuthGuard('naver'))
   async naverLogin(): Promise<void> {}
 
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
   @Get('naver/callback')
   @UseGuards(AuthGuard('naver'))
   async naverLoginCallback(@Req() req, @Res() res): Promise<void> {
     const jwt: string = req.user.jwt;
-    if (jwt) res.redirect('http://localhost:3000/login/success/' + jwt);
-    else res.redirect('http://localhost:3000/login/failure');
+    if (jwt) res.redirect('https://localhost:3000/login/success/' + jwt);
+    else res.redirect('https://localhost:3000/login/failure');
   }
 
   @Get('protected')
