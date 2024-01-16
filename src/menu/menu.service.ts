@@ -70,7 +70,11 @@ export class MenuService {
       where: { id: storeid },
     });
 
-    await this.findmenubyId(menuid, store);
+    const menu = await this.findmenubyId(menuid);
+
+    if (store.menus.some((s) => s.id !== menu.id)) {
+      throw new BadRequestException('해당 지점 사장님만 수정이 가능합니다.');
+    }
 
     await this.menuRepository.update(
       {
@@ -88,11 +92,12 @@ export class MenuService {
   async deleteStoreMenu(storeid: number, menuid: number) {
     const store = await this.storeRepository.findOne({
       where: { id: storeid },
+      relations: { menus: true },
     });
-    const isMenu = await this.findmenubyId(menuid, store);
+    const isMenu = await this.findmenubyId(menuid);
 
-    if (!isMenu) {
-      throw new NotFoundException('메뉴를 찾을 수 없습니다.');
+    if (store.menus.some((s) => s.id !== isMenu.id)) {
+      throw new BadRequestException('해당 지점 사장님만 수정이 가능합니다.');
     }
 
     const result = await this.menuRepository.delete({ id: menuid });
@@ -100,9 +105,9 @@ export class MenuService {
     return result;
   }
 
-  async findmenubyId(menuid: number, store: any) {
+  async findmenubyId(menuid: number) {
     return await this.menuRepository.findOne({
-      where: { id: menuid, store: store },
+      where: { id: menuid },
     });
   }
 }
