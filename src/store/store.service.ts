@@ -32,11 +32,11 @@ export class StoreService {
   async findMystoreByid(userid: number) {
     const user = await this.userService.findUserByIdWithStore(userid);
 
-    if (!user.store) {
+    if (!user.stores) {
       throw new NotFoundException('존재하지 않는 지점입니다.');
     }
 
-    return user.store;
+    return user.stores;
   }
 
   //지점 상세 조회
@@ -50,6 +50,7 @@ export class StoreService {
         'store_address',
         'store_open',
         'store_close',
+        'admin',
       ],
     });
 
@@ -76,8 +77,17 @@ export class StoreService {
   }
 
   //지점 수정
-  async updateStore(updateStoreDto: UpdateStoreDto, storeid: number) {
-    await this.findstoreByid(storeid);
+  async updateStore(
+    updateStoreDto: UpdateStoreDto,
+    storeid: number,
+    userid: number,
+  ) {
+    const user = await this.userService.findUserById(userid);
+    const store = await this.findStoreById(storeid);
+
+    if (user.stores.some((s) => s.id !== store.id)) {
+      throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
+    }
 
     await this.storeRepository.update(
       {
@@ -92,11 +102,12 @@ export class StoreService {
   }
 
   //지점 삭제
-  async deleteStore(storeid: number) {
-    const isStore = await this.findMystoreByid(storeid);
+  async deleteStore(storeid: number, userid: number) {
+    const user = await this.userService.findUserById(userid);
+    const store = await this.findStoreById(storeid);
 
-    if (!isStore) {
-      throw new BadRequestException('지점이 존재하는 확인해주세요.');
+    if (user.stores.some((s) => s.id !== store.id)) {
+      throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
     }
 
     const result = await this.storeRepository.delete({ id: storeid });
@@ -118,6 +129,8 @@ export class StoreService {
   }
 
   async findStoreById(storeid: number) {
-    return await this.storeRepository.findOne({ where: { id: storeid } });
+    return await this.storeRepository.findOne({
+      where: { id: storeid },
+    });
   }
 }

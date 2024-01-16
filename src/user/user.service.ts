@@ -62,7 +62,7 @@ export class UserService {
     return await this.userRepository.findOne({
       where: { id },
       select: ['id', 'email', 'name', 'createdAt', 'updatedAt', 'role'],
-      relations: { store: true },
+      relations: { stores: true },
     });
   }
 
@@ -70,7 +70,7 @@ export class UserService {
     return await this.userRepository.findOne({
       where: { id },
       select: ['id', 'email', 'name', 'createdAt', 'updatedAt'],
-      relations: { store: true },
+      relations: { stores: true },
     });
   }
 

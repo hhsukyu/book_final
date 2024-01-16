@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Menu } from '../entity/menu.entity';
 import { Repository } from 'typeorm';
@@ -48,7 +44,7 @@ export class MenuService {
       where: { id: storeid },
     });
 
-    if (user.store.some((s) => s.id !== store.id)) {
+    if (user.stores.some((s) => s.id !== store.id)) {
       throw new BadRequestException('소유주만 등록 및 수정이 가능합니다.');
     }
 

@@ -18,7 +18,7 @@ export class Store {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.store)
+  @ManyToOne(() => User, (user) => user.stores)
   admin: Relation<User>;
 
   @Column()
