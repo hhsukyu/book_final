@@ -21,7 +21,7 @@ export class StoreService {
         private readonly userService: UserService,
     ) {}
 
-    //지점 전체 조회
+    //지점 전체 조회.
     async storelist() {
         const store = await this.storeRepository.find({});
 
