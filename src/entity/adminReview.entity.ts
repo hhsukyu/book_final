@@ -1,8 +1,14 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+} from 'typeorm';
 import { Store } from './store.entity';
 // import { StoreReview } from '.';
 @Entity({
-  name: 'adminReview',
+  name: 'admin-review',
 })
 export class AdminReview {
   @PrimaryGeneratedColumn()
@@ -17,8 +23,7 @@ export class AdminReview {
   @Column()
   content: string;
 
-  // 날짜 입력이 안돼서 수정 예정코드
-  @Column()
+  @CreateDateColumn()
   date: Date;
 
   @ManyToOne(() => Store, (store) => store.adminReview)
