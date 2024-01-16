@@ -21,7 +21,7 @@ export class StoreService {
         private readonly userService: UserService,
     ) {}
 
-    //지점 전체 조회
+    //지점 전체 조회.
     async storelist() {
         const store = await this.storeRepository.find({});
 
@@ -94,6 +94,17 @@ export class StoreService {
     }
 
     //지점 삭제
+    async deleteStore(storeid: number) {
+        const isStore = await this.findMystoreByid(storeid);
+
+        if (!isStore) {
+            throw new BadRequestException("지점이 존재하는 확인해주세요.");
+        }
+
+        const result = await this.storeRepository.delete({ id: storeid });
+
+        return result;
+    }
 
     //체크
     async check(userid: number) {
@@ -106,5 +117,9 @@ export class StoreService {
         } else if (user.role === 1) {
             console.log("사장님 로그인 입니다.");
         }
+    }
+
+    async findStoreById(storeid: number) {
+        return await this.storeRepository.findOne({ where: { id: storeid } });
     }
 }
