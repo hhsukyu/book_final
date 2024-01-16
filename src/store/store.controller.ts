@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     Post,
@@ -29,7 +30,7 @@ export class StoreController {
     //본인 지점 조회
     @ApiBearerAuth("accessToken")
     @UseGuards(accessTokenGuard)
-    @Get("")
+    @Get("/mystore")
     findMyStoreById(@UserId() userid: number) {
         return this.storeService.findMystoreByid(userid);
     }
@@ -65,6 +66,12 @@ export class StoreController {
     }
 
     //지점 삭제 (회원탈퇴시 자동으로 삭제하도록?)
+    @ApiBearerAuth("accessToken")
+    @UseGuards(accessTokenGuard)
+    @Delete("/:storeid")
+    async deleteStore(@Param("storeid") storeid: number) {
+        return await this.storeService.deleteStore(storeid);
+    }
 
     @ApiBearerAuth("accessToken")
     @UseGuards(accessTokenGuard)
