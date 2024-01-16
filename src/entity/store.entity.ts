@@ -1,14 +1,18 @@
 import {
     Column,
+    CreateDateColumn,
     Entity,
     ManyToOne,
+    OneToMany,
     PrimaryGeneratedColumn,
     Relation,
+    UpdateDateColumn,
 } from "typeorm";
 import { User } from "./user.entity";
+import { Menu } from "./menu.entity";
 
 @Entity({
-    name: "store",
+    name: "stores",
 })
 export class Store {
     @PrimaryGeneratedColumn()
@@ -35,9 +39,18 @@ export class Store {
     @Column({ type: "decimal", precision: 10, scale: 7 })
     longitude: number;
 
+    @OneToMany(() => Menu, (menu) => menu.store)
+    menus: Relation<Menu>[];
+
     @Column()
     store_open: Date;
 
     @Column()
     store_close: Date;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
 }
