@@ -68,6 +68,7 @@ export class MenuService {
   ) {
     const store = await this.storeRepository.findOne({
       where: { id: storeid },
+      relations: { menus: true },
     });
 
     const menu = await this.findmenubyId(menuid);
