@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PROJECT_ROOT="/home/ubuntu/"
+PROJECT_ROOT="/home/ubuntu/app"
 APP_NAME="project"
 PM2_PATH="/home/ubuntu/.nvm/versions/node/v21.6.0/bin/pm2"
 
