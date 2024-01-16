@@ -11,8 +11,6 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { SignupAdminDto } from './dto/signup-admin.dto';
-// import { Repository } from 'typeorm';
-// import { User } from 'src/entity/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +18,6 @@ export class AuthService {
     private readonly configService: ConfigService,
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-    // private readonly userRepository: Repository<User>,
   ) {}
 
   /// 유저 회원가입
