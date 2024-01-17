@@ -41,7 +41,7 @@ export class MenuController {
         file: {
           type: 'string',
           format: 'binary',
-          description: 'The image file to upload.',
+          description: 'The image file to upload..',
         },
         food_name: {
           type: 'string',
