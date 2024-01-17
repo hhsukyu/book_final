@@ -9,6 +9,7 @@ import { TypeormModule } from './typeorm/typeorm.module';
 import { StoreModule } from './store/store.module';
 import { MenuModule } from './menu/menu.module';
 import { AdminReviewModule } from './admin-review/adminReview.module';
+import { StoreReviewModule } from './storeReview/store-review.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AdminReviewModule } from './admin-review/adminReview.module';
     StoreModule,
     MenuModule,
     AdminReviewModule,
+    StoreReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],

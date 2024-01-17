@@ -10,7 +10,8 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 import { Menu } from './menu.entity';
-// import { AdminReview } from './adminReview.entity';
+import { AdminReview } from './adminReview.entity';
+import { StoreReview } from './storeReview.entity';
 
 @Entity({
   name: 'stores',
@@ -43,8 +44,11 @@ export class Store {
   @OneToMany(() => Menu, (menu) => menu.store)
   menus: Relation<Menu>[];
 
-  // @OneToMany(() => AdminReview, (adminReview) => adminReview.store)
-  // adminReviews: Relation<AdminReview>[];
+  @OneToMany(() => AdminReview, (adminReview) => adminReview.store)
+  adminReviews: Relation<AdminReview>[];
+
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.store_id)
+  store_reviews: Relation<StoreReview>[];
 
   @Column()
   store_open: Date;

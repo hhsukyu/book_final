@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Store } from './store.entity';
+import { StoreReview } from './storeReview.entity';
 
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
@@ -40,6 +41,9 @@ export class User {
 
   @OneToMany(() => Store, (store) => store.admin, { cascade: true })
   stores: Relation<Store>[];
+
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.user_id)
+  store_reviews: Relation<StoreReview>[];
 
   @CreateDateColumn()
   createdAt: Date;
