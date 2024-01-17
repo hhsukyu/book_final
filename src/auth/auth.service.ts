@@ -11,12 +11,15 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { SignupAdminDto } from './dto/signup-admin.dto';
+import { Repository } from 'typeorm';
+import { User } from 'src/entity/user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly configService: ConfigService,
     private readonly userService: UserService,
+    private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -134,38 +137,47 @@ export class AuthService {
 
     return refreshToken;
   }
+
+  //네이버 로그인
+  async naverLoginCallback({ req, res }) {
+    // 네이버 이메일로 사용자를 찾는다.
+    let OAuthUser = await this.userRepository.findOne({
+      where: { email: req.user.email },
+    });
+
+    // 네이버 사용자의 이메일 값을 변수 지정 해주었다.
+    const email = req.user.email;
+
+    // 비밀번호 값은 따로 받아올 수 없기 때문에 user의 아이디 값을 해시화 해서 변수 지정해주었다.
+    const hashedNaverPassword = await bcrypt.hash(req.user.id, 10);
+
+    // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성 해준다.
+    // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용한다.
+    if (!OAuthUser) {
+      OAuthUser = await this.userRepository.save({
+        email,
+        nickname: req.user.nickname,
+        password: hashedNaverPassword,
+      });
+    }
+
+    const payload = { email, sub: req.user.id };
+
+    res.redirect(`http://localhost:3000/login/success?payload=${payload}`);
+
+    return {
+      message: '로그인 성공',
+      success: true,
+      access_token: this.jwtService.sign(payload),
+      OAuthUser,
+    };
+  }
 }
-//   //네이버 로그인
-//   async OAuthLogin({ req, res }) {
-//     // 네이버 이메일로 사용자를 찾는다.
-//     let OAuthUser = await this.userRepository.findOne({
-//       where: { email: req.user.email },
-//     });
 
-//     // 네이버 사용자의 이메일 값을 변수 지정 해주었다.
-//     const email = req.user.email;
-
-//     // 비밀번호 값은 따로 받아올 수 없기 때문에 user의 아이디 값을 해시화 해서 변수 지정해주었다.
-//     const hashedNaverPassword = await bcrypt.hash(req.user.id, 10);
-
-//     // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성 해준다.
-//     // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용한다.
-//     if (!OAuthUser) {
-//       OAuthUser = await this.userRepository.save({
-//         email,
-//         name: req.user.name,
-//         password: hashedNaverPassword,
-//       });
-//     }
-
-//     const payload = { email, sub: req.user.id };
-
-//     res.redirect('/');
-
-//     return {
-//       message: '로그인 성공',
-//       success: true,
-//       access_token: this.jwtService.sign(payload),
-//       OAuthUser,
-//     };
+// async validateUser(user_email: string): Promise<any> {
+//   const user = await this.userService.findUserByEmail(user_email);
+//   if (!user) {
+//     return null;
 //   }
+//   return user;
+// }

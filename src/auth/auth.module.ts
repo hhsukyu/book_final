@@ -10,12 +10,15 @@ import { JwtModule } from '@nestjs/jwt';
 import { NaverStrategy } from './strategy/naver.strategy';
 import { NaverAuthGuard } from './guard/naver-auth.guard';
 import { PassportModule } from '@nestjs/passport';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'src/entity/user.entity';
 
 @Module({
   imports: [
     forwardRef(() => UserModule),
     JwtModule,
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
+    TypeOrmModule.forFeature([User]),
   ],
   exports: [
     accessTokenGuard,

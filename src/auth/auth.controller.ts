@@ -17,6 +17,7 @@ import { accessTokenGuard } from './guard/access-token.guard';
 import { Request } from 'express';
 import { SignupAdminDto } from './dto/signup-admin.dto';
 import { AuthGuard } from '@nestjs/passport';
+import * as jwt from 'jsonwebtoken';
 
 @Controller('auth')
 export class AuthController {
@@ -82,9 +83,15 @@ export class AuthController {
   @Get('naver/callback')
   @UseGuards(AuthGuard('naver'))
   async naverLoginCallback(@Req() req, @Res() res): Promise<void> {
-    const jwt: string = req.user.jwt;
-    if (jwt) res.redirect('https://localhost:3000/login/success/' + jwt);
-    else res.redirect('https://localhost:3000/login/failure');
+    const accessToken: string = req.user ? req.user.accessToken : undefined;
+
+    console.log('req.user', req.user);
+    console.log('accessToken', accessToken);
+    if (accessToken)
+      res.redirect(
+        `http://localhost:3000/login/success?accessToken=${accessToken}`,
+      );
+    else res.redirect('http://localhost:3000/login/failure');
   }
 
   @Get('protected')
