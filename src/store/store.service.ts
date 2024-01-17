@@ -30,11 +30,13 @@ export class StoreService {
 
   //본인 지점 조회
   async findMystoreByid(userid: number) {
-    const user = await this.userService.findUserByIdWithStore(userid);
+    const user = await this.findUserByIdWithStore(userid);
 
     if (!user.stores) {
       throw new NotFoundException('존재하지 않는 지점입니다.');
     }
+
+    console.log(user.stores);
 
     return user.stores;
   }
@@ -131,6 +133,14 @@ export class StoreService {
   async findStoreById(storeid: number) {
     return await this.storeRepository.findOne({
       where: { id: storeid },
+    });
+  }
+
+  async findUserByIdWithStore(id: number) {
+    return await this.userRepository.findOne({
+      where: { id },
+      select: ['id', 'email', 'name', 'createdAt', 'updatedAt'],
+      relations: { stores: true },
     });
   }
 }
