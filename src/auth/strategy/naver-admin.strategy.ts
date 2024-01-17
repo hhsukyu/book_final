@@ -4,12 +4,15 @@ import { Strategy } from 'passport-naver';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class NaverStrategy extends PassportStrategy(Strategy, 'naver') {
+export class NaverAdminStrategy extends PassportStrategy(
+  Strategy,
+  'naver-admin',
+) {
   constructor(private configService: ConfigService) {
     super({
       clientID: configService.get<string>('NAVER_CLIENT_ID'),
       clientSecret: configService.get<string>('NAVER_CLIENT_SECRET'),
-      callbackURL: configService.get<string>('NAVER_REDIRECT_URI'),
+      callbackURL: configService.get<string>('NAVER_ADMIN_REDIRECT_URI'),
     });
   }
   async validate(

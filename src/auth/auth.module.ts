@@ -12,13 +12,20 @@ import { NaverAuthGuard } from './guard/naver-auth.guard';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entity/user.entity';
+import { ConfigService } from '@nestjs/config';
+import { NaverAdminStrategy } from './strategy/naver-admin.strategy';
 
 @Module({
   imports: [
-    forwardRef(() => UserModule),
-    JwtModule,
-    PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     TypeOrmModule.forFeature([User]),
+    forwardRef(() => UserModule),
+    JwtModule.registerAsync({
+      useFactory: (config: ConfigService) => ({
+        secret: config.get<string>('JWT_SECRET_KEY'),
+      }),
+      inject: [ConfigService],
+    }),
+    PassportModule.register({ defaultStrategy: 'jwt', session: false }),
   ],
   exports: [
     accessTokenGuard,
@@ -36,6 +43,7 @@ import { User } from 'src/entity/user.entity';
     refreshTokenGuard,
     refreshTokenStrategy,
     NaverStrategy,
+    NaverAdminStrategy,
     NaverAuthGuard,
   ],
 })

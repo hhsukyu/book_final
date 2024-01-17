@@ -54,14 +54,14 @@ export class UserService {
 
   async findAll() {
     return await this.userRepository.find({
-      select: ['id', 'email', 'name', 'createdAt', 'updatedAt'],
+      select: ['id', 'email', 'nickname', 'createdAt', 'updatedAt'],
     });
   }
 
   async findUserById(id: number) {
     return await this.userRepository.findOne({
       where: { id },
-      select: ['id', 'email', 'name', 'createdAt', 'updatedAt', 'role'],
+      select: ['id', 'email', 'nickname', 'createdAt', 'updatedAt', 'role'],
       relations: { stores: true },
     });
   }
@@ -69,7 +69,7 @@ export class UserService {
   async findUserByIdWithStore(id: number) {
     return await this.userRepository.findOne({
       where: { id },
-      select: ['id', 'email', 'name', 'createdAt', 'updatedAt'],
+      select: ['id', 'email', 'nickname', 'createdAt', 'updatedAt'],
       relations: { stores: true },
     });
   }

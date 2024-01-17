@@ -64,39 +64,25 @@ export class AuthController {
     return this.authService.logout(userId);
   }
 
-  //   //네이버 로그인
-  //   @UseGuards(AuthGuard('naver'))
-  //   @Get('/naver/login')
-  //   async loginNaver(@Req() req: Request, @Res() res: Response): Promise<any> {
-  //     try {
-  //       return await this.authService.OAuthLogin({ req, res });
-  //     } catch (error) {
-  //       console.error('Error in loginNaver:', error);
-  //       (res as any).status(500).json({ error: 'Internal Server Error' });
-  //     }
-  //   }
-
+  //네이버 일반사용자 소셜로그인
   @Get('naver')
   @UseGuards(AuthGuard('naver'))
   async naverLogin(): Promise<void> {}
 
   @Get('naver/callback')
   @UseGuards(AuthGuard('naver'))
-  async naverLoginCallback(@Req() req, @Res() res): Promise<void> {
-    const accessToken: string = req.user ? req.user.accessToken : undefined;
-
-    console.log('req.user', req.user);
-    console.log('accessToken', accessToken);
-    if (accessToken)
-      res.redirect(
-        `http://localhost:3000/login/success?accessToken=${accessToken}`,
-      );
-    else res.redirect('http://localhost:3000/login/failure');
+  async naverLoginCallback(@Req() req, @Res() res) {
+    return await this.authService.naverLoginCallback({ req, res });
   }
 
-  @Get('protected')
-  @UseGuards(AuthGuard('jwt'))
-  protectedResource() {
-    return 'JWT is working!';
+  //네이버 지점업주 소셜로그인
+  @Get('naver-admin')
+  @UseGuards(AuthGuard('naver-admin'))
+  async naverAdminLogin(): Promise<void> {}
+
+  @Get('naver/admin/callback')
+  @UseGuards(AuthGuard('naver-admin'))
+  async naverAdminLoginCallback(@Req() req, @Res() res) {
+    return await this.authService.naverAdminLoginCallback({ req, res });
   }
 }

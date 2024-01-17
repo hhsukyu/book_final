@@ -13,12 +13,14 @@ import * as bcrypt from 'bcrypt';
 import { SignupAdminDto } from './dto/signup-admin.dto';
 import { Repository } from 'typeorm';
 import { User } from 'src/entity/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly configService: ConfigService,
     private readonly userService: UserService,
+    @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
   ) {}
@@ -83,7 +85,8 @@ export class AuthService {
       throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
     }
 
-    const accessToken = this.generateAccessToken(user.id, user.name);
+    //TODO: 함수로 따로 빼기
+    const accessToken = this.generateAccessToken(user.id, user.nickname);
     const refreshToken = this.generateRefreshToken(user.id);
 
     await this.userService.update(user.id, {
@@ -100,7 +103,7 @@ export class AuthService {
   async refresh(id: number) {
     const user = await this.userService.findUserById(id);
 
-    const accessToken = this.generateAccessToken(id, user.name);
+    const accessToken = this.generateAccessToken(id, user.nickname);
 
     return accessToken;
   }
@@ -141,36 +144,88 @@ export class AuthService {
   //네이버 로그인
   async naverLoginCallback({ req, res }) {
     // 네이버 이메일로 사용자를 찾는다.
+    const email = req.user.userProfile.userEmail;
+    const nickname = req.user.userProfile.userNick;
     let OAuthUser = await this.userRepository.findOne({
-      where: { email: req.user.email },
+      where: { email },
     });
+    console.log('OAuthUser', OAuthUser);
+    // 네이버 사용자의 이메일 값을 변수 지정
 
-    // 네이버 사용자의 이메일 값을 변수 지정 해주었다.
-    const email = req.user.email;
+    console.log('email', email);
 
-    // 비밀번호 값은 따로 받아올 수 없기 때문에 user의 아이디 값을 해시화 해서 변수 지정해주었다.
-    const hashedNaverPassword = await bcrypt.hash(req.user.id, 10);
+    // user의 아이디 값을 해시화 해서 변수 지정
+    const hashedNaverPassword = await bcrypt.hash(email, 10);
 
-    // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성 해준다.
-    // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용한다.
+    // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성
+    // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용
     if (!OAuthUser) {
       OAuthUser = await this.userRepository.save({
         email,
-        nickname: req.user.nickname,
+        nickname,
         password: hashedNaverPassword,
       });
     }
 
-    const payload = { email, sub: req.user.id };
+    const accessToken = this.generateAccessToken(
+      OAuthUser.id,
+      OAuthUser.nickname,
+    );
+    const refreshToken = this.generateRefreshToken(OAuthUser.id);
 
-    res.redirect(`http://localhost:3000/login/success?payload=${payload}`);
+    await this.userService.update(OAuthUser.id, {
+      currentRefreshToken: refreshToken,
+    });
 
-    return {
-      message: '로그인 성공',
-      success: true,
-      access_token: this.jwtService.sign(payload),
-      OAuthUser,
-    };
+    if (OAuthUser)
+      res.redirect(
+        `http://localhost:3000/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+      );
+    else res.redirect('http://localhost:3000/login/failure');
+  }
+
+  //네이버 지점업주 회원가입/로그인
+  async naverAdminLoginCallback({ req, res }) {
+    // 네이버 이메일로 사용자를 찾는다.
+    const email = req.user.userProfile.userEmail;
+    const nickname = req.user.userProfile.userNick;
+    let OAuthUser = await this.userRepository.findOne({
+      where: { email },
+    });
+    console.log('OAuthUser', OAuthUser);
+    // 네이버 사용자의 이메일 값을 변수 지정
+
+    console.log('email', email);
+
+    // user의 아이디 값을 해시화 해서 변수 지정
+    const hashedNaverPassword = await bcrypt.hash(email, 10);
+
+    // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성
+    // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용
+    if (!OAuthUser) {
+      OAuthUser = await this.userRepository.save({
+        email,
+        nickname,
+        password: hashedNaverPassword,
+        role: 1,
+      });
+    }
+
+    const accessToken = this.generateAccessToken(
+      OAuthUser.id,
+      OAuthUser.nickname,
+    );
+    const refreshToken = this.generateRefreshToken(OAuthUser.id);
+
+    await this.userService.update(OAuthUser.id, {
+      currentRefreshToken: refreshToken,
+    });
+
+    if (OAuthUser)
+      res.redirect(
+        `http://localhost:3000/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+      );
+    else res.redirect('http://localhost:3000/login/failure');
   }
 }
 

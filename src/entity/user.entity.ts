@@ -21,14 +21,14 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column({ nullable: true })
-  password?: string;
+  @Column()
+  password: string;
 
   @Column({ nullable: true })
   currentRefreshToken?: string;
 
   @Column()
-  name: string;
+  nickname: string;
 
   @Column({ nullable: true })
   phone?: string;
