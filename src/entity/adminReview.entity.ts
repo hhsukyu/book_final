@@ -19,16 +19,16 @@ export class AdminReview {
   @Column()
   storeId: number;
 
-  @Column()
+  @Column({ name: 'review_id' })
   reviewId: number;
 
   @Column()
   content: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
   @ManyToOne(() => Store, (store) => store.adminReviews)
