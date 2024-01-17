@@ -7,11 +7,16 @@ import { User } from '../entity/user.entity';
 import { UserService } from '../user/user.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
-// import * as AWS from 'aws-sdk';
+import { ConfigService } from '@nestjs/config';
+import * as AWS from 'aws-sdk';
+import * as fs from 'fs';
+import * as multer from 'multer';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class MenuService {
-  // s3 = new AWS.S3();
+  private readonly AWS_S3_BUCKET_NAME: string;
+  private readonly s3: AWS.S3;
 
   constructor(
     @InjectRepository(Menu)
@@ -21,7 +26,11 @@ export class MenuService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly userService: UserService,
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    this.AWS_S3_BUCKET_NAME = this.configService.get('AWS_S3_BUCKET_NAME');
+    this.s3 = new AWS.S3();
+  }
 
   //지점 메뉴 조회
   async menulist(storeid: number) {
@@ -42,18 +51,22 @@ export class MenuService {
     file: Express.Multer.File,
   ) {
     console.log(file);
+    const fileStream = fs.createReadStream(file.path);
 
-    // const AWS_S3_BUCKET = 'book-image-upload-bucket';
+    const params = await this.s3
+      .upload({
+        Bucket: this.AWS_S3_BUCKET_NAME,
+        Key: uuidv4(),
+        Body: fileStream,
+        ACL: 'public-read',
+      })
+      .promise();
 
-    // const params = {
-    //   Bucket: AWS_S3_BUCKET,
-    //   Key: String(file.originalname),
-    //   Body: file.buffer,
-    //   ACL: 'public-read',
-    // };
+    fs.unlink(file.path, (err) => {
+      if (err) console.error(err);
+    });
 
-    // const response = await this.s3.upload(params).promise();
-    // console.log(response);
+    console.log(params);
 
     const user = await this.userService.findUserById(userid);
     const store = await this.storeRepository.findOne({
@@ -66,7 +79,7 @@ export class MenuService {
 
     const menu = await this.menuRepository.save({
       ...createMenuDto,
-      // food_img: response.Location,
+      food_img: params.Location,
       store: store,
     });
 
