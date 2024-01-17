@@ -16,4 +16,4 @@ whoami
 pm2 delete $APP_NAME
 pm2 start npm --name $APP_NAME -- start
 
-echo "$TIME_NOW > Deploy has been completed......."
+echo "$TIME_NOW > Deploy has been completed........"
