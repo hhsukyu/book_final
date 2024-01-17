@@ -1,10 +1,8 @@
 import {
   Body,
   Controller,
-  Get,
   Post,
   Req,
-  Res,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -16,16 +14,14 @@ import { refreshTokenGuard } from './guard/refresh-token.guard';
 import { accessTokenGuard } from './guard/access-token.guard';
 import { Request } from 'express';
 import { SignupAdminDto } from './dto/signup-admin.dto';
-import { AuthGuard } from '@nestjs/passport';
-import * as jwt from 'jsonwebtoken';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  signup(@Body() signupUserDto: SignupUserDto) {
-    return this.authService.signup(signupUserDto);
+  signup(@Body() singupUserDto: SignupUserDto) {
+    return this.authService.signup(singupUserDto);
   }
 
   @Post('signup/admin')
@@ -62,27 +58,5 @@ export class AuthController {
     }
 
     return this.authService.logout(userId);
-  }
-
-  //네이버 일반사용자 소셜로그인
-  @Get('naver')
-  @UseGuards(AuthGuard('naver'))
-  async naverLogin(): Promise<void> {}
-
-  @Get('naver/callback')
-  @UseGuards(AuthGuard('naver'))
-  async naverLoginCallback(@Req() req, @Res() res) {
-    return await this.authService.naverLoginCallback({ req, res });
-  }
-
-  //네이버 지점업주 소셜로그인
-  @Get('naver-admin')
-  @UseGuards(AuthGuard('naver-admin'))
-  async naverAdminLogin(): Promise<void> {}
-
-  @Get('naver/admin/callback')
-  @UseGuards(AuthGuard('naver-admin'))
-  async naverAdminLoginCallback(@Req() req, @Res() res) {
-    return await this.authService.naverAdminLoginCallback({ req, res });
   }
 }
