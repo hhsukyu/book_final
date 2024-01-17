@@ -192,11 +192,8 @@ export class AuthService {
     let OAuthUser = await this.userRepository.findOne({
       where: { email },
     });
-    console.log('OAuthUser', OAuthUser);
+
     // 네이버 사용자의 이메일 값을 변수 지정
-
-    console.log('email', email);
-
     // user의 아이디 값을 해시화 해서 변수 지정
     const hashedNaverPassword = await bcrypt.hash(email, 10);
 
@@ -228,11 +225,3 @@ export class AuthService {
     else res.redirect('http://localhost:3000/login/failure');
   }
 }
-
-// async validateUser(user_email: string): Promise<any> {
-//   const user = await this.userService.findUserByEmail(user_email);
-//   if (!user) {
-//     return null;
-//   }
-//   return user;
-// }
