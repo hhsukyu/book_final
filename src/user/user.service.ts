@@ -66,14 +66,6 @@ export class UserService {
     });
   }
 
-  async findUserByIdWithStore(id: number) {
-    return await this.userRepository.findOne({
-      where: { id },
-      select: ['id', 'email', 'name', 'createdAt', 'updatedAt'],
-      relations: { stores: true },
-    });
-  }
-
   async findUserByEmail(email: string) {
     return await this.userRepository.findOne({
       where: { email },
