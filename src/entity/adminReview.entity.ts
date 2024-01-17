@@ -8,7 +8,7 @@ import {
   Relation,
 } from 'typeorm';
 import { Store } from './store.entity';
-// import { StoreReview } from '.';
+import { StoreReview } from './storeReview.entity';
 @Entity({
   name: 'admin-review',
 })
@@ -16,7 +16,7 @@ export class AdminReview {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'store_id' })
   storeId: number;
 
   @Column({ name: 'review_id' })
@@ -34,6 +34,6 @@ export class AdminReview {
   @ManyToOne(() => Store, (store) => store.adminReviews)
   store: Relation<Store>;
 
-  //   @ManyToOne(() => StoreReview, (storeReview) => storeReview.adminReview)
-  //   storeReview: Realation<StoreReview>[];
+  @ManyToOne(() => StoreReview, (store_review) => store_review.adminReviews)
+  storeReview: Relation<StoreReview>[];
 }

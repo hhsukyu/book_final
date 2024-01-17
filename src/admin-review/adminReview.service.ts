@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AdminReview } from 'src/entity/adminReview.entity';
-import { Store } from 'src/entity/store.entity';
+import { AdminReview } from '../entity/adminReview.entity';
+import { Store } from '../entity/store.entity';
 import { User } from '../entity/user.entity';
-// import { StoreReview } from 'src/entity';
+import { StoreReview } from '../entity/storeReview.entity';
 import { CreateAdminReviewDto } from './dto/create-adminReview.dto';
 import { UpdateAdminReviewDto } from './dto/update-adminReview.dto';
 import { UserService } from '../user/user.service';
@@ -20,8 +20,8 @@ export class AdminReviewService {
     private readonly adminReviewRepository: Repository<AdminReview>,
     @InjectRepository(Store)
     private storeRepository: Repository<Store>,
-    // @InjectRepository(Store)
-    // private storeReviewRepository: Repository<StoreReview>,
+    @InjectRepository(StoreReview)
+    private storeReviewRepository: Repository<StoreReview>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly userService: UserService,
@@ -65,7 +65,7 @@ export class AdminReviewService {
     createAdminReviewDto: CreateAdminReviewDto,
   ) {
     await this.checkUser(userId, storeId);
-    // await this.verifyStoreIdAndReviewId(storeId, reviewId);
+    await this.verifyStoreIdAndReviewId(storeId, reviewId);
     const existAdminReviewCount = await this.adminReviewRepository.count({
       where: { storeId, reviewId },
     });
@@ -90,7 +90,7 @@ export class AdminReviewService {
   ) {
     await this.checkUser(userId, storeId);
     await this.verifyStoreByStoreId(storeId);
-    // await this.verifyStoreIdAndReviewId(storeId, reviewId);
+    await this.verifyStoreIdAndReviewId(storeId, reviewId);
     await this.verifyReviewIdAndId(reviewId, id);
     await this.adminReviewRepository.update(id, { ...updateAdminReviewDto });
     return { message: 'OK' };
@@ -105,7 +105,7 @@ export class AdminReviewService {
   ) {
     await this.checkUser(userId, storeId);
     await this.verifyStoreByStoreId(storeId);
-    // await this.verifyStoreIdAndReviewId(storeId, reviewId);
+    await this.verifyStoreIdAndReviewId(storeId, reviewId);
     await this.verifyReviewIdAndId(reviewId, id);
     await this.adminReviewRepository.delete(id);
     return { message: 'OK' };
@@ -139,15 +139,19 @@ export class AdminReviewService {
   }
 
   // storeId와 reviewId 검증을 통한 가게리뷰 찾기
-  // async verifyStoreIdAndReviewId(storeId: number, reviewId: number) {
-  //   const existStoreIdAndReviewId = await this.storeReviewRepository.findOne({
-  //     where: { storeId, reviewId },
-  //   });
-  //   if (!existStoreIdAndReviewId) {
-  //     throw new NotFoundException('가게리뷰를 찾을 수 없습니다.');
-  //   }
-  //   return existStoreIdAndReviewId;
-  // }
+  async verifyStoreIdAndReviewId(storeId: number, reviewId: number) {
+    const store = await this.storeRepository.findOne({
+      where: { id: storeId },
+    });
+
+    const existStoreIdAndReviewId = await this.storeReviewRepository.findOne({
+      where: { store_id: store, id: reviewId },
+    });
+    if (!existStoreIdAndReviewId) {
+      throw new NotFoundException('가게리뷰를 찾을 수 없습니다.');
+    }
+    return existStoreIdAndReviewId;
+  }
 
   // reviewId 와 id 검증을 통한 리뷰 답글 찾기
   async verifyReviewIdAndId(reviewId: number, id: number) {

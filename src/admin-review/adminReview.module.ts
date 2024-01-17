@@ -5,10 +5,11 @@ import { AdminReviewService } from './adminReview.service';
 import { AdminReviewController } from './adminReview.controller';
 import { User } from '../entity/user.entity';
 import { Store } from '../entity/store.entity';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
+import { StoreReview } from '../entity/storeReview.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AdminReview, User, Store])],
+  imports: [TypeOrmModule.forFeature([AdminReview, User, Store, StoreReview])],
   providers: [AdminReviewService, UserService],
   controllers: [AdminReviewController],
 })
