@@ -44,7 +44,7 @@ export class Store {
   menus: Relation<Menu>[];
 
   // @OneToMany(() => AdminReview, (adminReview) => adminReview.store)
-  // adminReview: Relation<AdminReview>[];
+  // adminReviews: Relation<AdminReview>[];
 
   @Column()
   store_open: Date;
