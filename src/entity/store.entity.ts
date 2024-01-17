@@ -1,24 +1,23 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   Relation,
-  UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
+import { StoreReview } from './storeReview.entity';
 import { Menu } from './menu.entity';
 
 @Entity({
-  name: 'stores',
+  name: 'store',
 })
 export class Store {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.stores)
+  @ManyToOne(() => User, (user) => user.store)
   admin: Relation<User>;
 
   @Column()
@@ -42,15 +41,15 @@ export class Store {
   @OneToMany(() => Menu, (menu) => menu.store)
   menus: Relation<Menu>[];
 
+  // @OneToMany(() => AdminReview, (adminReview) => adminReview.store)
+  // adminReviews: Relation<AdminReview>[];
+
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.store_id)
+  store_reviews: Relation<StoreReview>[];
+
   @Column()
   store_open: Date;
 
   @Column()
   store_close: Date;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }
