@@ -31,17 +31,30 @@ export class AdminReviewService {
   async findAdminReviewsByReview(storeId: number, reviewId: number) {
     await this.verifyStoreByStoreId(storeId);
     // await this.verifyStoreIdAndReviewId(storeId, reviewId);
-    return await this.adminReviewRepository.find({
-      where: { reviewId: reviewId },
+    const adminReview = await this.adminReviewRepository.find({
+      where: { storeId, reviewId },
     });
+    // 리뷰 밑에 리뷰 답글 조회 되도록 할 예정?
+    if (adminReview.length === 0) {
+      throw new BadRequestException(
+        '이미 리뷰에 대한 답글이 존재하지 않습니다.',
+      );
+    }
+    return adminReview;
   }
 
   // 가게에 대한 리뷰 답글 조회
   async findAdminReviewsByStore(storeId: number) {
     // 리뷰 밑에 리뷰 답글 조회 되도록 할 예정?
-    return await this.adminReviewRepository.find({
+    const adminReview = await this.adminReviewRepository.find({
       where: { storeId: storeId },
     });
+    if (adminReview.length === 0) {
+      throw new BadRequestException(
+        '이미 리뷰에 대한 답글이 존재하지 않습니다.',
+      );
+    }
+    return adminReview;
   }
 
   // 리뷰 답글 작성
@@ -54,7 +67,7 @@ export class AdminReviewService {
     await this.checkUser(userId, storeId);
     // await this.verifyStoreIdAndReviewId(storeId, reviewId);
     const existAdminReviewCount = await this.adminReviewRepository.count({
-      where: { reviewId },
+      where: { storeId, reviewId },
     });
     if (existAdminReviewCount > 0) {
       throw new BadRequestException('이미 리뷰에 대한 답글이 존재합니다.');
@@ -102,6 +115,7 @@ export class AdminReviewService {
   async checkUser(userId: number, storeId: number) {
     const user = await this.verifyUserByUserId(userId);
     const store = await this.verifyStoreByStoreId(storeId);
+
     if (user.id !== store.admin.id) {
       throw new BadRequestException('소유주만 가능합니다.');
     }
