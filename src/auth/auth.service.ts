@@ -12,7 +12,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { SignupAdminDto } from './dto/signup-admin.dto';
 import { Repository } from 'typeorm';
-import { User } from 'src/entity/user.entity';
+import { User } from '../entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()

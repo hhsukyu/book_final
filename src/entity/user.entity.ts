@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Store } from './store.entity';
-import { LoginType } from 'src/user/types/login.type';
+import { LoginType } from '../user/types/login.type';
 
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
