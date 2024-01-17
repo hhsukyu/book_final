@@ -7,11 +7,11 @@ import { User } from '../entity/user.entity';
 import { UserService } from '../user/user.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
-import * as AWS from 'aws-sdk';
+// import * as AWS from 'aws-sdk';
 
 @Injectable()
 export class MenuService {
-  s3 = new AWS.S3();
+  // s3 = new AWS.S3();
 
   constructor(
     @InjectRepository(Menu)
@@ -43,17 +43,17 @@ export class MenuService {
   ) {
     console.log(file);
 
-    const AWS_S3_BUCKET = 'book-image-upload-bucket';
+    // const AWS_S3_BUCKET = 'book-image-upload-bucket';
 
-    const params = {
-      Bucket: AWS_S3_BUCKET,
-      Key: String(file.originalname),
-      Body: file.buffer,
-      ACL: 'public-read',
-    };
+    // const params = {
+    //   Bucket: AWS_S3_BUCKET,
+    //   Key: String(file.originalname),
+    //   Body: file.buffer,
+    //   ACL: 'public-read',
+    // };
 
-    const response = await this.s3.upload(params).promise();
-    console.log(response);
+    // const response = await this.s3.upload(params).promise();
+    // console.log(response);
 
     const user = await this.userService.findUserById(userid);
     const store = await this.storeRepository.findOne({
@@ -66,7 +66,7 @@ export class MenuService {
 
     const menu = await this.menuRepository.save({
       ...createMenuDto,
-      food_img: response.Location,
+      // food_img: response.Location,
       store: store,
     });
 
@@ -81,17 +81,17 @@ export class MenuService {
     file: Express.Multer.File,
     userid: number,
   ) {
-    const AWS_S3_BUCKET = 'book-image-upload-bucket';
+    // const AWS_S3_BUCKET = 'book-image-upload-bucket';
 
-    const params = {
-      Bucket: AWS_S3_BUCKET,
-      Key: String(file.originalname),
-      Body: file.buffer,
-      ACL: 'public-read',
-    };
+    // const params = {
+    //   Bucket: AWS_S3_BUCKET,
+    //   Key: String(file.originalname),
+    //   Body: file.buffer,
+    //   ACL: 'public-read',
+    // };
 
-    const response = await this.s3.upload(params).promise();
-    console.log(response);
+    // const response = await this.s3.upload(params).promise();
+    // console.log(response);
 
     const store = await this.storeRepository.findOne({
       where: { id: storeid },
@@ -119,7 +119,7 @@ export class MenuService {
       },
       {
         ...updateMenuDto,
-        food_img: response.Location,
+        // food_img: response.Location,
       },
     );
 
