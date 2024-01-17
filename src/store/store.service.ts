@@ -139,7 +139,7 @@ export class StoreService {
   async findUserByIdWithStore(id: number) {
     return await this.userRepository.findOne({
       where: { id },
-      select: ['id', 'email', 'name', 'createdAt', 'updatedAt'],
+      select: ['id', 'email', 'nickname', 'createdAt', 'updatedAt'],
       relations: { stores: true },
     });
   }
