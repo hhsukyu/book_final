@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PROJECT_ROOT="/home/ubuntu/app"
-APP_NAME="project"
+APP_NAME="app"
 PM2_PATH="/home/ubuntu/.nvm/versions/node/v21.6.0/bin/pm2"
 
 TIME_NOW=$(date +%c)
