@@ -53,7 +53,7 @@ export class MenuController {
         },
         food_price: {
           type: 'number',
-          description: 'The price of the menu.',
+          description: 'The price of the menu..',
         },
       },
     },
