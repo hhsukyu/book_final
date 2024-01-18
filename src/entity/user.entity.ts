@@ -28,6 +28,9 @@ export class User {
   currentRefreshToken?: string;
 
   @Column()
+  photo: string;
+
+  @Column()
   name: string;
 
   @Column()
