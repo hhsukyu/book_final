@@ -31,8 +31,8 @@ export class AdminReview {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => Store, (store) => store.admin_reviews)
-  store: Relation<Store>;
+  // @ManyToOne(() => Store, (store) => store.admin_reviews)
+  // store: Relation<Store>;
 
   // @ManyToOne(() => StoreReview, (store_review) => store_review.admin_reviews)
   // store_review: Relation<StoreReview>[];

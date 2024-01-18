@@ -8,8 +8,9 @@ import { Store } from '../entity/store.entity';
 import { UserService } from '../user/user.service';
 // import { StoreReview } from '../entity/storeReview.entity';
 
+// imports 부분에  StoreReview 넣어주세요! 현재 storeReview가 없어서 제거했습니다!
 @Module({
-  imports: [TypeOrmModule.forFeature([AdminReview, User, Store, StoreReview])],
+  imports: [TypeOrmModule.forFeature([AdminReview, User, Store])],
   providers: [AdminReviewService, UserService],
   controllers: [AdminReviewController],
 })
