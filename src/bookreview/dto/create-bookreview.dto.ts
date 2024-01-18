@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsNumber,
@@ -9,10 +10,12 @@ import {
 
 export class CreateBookReviewDto {
   @IsString()
+  @ApiProperty({ description: '댓글 내용' })
   @IsOptional()
   content?: string;
 
   @IsNumber()
+  @ApiProperty({ description: '별점' })
   @IsNotEmpty()
   @Min(1)
   @Max(5)
