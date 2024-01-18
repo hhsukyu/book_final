@@ -44,10 +44,10 @@ export class Store {
   @OneToMany(() => Menu, (menu) => menu.store)
   menus: Relation<Menu>[];
 
-  @OneToMany(() => AdminReview, (adminReview) => adminReview.store)
-  adminReviews: Relation<AdminReview>[];
+  @OneToMany(() => AdminReview, (admin_review) => admin_review.store)
+  admin_reviews: Relation<AdminReview>[];
 
-  @OneToMany(() => StoreReview, (storeReview) => storeReview.store_id)
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.store)
   store_reviews: Relation<StoreReview>[];
 
   @Column()

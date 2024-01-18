@@ -10,30 +10,30 @@ import {
 import { Store } from './store.entity';
 import { StoreReview } from './storeReview.entity';
 @Entity({
-  name: 'admin-review',
+  name: 'admin_review',
 })
 export class AdminReview {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'store_id' })
+  @Column()
   storeId: number;
 
-  @Column({ name: 'review_id' })
-  reviewId: number;
+  @Column()
+  storeReviewId: number;
 
   @Column()
   content: string;
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
+  @UpdateDateColumn()
+  updated_at: Date;
 
-  @ManyToOne(() => Store, (store) => store.adminReviews)
+  @ManyToOne(() => Store, (store) => store.admin_reviews)
   store: Relation<Store>;
 
-  @ManyToOne(() => StoreReview, (store_review) => store_review.adminReviews)
-  storeReview: Relation<StoreReview>[];
+  @ManyToOne(() => StoreReview, (store_review) => store_review.admin_reviews)
+  store_review: Relation<StoreReview>[];
 }

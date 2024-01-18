@@ -20,10 +20,10 @@ export class StoreReview {
   id: number;
 
   @ManyToOne(() => Store, (store) => store.store_reviews)
-  store_id: Relation<Store>;
+  store: Relation<Store>;
 
   @ManyToOne(() => User, (user) => user.store_reviews)
-  user_id: Relation<User>;
+  user: Relation<User>;
 
   @Column()
   content: string;
@@ -31,8 +31,8 @@ export class StoreReview {
   @Column()
   rating: number;
 
-  @OneToMany(() => AdminReview, (adminReview) => adminReview)
-  adminReviews: Relation<AdminReview>[];
+  @OneToMany(() => AdminReview, (admin_review) => admin_review.store_review)
+  admin_reviews: Relation<AdminReview>[];
 
   @CreateDateColumn()
   created_at: Date;
