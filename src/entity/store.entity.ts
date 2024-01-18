@@ -9,18 +9,19 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
+import { StoreReview } from './storeReview.entity';
 import { Menu } from './menu.entity';
 // import { AdminReview } from './adminReview.entity';
 import { StoreReview } from './storeReview.entity';
 
 @Entity({
-  name: 'stores',
+  name: 'store',
 })
 export class Store {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.stores)
+  @ManyToOne(() => User, (user) => user.store)
   admin: Relation<User>;
 
   @Column()
@@ -44,8 +45,8 @@ export class Store {
   @OneToMany(() => Menu, (menu) => menu.store)
   menus: Relation<Menu>[];
 
-  // @OneToMany(() => AdminReview, (admin_review) => admin_review.store)
-  // admin_reviews: Relation<AdminReview>[];
+  // @OneToMany(() => AdminReview, (adminReview) => adminReview.store)
+  // adminReviews: Relation<AdminReview>[];
 
   @OneToMany(() => StoreReview, (storeReview) => storeReview.store_id)
   store_reviews: Relation<StoreReview>[];

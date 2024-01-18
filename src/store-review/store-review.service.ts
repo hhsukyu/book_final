@@ -35,6 +35,10 @@ export class StoreReviewService {
       throw new BadRequestException('사장님은 일반 리뷰를 등록할 수 없습니다.');
     }
 
+    if (!store) {
+      throw new BadRequestException('존재하지 않는 가게입니다.');
+    }
+
     const review = await this.storeReviewRepository.save({
       ...createStoreReviewDto,
       user_id: userId,
@@ -59,7 +63,7 @@ export class StoreReviewService {
     const review = await this.storeReviewRepository.findOne({
       where: { store_id: storeid, id: reviewid },
     });
-    console.log(review);
+    console.log(review); //코드 체크
     return review;
   }
 
@@ -74,6 +78,7 @@ export class StoreReviewService {
       where: { store_id: storeid, id: reviewid },
     });
 
+    if (!review) throw new BadRequestException('리뷰를 찾을 수 없습니다.');
     if (userid !== review.user_id) {
       throw new BadRequestException('작성자만 리뷰를 수정할 수 있습니다.');
     }
@@ -85,9 +90,21 @@ export class StoreReviewService {
         ...updateStoreReviewDto,
       },
     );
+
+    return { message: '리뷰가 수정되었습니다.' };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} storeReview`;
+  async deleteOneReview(storeid: number, reviewid: number, userid: number) {
+    const review = await this.storeReviewRepository.findOne({
+      where: { store_id: storeid, id: reviewid },
+    });
+
+    if (!review) throw new BadRequestException('리뷰를 찾을 수 없습니다.');
+    if (userid !== review.user_id) {
+      throw new BadRequestException('작성자만 리뷰를 삭제할 수 있습니다.');
+    }
+    const result = await this.storeReviewRepository.delete({ id: reviewid });
+
+    return result;
   }
 }
