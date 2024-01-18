@@ -11,17 +11,17 @@ header {
   padding: 10px 0;
   text-align: center;
 }
-
+/* 
 .header-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
-#logo {
-  width: 120px; /* Increased size of the logo */
-  height: 120px; /* Increased size of the logo */
-}
+/* #logo {
+  max-width: 100%; 
+  max-height: 100%; 
+} */
 
 .project-name {
   margin: 0;
@@ -30,19 +30,30 @@ header {
 
 .search-bar {
   padding: 8px;
-  margin-top: 10px; /* Added margin to the top of the search bar */
+  margin-top: 50px; /* Added margin to the top of the search bar */
+  margin-bottom: 50px;
   border: none;
   border-radius: 5px;
+  width: 300px;
 }
 
-.logout-button,
-.my-page-button {
-  background-color: #ff269d;
+.dropdown {
   color: white;
-  padding: 8px 16px;
+  padding: 12px 20px; /* Adjusted padding for a larger size */
   border: none;
   border-radius: 5px;
-  margin-top: 10px; /* Added margin to the top of the buttons */
+  cursor: pointer;
+  margin-left: auto; /* Move the buttons to the right */
+  margin-top: 10px; /* Add some top margin for spacing */
+}
+
+.search-icon {
+  top: 0;
+  right: 0;
+  padding: 8px;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  background-color: #fff; /* Background color for the search icon button */
   cursor: pointer;
 }
 
