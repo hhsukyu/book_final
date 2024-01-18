@@ -8,6 +8,7 @@ import { ConfigProjectModule } from "./config/config.module";
 import { TypeormModule } from "./typeorm/typeorm.module";
 import { StoreModule } from "./store/store.module";
 import { MenuModule } from "./menu/menu.module";
+import { BookModule } from './book/book.module';
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { MenuModule } from "./menu/menu.module";
         AuthModule,
         StoreModule,
         MenuModule,
+        BookModule,
     ],
     controllers: [AppController],
     providers: [AppService, ConfigService],
