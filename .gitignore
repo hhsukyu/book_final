@@ -33,7 +33,6 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.development.env
-.development.env
 *.env
-g
+google_key.json
+.development.env
