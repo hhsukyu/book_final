@@ -12,7 +12,6 @@ import { User } from './user.entity';
 import { StoreReview } from './storeReview.entity';
 import { Menu } from './menu.entity';
 // import { AdminReview } from './adminReview.entity';
-import { StoreReview } from './storeReview.entity';
 
 @Entity({
   name: 'store',

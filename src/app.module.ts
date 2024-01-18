@@ -8,7 +8,7 @@ import { ConfigProjectModule } from './config/config.module';
 import { TypeormModule } from './typeorm/typeorm.module';
 import { StoreModule } from './store/store.module';
 import { AdminReviewModule } from './admin-review/adminReview.module';
-import { StoreReviewModule } from './storeReview/store-review.module';
+import { StoreReviewModule } from './store-review/store-review.module';
 import { MenuModule } from './menu/menu.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 

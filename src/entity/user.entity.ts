@@ -8,12 +8,10 @@ import {
   Relation,
   UpdateDateColumn,
 } from 'typeorm';
-import { StoreReview } from './storeReview.entity';
 import { Store } from './store.entity';
 import { LoginType } from '../user/types/login.type';
 import { StoreReview } from './storeReview.entity';
 import { BookReview } from './bookreview.entity';
-import { StoreReview } from './storeReview.entity';
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
 })
@@ -54,9 +52,6 @@ export class User {
   @OneToMany(() => StoreReview, (storeReview) => storeReview.user_id)
   store_reviews: Relation<StoreReview>[];
 
-  @OneToMany(() => StoreReview, (storeReview) => storeReview.user_id)
-  store_reviews: Relation<StoreReview>[];
-
   @CreateDateColumn()
   createdAt: Date;
 
@@ -65,7 +60,4 @@ export class User {
 
   @OneToMany(() => BookReview, (bookReview) => bookReview.user)
   bookReviews: BookReview[];
-
-  @OneToMany(() => StoreReview, (storeReview) => storeReview.user)
-  store_reviews: Relation<StoreReview>[];
 }
