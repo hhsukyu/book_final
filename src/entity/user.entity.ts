@@ -8,6 +8,7 @@ import {
   Relation,
   UpdateDateColumn,
 } from 'typeorm';
+import { StoreReview } from './storeReview.entity';
 import { Store } from './store.entity';
 import { BookReview } from './bookreview.entity';
 import { StoreReview } from './storeReview.entity';
@@ -40,7 +41,10 @@ export class User {
   role: Role;
 
   @OneToMany(() => Store, (store) => store.admin, { cascade: true })
-  stores: Relation<Store>[];
+  store: Relation<Store>[];
+
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.user_id)
+  store_reviews: Relation<StoreReview>[];
 
   @CreateDateColumn()
   createdAt: Date;
