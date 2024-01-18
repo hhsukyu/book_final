@@ -3,7 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
+  // OneToMany,
   PrimaryGeneratedColumn,
   Relation,
   UpdateDateColumn,
@@ -20,10 +20,16 @@ export class StoreReview {
   id: number;
 
   @ManyToOne(() => Store, (store) => store.store_reviews)
-  store_id: Relation<Store>;
+  store: Relation<Store>;
 
   @ManyToOne(() => User, (user) => user.store_reviews)
-  user_id: Relation<User>;
+  user: Relation<User>;
+
+  @Column()
+  store_id: number;
+
+  @Column()
+  user_id: number;
 
   @Column()
   content: string;
