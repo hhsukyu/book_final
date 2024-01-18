@@ -41,7 +41,7 @@ export class MenuController {
         file: {
           type: 'string',
           format: 'binary',
-          description: 'The image file to upload.',
+          description: 'The image file to upload..',
         },
         food_name: {
           type: 'string',
@@ -53,7 +53,7 @@ export class MenuController {
         },
         food_price: {
           type: 'number',
-          description: 'The price of the menu.',
+          description: 'The price of the menu..',
         },
       },
     },
@@ -66,11 +66,12 @@ export class MenuController {
     @Body() createMenuDto: CreateMenuDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    const url = await this.menuService.uploadImage(file);
     return await this.menuService.createMyStoreMenu(
       storeid,
       userid,
       createMenuDto,
-      file,
+      url,
     );
   }
 

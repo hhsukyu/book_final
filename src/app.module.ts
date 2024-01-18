@@ -7,9 +7,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ConfigProjectModule } from './config/config.module';
 import { TypeormModule } from './typeorm/typeorm.module';
 import { StoreModule } from './store/store.module';
-import { MenuModule } from './menu/menu.module';
 import { AdminReviewModule } from './admin-review/adminReview.module';
 import { StoreReviewModule } from './storeReview/store-review.module';
+import { BookReviewModule } from './bookreview/bookreview.module';
+import { MenuModule } from './menu/menu.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { StoreReviewModule } from './storeReview/store-review.module';
     MenuModule,
     AdminReviewModule,
     StoreReviewModule,
+    BookReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
