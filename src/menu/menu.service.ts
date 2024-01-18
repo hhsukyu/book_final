@@ -55,7 +55,7 @@ export class MenuService {
       where: { id: storeid },
     });
 
-    if (user.stores.some((s) => s.id !== store.id)) {
+    if (user.stores.every((s) => s.id !== store.id)) {
       throw new BadRequestException('소유주만 등록 및 수정이 가능합니다.');
     }
 
@@ -73,21 +73,9 @@ export class MenuService {
     storeid: number,
     menuid: number,
     updateMenuDto: UpdateMenuDto,
-    file: Express.Multer.File,
+    url: string,
     userid: number,
   ) {
-    // const AWS_S3_BUCKET = 'book-image-upload-bucket';
-
-    // const params = {
-    //   Bucket: AWS_S3_BUCKET,
-    //   Key: String(file.originalname),
-    //   Body: file.buffer,
-    //   ACL: 'public-read',
-    // };
-
-    // const response = await this.s3.upload(params).promise();
-    // console.log(response);
-
     const store = await this.storeRepository.findOne({
       where: { id: storeid },
       relations: { menus: true, admin: true },
@@ -98,7 +86,7 @@ export class MenuService {
       relations: { stores: true },
     });
 
-    if (user.stores.some((e) => e.id !== store.id)) {
+    if (user.stores.every((e) => e.id !== store.id)) {
       throw new BadRequestException('지점 사장님만 수정이 가능합니다.');
     }
 
@@ -114,7 +102,7 @@ export class MenuService {
       },
       {
         ...updateMenuDto,
-        // food_img: response.Location,
+        food_img: url,
       },
     );
 
@@ -133,7 +121,7 @@ export class MenuService {
     });
     const isMenu = await this.findmenubyId(menuid);
 
-    if (user.stores.some((e) => e.id !== store.id)) {
+    if (user.stores.every((e) => e.id !== store.id)) {
       throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
     }
 

@@ -114,11 +114,12 @@ export class MenuController {
     @UploadedFile() file: Express.Multer.File,
     @UserId() userid: number,
   ) {
+    const url = await this.menuService.uploadImage(file);
     return await this.menuService.updateStoreMenu(
       storeid,
       menuid,
       updateMenuDto,
-      file,
+      url,
       userid,
     );
   }
