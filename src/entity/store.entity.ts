@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
+import { StoreReview } from './storeReview.entity';
 import { Menu } from './menu.entity';
 
 @Entity({
@@ -47,6 +48,9 @@ export class Store {
 
   @Column()
   store_close: Date;
+
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.store)
+  store_reviews: Relation<StoreReview>[];
 
   @CreateDateColumn()
   createdAt: Date;

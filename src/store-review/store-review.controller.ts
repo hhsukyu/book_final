@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseGuards,
@@ -68,8 +67,18 @@ export class StoreReviewController {
     );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.storeReviewService.remove(+id);
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
+  @Delete(':storeid/:storeid/reviewid/:reviewid')
+  async deleteOneReview(
+    @Param('storeId') storeId: number,
+    @Param('reviewId') reviewId: number,
+    @UserId() user_id: number,
+  ) {
+    return await this.storeReviewService.deleteOneReview(
+      storeId,
+      reviewId,
+      user_id,
+    );
   }
 }

@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Store } from './store.entity';
 import { BookReview } from './bookreview.entity';
+import { StoreReview } from './storeReview.entity';
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
 })
@@ -49,4 +50,7 @@ export class User {
 
   @OneToMany(() => BookReview, (bookReview) => bookReview.user)
   bookReviews: BookReview[];
+
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.user)
+  store_reviews: Relation<StoreReview>[];
 }
