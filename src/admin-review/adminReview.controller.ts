@@ -13,6 +13,7 @@ import { UpdateAdminReviewDto } from './dto/update-adminReview.dto';
 import { AdminReviewService } from './adminReview.service';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('reviews/:storeId')
 export class AdminReviewController {
@@ -37,6 +38,7 @@ export class AdminReviewController {
   }
 
   // 리뷰 답글 작성
+  @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
   @Post(':storeReviewId/adminReview')
   async createAdminReview(
@@ -54,6 +56,7 @@ export class AdminReviewController {
   }
 
   // 리뷰 답글 수정
+  @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
   @Put(':storeReviewId/adminReview/:id')
   async updateAdminReview(
@@ -73,6 +76,7 @@ export class AdminReviewController {
   }
 
   // 리뷰 답글 삭제
+  @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
   @Delete(':storeReviewId/adminReview/:id')
   async deleteAdminReview(
