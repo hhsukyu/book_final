@@ -6,7 +6,7 @@ import { AdminReviewController } from './adminReview.controller';
 import { User } from '../entity/user.entity';
 import { Store } from '../entity/store.entity';
 import { UserService } from '../user/user.service';
-import { StoreReview } from '../entity/storeReview.entity';
+// import { StoreReview } from '../entity/storeReview.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([AdminReview, User, Store, StoreReview])],

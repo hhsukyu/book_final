@@ -11,7 +11,6 @@ import {
 import { User } from './user.entity';
 import { Menu } from './menu.entity';
 import { AdminReview } from './adminReview.entity';
-import { StoreReview } from './storeReview.entity';
 
 @Entity({
   name: 'stores',
@@ -46,9 +45,6 @@ export class Store {
 
   @OneToMany(() => AdminReview, (admin_review) => admin_review.store)
   admin_reviews: Relation<AdminReview>[];
-
-  @OneToMany(() => StoreReview, (storeReview) => storeReview.store)
-  store_reviews: Relation<StoreReview>[];
 
   @Column()
   store_open: Date;
