@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Store } from './store.entity';
 import { LoginType } from '../user/types/login.type';
-
+import { StoreReview } from './storeReview.entity';
 import { BookReview } from './bookreview.entity';
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
@@ -48,6 +48,9 @@ export class User {
 
   @OneToMany(() => Store, (store) => store.admin, { cascade: true })
   stores: Relation<Store>[];
+
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.user_id)
+  store_reviews: Relation<StoreReview>[];
 
   @CreateDateColumn()
   createdAt: Date;
