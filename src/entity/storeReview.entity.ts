@@ -3,14 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  // OneToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   Relation,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { Store } from './store.entity';
-// import { AdminReview } from './adminReview.entity.ts';
+import { AdminReview } from './adminReview.entity';
 
 @Entity({
   name: 'store_review', // 데이터베이스 테이블의 이름
@@ -37,8 +37,8 @@ export class StoreReview {
   @Column()
   rating: number;
 
-  // @OneToMany(() => admin_review, (admin_review) => admin_review.admin)
-  // admin_review: Relation<admin_review>[];
+  @OneToMany(() => AdminReview, (admin_review) => admin_review.store_review)
+  admin_review: Relation<AdminReview>[];
 
   @CreateDateColumn()
   created_at: Date;

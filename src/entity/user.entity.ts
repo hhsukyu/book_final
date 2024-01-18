@@ -47,9 +47,9 @@ export class User {
   loginType: LoginType;
 
   @OneToMany(() => Store, (store) => store.admin, { cascade: true })
-  store: Relation<Store>[];
+  stores: Relation<Store>[];
 
-  @OneToMany(() => StoreReview, (storeReview) => storeReview.user_id)
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.user)
   store_reviews: Relation<StoreReview>[];
 
   @CreateDateColumn()
