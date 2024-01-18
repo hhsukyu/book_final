@@ -8,15 +8,12 @@ import { UserService } from '../user/user.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { ConfigService } from '@nestjs/config';
-import * as AWS from 'aws-sdk';
-import * as fs from 'fs';
-import * as multer from 'multer';
-import { v4 as uuidv4 } from 'uuid';
+import { Storage } from '@google-cloud/storage';
 
 @Injectable()
 export class MenuService {
-  private readonly AWS_S3_BUCKET_NAME: string;
-  private readonly s3: AWS.S3;
+  private readonly storage: Storage;
+  private readonly bucket: string;
 
   constructor(
     @InjectRepository(Menu)
@@ -28,8 +25,11 @@ export class MenuService {
     private readonly userService: UserService,
     private readonly configService: ConfigService,
   ) {
-    this.AWS_S3_BUCKET_NAME = this.configService.get('AWS_S3_BUCKET_NAME');
-    this.s3 = new AWS.S3();
+    this.storage = new Storage({
+      projectId: `${this.configService.get('GOOGLE_PROJECTID')}`,
+      keyFilename: `${this.configService.get('KEYFILE')}`,
+    });
+    this.bucket = `${this.configService.get('GOOGLE_BUCKET_NAME')}`;
   }
 
   //지점 메뉴 조회
@@ -48,26 +48,8 @@ export class MenuService {
     storeid: number,
     userid: number,
     createMenuDto: CreateMenuDto,
-    file: Express.Multer.File,
+    url: string,
   ) {
-    console.log(file);
-    const fileStream = fs.createReadStream(file.path);
-
-    const params = await this.s3
-      .upload({
-        Bucket: this.AWS_S3_BUCKET_NAME,
-        Key: uuidv4(),
-        Body: fileStream,
-        ACL: 'public-read',
-      })
-      .promise();
-
-    fs.unlink(file.path, (err) => {
-      if (err) console.error(err);
-    });
-
-    console.log(params);
-
     const user = await this.userService.findUserById(userid);
     const store = await this.storeRepository.findOne({
       where: { id: storeid },
@@ -79,7 +61,7 @@ export class MenuService {
 
     const menu = await this.menuRepository.save({
       ...createMenuDto,
-      food_img: params.Location,
+      food_img: url,
       store: store,
     });
 
@@ -167,6 +149,35 @@ export class MenuService {
   async findmenubyId(menuid: number) {
     return await this.menuRepository.findOne({
       where: { id: menuid },
+    });
+  }
+
+  // 이미지 업로드 구글 스토리지
+  async uploadImage(file: Express.Multer.File): Promise<string> {
+    const fileName = Date.now() + file.originalname;
+    const bucket = this.storage.bucket(this.bucket);
+
+    const blob = bucket.file(fileName.replace(/ /g, '_'));
+
+    const blobStream = blob.createWriteStream({
+      metadata: {
+        contentType: file.mimetype,
+      },
+      public: true,
+    });
+
+    blobStream.end(file.buffer);
+
+    console.log(blobStream.on);
+    return new Promise((resolve, reject) => {
+      blobStream.on('finish', () => {
+        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+        resolve(publicUrl);
+      });
+
+      blobStream.on('error', (err) => {
+        reject(err);
+      });
     });
   }
 }
