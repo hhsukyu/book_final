@@ -18,6 +18,7 @@ import { NaverAdminStrategy } from './strategy/naver-admin.strategy';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
+    JwtModule,
     forwardRef(() => UserModule),
     JwtModule.registerAsync({
       useFactory: (config: ConfigService) => ({
