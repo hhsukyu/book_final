@@ -8,6 +8,8 @@ import { ConfigProjectModule } from './config/config.module';
 import { TypeormModule } from './typeorm/typeorm.module';
 import { StoreModule } from './store/store.module';
 import { MenuModule } from './menu/menu.module';
+import { BookReviewModule } from './bookreview/bookreview.module';
+import { StoreReviewModule } from './store-review/store-review.module';
 
 @Module({
   imports: [
