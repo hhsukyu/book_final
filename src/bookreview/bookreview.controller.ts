@@ -12,7 +12,7 @@ import {
 import { BookReviewService } from './bookreview.service';
 import { CreateBookReviewDto } from './dto/create-bookreview.dto';
 import { UpdateBookReviewDto } from './dto/update-bookreview.dto';
-import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
+import { accessTokenGuard } from '../auth/guard/access-token.guard';
 
 @Controller('books/:bookId/reviews')
 export class BookReviewController {
