@@ -17,8 +17,6 @@ import { UserId } from '../auth/decorators/userId.decorator';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 
 @Controller('menu')
 export class MenuController {
@@ -61,31 +59,19 @@ export class MenuController {
     },
   })
   @Post('/storeid/:storeid')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          return cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
-    }),
-  )
+  @UseInterceptors(FileInterceptor('file'))
   async findMyStoreMenu(
     @Param('storeid') storeid: number,
     @UserId() userid: number,
     @Body() createMenuDto: CreateMenuDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    const url = await this.menuService.uploadImage(file);
     return await this.menuService.createMyStoreMenu(
       storeid,
       userid,
       createMenuDto,
-      file,
+      url,
     );
   }
 

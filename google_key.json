@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "book-image-bucket",
+  "private_key_id": "2d5b4941e437093c6958cf5fe6cc56a25deb6d87",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCqoYgEPIhPr1FG\nch06WotLMr+ZGFV+4qr2BpsSxpHxbUcGcRMzwrXCGqf+gVjR7NQkzZSmfN4sgUcQ\nJ+GgJjh0aAY5wzGqoYxi1CyrOJnA0reQ5egCGkw3uPMNgGaGggSCA3ZM46GBikGT\nPcrtkUs9Ggh4BH6kigXYHb8M5KkjfKfqYFO7xbgcTxMKCQoBEeVuVHhCY7/wB7ss\noKjyBreSQSwsB2l+irSxbQi4vDjM7lpPFOLGMoOgxOb6nUoJtj7v2uCzUGTqpmDS\nZsxNpuiUTGMTXz3Hi4nqtxXXInLx6OovzR67yin89CjzYG7rVRY7vl3FZyFIJP3f\nCQcL4eRBAgMBAAECggEAAd4hfF5irrnAVKOSIQuaPybURMbNVw63Gw/fl2I8VJRn\nkENqcy2FXMwxwUTp5ed98h139UpIwSSrr9FeyzrCKCbkMyAW6gNwPrvVY1YeMnCg\nmQrun7IgI06T4e1zhCD4WKlnLrz9H6an+z1mjpi4eJyIRDLmrour7tkFE/rWMkMn\nqAtN61U+bICkidCAY9h7OjDnkJuG9vIHTuO628dXEky9TAHhcI1dpPYBgcxp6Y//\ni6fZ1Ftp4fSHaRqfqMscpe8IdrGXApJDcGkHDXxy2Z5mKe5AbyBSfYdd9PmxGbrT\n0HbcJgtLBO1+oMKxUt1TDRF+JqiDKQbMEHataOsmIwKBgQDpanU+PMa8O9HFL0vo\neUy4T6mSTA4SdRetEbG3TmPku3iXR8r7LSw/CXUXbWDumiCZdOOG2Iy4XXFaLNIu\n+Vkj5a57eEIW3bHkF0MXM+tLKoMPINqEuxGll3W66BYlJ776jBCeEbZZxCtcrlRU\nQncJ04CEmz6z7M8PBYfI8TcpYwKBgQC7I+/9vbH2VYSA2br+R9xYsqSp7ZWH5EQ1\n2TSfYO7qNvmqxrSwIeygNd7yqgfca3msRxLgvEm2sCaiA/LAUn2tfcI2rkdhsnfv\n/NCLpfR9znyNT3yQLiJKcSFElX+LWfsYMVMCMJXkyk3WgJSTO/h2DVpLNK2aTtXJ\nLwpzmYl/CwKBgENIL5GIHVUm/RmUv5G8XVQHin6kM644WGHH5u1KyFqne2RICoeK\nhuWIyVq+aaF9hgYV/nvhMfb24HS41ME7mOlTDI+Eo7BJqTxxRCKNEbbyAyM6OiLm\ndXjBBuugeLmvEkrQUv3tZx3LASDPE3nSStPnRnVy9okQqsLOukw+08K3AoGAON62\n89lN15otZirElLmp0JqZR7qXknBf+i1DvJtsf2itfqRcDJqCmj1Ev2HEect/ckc3\nCWyuygHF+75Pavqmjq6E8rELqDjgEeI2TfnkzsaNOzRImlgqu4ydm4YC+IojsDpt\nC2FQa/K+rMzuWcADxXxRUEF18Eq81SKifnbOPfkCgYAwuE1zQZw3C05/drzcKOPI\nI80a+MMHbYhS8szZTK0l0feU2xVXrdCZl/alOcuwnk9HADWIU/hB46ZS+kKs5hq9\nbvgOta4W+XkUKbg8QQtJ738wCWqPlHyIthjQgNLgYh/Knrl1wQNLNBcKb/A4oRay\nGt9gXWpAzAqXYmAJRUxvlg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "book-final@book-image-bucket.iam.gserviceaccount.com",
+  "client_id": "117322959079577678613",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/book-final%40book-image-bucket.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
