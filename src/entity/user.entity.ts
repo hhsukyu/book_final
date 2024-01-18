@@ -9,6 +9,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Store } from './store.entity';
+import { LoginType } from '../user/types/login.type';
+
 import { BookReview } from './bookreview.entity';
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
@@ -27,16 +29,22 @@ export class User {
   currentRefreshToken?: string;
 
   @Column()
-  name: string;
+  photo: string;
 
   @Column()
-  phone: string;
+  nickname: string;
 
-  @Column()
-  age: string;
+  @Column({ nullable: true })
+  phone?: string;
+
+  @Column({ nullable: true })
+  age?: string;
 
   @Column({ type: 'enum', enum: Role, default: Role.User })
   role: Role;
+
+  @Column({ type: 'enum', enum: LoginType, default: LoginType.Email })
+  loginType: LoginType;
 
   @OneToMany(() => Store, (store) => store.admin, { cascade: true })
   stores: Relation<Store>[];

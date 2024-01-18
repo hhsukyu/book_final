@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
@@ -12,7 +12,7 @@ export class CreateUserDto {
 
   @IsString()
   @ApiProperty({ description: '이름' })
-  name: string;
+  nickname: string;
 
   @IsString()
   @ApiProperty({ description: '핸드폰 번호' })

@@ -21,6 +21,11 @@ describe('AuthService', () => {
           provide: ConfigService,
           useValue: {}, // Replace this with an appropriate mock implementation
         },
+        // Mock ConfigService
+        {
+          provide: 'UserRepository',
+          useValue: {}, // Replace this with an appropriate mock implementation
+        },
         // Mock JwtService
         {
           provide: JwtService,
