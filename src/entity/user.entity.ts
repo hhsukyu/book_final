@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Store } from './store.entity';
-
+import { BookReview } from './bookreview.entity';
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
 })
@@ -46,4 +46,7 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => BookReview, (bookReview) => bookReview.user)
+  bookReviews: BookReview[];
 }
