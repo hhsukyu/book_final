@@ -13,11 +13,13 @@ import { BookReviewService } from './bookreview.service';
 import { CreateBookReviewDto } from './dto/create-bookreview.dto';
 import { UpdateBookReviewDto } from './dto/update-bookreview.dto';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('books/:bookId/reviews')
 export class BookReviewController {
   constructor(private readonly bookReviewService: BookReviewService) {}
 
+  @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
   @Post()
   create(
@@ -38,12 +40,12 @@ export class BookReviewController {
   findOne(@Param('bookId') bookId: number, @Param('id') id: number) {
     return this.bookReviewService.findOne(bookId, id);
   }
-
+  @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
   @Put(':id')
   update(
     @Param('bookId') bookId: number,
-    @Param('id') id: number,
+    @Param('reviewid') id: number,
     @Request() req: any,
     @Body() updateBookReviewDto: UpdateBookReviewDto,
   ) {
@@ -56,6 +58,7 @@ export class BookReviewController {
     );
   }
 
+  @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
   @Delete(':id')
   remove(

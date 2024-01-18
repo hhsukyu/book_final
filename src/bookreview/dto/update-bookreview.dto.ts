@@ -1,13 +1,3 @@
-import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { CreateBookReviewDto } from './create-bookreview.dto';
 
-export class UpdateBookReviewDto {
-  @IsString()
-  @IsOptional()
-  content?: string;
-
-  @IsNumber()
-  @IsOptional()
-  @Min(1)
-  @Max(5)
-  rating?: number;
-}
+export class UpdateBookReviewDto extends CreateBookReviewDto {}
