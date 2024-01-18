@@ -70,9 +70,9 @@ export class AdminReviewService {
     console.log(adminReviewCount);
     if (adminReviewCount > 0) {
       throw new BadRequestException('이미 리뷰에 대한 답글이 존재합니다.');
-    } //else if (adminReviewCount === 0) {
-    //   throw new BadRequestException('리뷰에 대한 답글을 찾을 수 없습니다.');
-    // }
+    } else if (adminReviewCount === 0) {
+      throw new BadRequestException('리뷰에 대한 답글을 찾을 수 없습니다.');
+    }
     const AdminReview = this.adminReviewRepository.create({
       storeId,
       storeReviewId,
@@ -132,10 +132,6 @@ export class AdminReviewService {
     if (user.stores.every((s) => s.id !== store.id)) {
       throw new BadRequestException('소유주만 가능합니다.');
     }
-
-    // if (user.id !== store.admin.id) {
-    //   throw new BadRequestException('소유주만 가능합니다.');
-    // }
   }
 
   // storeId와 reviewId 검증을 통한 가게리뷰 찾기
