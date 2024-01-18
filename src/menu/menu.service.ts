@@ -7,11 +7,13 @@ import { User } from '../entity/user.entity';
 import { UserService } from '../user/user.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
-import * as AWS from 'aws-sdk';
+import { ConfigService } from '@nestjs/config';
+import { Storage } from '@google-cloud/storage';
 
 @Injectable()
 export class MenuService {
-  s3 = new AWS.S3();
+  private readonly storage: Storage;
+  private readonly bucket: string;
 
   constructor(
     @InjectRepository(Menu)
@@ -21,7 +23,14 @@ export class MenuService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly userService: UserService,
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    this.storage = new Storage({
+      projectId: `${this.configService.get('GOOGLE_PROJECTID')}`,
+      keyFilename: `${this.configService.get('KEYFILE')}`,
+    });
+    this.bucket = `${this.configService.get('GOOGLE_BUCKET_NAME')}`;
+  }
 
   //지점 메뉴 조회
   async menulist(storeid: number) {
@@ -39,34 +48,20 @@ export class MenuService {
     storeid: number,
     userid: number,
     createMenuDto: CreateMenuDto,
-    file: Express.Multer.File,
+    url: string,
   ) {
-    console.log(file);
-
-    const AWS_S3_BUCKET = 'book-image-upload-bucket';
-
-    const params = {
-      Bucket: AWS_S3_BUCKET,
-      Key: String(file.originalname),
-      Body: file.buffer,
-      ACL: 'public-read',
-    };
-
-    const response = await this.s3.upload(params).promise();
-    console.log(response);
-
     const user = await this.userService.findUserById(userid);
     const store = await this.storeRepository.findOne({
       where: { id: storeid },
     });
 
-    if (user.stores.some((s) => s.id !== store.id)) {
+    if (user.stores.every((s) => s.id !== store.id)) {
       throw new BadRequestException('소유주만 등록 및 수정이 가능합니다.');
     }
 
     const menu = await this.menuRepository.save({
       ...createMenuDto,
-      food_img: response.Location,
+      food_img: url,
       store: store,
     });
 
@@ -78,21 +73,9 @@ export class MenuService {
     storeid: number,
     menuid: number,
     updateMenuDto: UpdateMenuDto,
-    file: Express.Multer.File,
+    url: string,
     userid: number,
   ) {
-    const AWS_S3_BUCKET = 'book-image-upload-bucket';
-
-    const params = {
-      Bucket: AWS_S3_BUCKET,
-      Key: String(file.originalname),
-      Body: file.buffer,
-      ACL: 'public-read',
-    };
-
-    const response = await this.s3.upload(params).promise();
-    console.log(response);
-
     const store = await this.storeRepository.findOne({
       where: { id: storeid },
       relations: { menus: true, admin: true },
@@ -103,7 +86,7 @@ export class MenuService {
       relations: { stores: true },
     });
 
-    if (user.stores.some((e) => e.id !== store.id)) {
+    if (user.stores.every((e) => e.id !== store.id)) {
       throw new BadRequestException('지점 사장님만 수정이 가능합니다.');
     }
 
@@ -119,7 +102,7 @@ export class MenuService {
       },
       {
         ...updateMenuDto,
-        food_img: response.Location,
+        food_img: url,
       },
     );
 
@@ -138,7 +121,7 @@ export class MenuService {
     });
     const isMenu = await this.findmenubyId(menuid);
 
-    if (user.stores.some((e) => e.id !== store.id)) {
+    if (user.stores.every((e) => e.id !== store.id)) {
       throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
     }
 
@@ -154,6 +137,35 @@ export class MenuService {
   async findmenubyId(menuid: number) {
     return await this.menuRepository.findOne({
       where: { id: menuid },
+    });
+  }
+
+  // 이미지 업로드 구글 스토리지
+  async uploadImage(file: Express.Multer.File): Promise<string> {
+    const fileName = Date.now() + file.originalname;
+    const bucket = this.storage.bucket(this.bucket);
+
+    const blob = bucket.file(fileName.replace(/ /g, '_'));
+
+    const blobStream = blob.createWriteStream({
+      metadata: {
+        contentType: file.mimetype,
+      },
+      public: true,
+    });
+
+    blobStream.end(file.buffer);
+
+    console.log(blobStream.on);
+    return new Promise((resolve, reject) => {
+      blobStream.on('finish', () => {
+        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+        resolve(publicUrl);
+      });
+
+      blobStream.on('error', (err) => {
+        reject(err);
+      });
     });
   }
 }

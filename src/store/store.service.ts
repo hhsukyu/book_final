@@ -87,7 +87,7 @@ export class StoreService {
     const user = await this.userService.findUserById(userid);
     const store = await this.findStoreById(storeid);
 
-    if (user.stores.some((s) => s.id !== store.id)) {
+    if (user.stores.every((s) => s.id !== store.id)) {
       throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
     }
 
@@ -108,7 +108,7 @@ export class StoreService {
     const user = await this.userService.findUserById(userid);
     const store = await this.findStoreById(storeid);
 
-    if (user.stores.some((s) => s.id !== store.id)) {
+    if (user.stores.every((s) => s.id !== store.id)) {
       throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
     }
 

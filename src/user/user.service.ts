@@ -10,6 +10,7 @@ import { User } from '../entity/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CreateAdminDto } from './dto/create-admin.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 @Injectable()
 export class UserService {
@@ -93,6 +94,30 @@ export class UserService {
       },
       {
         ...updateUserDto,
+      },
+    );
+
+    return result;
+  }
+
+  async updateUser(
+    id: number,
+    updateProfileDto: UpdateProfileDto,
+    url: string,
+  ) {
+    const isUser = await this.findUserById(id);
+
+    if (!isUser) {
+      throw new NotFoundException('존재하지 않는 사용자입니다.');
+    }
+
+    const result = await this.userRepository.update(
+      {
+        id,
+      },
+      {
+        ...updateProfileDto,
+        photo: url,
       },
     );
 

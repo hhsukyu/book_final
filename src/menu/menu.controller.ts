@@ -53,7 +53,7 @@ export class MenuController {
         },
         food_price: {
           type: 'number',
-          description: 'The price of the menu.',
+          description: 'The price of the menu..',
         },
       },
     },
@@ -66,11 +66,12 @@ export class MenuController {
     @Body() createMenuDto: CreateMenuDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    const url = await this.menuService.uploadImage(file);
     return await this.menuService.createMyStoreMenu(
       storeid,
       userid,
       createMenuDto,
-      file,
+      url,
     );
   }
 
@@ -113,11 +114,12 @@ export class MenuController {
     @UploadedFile() file: Express.Multer.File,
     @UserId() userid: number,
   ) {
+    const url = await this.menuService.uploadImage(file);
     return await this.menuService.updateStoreMenu(
       storeid,
       menuid,
       updateMenuDto,
-      file,
+      url,
       userid,
     );
   }
