@@ -12,14 +12,13 @@ export class CreateUserDto {
 
   @IsString()
   @ApiProperty({ description: '이름' })
-  name: string;
+  nickname: string;
 
   @IsString()
-  @ApiProperty({ description: '핸드폰 번호'})
+  @ApiProperty({ description: '핸드폰 번호' })
   phone: string;
 
   @IsString()
-  @ApiProperty({ description: '나이'})
+  @ApiProperty({ description: '나이' })
   age: string;
-
 }
