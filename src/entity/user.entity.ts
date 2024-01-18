@@ -9,11 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Store } from './store.entity';
-<<<<<<< HEAD
-
-=======
 import { BookReview } from './bookreview.entity';
->>>>>>> e5deaef (bookreview 일단푸시)
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
 })
@@ -43,21 +39,14 @@ export class User {
   role: Role;
 
   @OneToMany(() => Store, (store) => store.admin, { cascade: true })
-<<<<<<< HEAD
   stores: Relation<Store>[];
-=======
-  store: Relation<Store>[];
->>>>>>> e5deaef (bookreview 일단푸시)
 
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
-<<<<<<< HEAD
-=======
 
   @OneToMany(() => BookReview, (bookReview) => bookReview.user)
   bookReviews: BookReview[];
->>>>>>> e5deaef (bookreview 일단푸시)
 }

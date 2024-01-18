@@ -7,7 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ConfigProjectModule } from './config/config.module';
 import { TypeormModule } from './typeorm/typeorm.module';
 import { StoreModule } from './store/store.module';
-import { BookreviewModule } from './bookreview/bookreview.module';
+import { BookReviewModule } from './bookreview/bookreview.module';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { BookreviewModule } from './bookreview/bookreview.module';
     UserModule,
     AuthModule,
     StoreModule,
-    BookreviewModule,
+    BookReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
