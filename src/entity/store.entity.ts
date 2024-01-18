@@ -1,10 +1,12 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   Relation,
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { StoreReview } from './storeReview.entity';
@@ -52,6 +54,7 @@ export class Store {
 
   @Column()
   store_close: Date;
+
   @CreateDateColumn()
   createdAt: Date;
 
