@@ -7,6 +7,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ConfigProjectModule } from './config/config.module';
 import { TypeormModule } from './typeorm/typeorm.module';
 import { StoreModule } from './store/store.module';
+import { AdminReviewModule } from './admin-review/adminReview.module';
+// import { StoreReviewModule } from './storeReview/store-review.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 import { MenuModule } from './menu/menu.module';
 
@@ -19,6 +21,8 @@ import { MenuModule } from './menu/menu.module';
     AuthModule,
     StoreModule,
     MenuModule,
+    AdminReviewModule,
+    // StoreReviewModule,
     BookReviewModule,
   ],
   controllers: [AppController],
