@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #4dc7ff, #ff269d);
+}
+
+header {
+  background-color: black;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#logo {
+  width: 120px; /* Increased size of the logo */
+  height: 120px; /* Increased size of the logo */
+}
+
+.project-name {
+  margin: 0;
+  color: white;
+}
+
+.search-bar {
+  padding: 8px;
+  margin-top: 10px; /* Added margin to the top of the search bar */
+  border: none;
+  border-radius: 5px;
+}
+
+.logout-button,
+.my-page-button {
+  background-color: #ff269d;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px; /* Added margin to the top of the buttons */
+  cursor: pointer;
+}
+
+main {
+  padding: 20px;
+  color: white;
+}
