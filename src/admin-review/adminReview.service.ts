@@ -35,9 +35,7 @@ export class AdminReviewService {
       where: { storeId, storeReviewId },
     });
     if (adminReview.length === 0) {
-      throw new BadRequestException(
-        '이미 리뷰에 대한 답글이 존재하지 않습니다.',
-      );
+      throw new BadRequestException('리뷰에 대한 답글이 존재하지 않습니다.');
     }
     return adminReview;
   }
@@ -48,9 +46,7 @@ export class AdminReviewService {
       where: { storeId: storeId },
     });
     if (adminReview.length === 0) {
-      throw new BadRequestException(
-        '이미 리뷰에 대한 답글이 존재하지 않습니다.',
-      );
+      throw new BadRequestException('리뷰에 대한 답글이 존재하지 않습니다.');
     }
     return adminReview;
   }
@@ -67,11 +63,8 @@ export class AdminReviewService {
     const adminReviewCount = await this.adminReviewRepository.count({
       where: { storeId, storeReviewId },
     });
-    console.log(adminReviewCount);
     if (adminReviewCount > 0) {
       throw new BadRequestException('이미 리뷰에 대한 답글이 존재합니다.');
-    } else if (adminReviewCount === 0) {
-      throw new BadRequestException('리뷰에 대한 답글을 찾을 수 없습니다.');
     }
     const AdminReview = this.adminReviewRepository.create({
       storeId,
@@ -126,9 +119,7 @@ export class AdminReviewService {
   // 유저(소유주) 검증
   async checkUser(userId: number, storeId: number) {
     const user = await this.userService.findUserById(userId);
-    console.log('user', user.stores);
     const store = await this.verifyStore(storeId);
-    console.log('store', store);
     if (user.stores.every((s) => s.id !== store.id)) {
       throw new BadRequestException('소유주만 가능합니다.');
     }
@@ -136,24 +127,21 @@ export class AdminReviewService {
 
   // storeId와 reviewId 검증을 통한 가게리뷰 찾기
   async verifyStoreReview(storeId: number, storeReviewId: number) {
-    const store = await this.verifyStore(storeId);
-    console.log(store);
-
     const storeReview = await this.storeReviewRepository.find({
-      where: { id: storeReviewId, store: store },
+      where: { id: storeReviewId, store: { id: storeId } },
     });
-    console.log('storeReview', storeReview);
-    if (!storeReview) {
+    if (storeReview.length === 0) {
       throw new NotFoundException('가게리뷰를 찾을 수 없습니다.');
     }
   }
 
   // reviewId 와 id 검증을 통한 리뷰 답글 찾기
   async verifyReviewIdAndId(storeReviewId: number, id: number) {
-    const adminReview = await this.adminReviewRepository.findOne({
+    const adminReview = await this.adminReviewRepository.find({
       where: { storeReviewId, id },
     });
-    if (!adminReview) {
+    console.log(adminReview);
+    if (adminReview.length === 0) {
       throw new NotFoundException('리뷰 답글을 찾을 수 없습니다.');
     }
     return adminReview;
