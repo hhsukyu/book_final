@@ -1,40 +1,39 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
-  BadRequestException,
 } from '@nestjs/common';
+import { AdminReview } from '../entity/adminReview.entity';
+import { CreateAdminReviewDto } from './dto/create-adminReview.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AdminReview } from '../entity/adminReview.entity';
 import { Store } from '../entity/store.entity';
-import { User } from '../entity/user.entity';
 import { StoreReview } from '../entity/storeReview.entity';
-import { CreateAdminReviewDto } from './dto/create-adminReview.dto';
 import { UpdateAdminReviewDto } from './dto/update-adminReview.dto';
+import { User } from '../entity/user.entity';
 import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AdminReviewService {
   constructor(
     @InjectRepository(AdminReview)
-    private readonly adminReviewRepository: Repository<AdminReview>,
+    private adminReviewRepository: Repository<AdminReview>,
     @InjectRepository(Store)
-    private storeRepository: Repository<Store>,
+    private readonly storeRepository: Repository<Store>,
     @InjectRepository(StoreReview)
-    private storeReviewRepository: Repository<StoreReview>,
+    private readonly storeReviewRepository: Repository<StoreReview>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly userService: UserService,
   ) {}
 
   // 특정 리뷰에 대한 답글 전체 조회
-  async findAdminReviewsByReview(storeId: number, reviewId: number) {
-    await this.verifyStoreByStoreId(storeId);
-    // await this.verifyStoreIdAndReviewId(storeId, reviewId);
+  async findAdminReviewsByReview(storeId: number, storeReviewId: number) {
+    await this.verifyStore(storeId);
+    await this.verifyStoreReview(storeId, storeReviewId);
     const adminReview = await this.adminReviewRepository.find({
-      where: { storeId, reviewId },
+      where: { storeId, storeReviewId },
     });
-    // 리뷰 밑에 리뷰 답글 조회 되도록 할 예정?
     if (adminReview.length === 0) {
       throw new BadRequestException(
         '이미 리뷰에 대한 답글이 존재하지 않습니다.',
@@ -45,7 +44,6 @@ export class AdminReviewService {
 
   // 가게에 대한 리뷰 답글 조회
   async findAdminReviewsByStore(storeId: number) {
-    // 리뷰 밑에 리뷰 답글 조회 되도록 할 예정?
     const adminReview = await this.adminReviewRepository.find({
       where: { storeId: storeId },
     });
@@ -60,21 +58,24 @@ export class AdminReviewService {
   // 리뷰 답글 작성
   async createAdminReview(
     storeId: number,
-    reviewId: number,
+    storeReviewId: number,
     userId: number,
     createAdminReviewDto: CreateAdminReviewDto,
   ) {
     await this.checkUser(userId, storeId);
-    await this.verifyStoreIdAndReviewId(storeId, reviewId);
-    const existAdminReviewCount = await this.adminReviewRepository.count({
-      where: { storeId, reviewId },
+    await this.verifyStoreReview(storeId, storeReviewId);
+    const adminReviewCount = await this.adminReviewRepository.count({
+      where: { storeId, storeReviewId },
     });
-    if (existAdminReviewCount > 0) {
+    console.log(adminReviewCount);
+    if (adminReviewCount > 0) {
       throw new BadRequestException('이미 리뷰에 대한 답글이 존재합니다.');
-    }
+    } //else if (adminReviewCount === 0) {
+    //   throw new BadRequestException('리뷰에 대한 답글을 찾을 수 없습니다.');
+    // }
     const AdminReview = this.adminReviewRepository.create({
       storeId,
-      reviewId,
+      storeReviewId,
       content: createAdminReviewDto.content,
     });
     return await this.adminReviewRepository.save(AdminReview);
@@ -83,15 +84,15 @@ export class AdminReviewService {
   // 리뷰 답글 수정
   async updateAdminReview(
     storeId: number,
-    reviewId: number,
+    storeReviewId: number,
     id: number,
     userId: number,
     updateAdminReviewDto: UpdateAdminReviewDto,
   ) {
     await this.checkUser(userId, storeId);
-    await this.verifyStoreByStoreId(storeId);
-    await this.verifyStoreIdAndReviewId(storeId, reviewId);
-    await this.verifyReviewIdAndId(reviewId, id);
+    await this.verifyStore(storeId);
+    await this.verifyStoreReview(storeId, storeReviewId);
+    await this.verifyReviewIdAndId(storeReviewId, id);
     await this.adminReviewRepository.update(id, { ...updateAdminReviewDto });
     return { message: 'OK' };
   }
@@ -99,68 +100,66 @@ export class AdminReviewService {
   // 리뷰 답글 삭제
   async deleteAdminReview(
     storeId: number,
-    reviewId: number,
+    storeReviewId: number,
     id: number,
     userId: number,
   ) {
     await this.checkUser(userId, storeId);
-    await this.verifyStoreByStoreId(storeId);
-    await this.verifyStoreIdAndReviewId(storeId, reviewId);
-    await this.verifyReviewIdAndId(reviewId, id);
+    await this.verifyStore(storeId);
+    await this.verifyStoreReview(storeId, storeReviewId);
+    await this.verifyReviewIdAndId(storeReviewId, id);
     await this.adminReviewRepository.delete(id);
     return { message: 'OK' };
   }
 
-  // 유저(소유주) 검증
-  async checkUser(userId: number, storeId: number) {
-    const user = await this.verifyUserByUserId(userId);
-    const store = await this.verifyStoreByStoreId(storeId);
-
-    if (user.id !== store.admin.id) {
-      throw new BadRequestException('소유주만 가능합니다.');
-    }
-  }
-
-  // userId 검증을 통한 user 찾기
-  async verifyUserByUserId(userId: number) {
-    return await this.userService.findUserById(userId);
-  }
-
   //storeId 검증을 통한 지점 찾기
-  async verifyStoreByStoreId(storeId: number) {
-    const existStoreId = await this.storeRepository.findOne({
-      where: { id: storeId },
-      relations: { admin: true },
-    });
-    if (!existStoreId) {
-      throw new NotFoundException('지점을 찾을 수 없습니다.');
-    }
-    return existStoreId;
-  }
-
-  // storeId와 reviewId 검증을 통한 가게리뷰 찾기
-  async verifyStoreIdAndReviewId(storeId: number, reviewId: number) {
+  async verifyStore(storeId: number) {
     const store = await this.storeRepository.findOne({
       where: { id: storeId },
     });
+    if (!store) {
+      throw new NotFoundException('지점을 찾을 수 없습니다.');
+    }
+    return store;
+  }
 
-    const existStoreIdAndReviewId = await this.storeReviewRepository.findOne({
-      where: { store_id: store, id: reviewId },
+  // 유저(소유주) 검증
+  async checkUser(userId: number, storeId: number) {
+    const user = await this.userService.findUserById(userId);
+    console.log('user', user.stores);
+    const store = await this.verifyStore(storeId);
+    console.log('store', store);
+    if (user.stores.every((s) => s.id !== store.id)) {
+      throw new BadRequestException('소유주만 가능합니다.');
+    }
+
+    // if (user.id !== store.admin.id) {
+    //   throw new BadRequestException('소유주만 가능합니다.');
+    // }
+  }
+
+  // storeId와 reviewId 검증을 통한 가게리뷰 찾기
+  async verifyStoreReview(storeId: number, storeReviewId: number) {
+    const store = await this.verifyStore(storeId);
+    console.log(store);
+
+    const storeReview = await this.storeReviewRepository.find({
+      where: { id: storeReviewId, store: store },
     });
-    if (!existStoreIdAndReviewId) {
+    console.log('storeReview', storeReview);
+    if (!storeReview) {
       throw new NotFoundException('가게리뷰를 찾을 수 없습니다.');
     }
-    return existStoreIdAndReviewId;
   }
 
   // reviewId 와 id 검증을 통한 리뷰 답글 찾기
-  async verifyReviewIdAndId(reviewId: number, id: number) {
-    const existReviewIdAndId = await this.adminReviewRepository.findOne({
-      where: { reviewId, id },
+  async verifyReviewIdAndId(storeReviewId: number, id: number) {
+    const adminReview = await this.adminReviewRepository.findOne({
+      where: { storeReviewId, id },
     });
-    if (!existReviewIdAndId) {
+    if (!adminReview) {
       throw new NotFoundException('리뷰 답글을 찾을 수 없습니다.');
     }
-    return existReviewIdAndId;
+    return adminReview;
   }
 }

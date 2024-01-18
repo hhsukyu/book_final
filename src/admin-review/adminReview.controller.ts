@@ -19,14 +19,14 @@ export class AdminReviewController {
   constructor(private readonly adminReviewService: AdminReviewService) {}
 
   // 특정 리뷰에 대한 리뷰 답글 조회
-  @Get(':reviewId/adminReview')
+  @Get(':storeReviewId/adminReview')
   async findAdminReviewsByReview(
     @Param('storeId') storeId: number,
-    @Param('reviewId') reviewId: number,
+    @Param('storeReviewId') storeReviewId: number,
   ) {
     return await this.adminReviewService.findAdminReviewsByReview(
       storeId,
-      reviewId,
+      storeReviewId,
     );
   }
 
@@ -38,16 +38,16 @@ export class AdminReviewController {
 
   // 리뷰 답글 작성
   @UseGuards(accessTokenGuard)
-  @Post(':reviewId/adminReview')
+  @Post(':storeReviewId/adminReview')
   async createAdminReview(
     @Param('storeId') storeId: number,
-    @Param('reviewId') reviewId: number,
+    @Param('storeReviewId') storeReviewId: number,
     @UserId() userId: number,
     @Body() createAdminReviewDto: CreateAdminReviewDto,
   ) {
     return await this.adminReviewService.createAdminReview(
       storeId,
-      reviewId,
+      storeReviewId,
       userId,
       createAdminReviewDto,
     );
@@ -55,17 +55,17 @@ export class AdminReviewController {
 
   // 리뷰 답글 수정
   @UseGuards(accessTokenGuard)
-  @Put(':reviewId/adminReview/:id')
+  @Put(':storeReviewId/adminReview/:id')
   async updateAdminReview(
     @Param('storeId') storeId: number,
-    @Param('reviewId') reviewId: number,
+    @Param('storeReviewId') storeReviewId: number,
     @Param('id') id: number,
     @UserId() userId: number,
     @Body() updateAdminReviewDto: UpdateAdminReviewDto,
   ) {
     return await this.adminReviewService.updateAdminReview(
       storeId,
-      reviewId,
+      storeReviewId,
       id,
       userId,
       updateAdminReviewDto,
@@ -74,16 +74,16 @@ export class AdminReviewController {
 
   // 리뷰 답글 삭제
   @UseGuards(accessTokenGuard)
-  @Delete(':reviewId/adminReview/:id')
+  @Delete(':storeReviewId/adminReview/:id')
   async deleteAdminReview(
     @Param('storeId') storeId: number,
-    @Param('reviewId') reviewId: number,
+    @Param('storeReviewId') storeReviewId: number,
     @Param('id') id: number,
     @UserId() userId: number,
   ) {
     return await this.adminReviewService.deleteAdminReview(
       storeId,
-      reviewId,
+      storeReviewId,
       id,
       userId,
     );
