@@ -36,3 +36,4 @@ lerna-debug.log*
 .development.env
 .development.env
 *.env
+google_key.json
