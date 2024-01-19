@@ -8,7 +8,7 @@ describe('MyPageController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MyPageController],
-      providers: [MyPageService],
+      providers: [MyPageService, { provide: 'MyPageRepository', useValue: {} }],
     }).compile();
 
     controller = module.get<MyPageController>(MyPageController);

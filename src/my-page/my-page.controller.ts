@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { MyPageService } from './my-page.service';
 import { UpdateMyPageDto } from './dto/update-my-page.dto';
-import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
-import { UserId } from 'src/auth/decorators/userId.decorator';
+import { accessTokenGuard } from '../auth/guard/access-token.guard';
+import { UserId } from '../auth/decorators/userId.decorator';
 import { CreateMyPageDto } from './dto/create-my-page.dto';
 
 @Controller('my-page')
