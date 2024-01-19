@@ -7,9 +7,9 @@ import { ConfigService } from '@nestjs/config';
 export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
   constructor(private configService: ConfigService) {
     super({
-      clientID: configService.get<string>('NAVER_CLIENT_ID'),
-      clientSecret: configService.get<string>('NAVER_CLIENT_SECRET'),
-      callbackURL: configService.get<string>('NAVER_REDIRECT_URI'),
+      clientID: configService.get<string>('KAKAO_CLIENT_ID'),
+      clientSecret: configService.get<string>('KAKAO_CLIENT_SECRET'),
+      callbackURL: configService.get<string>('KAKAO_REDIRECT_URI'),
     });
   }
   async validate(
@@ -18,8 +18,8 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
     profile: any,
     done: any,
   ) {
-    const userEmail = profile._json.email;
-    const userNick = profile._json.nickname;
+    const userEmail = profile._json.account_email;
+    const userNick = profile._json.profile_nickname;
     const userProfileImage = profile._json.profile_image;
     const userProvider = profile.provider;
     const userProfile = {
