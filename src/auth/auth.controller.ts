@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   Req,
+  Res,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -14,6 +16,7 @@ import { refreshTokenGuard } from './guard/refresh-token.guard';
 import { accessTokenGuard } from './guard/access-token.guard';
 import { Request } from 'express';
 import { SignupAdminDto } from './dto/signup-admin.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -58,5 +61,49 @@ export class AuthController {
     }
 
     return this.authService.logout(userId);
+  }
+
+  //네이버 일반사용자 소셜로그인
+  @Get('naver')
+  @UseGuards(AuthGuard('naver'))
+  async naverLogin(): Promise<void> {}
+
+  @Get('naver/callback')
+  @UseGuards(AuthGuard('naver'))
+  async naverLoginCallback(@Req() req, @Res() res) {
+    return await this.authService.naverLoginCallback({ req, res });
+  }
+
+  //네이버 지점업주 소셜로그인
+  @Get('naver-admin')
+  @UseGuards(AuthGuard('naver-admin'))
+  async naverAdminLogin(): Promise<void> {}
+
+  @Get('naver/admin/callback')
+  @UseGuards(AuthGuard('naver-admin'))
+  async naverAdminLoginCallback(@Req() req, @Res() res) {
+    return await this.authService.naverAdminLoginCallback({ req, res });
+  }
+
+  //카카오 일반사용자 소셜로그인
+  @Get('kakao')
+  @UseGuards(AuthGuard('kakao'))
+  async kakaoLogin(): Promise<void> {}
+
+  @Get('kakao/callback')
+  @UseGuards(AuthGuard('kakao'))
+  async kakaoLoginCallback(@Req() req, @Res() res) {
+    return await this.authService.kakaoLoginCallback({ req, res });
+  }
+
+  //카카오 지점업주 소셜로그인
+  @Get('kakao-admin')
+  @UseGuards(AuthGuard('kakao-admin'))
+  async kakaoAdminLogin(): Promise<void> {}
+
+  @Get('kakao/admin/callback')
+  @UseGuards(AuthGuard('kakao-admin'))
+  async kakaoAdminLoginCallback(@Req() req, @Res() res) {
+    return await this.authService.kakaoAdminLoginCallback({ req, res });
   }
 }
