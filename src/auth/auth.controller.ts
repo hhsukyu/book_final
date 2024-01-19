@@ -95,4 +95,15 @@ export class AuthController {
   async kakaoLoginCallback(@Req() req, @Res() res) {
     return await this.authService.kakaoLoginCallback({ req, res });
   }
+
+  //카카오 지점업주 소셜로그인
+  @Get('kakao-admin')
+  @UseGuards(AuthGuard('kakao-admin'))
+  async kakaoAdminLogin(): Promise<void> {}
+
+  @Get('kakao/admin/callback')
+  @UseGuards(AuthGuard('kakao-admin'))
+  async kakaoAdminLoginCallback(@Req() req, @Res() res) {
+    return await this.authService.kakaoAdminLoginCallback({ req, res });
+  }
 }

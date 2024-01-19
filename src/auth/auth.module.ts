@@ -16,6 +16,7 @@ import { ConfigService } from '@nestjs/config';
 import { NaverAdminStrategy } from './strategy/naver-admin.strategy';
 import { KakaoStrategy } from './strategy/kakao.strategy';
 import { KakaoAuthGuard } from './guard/kakao-auth.guard';
+import { KakaoAdminStrategy } from './strategy/kakao-admin.strategy';
 
 @Module({
   imports: [
@@ -49,7 +50,7 @@ import { KakaoAuthGuard } from './guard/kakao-auth.guard';
     NaverAdminStrategy,
     NaverAuthGuard,
     KakaoStrategy,
-    NaverAdminStrategy,
+    KakaoAdminStrategy,
     KakaoAuthGuard,
   ],
 })

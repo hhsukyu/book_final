@@ -21,9 +21,10 @@ export class KakaoAdminStrategy extends PassportStrategy(
     profile: any,
     done: any,
   ) {
-    const userEmail = profile._json.account_email;
-    const userNick = profile._json.profile_nickname;
-    const userProfileImage = profile._json.profile_image;
+    const userEmail = profile._json.kakao_account.email;
+    const userNick = profile._json.kakao_account.profile.nickname;
+    const userProfileImage =
+      profile._json.kakao_account.profile.thumbnail_image_url;
     const userProvider = profile.provider;
     const userProfile = {
       userEmail,

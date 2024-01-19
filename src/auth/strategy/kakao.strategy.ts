@@ -19,8 +19,9 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
     done: any,
   ) {
     const userEmail = profile._json.kakao_account.email;
-    const userNick = profile._json.kakao_profile_nickname;
-    const userProfileImage = profile._json.kakao_profile_image;
+    const userNick = profile._json.kakao_account.profile.nickname;
+    const userProfileImage =
+      profile._json.kakao_account.profile.thumbnail_image_url;
     const userProvider = profile.provider;
     const userProfile = {
       userEmail,
@@ -28,7 +29,6 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
       userProvider,
       userProfileImage,
     };
-    console.log('userProfile', userProfile);
     return { accessToken, userProfile };
   }
 }
