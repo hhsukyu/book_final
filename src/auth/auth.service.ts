@@ -141,7 +141,7 @@ export class AuthService {
     return refreshToken;
   }
 
-  //네이버 로그인
+  //네이버 회원가입/로그인
   async naverLoginCallback({ req, res }) {
     // 네이버 이메일로 사용자를 찾는다.
     const email = req.user.userProfile.userEmail;
@@ -201,6 +201,87 @@ export class AuthService {
         email,
         nickname,
         password: hashedNaverPassword,
+        role: 1,
+      });
+    }
+
+    const accessToken = this.generateAccessToken(
+      OAuthUser.id,
+      OAuthUser.nickname,
+    );
+    const refreshToken = this.generateRefreshToken(OAuthUser.id);
+
+    await this.userService.update(OAuthUser.id, {
+      currentRefreshToken: refreshToken,
+    });
+
+    if (OAuthUser)
+      res.redirect(
+        `http://localhost:3000/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+      );
+    else res.redirect('http://localhost:3000/login/failure');
+  }
+
+  //카카오 회원가입/로그인
+  async kakaoLoginCallback({ req, res }) {
+    // 카카오 이메일로 사용자를 찾는다.
+    const email = req.user.userProfile.userEmail;
+    const nickname = req.user.userProfile.userNick;
+    let OAuthUser = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    // 카카오 사용자의 이메일 값을 변수 지정
+    // user의 아이디 값을 해시화 해서 변수 지정
+    const hashedKakaoPassword = await bcrypt.hash(email, 10);
+
+    // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성
+    // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용
+    if (!OAuthUser) {
+      OAuthUser = await this.userRepository.save({
+        email,
+        nickname,
+        password: hashedKakaoPassword,
+      });
+    }
+
+    const accessToken = this.generateAccessToken(
+      OAuthUser.id,
+      OAuthUser.nickname,
+    );
+    const refreshToken = this.generateRefreshToken(OAuthUser.id);
+
+    await this.userService.update(OAuthUser.id, {
+      currentRefreshToken: refreshToken,
+    });
+
+    if (OAuthUser)
+      res.redirect(
+        `http://localhost:3000/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+      );
+    else res.redirect('http://localhost:3000/login/failure');
+  }
+
+  //카카오 지점업주 회원가입/로그인
+  async kakaoAdminLoginCallback({ req, res }) {
+    // 카카오 이메일로 사용자를 찾는다.
+    const email = req.user.userProfile.userEmail;
+    const nickname = req.user.userProfile.userNick;
+    let OAuthUser = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    // 카카오 사용자의 이메일 값을 변수 지정
+    // user의 아이디 값을 해시화 해서 변수 지정
+    const hashedKakaoPassword = await bcrypt.hash(email, 10);
+
+    // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성
+    // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용
+    if (!OAuthUser) {
+      OAuthUser = await this.userRepository.save({
+        email,
+        nickname,
+        password: hashedKakaoPassword,
         role: 1,
       });
     }
