@@ -3,15 +3,18 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   Relation,
   UpdateDateColumn,
 } from 'typeorm';
 import { Store } from './store.entity';
 import { LoginType } from '../user/types/login.type';
-
+import { StoreReview } from './storeReview.entity';
 import { BookReview } from './bookreview.entity';
+import { MyPage } from './my-page.entity';
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
 })
@@ -49,12 +52,19 @@ export class User {
   @OneToMany(() => Store, (store) => store.admin, { cascade: true })
   stores: Relation<Store>[];
 
-  @CreateDateColumn()
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.user)
+  store_reviews: Relation<StoreReview>[];
+
+  @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp', name: 'updated_at' })
   updatedAt: Date;
 
   @OneToMany(() => BookReview, (bookReview) => bookReview.user)
   bookReviews: BookReview[];
+
+  @OneToOne(() => MyPage, (myPage) => myPage.user)
+  @JoinColumn()
+  myPage: MyPage;
 }
