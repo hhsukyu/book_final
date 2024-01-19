@@ -8,6 +8,7 @@ import {
 } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 // import { join } from 'path';
 
 async function bootstrap() {
@@ -55,7 +56,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port: number = configService.get('SERVER_PORT');
 
-  // app.useStaticAssets(join(__dirname, "..", "assets")); // 정적 프론트 파일 (이번 최종 프로젝트에서는 사용할지 고민)
+  app.useStaticAssets(join(__dirname, '..', 'assets')); // 정적 프론트 파일 (이번 최종 프로젝트에서는 사용할지 고민)
 
   console.log(port);
 
