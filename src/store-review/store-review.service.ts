@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { Store } from '../entity/store.entity';
 import { User } from '../entity/user.entity';
 import { StoreReview } from '../entity/storeReview.entity';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class StoreReviewService {
