@@ -1,0 +1,130 @@
+@font-face {
+  font-family: 'LINESeedKR-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2')
+    format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  background-color: #171717 !important;
+  font-family: 'LINESeedKR-Bd';
+  height: 100vh;
+  margin: 0 auto;
+  width: 100vw;
+}
+header .col-8 {
+  background-color: #171717;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px; /* Adjust margin as needed */
+}
+.col-8 {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px; /* Adjust margin as needed */
+}
+
+header {
+  background-color: #171717;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.project-name {
+  margin: 0;
+  color: white;
+}
+
+.search-bar {
+  padding: 8px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border: none;
+  border-radius: 5px;
+  width: 300px;
+}
+
+.dropdown {
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+.search-icon {
+  top: 0;
+  right: 0;
+  padding: 8px;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+main {
+  padding: 20px;
+  color: black;
+}
+
+.section {
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.left-align {
+  text-align: left;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.image-container {
+  margin-top: 20px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-custom {
+  color: white;
+  cursor: pointer;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.btn-pink {
+  background-color: #ff269d;
+}
+
+.btn-blue {
+  background-color: #4dc7ff;
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
