@@ -49,12 +49,16 @@ export class StoreReviewService {
   }
 
   //모든 리뷰 조회
-  async findReviewList(storeid: number) {
+  async findReviewList(storeId: number) {
     const store = await this.storeRepository.findOne({
-      where: { id: storeid },
+      where: { id: storeId },
     });
-    const reviewlist = store.store_reviews;
-    console.log(reviewlist); //코드 체크
+    if (!store) throw new BadRequestException('지점이 존재하지 않습니다.');
+    const reviewlist = await this.storeReviewRepository.find({
+      where: { store_id: storeId },
+    });
+    if (!reviewlist)
+      throw new BadRequestException('해당 지점에 대한 리뷰가 없습니다.');
     return reviewlist;
   }
 
@@ -63,6 +67,7 @@ export class StoreReviewService {
     const review = await this.storeReviewRepository.findOne({
       where: { store_id: storeid, id: reviewid },
     });
+    if (!review) throw new BadRequestException('리뷰를 찾을 수 없습니다.');
     console.log(review); //코드 체크
     return review;
   }

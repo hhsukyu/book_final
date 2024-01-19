@@ -37,16 +37,16 @@ export class StoreReviewController {
 
   //모든 리뷰 조회
   @Get('')
-  async findReviewList(@Param('storeId') storeId: number) {
-    return await this.storeReviewService.findReviewList(storeId);
+  async findReviewList(@Param('store_id') store_id: number) {
+    return await this.storeReviewService.findReviewList(store_id);
   }
 
   @Get('/reviewid/:reviewid')
   async findOneReview(
-    @Param('storeId') storeId: number,
-    @Param('reviewId') reviewId: number,
+    @Param('store_id') store_id: number,
+    @Param('reviewid') reviewid: number,
   ) {
-    return await this.storeReviewService.findOneReview(storeId, reviewId);
+    return await this.storeReviewService.findOneReview(store_id, reviewid);
   }
 
   //리뷰 수정
@@ -54,14 +54,14 @@ export class StoreReviewController {
   @UseGuards(accessTokenGuard)
   @Put('/reviewid/:reviewid')
   async editOneReview(
-    @Param('storeId') storeId: number,
-    @Param('reviewId') reviewId: number,
+    @Param('store_id') store_id: number,
+    @Param('reviewid') reviewid: number,
     @UserId() user_id: number,
     @Body() updateStoreReviewDto: UpdateStoreReviewDto,
   ) {
     return await this.storeReviewService.editOneReview(
-      storeId,
-      reviewId,
+      store_id,
+      reviewid,
       user_id,
       updateStoreReviewDto,
     );
@@ -71,13 +71,13 @@ export class StoreReviewController {
   @UseGuards(accessTokenGuard)
   @Delete('/reviewid/:reviewid')
   async deleteOneReview(
-    @Param('storeId') storeId: number,
-    @Param('reviewId') reviewId: number,
+    @Param('store_id') store_id: number,
+    @Param('reviewid') reviewid: number,
     @UserId() user_id: number,
   ) {
     return await this.storeReviewService.deleteOneReview(
-      storeId,
-      reviewId,
+      store_id,
+      reviewid,
       user_id,
     );
   }
