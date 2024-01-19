@@ -4,12 +4,15 @@ import { ConfigService } from '@nestjs/config';
 import { Strategy } from 'passport-kakao';
 
 @Injectable()
-export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
+export class KakaoAdminStrategy extends PassportStrategy(
+  Strategy,
+  'kakao-admin',
+) {
   constructor(private configService: ConfigService) {
     super({
       clientID: configService.get<string>('KAKAO_CLIENT_ID'),
       clientSecret: configService.get<string>('KAKAO_CLIENT_SECRET'),
-      callbackURL: configService.get<string>('KAKAO_REDIRECT_URI'),
+      callbackURL: configService.get<string>('KAKAO_ADMIN_REDIRECT_URI'),
     });
   }
   async validate(
@@ -18,9 +21,9 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
     profile: any,
     done: any,
   ) {
-    const userEmail = profile._json.kakao_account.email;
-    const userNick = profile._json.kakao_profile_nickname;
-    const userProfileImage = profile._json.kakao_profile_image;
+    const userEmail = profile._json.account_email;
+    const userNick = profile._json.profile_nickname;
+    const userProfileImage = profile._json.profile_image;
     const userProvider = profile.provider;
     const userProfile = {
       userEmail,
@@ -28,7 +31,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
       userProvider,
       userProfileImage,
     };
-    console.log('userProfile', userProfile);
+
     return { accessToken, userProfile };
   }
 }

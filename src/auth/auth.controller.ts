@@ -84,4 +84,15 @@ export class AuthController {
   async naverAdminLoginCallback(@Req() req, @Res() res) {
     return await this.authService.naverAdminLoginCallback({ req, res });
   }
+
+  //카카오 일반사용자 소셜로그인
+  @Get('kakao')
+  @UseGuards(AuthGuard('kakao'))
+  async kakaoLogin(): Promise<void> {}
+
+  @Get('kakao/callback')
+  @UseGuards(AuthGuard('kakao'))
+  async kakaoLoginCallback(@Req() req, @Res() res) {
+    return await this.authService.kakaoLoginCallback({ req, res });
+  }
 }

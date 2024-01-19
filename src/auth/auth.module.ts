@@ -14,6 +14,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entity/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { NaverAdminStrategy } from './strategy/naver-admin.strategy';
+import { KakaoStrategy } from './strategy/kakao.strategy';
+import { KakaoAuthGuard } from './guard/kakao-auth.guard';
 
 @Module({
   imports: [
@@ -46,6 +48,9 @@ import { NaverAdminStrategy } from './strategy/naver-admin.strategy';
     NaverStrategy,
     NaverAdminStrategy,
     NaverAuthGuard,
+    KakaoStrategy,
+    NaverAdminStrategy,
+    KakaoAuthGuard,
   ],
 })
 export class AuthModule {}
