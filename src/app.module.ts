@@ -11,6 +11,7 @@ import { AdminReviewModule } from './admin-review/adminReview.module';
 // import { StoreReviewModule } from './storeReview/store-review.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 import { MenuModule } from './menu/menu.module';
+import { MyPageModule } from './my-page/my-page.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MenuModule } from './menu/menu.module';
     AdminReviewModule,
     // StoreReviewModule,
     BookReviewModule,
+    MyPageModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
