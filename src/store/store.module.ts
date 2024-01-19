@@ -6,9 +6,9 @@ import { User } from '../entity/user.entity';
 import { Store } from '../entity/store.entity';
 import { UserService } from '../user/user.service';
 import { StoreBook } from 'src/entity/store-book.entity';
-
+import { Menu } from 'src/entity/menu.entity';
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Store, StoreBook])],
+  imports: [TypeOrmModule.forFeature([User, Store, StoreBook, Menu])],
   providers: [StoreService, UserService],
   controllers: [StoreController],
 })
