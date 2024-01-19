@@ -12,7 +12,7 @@ import {
 } from 'typeorm';
 import { Store } from './store.entity';
 import { LoginType } from '../user/types/login.type';
-
+import { StoreReview } from './storeReview.entity';
 import { BookReview } from './bookreview.entity';
 import { MyPage } from './my-page.entity';
 @Entity({
@@ -51,6 +51,9 @@ export class User {
 
   @OneToMany(() => Store, (store) => store.admin, { cascade: true })
   stores: Relation<Store>[];
+
+  @OneToMany(() => StoreReview, (storeReview) => storeReview.user)
+  store_reviews: Relation<StoreReview>[];
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   createdAt: Date;
