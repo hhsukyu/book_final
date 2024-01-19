@@ -3,6 +3,7 @@ import { StoreReviewController } from '../store-review.controller';
 import { StoreReviewService } from '../store-review.service';
 import { UserService } from '../../user/user.service';
 import { StoreService } from '../../store/store.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('StoreReviewController', () => {
   let controller: StoreReviewController;
@@ -14,6 +15,7 @@ describe('StoreReviewController', () => {
         StoreReviewService,
         UserService,
         StoreService,
+        ConfigService,
         { provide: 'StoreReviewRepository', useValue: {} },
         { provide: 'UserRepository', useValue: {} },
         { provide: 'StoreRepository', useValue: {} },

@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { StoreReviewService } from '../store-review.service';
 import { UserService } from '../../user/user.service';
 import { StoreService } from '../../store/store.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('StoreReviewService', () => {
   let service: StoreReviewService;
@@ -13,6 +14,7 @@ describe('StoreReviewService', () => {
         StoreReviewService,
         UserService,
         StoreService,
+        ConfigService,
         { provide: 'StoreReviewRepository', useValue: {} },
         { provide: 'UserRepository', useValue: {} },
         { provide: 'StoreRepository', useValue: {} },
