@@ -8,7 +8,7 @@ import { CreateAdminReviewDto } from './dto/create-adminReview.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Store } from '../entity/store.entity';
-// import { StoreReview } from '../entity/storeReview.entity';
+import { StoreReview } from '../entity/storeReview.entity';
 import { UpdateAdminReviewDto } from './dto/update-adminReview.dto';
 import { User } from '../entity/user.entity';
 import { UserService } from '../user/user.service';
@@ -20,8 +20,8 @@ export class AdminReviewService {
     private adminReviewRepository: Repository<AdminReview>,
     @InjectRepository(Store)
     private readonly storeRepository: Repository<Store>,
-    // @InjectRepository(StoreReview)
-    // private readonly storeReviewRepository: Repository<StoreReview>,
+    @InjectRepository(StoreReview)
+    private readonly storeReviewRepository: Repository<StoreReview>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly userService: UserService,
@@ -30,7 +30,7 @@ export class AdminReviewService {
   // 특정 리뷰에 대한 답글 전체 조회
   async findAdminReviewsByReview(storeId: number, storeReviewId: number) {
     await this.verifyStore(storeId);
-    // await this.verifyStoreReview(storeId, storeReviewId);
+    await this.verifyStoreReview(storeId, storeReviewId);
     const adminReview = await this.adminReviewRepository.find({
       where: { storeId, storeReviewId },
     });
@@ -59,7 +59,7 @@ export class AdminReviewService {
     createAdminReviewDto: CreateAdminReviewDto,
   ) {
     await this.checkUser(userId, storeId);
-    // await this.verifyStoreReview(storeId, storeReviewId);
+    await this.verifyStoreReview(storeId, storeReviewId);
     const adminReviewCount = await this.adminReviewRepository.count({
       where: { storeId, storeReviewId },
     });
@@ -84,7 +84,7 @@ export class AdminReviewService {
   ) {
     await this.checkUser(userId, storeId);
     await this.verifyStore(storeId);
-    // await this.verifyStoreReview(storeId, storeReviewId);
+    await this.verifyStoreReview(storeId, storeReviewId);
     await this.verifyReviewIdAndId(storeReviewId, id);
     await this.adminReviewRepository.update(id, { ...updateAdminReviewDto });
     return { message: 'OK' };
@@ -99,7 +99,7 @@ export class AdminReviewService {
   ) {
     await this.checkUser(userId, storeId);
     await this.verifyStore(storeId);
-    // await this.verifyStoreReview(storeId, storeReviewId);
+    await this.verifyStoreReview(storeId, storeReviewId);
     await this.verifyReviewIdAndId(storeReviewId, id);
     await this.adminReviewRepository.delete(id);
     return { message: 'OK' };
@@ -126,21 +126,20 @@ export class AdminReviewService {
   }
 
   // storeId와 reviewId 검증을 통한 가게리뷰 찾기
-  // async verifyStoreReview(storeId: number, storeReviewId: number) {
-  //   const storeReview = await this.storeReviewRepository.find({
-  //     where: { id: storeReviewId, store: { id: storeId } },
-  //   });
-  //   if (storeReview.length === 0) {
-  //     throw new NotFoundException('가게리뷰를 찾을 수 없습니다.');
-  //   }
-  // }
+  async verifyStoreReview(storeId: number, storeReviewId: number) {
+    const storeReview = await this.storeReviewRepository.find({
+      where: { id: storeReviewId, store_id: storeId },
+    });
+    if (storeReview.length === 0) {
+      throw new NotFoundException('가게리뷰를 찾을 수 없습니다.');
+    }
+  }
 
   // reviewId 와 id 검증을 통한 리뷰 답글 찾기
   async verifyReviewIdAndId(storeReviewId: number, id: number) {
     const adminReview = await this.adminReviewRepository.find({
       where: { storeReviewId, id },
     });
-    console.log(adminReview);
     if (adminReview.length === 0) {
       throw new NotFoundException('리뷰 답글을 찾을 수 없습니다.');
     }
