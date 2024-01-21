@@ -17,6 +17,8 @@ import { NaverAdminStrategy } from './strategy/naver-admin.strategy';
 import { KakaoStrategy } from './strategy/kakao.strategy';
 import { KakaoAuthGuard } from './guard/kakao-auth.guard';
 import { KakaoAdminStrategy } from './strategy/kakao-admin.strategy';
+import { RedisModule } from 'src/configs/redis/redis.module';
+import { EmailService } from 'src/configs/mailer/email.service';
 
 @Module({
   imports: [
@@ -30,6 +32,7 @@ import { KakaoAdminStrategy } from './strategy/kakao-admin.strategy';
       inject: [ConfigService],
     }),
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
+    RedisModule,
   ],
   exports: [
     accessTokenGuard,
@@ -52,6 +55,7 @@ import { KakaoAdminStrategy } from './strategy/kakao-admin.strategy';
     KakaoStrategy,
     KakaoAdminStrategy,
     KakaoAuthGuard,
+    EmailService,
   ],
 })
 export class AuthModule {}
