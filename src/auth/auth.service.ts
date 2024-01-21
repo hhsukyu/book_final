@@ -14,8 +14,8 @@ import { SignupAdminDto } from './dto/signup-admin.dto';
 import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RedisService } from 'src/configs/redis/redis.service';
-import { EmailService } from 'src/configs/mailer/email.service';
+import { RedisService } from '../configs/redis/redis.service';
+import { EmailService } from '../configs/mailer/email.service';
 import { UpdatePasswordDto } from './dto/update-password.dto copy';
 
 @Injectable()
