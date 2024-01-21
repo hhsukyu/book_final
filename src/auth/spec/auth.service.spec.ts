@@ -15,7 +15,10 @@ describe('AuthService', () => {
         AuthService,
         // UserService,
         RedisService,
-        EmailService,
+        {
+          provide: EmailService,
+          useValue: {},
+        },
         {
           provide: UserService,
           useValue: {},
