@@ -106,4 +106,12 @@ export class AuthController {
   async kakaoAdminLoginCallback(@Req() req, @Res() res) {
     return await this.authService.kakaoAdminLoginCallback({ req, res });
   }
+
+//비밀번호 찾기-이메일 인증번호 전송
+@ApiBearerAuth('accessToken')
+@UseGuards(accessTokenGuard)
+@Post('/sendVerificationCode')
+//비밀번호 찾기-인증번호 확인
+//비밀번호 찾기-비밀번호 재설정
+
 }
