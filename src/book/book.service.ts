@@ -36,33 +36,35 @@ export class BookService {
     return books;
   }
 
-  async getBookById(bookid: number) {
-    const book = await this.bookRepository.findOne({ where: { id: bookid } });
+  // async getBookById(id: number) {
+  //   const book = await this.bookRepository.findOne({
+  //     where: { id: id },
+  //   });
 
-    return book;
-  }
+  //   return book;
+  // }
 
-  async updateBook(bookid: number, updateBookDto: UpdateBookDto) {
-    const book = await this.bookRepository.findOne({
-      where: { id: bookid },
-    });
-    if (!book) {
-      throw new NotFoundException('존재하지 않는 도서입니다.');
-    }
+  // async updateBook(bookid: number, updateBookDto: UpdateBookDto) {
+  //   const book = await this.bookRepository.findOne({
+  //     where: { id: bookid },
+  //   });
+  //   if (!book) {
+  //     throw new NotFoundException('존재하지 않는 도서입니다.');
+  //   }
 
-    await this.bookRepository.update(
-      {
-        id: bookid,
-      },
-      { ...updateBookDto },
-    );
+  //   await this.bookRepository.update(
+  //     {
+  //       id: bookid,
+  //     },
+  //     { ...updateBookDto },
+  //   );
 
-    return { message: '도서 정보가 수정되었습니다.' };
-  }
+  //   return { message: '도서 정보가 수정되었습니다.' };
+  // }
 
-  async deleteBook(bookid: number) {
-    await this.bookRepository.delete({ id: bookid });
+  // async deleteBook(bookid: number) {
+  //   await this.bookRepository.delete({ id: bookid });
 
-    return { message: '도서 정보가 삭제되었습니다.' };
-  }
+  //   return { message: '도서 정보가 삭제되었습니다.' };
+  // }
 }

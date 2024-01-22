@@ -32,18 +32,22 @@ export class BookController {
     return await this.bookService.getBooks();
   }
 
-  //도서 상세조회
-  @Get('/bookid')
-  async getBookById(@Param('bookid') bookid: number) {
-    return await this.bookService.getBookById(bookid);
-  }
-  //도서 수정
-  @Put('/bookid')
-  async updateBook(
-    @Param('bookid') bookid: number,
-    @Body() updateBookDto: UpdateBookDto,
-  ) {
-    return await this.bookService.updateBook(bookid, updateBookDto);
-  }
-  //도서 삭제
+  // //도서 상세조회
+  // @Get('/:bookid')
+  // async getBookById(@Param('bookid') id: number) {
+  //   return await this.bookService.getBookById(id);
+  // }
+  // //도서 수정
+  // @Put('/:bookid')
+  // async updateBook(
+  //   @Param('bookid') bookid: number,
+  //   @Body() updateBookDto: UpdateBookDto,
+  // ) {
+  //   return await this.bookService.updateBook(bookid, updateBookDto);
+  // }
+  // //도서 삭제
+  // @Put('/:bookid')
+  // async deleteBook(@Param('bookid') bookid: number) {
+  //   return await this.bookService.deleteBook(bookid);
+  // }
 }

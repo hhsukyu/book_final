@@ -30,16 +30,16 @@ export class Book {
   publisher: string;
 
   @Column()
-  publication_date: Date;
+  publication_date: string;
 
   @Column()
   genre: string;
 
   @Column()
-  isbn: number;
+  isbn: string;
 
   @Column()
-  series: number;
+  setisbn: string;
 
   @Column()
   fnshYn: string;
