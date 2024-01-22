@@ -1,4 +1,4 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { StorebookService } from './store-book.service';
 import { CreateStoreBookDto } from './dto/create-storebook.dto';
 
