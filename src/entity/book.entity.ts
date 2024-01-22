@@ -24,7 +24,7 @@ export class Book {
   writer: string;
 
   @Column()
-  author: string;
+  illustrator: string;
 
   @Column()
   publisher: string;
@@ -37,6 +37,9 @@ export class Book {
 
   @Column()
   isbn: number;
+
+  @Column()
+  series: number;
 
   @CreateDateColumn()
   createdAt: Date;
