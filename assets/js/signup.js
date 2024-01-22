@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function signupform(event) {
   event.preventDefault();
 
@@ -24,6 +25,7 @@ async function signupform(event) {
     });
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function checkPasswordMatch() {
   const password = document.getElementById('Regpassword').value;
   const confirmPassword = document.getElementById('RegconfirmPassword').value;
@@ -36,6 +38,7 @@ function checkPasswordMatch() {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function checkDuplicateEmail() {
   const emailInput = document.getElementById('Regemail');
   const emailError = document.getElementById('emailError');

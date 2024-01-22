@@ -13,6 +13,7 @@ import { MenuModule } from './menu/menu.module';
 import { MyPageModule } from './my-page/my-page.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 import { RedisModule } from './configs/redis/redis.module';
+import { ApiService } from './api/api.service';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { RedisModule } from './configs/redis/redis.module';
     RedisModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ConfigService],
+  providers: [AppService, ConfigService, ApiService],
   exports: [ConfigService],
 })
 export class AppModule {}

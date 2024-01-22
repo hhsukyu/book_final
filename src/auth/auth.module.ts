@@ -19,6 +19,7 @@ import { KakaoAuthGuard } from './guard/kakao-auth.guard';
 import { KakaoAdminStrategy } from './strategy/kakao-admin.strategy';
 import { RedisModule } from 'src/configs/redis/redis.module';
 import { EmailService } from 'src/configs/mailer/email.service';
+import { ApiService } from 'src/api/api.service';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { EmailService } from 'src/configs/mailer/email.service';
     KakaoAdminStrategy,
     KakaoAuthGuard,
     EmailService,
+    ApiService,
   ],
 })
 export class AuthModule {}
