@@ -13,6 +13,7 @@ import { MenuModule } from './menu/menu.module';
 import { MyPageModule } from './my-page/my-page.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 import { RedisModule } from './configs/redis/redis.module';
+import { ReceiptAuthModule } from './receipt-auth/receipt-auth.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { RedisModule } from './configs/redis/redis.module';
     BookReviewModule,
     MyPageModule,
     RedisModule,
+    ReceiptAuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
