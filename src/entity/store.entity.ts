@@ -24,12 +24,6 @@ export class Store {
   @ManyToOne(() => User, (user) => user.stores)
   admin: Relation<User>;
 
-  @OneToMany(() => StoreBook, (storebook) => storebook.store)
-  storebook: Relation<StoreBook>;
-
-  @ManyToOne(() => Store, (store) => store.storebook, { cascade: true })
-  store: Relation<Store>;
-
   @Column()
   store_name: string;
 
