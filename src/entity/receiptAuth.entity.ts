@@ -7,9 +7,10 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 import { StoreReview } from './storeReview.entity';
+import { Store } from './store.entity';
 
 @Entity({
-  name: 'Receipt_auth',
+  name: 'receipt_auth',
 })
 export class ReceiptAuth {
   @PrimaryGeneratedColumn()
@@ -26,4 +27,7 @@ export class ReceiptAuth {
 
   @OneToOne(() => StoreReview, (store_reviews) => store_reviews.receiptAuth)
   store_reviews: StoreReview;
+
+  @ManyToOne(() => Store, (store) => store.receiptAuths)
+  store: Store;
 }
