@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
+import { Book } from '../entity/book.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class ApiService {
   constructor(
-    // @InjectRepository(Book)
-    // private bookRepository: Repository<Book>
+    @InjectRepository(Book)
+    private bookRepository: Repository<Book>,
+
     private readonly configService: ConfigService,
   ) {}
 
@@ -32,6 +34,9 @@ export class ApiService {
       );
 
       const books = response.data.itemList;
+      console.log(books);
+      //데이터에 저장해야할 값 title, pictrWritrNm, sntncWritrNm, plscmpnIdNm, outline,mainGenreCdNm, isbn, setIsbn, fnshYn ,imageDownloadUrl
+
       if (books.length === 0) {
         // 더 이상 처리할 데이터가 없으므로 반복문을 종료합니다.
         break;
@@ -45,11 +50,24 @@ export class ApiService {
         if (existingBook) {
           continue;
         }
+        const newBook = {
+          title: book.title,
+          illustrator: book.pictrWritrNm,
+          writer: book.sntncWritrNm,
+          publisher: book.plscmpnIdNm,
+          book_desc: book.outline,
+          genre: book.mainGenreCdNm,
+          isbn: book.isbn,
+          series: book.setIsbn,
+          fnshYn: book.fnshYn,
+          book_image: book.imageDownloadUrl,
+        };
+
         // 데이터베이스에 책 정보를 저장합니다.
-        // await this.bookRepository.save(book);
+        await this.bookRepository.save(newBook);
       }
 
-      // 다음 페이지를 처리하기 위해 페이지 번호를 증가시킵니다.
+      // // 다음 페이지를 처리하기 위해 페이지 번호를 증가시킵니다.
       pageNo++;
     }
   }

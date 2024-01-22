@@ -19,11 +19,12 @@ import { KakaoAuthGuard } from './guard/kakao-auth.guard';
 import { KakaoAdminStrategy } from './strategy/kakao-admin.strategy';
 import { RedisModule } from 'src/configs/redis/redis.module';
 import { EmailService } from 'src/configs/mailer/email.service';
-import { ApiService } from 'src/api/api.service';
+
+import { Book } from '../entity/book.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Book]),
     JwtModule,
     forwardRef(() => UserModule),
     JwtModule.registerAsync({
@@ -57,7 +58,6 @@ import { ApiService } from 'src/api/api.service';
     KakaoAdminStrategy,
     KakaoAuthGuard,
     EmailService,
-    ApiService,
   ],
 })
 export class AuthModule {}
