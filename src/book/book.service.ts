@@ -11,12 +11,15 @@ import { Repository } from 'typeorm';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { UserService } from 'src/user/user.service';
+import { StoreBook } from 'src/entity/store-book.entity';
 
 @Injectable()
 export class BookService {
   constructor(
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,
+    @InjectRepository(StoreBook)
+    private storeBookRepository: Repository<StoreBook>,
     private readonly userService: UserService,
   ) {}
 

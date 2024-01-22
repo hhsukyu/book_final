@@ -10,7 +10,7 @@ import { Book } from './book.entity';
 import { Store } from './store.entity';
 
 @Entity({
-  name: 'book',
+  name: 'storebook',
 })
 export class StoreBook {
   @PrimaryGeneratedColumn()
@@ -26,7 +26,13 @@ export class StoreBook {
   store_id: number;
 
   @Column()
-  book_id: string;
+  book_id: number;
+
+  @Column()
+  rent: boolean;
+
+  @Column()
+  setisbn: string;
 
   @Column()
   created_at: Date;
