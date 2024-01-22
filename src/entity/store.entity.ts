@@ -13,7 +13,6 @@ import { Menu } from './menu.entity';
 import { StoreBook } from './store-book.entity';
 import { StoreReview } from './storeReview.entity';
 import { AdminReview } from './adminReview.entity';
-import { StoreBook } from './store-book.entity';
 
 @Entity({
   name: 'store',
