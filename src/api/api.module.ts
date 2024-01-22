@@ -3,9 +3,10 @@ import { ApiController } from './api.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from '../entity/book.entity';
 import { ApiService } from './api.service';
+import { Page } from '../entity/bookUpdate.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Book])],
+  imports: [TypeOrmModule.forFeature([Book, Page])],
   controllers: [ApiController],
   providers: [ApiService],
 })

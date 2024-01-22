@@ -12,6 +12,13 @@ export class BookController {
   async createBook(@Body() createBookDto: CreateBookDto) {
     return await this.bookService.createBook(createBookDto);
   }
+
+  //도서 조회
+  @Get('main')
+  async maingetBooks() {
+    return await this.bookService.maingetBooks();
+  }
+
   //도서 조회
   @Get('')
   async getBooks() {

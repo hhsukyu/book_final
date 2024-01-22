@@ -4,12 +4,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
 import { Book } from '../entity/book.entity';
 import { Repository } from 'typeorm';
+import { Page } from '../entity/bookUpdate.entity';
 
 @Injectable()
 export class ApiService {
   constructor(
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,
+    @InjectRepository(Page)
+    private readonly pageRepository: Repository<Page>,
 
     private readonly configService: ConfigService,
   ) {}
@@ -17,8 +20,15 @@ export class ApiService {
   async bookupdate() {
     const key = await this.configService.get('book_api');
 
-    let pageNo = 1;
-    const pageSize = 100;
+    // 페이지 번호를 불러옵니다.
+    let page = await this.pageRepository.findOne({ where: { id: 1 } });
+    if (!page) {
+      // 페이지 정보가 데이터베이스에 없으면 새로 만듭니다.
+      page = this.pageRepository.create();
+      await this.pageRepository.save(page);
+    }
+
+    let pageNo = page.pageNo;
 
     while (true) {
       const response = await axios.get(
@@ -28,47 +38,52 @@ export class ApiService {
             prvKey: key,
             listSeCd: '2',
             pageNo: pageNo,
-            viewItemCnt: pageSize,
+            viewItemCnt: 100,
           },
         },
       );
 
-      const books = response.data.itemList;
-      console.log(books);
-      //데이터에 저장해야할 값 title, pictrWritrNm, sntncWritrNm, plscmpnIdNm, outline,mainGenreCdNm, isbn, setIsbn, fnshYn ,imageDownloadUrl
+      const books = await response.data.itemList;
 
       if (books.length === 0) {
-        // 더 이상 처리할 데이터가 없으므로 반복문을 종료합니다.
         break;
       }
+      console.log(books.length);
+      console.log('---------------------------------------');
 
       for (const book of books) {
         console.log(book.title);
-        // 데이터베이스를 조회하여 동일한 책 정보가 이미 저장되어 있는지 확인합니다.
-        const existingBook = await this.bookRepository.findOne(book.bookId);
-        // 동일한 책 정보가 이미 저장되어 있다면, 이번 책 정보를 저장하지 않고 다음 책 정보로 넘어갑니다.
-        if (existingBook) {
-          continue;
-        }
-        const newBook = {
-          title: book.title,
-          illustrator: book.pictrWritrNm,
-          writer: book.sntncWritrNm,
-          publisher: book.plscmpnIdNm,
-          book_desc: book.outline,
-          genre: book.mainGenreCdNm,
-          isbn: book.isbn,
-          setisbn: book.setIsbn,
-          fnshYn: book.fnshYn,
-          book_image: book.imageDownloadUrl,
-        };
+        const existingBook = await this.bookRepository.findOne({
+          where: { title: book.title },
+        });
 
-        // 데이터베이스에 책 정보를 저장합니다.
-        await this.bookRepository.save(newBook);
+        if (existingBook === null) {
+          const newBook = {
+            title: book.title || '제목 없음',
+            illustrator: book.pictrWritrNm || '미상',
+            writer: book.sntncWritrNm || '미상',
+            publisher: book.plscmpnIdNm || '미상',
+            publication_date: book.pblicteDe || '0000-00-00',
+            book_desc: book.outline || '설명 없음',
+            genre: book.mainGenreCdNm || '미상',
+            isbn: book.isbn || '000-0-00-000000-0',
+            setisbn: book.setIsbn || '000-0-00-000000-0',
+            fnshYn: book.fnshYn || 'N',
+            book_image: book.imageDownloadUrl || '이미지 없음',
+          };
+
+          await this.bookRepository.save(newBook);
+          console.log('데이터 저장 성공');
+        } else {
+          console.log('존재');
+        }
       }
 
-      // // 다음 페이지를 처리하기 위해 페이지 번호를 증가시킵니다.
-      pageNo++;
+      pageNo = pageNo + 100;
+
+      // 페이지 번호를 업데이트합니다.
+      page.pageNo = pageNo;
+      await this.pageRepository.save(page);
     }
   }
 }
