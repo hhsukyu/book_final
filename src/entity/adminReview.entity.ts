@@ -16,10 +16,10 @@ export class AdminReview {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'store_id' })
   storeId: number;
 
-  @Column()
+  @Column({ name: 'store_review_id' })
   storeReviewId: number;
 
   @Column()
