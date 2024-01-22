@@ -53,6 +53,11 @@ export class UserService {
     return user;
   }
 
+  async findEmail(email: string) {
+    const user = await this.userRepository.findOne({ where: { email } });
+    return { isEmailExists: !!user };
+  }
+
   async findAll() {
     return await this.userRepository.find({
       select: ['id', 'email', 'nickname', 'createdAt', 'updatedAt'],

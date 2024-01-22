@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function loginForm(event) {
   event.preventDefault();
 

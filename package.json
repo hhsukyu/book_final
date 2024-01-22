@@ -34,6 +34,7 @@
     "@types/papaparse": "^5.3.14",
     "@types/passport": "^1.0.16",
     "aws-sdk": "^2.1537.0",
+    "axios": "^1.6.5",
     "bcrypt": "^5.1.1",
     "cache-manager": "^5.4.0",
     "cache-manager-redis-store": "^3.0.1",

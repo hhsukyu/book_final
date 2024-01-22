@@ -20,12 +20,18 @@ import { SignupAdminDto } from './dto/signup-admin.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { SendVerificationCodeDto } from './dto/send-verification-code.dto';
 import { VerifyCodeDto } from './dto/verify-code.dto';
-import { UpdatePasswordDto } from './dto/update-password.dto copy';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UserId } from './decorators/userId.decorator';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService,
+  ) {}
+
+  //만화 규장 API 데이터 실험
 
   @Post('signup')
   signup(@Body() singupUserDto: SignupUserDto) {

@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Put,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -22,6 +23,11 @@ export class UserController {
     private readonly userService: UserService,
     private readonly menuService: MenuService,
   ) {}
+
+  @Get('email')
+  findEmail(@Query('email') email: string) {
+    return this.userService.findEmail(email);
+  }
 
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
