@@ -20,7 +20,7 @@ import { SignupAdminDto } from './dto/signup-admin.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { SendVerificationCodeDto } from './dto/send-verification-code.dto';
 import { VerifyCodeDto } from './dto/verify-code.dto';
-import { UpdatePasswordDto } from './dto/update-password.dto copy';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UserId } from './decorators/userId.decorator';
 import { ApiService } from 'src/api/api.service';
 import { ConfigService } from '@nestjs/config';
