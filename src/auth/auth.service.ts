@@ -14,12 +14,17 @@ import { SignupAdminDto } from './dto/signup-admin.dto';
 import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { RedisService } from '../configs/redis/redis.service';
+import { EmailService } from '../configs/mailer/email.service';
+import { UpdatePasswordDto } from './dto/update-password.dto copy';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly configService: ConfigService,
     private readonly userService: UserService,
+    private readonly redisService: RedisService,
+    private readonly emailService: EmailService,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
@@ -301,5 +306,35 @@ export class AuthService {
         `http://localhost:3000/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
       );
     else res.redirect('http://localhost:3000/login/failure');
+  }
+
+  //비밀번호 찾기- 이메일 인증번호 보내기
+  async sendVerificationCode(email: string) {
+    const code = String(Math.floor(Math.random() * 1000000)).padStart(6, '0');
+    await this.redisService.setVerificationCode(email, code);
+    await this.emailService.sendVerificationEmail(email, code);
+  }
+  //비밀번호 찾기-인증번호 확인
+  async verifyCode(code: string, email: string) {
+    const storedCode = await this.redisService.getVerificationCode(email);
+    return storedCode === code;
+  }
+
+  //비밀번호 찾기-비밀번호 재설정
+  async updatePassword(userId: number, updatePasswordDto: UpdatePasswordDto) {
+    if (updatePasswordDto.password !== updatePasswordDto.checkPassword) {
+      throw new BadRequestException(
+        '비밀번호와 확인 비밀번호가 일치하지 않습니다.',
+      );
+    }
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    const saltRounds = +this.configService.get<number>('SALT_ROUNDS');
+    const salt = await bcrypt.genSalt(saltRounds);
+
+    const hashedPassword = await bcrypt.hash(updatePasswordDto.password, salt);
+
+    user.password = hashedPassword;
+    await this.userRepository.save(user);
   }
 }
