@@ -58,7 +58,7 @@ export class ApiService {
           book_desc: book.outline,
           genre: book.mainGenreCdNm,
           isbn: book.isbn,
-          series: book.setIsbn,
+          setisbn: book.setIsbn,
           fnshYn: book.fnshYn,
           book_image: book.imageDownloadUrl,
         };
