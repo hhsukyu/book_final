@@ -10,6 +10,7 @@ import { StoreModule } from './store/store.module';
 import { AdminReviewModule } from './admin-review/adminReview.module';
 import { StoreReviewModule } from './store-review/store-review.module';
 import { MenuModule } from './menu/menu.module';
+import { BookModule } from './book/book.module';
 import { MyPageModule } from './my-page/my-page.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 import { RedisModule } from './configs/redis/redis.module';
@@ -26,6 +27,7 @@ import { RedisModule } from './configs/redis/redis.module';
     AdminReviewModule,
     StoreReviewModule,
     BookReviewModule,
+    BookModule,
     MyPageModule,
     RedisModule,
   ],
