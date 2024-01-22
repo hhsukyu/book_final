@@ -14,6 +14,7 @@ import { BookModule } from './book/book.module';
 import { MyPageModule } from './my-page/my-page.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 import { RedisModule } from './configs/redis/redis.module';
+import { ApiModule } from './api/api.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { RedisModule } from './configs/redis/redis.module';
     BookModule,
     MyPageModule,
     RedisModule,
+    ApiModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],

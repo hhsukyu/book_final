@@ -41,6 +41,12 @@ export class Book {
   @Column()
   series: number;
 
+  @Column()
+  fnshYn: string;
+
+  @Column()
+  book_image: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

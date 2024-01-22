@@ -20,9 +20,11 @@ import { KakaoAdminStrategy } from './strategy/kakao-admin.strategy';
 import { RedisModule } from 'src/configs/redis/redis.module';
 import { EmailService } from 'src/configs/mailer/email.service';
 
+import { Book } from '../entity/book.entity';
+
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Book]),
     JwtModule,
     forwardRef(() => UserModule),
     JwtModule.registerAsync({
