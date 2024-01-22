@@ -8,10 +8,12 @@ import { ConfigProjectModule } from './config/config.module';
 import { TypeormModule } from './typeorm/typeorm.module';
 import { StoreModule } from './store/store.module';
 import { AdminReviewModule } from './admin-review/adminReview.module';
-// import { StoreReviewModule } from './storeReview/store-review.module';
-import { BookReviewModule } from './bookreview/bookreview.module';
+import { StoreReviewModule } from './store-review/store-review.module';
 import { MenuModule } from './menu/menu.module';
 import { BookModule } from './book/book.module';
+import { MyPageModule } from './my-page/my-page.module';
+import { BookReviewModule } from './bookreview/bookreview.module';
+import { RedisModule } from './configs/redis/redis.module';
 
 @Module({
   imports: [
@@ -23,9 +25,11 @@ import { BookModule } from './book/book.module';
     StoreModule,
     MenuModule,
     AdminReviewModule,
-    // StoreReviewModule,
+    StoreReviewModule,
     BookReviewModule,
     BookModule,
+    MyPageModule,
+    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],

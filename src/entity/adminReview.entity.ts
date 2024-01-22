@@ -8,7 +8,7 @@ import {
   Relation,
 } from 'typeorm';
 import { Store } from './store.entity';
-// import { StoreReview } from './storeReview.entity';
+import { StoreReview } from './storeReview.entity';
 @Entity({
   name: 'admin_review',
 })
@@ -31,9 +31,9 @@ export class AdminReview {
   @UpdateDateColumn()
   updated_at: Date;
 
-  // @ManyToOne(() => Store, (store) => store.admin_reviews)
-  // store: Relation<Store>;
+  @ManyToOne(() => Store, (store) => store.adminReviews)
+  store: Relation<Store>;
 
-  // @ManyToOne(() => StoreReview, (store_review) => store_review.admin_reviews)
-  // store_review: Relation<StoreReview>[];
+  @ManyToOne(() => StoreReview, (store_review) => store_review.admin_review)
+  store_review: Relation<StoreReview>[];
 }

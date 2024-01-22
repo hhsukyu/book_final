@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Req,
   Res,
   UnauthorizedException,
@@ -17,6 +18,10 @@ import { accessTokenGuard } from './guard/access-token.guard';
 import { Request } from 'express';
 import { SignupAdminDto } from './dto/signup-admin.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { SendVerificationCodeDto } from './dto/send-verification-code.dto';
+import { VerifyCodeDto } from './dto/verify-code.dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
+import { UserId } from './decorators/userId.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -105,5 +110,32 @@ export class AuthController {
   @UseGuards(AuthGuard('kakao-admin'))
   async kakaoAdminLoginCallback(@Req() req, @Res() res) {
     return await this.authService.kakaoAdminLoginCallback({ req, res });
+  }
+
+  //비밀번호 찾기-이메일 인증번호 전송
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
+  @Post('/send-verification')
+  async sendVerificationCode(
+    @Body() sendVerificationCodeDto: SendVerificationCodeDto,
+  ) {
+    await this.authService.sendVerificationCode(sendVerificationCodeDto.email);
+  }
+  //비밀번호 찾기-인증번호 확인
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
+  @Post('/verify-code')
+  async verifyCode(@Body() verifyCodeDto: VerifyCodeDto) {
+    await this.authService.verifyCode(verifyCodeDto.code, verifyCodeDto.email);
+  }
+  //비밀번호 찾기-비밀번호 재설정
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
+  @Put('/update-password')
+  async updatePassword(
+    @UserId() userId: number,
+    @Body() updatePasswordDto: UpdatePasswordDto,
+  ) {
+    await this.authService.updatePassword(userId, updatePasswordDto);
   }
 }
