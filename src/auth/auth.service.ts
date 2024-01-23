@@ -179,11 +179,11 @@ export class AuthService {
       currentRefreshToken: refreshToken,
     });
 
-    if (OAuthUser)
+    if (OAuthUser) {
       res.redirect(
-        `http://localhost:3000/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+        `http://localhost:3000/auth/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
       );
-    else res.redirect('http://localhost:3000/login/failure');
+    } else res.redirect('http://localhost:3000/login&signup.html');
   }
 
   //네이버 지점업주 회원가입/로그인
@@ -262,9 +262,9 @@ export class AuthService {
 
     if (OAuthUser)
       res.redirect(
-        `http://localhost:3000/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+        `http://localhost:3000/auth/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
       );
-    else res.redirect('http://localhost:3000/login/failure');
+    else res.redirect('http://localhost:3000/login&signup.html');
   }
 
   //카카오 지점업주 회원가입/로그인

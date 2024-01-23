@@ -19,9 +19,10 @@ export class BookService {
   constructor(
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,
-    @InjectRepository(StoreBook)
-    private storeBookRepository: Repository<StoreBook>,
+    // @InjectRepository(StoreBook)
+    // private storeBookRepository: Repository<StoreBook>,
     private readonly userService: UserService,
+    // private readonly storeBookService: StorebookService,
   ) {}
 
   //도서 생성

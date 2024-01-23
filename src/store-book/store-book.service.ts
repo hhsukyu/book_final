@@ -25,7 +25,7 @@ export class StorebookService {
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,
 
-    private readonly bookService: BookService,
+    // private readonly bookService: BookService,
     private readonly storeService: StoreService,
     private readonly userService: UserService,
   ) {}
@@ -62,6 +62,7 @@ export class StorebookService {
 
     return booksInStore;
   }
+
   //지점도서 상세조회
   async getStoreBookById(storebookid: number) {
     const storebook = await this.storeBookRepository.findOne({
@@ -75,12 +76,20 @@ export class StorebookService {
   async updateStoreBook(
     bookid: number,
     userid: number,
+    storeid: number,
     updateStoreBookDto: UpdateStoreBookDto,
   ) {
     const user = await this.userService.findUserById(userid);
+    const store = await this.storeRepository.findOne({
+      where: { id: storeid },
+    });
     const book = await this.bookRepository.findOne({
       where: { id: bookid },
     });
+
+    if (user.stores.every((s) => s.id !== store.id)) {
+      throw new BadRequestException('소유주만 삭제 및 수정이 가능합니다.');
+    }
 
     if (!book) {
       throw new NotFoundException('존재하지 않는 도서입니다.');
@@ -109,16 +118,22 @@ export class StorebookService {
   }
 
   // 지점도서 삭제
-  async deleteStoreBook(storebookid: number, userid: number) {
+  async deleteStoreBook(storebookid: number, userid: number, storeid: number) {
     const user = await this.userService.findUserById(userid);
     const book = await this.storeBookRepository.findOne({
       where: { id: storebookid },
+    });
+    const store = await this.storeRepository.findOne({
+      where: { id: storeid },
     });
 
     if (!book) {
       throw new NotFoundException('존재하지 않는 도서입니다.');
     }
 
+    if (user.stores.every((s) => s.id !== store.id)) {
+      throw new BadRequestException('소유주만 삭제 및 수정이 가능합니다.');
+    }
     // const storeBook = await this.storeBookRepository.findOne({
     //   where: { book: { id: bookid } },
     //   relations: { store: true },

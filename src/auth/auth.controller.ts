@@ -4,6 +4,7 @@ import {
   Get,
   Post,
   Put,
+  Query,
   Req,
   Res,
   UnauthorizedException,
@@ -72,6 +73,18 @@ export class AuthController {
     }
 
     return this.authService.logout(userId);
+  }
+
+  @Get('login/success')
+  async naverSuccess(
+    @Query('accessToken') accessToken: string,
+    @Query('refreshToken') refreshToken: string,
+    @Res() res: any,
+  ) {
+    console.log('teest');
+    res.cookie('accessToken', accessToken);
+    res.cookie('refreshToken', refreshToken);
+    res.redirect('http://localhost:3000');
   }
 
   //네이버 일반사용자 소셜로그인

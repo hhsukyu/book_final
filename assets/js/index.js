@@ -2,6 +2,14 @@ const header = document.getElementById('header');
 const body = document.getElementById('card-list');
 
 window.onload = function () {
+  const cookieaccess = getCookie('accessToken');
+  const cookierefresh = getCookie('refreshToken');
+
+  if (cookieaccess && cookierefresh) {
+    localStorage.setItem('accessToken', cookieaccess);
+    localStorage.setItem('refreshToken', cookierefresh);
+  }
+
   const token = localStorage.getItem('accessToken');
 
   if (!token) {
@@ -13,6 +21,13 @@ window.onload = function () {
   mainBookcard();
   window.addEventListener('keyup', (e) => console.log(e));
 };
+
+//쿠키값을 로컬스토리지로 변경해주는 함수
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 function mainBookcard() {
   axios
@@ -108,7 +123,7 @@ function loadHeader(page) {
               <li><a class="dropdown-item" href="#">내 정보</a></li>
               <li><a class="dropdown-item" href="#">위시리스트</a></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">로그아웃</a></li>
+              <li><a onclick="logout()" class="dropdown-item">로그아웃</a></li>
             </ul>
           </div>
         </div>

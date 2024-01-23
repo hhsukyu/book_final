@@ -35,6 +35,9 @@ import { Book } from '../entity/book.entity';
     }),
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     RedisModule,
+    // SessionModule.forRoot({
+    //   session: { secret: 'your-secret-key' },
+    // }),
   ],
   exports: [
     accessTokenGuard,
