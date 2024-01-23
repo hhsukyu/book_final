@@ -48,13 +48,8 @@ body {
 }
 /* ----------- SLIDER ------------ */
 
-section {
-  position: relative;
-  height: 450px;
-  width: 1075px;
-  display: flex;
-  align-items: center;
-  margin: 0 auto; /* 가운데 정렬을 위해 margin 속성 추가 */
+.swiper {
+  width: 950px;
 }
 
 .card {
@@ -141,18 +136,6 @@ section .card .image img {
   font-weight: 500;
 }
 
-.card .rating {
-  display: flex;
-  align-items: center;
-  margin-top: 18px;
-}
-
-.card .rating i {
-  font-size: 18px;
-  margin: 0 2px;
-  color: #7d2ae8;
-}
-
 .card .button {
   width: 100%;
   display: flex;
@@ -161,7 +144,7 @@ section .card .image img {
 }
 
 .card .button button {
-  background: #7d2ae8;
+  background: #ff269d;
   outline: none;
   border: none;
   color: #fff;
@@ -173,7 +156,7 @@ section .card .image img {
 }
 
 .button button:hover {
-  background: #6616d0;
+  background: #47c7ff;
 }
 
 .swiper-pagination {
@@ -198,12 +181,4 @@ section .card .image img {
 .swiper-button-prev:hover {
   opacity: 1;
   color: white;
-}
-
-.slide-container {
-  margin: 25px;
-  width: 350px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
 }
