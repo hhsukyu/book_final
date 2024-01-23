@@ -58,31 +58,32 @@ export class BookService {
     return book;
   }
 
-  // //도서 수정
-  // async updateBook(
-  //   bookid: number,
-  //   updateBookDto: UpdateBookDto,
-  //   userid: number,
-  // ) {
-  //   const user = await this.userService.findUserById(userid);
-  //   const storebook = await this.storeBookService.
-  //   const book = await this.bookRepository.findOne({
-  //     where: { id: bookid },
-  //   });
-  //   if (!book) {
-  //     throw new NotFoundException('존재하지 않는 도서입니다.');
-  //   }
+  //도서 수정
+  async updateBook(
+    bookid: number,
+    updateBookDto: UpdateBookDto,
+    userid: number,
+  ) {
+    const user = await this.userService.findUserById(userid);
+    // const storebook = await this.storeBookService;
+    const book = await this.bookRepository.findOne({
+      where: { id: bookid },
+    });
+    if (!book) {
+      throw new NotFoundException('존재하지 않는 도서입니다.');
+    }
 
-  //   if (user.stores.every((s) => s.id !== store.id)) {
-  //     throw new BadRequestException('지점 사장님만 수정이 가능합니다.');
-  //   }
-  //   await this.bookRepository.update(
-  //     {
-  //       id: bookid,
-  //     },
-  //     { ...updateBookDto },
-  //   );
+    // if (user.stores.every((s) => s.id !== store.id)) {
+    //   throw new BadRequestException('지점 사장님만 수정이 가능합니다.');
+    // }
+    await this.bookRepository.update(
+      {
+        id: bookid,
+      },
+      { ...updateBookDto },
+    );
 
-  //   return { message: '도서 정보가 수정되었습니다.' };
-  // }
+    //   return { message: '도서 정보가 수정되었습니다.' };
+    // }
+  }
 }
