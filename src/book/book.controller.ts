@@ -32,13 +32,11 @@ export class BookController {
     return await this.bookService.createBook(createBookDto, userid);
   }
 
-
-  //도서 조회
-  @Get('main')
-  async maingetBooks() {
-    return await this.bookService.maingetBooks();
-  }
-
+  // //도서 조회
+  // @Get('main')
+  // async maingetBooks() {
+  //   return await this.bookService.maingetBooks();
+  // }
 
   //도서 조회
   @ApiBearerAuth('accessToken')
@@ -55,15 +53,15 @@ export class BookController {
   async getBookById(@Param('bookid') id: number) {
     return await this.bookService.getBookById(id);
   }
-  //도서 수정
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
-  @Put('/:bookid')
-  async updateBook(
-    @Body() updateBookDto: UpdateBookDto,
-    @Param('bookid') bookid: number,
-    @UserId() userid: number,
-  ) {
-    return await this.bookService.updateBook(bookid, updateBookDto, userid);
-  }
+  // //도서 수정
+  // @ApiBearerAuth('accessToken')
+  // @UseGuards(accessTokenGuard)
+  // @Put('/:bookid')
+  // async updateBook(
+  //   @Body() updateBookDto: UpdateBookDto,
+  //   @Param('bookid') bookid: number,
+  //   @UserId() userid: number,
+  // ) {
+  //   return await this.bookService.updateBook(bookid, updateBookDto, userid);
+  // }
 }

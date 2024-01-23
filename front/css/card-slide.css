@@ -64,7 +64,6 @@ section {
   height: 400px;
   margin: 20px 0;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0; /* 카드가 섹션 내에서 축소되지 않도록 설정 */
 }
 
 .card::before {
@@ -207,65 +206,4 @@ section .card .image img {
   height: 200px;
   display: flex;
   justify-content: center;
-}
-
-/*마이페이지*/
-
-.mypage-section {
-  margin-top: 500px;
-}
-
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.buttons {
-  margin: 10%;
-  text-align: center;
-}
-
-.btn-hover {
-  width: 200px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  margin: 20px;
-  height: 55px;
-  text-align: center;
-  border: none;
-  background-size: 300% 100%;
-
-  border-radius: 50px;
-
-  -o-transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
-
-.btn-hover:hover {
-  background-position: 100% 0;
-  moz-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
-
-.btn-hover:focus {
-  outline: none;
-}
-.btn-hover.color-8 {
-  background-image: linear-gradient(to right, #ff269d, #47c7ff);
-  box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
-}
-.update-container {
-  margin: 25px;
-  width: 20px;
-  height: 100px;
-  /* 상하좌우 정중앙 정렬하기 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
