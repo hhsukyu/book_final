@@ -39,3 +39,4 @@ google_key.json
 
 .development.env
 
+testFiles.ts

@@ -4,13 +4,15 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entity/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { CreateBookDto } from 'src/book/dto/create-book.dto';
+import { MyPage } from '../entity/my-page.entity';
 
 @Injectable()
 export class UserService {
@@ -18,6 +20,8 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly configService: ConfigService,
+    @InjectRepository(MyPage) // My_page 레포지토리 추가
+    private readonly myPageRepository: Repository<MyPage>,
   ) {}
 
   //유저 회원가입
@@ -139,5 +143,19 @@ export class UserService {
     const result = await this.userRepository.delete({ id });
 
     return result;
+  }
+
+  //특정한 책을 리스트에 담아놓고 있는 user 추출
+
+  async UsersByWishedBook(title: string): Promise<number[]> {
+    const myPageRecords = await this.myPageRepository.find({
+      where: { wish_list: Like(`%${title}%`) }, // 위시리스트에 해당 책이 포함된 레코드를 찾음
+      relations: ['user'], // 사용자 정보를 함께 로드
+    });
+
+    // 위시리스트에 해당 책을 가진 사용자들의 ID를 추출
+    const userIds = myPageRecords.map((list) => list.user.id);
+
+    return userIds;
   }
 }

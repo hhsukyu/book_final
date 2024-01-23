@@ -15,6 +15,7 @@ import { MyPageModule } from './my-page/my-page.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 import { RedisModule } from './configs/redis/redis.module';
 import { ApiModule } from './api/api.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ApiModule } from './api/api.module';
     MyPageModule,
     RedisModule,
     ApiModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
