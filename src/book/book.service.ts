@@ -20,6 +20,16 @@ export class BookService {
     return book;
   }
 
+  async maingetBooks() {
+    const books = await this.bookRepository
+      .createQueryBuilder()
+      .orderBy('RAND()') // 랜덤하게 정렬
+      .take(20) // 상위 20개만 가져오기
+      .getMany();
+
+    return books;
+  }
+
   async getBooks() {
     const books = await this.bookRepository.find({});
 
