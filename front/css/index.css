@@ -47,71 +47,156 @@ body {
   margin-top: 20px;
 }
 /* ----------- SLIDER ------------ */
-.swiper {
-  width: 100%;
-}
 
-.swiper-wrapper {
-  width: 100%;
-  height: 35em;
+section {
+  position: relative;
+  height: 450px;
+  width: 1075px;
   display: flex;
   align-items: center;
+  margin: 0 auto; /* 가운데 정렬을 위해 margin 속성 추가 */
 }
 
 .card {
-  width: 20em;
-  height: 90%;
-  background-color: #fff;
-  border-radius: 2em;
-  box-shadow: 0 0 2em rgba(0, 0, 0, 0.2);
-  padding: 2em 1em;
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
-  margin: 0 2em;
-}
-
-.swiper-slide:not(.swiper-slide-active) {
-  filter: blur(1px);
-}
-
-.card__image {
-  width: 10em;
-  height: 10em;
-  border-radius: 50%;
-  border: 5px solid var(--color);
-  padding: 3px;
-  margin-bottom: 2em;
-}
-
-.card__image img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.card__content {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.card__title {
-  font-size: 1.5rem;
-  font-weight: 500;
   position: relative;
-  top: 0.2em;
+  background: #fff;
+  border-radius: 20px;
+  height: 400px;
+  margin: 20px 0;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* 카드가 섹션 내에서 축소되지 않도록 설정 */
 }
 
-.card__name {
-  color: var(--color);
+.card::before {
+  content: '';
+  position: absolute;
+  height: 40%;
+  width: 100%;
+  background: white;
+  border-radius: 20px 20px 0 0;
 }
 
-.card__text {
-  text-align: center;
-  font-size: 1.1rem;
-  margin: 1em 0;
+.card .card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  position: relative;
+  z-index: 100;
+}
+
+section .card .image {
+  height: 140px;
+  width: 140px;
+  border-radius: 20%;
+  padding: 3px;
+  background: linear-gradient(to right, #ff269d, #47c7ff);
+  margin-top: 30px;
+}
+
+section .card .image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20%;
+  border: 3px solid #fff;
+}
+
+.card .media-icons {
+  position: absolute;
+  top: 12px;
+  right: 95px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.card .media-icons i {
+  color: #7d2ae8;
+  opacity: 0.6;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.card .media-icons i:hover {
+  opacity: 1;
+}
+
+.card .name-profession {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  color: black;
+}
+
+.name-profession .name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.name-profession .profession {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.card .rating {
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.card .rating i {
+  font-size: 18px;
+  margin: 0 2px;
+  color: #7d2ae8;
+}
+
+.card .button {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.card .button button {
+  background: #7d2ae8;
+  outline: none;
+  border: none;
+  color: #fff;
+  padding: 8px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.button button:hover {
+  background: #6616d0;
+}
+
+.swiper-pagination {
+  position: absolute;
+  top: 450px;
+}
+
+.swiper-pagination-bullet {
+  height: 7px;
+  width: 26px;
+  border-radius: 25px;
+  background: white;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  opacity: 0.7;
+  color: white;
+  transition: all 0.3s ease;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  opacity: 1;
+  color: white;
 }
