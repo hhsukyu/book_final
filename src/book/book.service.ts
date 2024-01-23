@@ -12,6 +12,7 @@ import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { UserService } from 'src/user/user.service';
 import { StoreBook } from 'src/entity/store-book.entity';
+import { StorebookService } from 'src/store-book/store-book.service';
 
 @Injectable()
 export class BookService {
@@ -21,6 +22,7 @@ export class BookService {
     @InjectRepository(StoreBook)
     private storeBookRepository: Repository<StoreBook>,
     private readonly userService: UserService,
+    private readonly storeBookService: StorebookService,
   ) {}
 
   //도서 생성
@@ -64,7 +66,7 @@ export class BookService {
     userid: number,
   ) {
     const user = await this.userService.findUserById(userid);
-
+    const storebook = await this.storeBookService;
     const book = await this.bookRepository.findOne({
       where: { id: bookid },
     });
@@ -72,6 +74,9 @@ export class BookService {
       throw new NotFoundException('존재하지 않는 도서입니다.');
     }
 
+    if (user.stores.every((s) => s.id !== store.id)) {
+      throw new BadRequestException('지점 사장님만 수정이 가능합니다.');
+    }
     await this.bookRepository.update(
       {
         id: bookid,
@@ -80,33 +85,5 @@ export class BookService {
     );
 
     return { message: '도서 정보가 수정되었습니다.' };
-  }
-
-  // 도서 삭제
-  async deleteBook(bookid: number, userid: number) {
-    // const user = await this.userService.findUserById(userid);
-    // const book = await this.bookRepository.findOne({
-    //   where: { id: bookid },
-    // });
-
-    // if (!book) {
-    //   throw new NotFoundException('존재하지 않는 도서입니다.');
-    // }
-
-    // const storeBook = await this.storeBookRepository.findOne({
-    //   where: { book: { id: bookid } },
-    //   relations: { store: true },
-    // });
-    // console.log('storeBook', storeBook);
-    // if (
-    //   !storeBook ||
-    //   user.stores.every((store) => store.id !== storeBook.store.id)
-    // ) {
-    //   throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
-    // }
-
-    await this.bookRepository.delete({ id: bookid });
-
-    return { message: '도서 정보가 삭제되었습니다.' };
   }
 }

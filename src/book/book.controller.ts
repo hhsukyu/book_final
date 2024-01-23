@@ -58,11 +58,4 @@ export class BookController {
   ) {
     return await this.bookService.updateBook(bookid, updateBookDto, userid);
   }
-  //도서 삭제
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
-  @Delete('/:bookid')
-  async deleteBook(@Param('bookid') bookid: number, @UserId() userid: number) {
-    return await this.bookService.deleteBook(bookid, userid);
-  }
 }
