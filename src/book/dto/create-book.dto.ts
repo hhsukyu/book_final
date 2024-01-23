@@ -24,7 +24,7 @@ export class CreateBookDto {
 
   @IsDate()
   @ApiProperty({ description: '출판날짜' })
-  publication_date: Date;
+  publication_date: string;
 
   @IsString()
   @ApiProperty({ description: '장르' })
@@ -32,9 +32,9 @@ export class CreateBookDto {
 
   @IsNumber()
   @ApiProperty({ description: 'ISBN' })
-  isbn: number;
+  isbn: string;
 
   @IsNumber()
   @ApiProperty({ description: '시리즈' })
-  series: number;
+  setisbn: string;
 }
