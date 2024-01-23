@@ -88,7 +88,7 @@ export class StoreService {
     const store = await this.findStoreById(storeid);
 
     if (user.stores.every((s) => s.id !== store.id)) {
-      throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
+      throw new BadRequestException('지점 사장님만 수정이 가능합니다.');
     }
 
     await this.storeRepository.update(

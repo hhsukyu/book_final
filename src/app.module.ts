@@ -16,6 +16,7 @@ import { BookReviewModule } from './bookreview/bookreview.module';
 import { RedisModule } from './configs/redis/redis.module';
 import { ApiModule } from './api/api.module';
 import { NotificationModule } from './notification/notification.module';
+import { StorebookModule } from './store-book/store-book.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { NotificationModule } from './notification/notification.module';
     RedisModule,
     ApiModule,
     NotificationModule,
+    StorebookModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
