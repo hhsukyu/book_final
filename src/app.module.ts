@@ -21,6 +21,7 @@ import { NotificationModule } from './notification/notification.module';
 import { StorebookModule } from './store-book/store-book.module';
 import { SseModule } from './sse/sse.module';
 import { TypeormModule } from './typeorm/typeorm.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
