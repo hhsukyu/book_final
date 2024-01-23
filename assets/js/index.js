@@ -11,6 +11,7 @@ window.onload = function () {
   }
 
   mainBookcard();
+  window.addEventListener('keyup', (e) => console.log(e));
 };
 
 function mainBookcard() {
@@ -51,7 +52,22 @@ function loadHeader(page) {
   let headerContent = '';
 
   if (page === 'home') {
-    headerContent = `<h2>Home Page</h2>`;
+    headerContent = `
+    <div class="container" style="max-width: 3000px;">
+          <div class="d-flex flex-wrap align-items-center justify-content-center">
+            <ul class="nav col col-lg-auto me-lg-5 mb-2 mb-md-0 text-center">
+              <li><a href="#" class="nav-link px-2 text-white">HOME</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">INTRODUCE</a></li>
+            </ul>
+            <form class="col-12 col-md-6 d-flex mb-3 mb-lg-0" role="search">
+              <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+            </form>
+            <ul class="nav col col-lg-auto me-lg-5 mb-2 mb-md-0 text-center">
+              <li><a href="login&signup.html" class="nav-link px-3 text-white">LOGIN</a></li>
+            </ul>
+          </div>
+        </div>
+    `;
     // 로그인 시 로그인 회원 정보 출력
   } else if (page === 'login') {
     headerContent = `
