@@ -32,6 +32,14 @@ export class BookController {
     return await this.bookService.createBook(createBookDto, userid);
   }
 
+
+  //도서 조회
+  @Get('main')
+  async maingetBooks() {
+    return await this.bookService.maingetBooks();
+  }
+
+
   //도서 조회
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)

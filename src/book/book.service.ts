@@ -43,7 +43,19 @@ export class BookService {
     return book;
   }
 
-  //도서 조회
+
+
+  async maingetBooks() {
+    const books = await this.bookRepository
+      .createQueryBuilder()
+      .orderBy('RAND()') // 랜덤하게 정렬
+      .take(20) // 상위 20개만 가져오기
+      .getMany();
+
+    return books;
+  }
+
+
   async getBooks() {
     const books = await this.bookRepository.find({});
 

@@ -32,7 +32,7 @@ export class Book {
   @Column()
   publication_date: string;
 
-  @Column()
+  @Column({ nullable: true })
   genre: string;
 
   @Column()
