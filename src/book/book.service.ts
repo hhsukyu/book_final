@@ -84,25 +84,26 @@ export class BookService {
 
   // 도서 삭제
   async deleteBook(bookid: number, userid: number) {
-    const user = await this.userService.findUserById(userid);
-    const book = await this.bookRepository.findOne({
-      where: { id: bookid },
-    });
+    // const user = await this.userService.findUserById(userid);
+    // const book = await this.bookRepository.findOne({
+    //   where: { id: bookid },
+    // });
 
-    if (!book) {
-      throw new NotFoundException('존재하지 않는 도서입니다.');
-    }
+    // if (!book) {
+    //   throw new NotFoundException('존재하지 않는 도서입니다.');
+    // }
 
-    const storeBook = await this.storeBookRepository.findOne({
-      where: { book: { id: bookid } },
-    });
-    console.log('storeBook', storeBook);
-    if (
-      !storeBook ||
-      user.stores.every((store) => store.id !== storeBook.store.id)
-    ) {
-      throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
-    }
+    // const storeBook = await this.storeBookRepository.findOne({
+    //   where: { book: { id: bookid } },
+    //   relations: { store: true },
+    // });
+    // console.log('storeBook', storeBook);
+    // if (
+    //   !storeBook ||
+    //   user.stores.every((store) => store.id !== storeBook.store.id)
+    // ) {
+    //   throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
+    // }
 
     await this.bookRepository.delete({ id: bookid });
 

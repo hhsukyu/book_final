@@ -13,6 +13,7 @@ import { CreateStoreBookDto } from './dto/create-storebook.dto';
 import { Store } from 'src/entity/store.entity';
 import { Book } from 'src/entity/book.entity';
 import { UserService } from 'src/user/user.service';
+import { UpdateStoreBookDto } from './dto/update-storebook.dto';
 
 @Injectable()
 export class StorebookService {
@@ -28,6 +29,8 @@ export class StorebookService {
     private readonly storeService: StoreService,
     private readonly userService: UserService,
   ) {}
+
+  //지점도서 등록
   async createStoreBook(
     storeid: number,
     bookid: number,
@@ -44,12 +47,6 @@ export class StorebookService {
       throw new BadRequestException('도서 또는 지점을 찾을 수 없습니다.');
     }
 
-    // const storebook = await this.storeBookRepository.findOne({
-    //   book,
-    //   store,
-    //   createStoreBookDto,
-    // });
-
     const storebook = await this.storeBookRepository.save({
       book_id: bookid,
       store_id: storeid,
@@ -59,36 +56,27 @@ export class StorebookService {
     return storebook;
   }
 
-  //   const { book_id, store_id, rent, setisbn } = createStoreBookDto;
-
-  //   const book = await this.bookService.getBookById(book_id);
-  //   if (!book) {
-  //     throw new NotFoundException('존재하지 않는 도서입니다.');
-  //   }
-
-  //   const store = await this.storeService.findMystoreByid(store_id);
-  //   if (!store) {
-  //     throw new NotFoundException('존재하지 않는 지점입니다.');
-  //   }
-
-  //   const storeBook = await this.storeBookRepository.create({
-  //     book_id,
-  //     store_id,
-  //     rent,
-  //     setisbn,
-  //   });
-
-  //   return await this.storeBookRepository.save(storeBook);
-  // }
-
+  //지점도서 조회
   async getBooksInStore() {
     const booksInStore = await this.storeBookRepository.find({});
 
     return booksInStore;
   }
+  //지점도서 상세조회
+  async getStoreBookById(storebookid: number) {
+    const storebook = await this.storeBookRepository.findOne({
+      where: { id: storebookid },
+    });
 
-  // 도서 삭제
-  async deleteBook(bookid: number, userid: number) {
+    return storebook;
+  }
+
+  // 지점도서 수정
+  async updateStoreBook(
+    bookid: number,
+    userid: number,
+    updateStoreBookDto: UpdateStoreBookDto,
+  ) {
     const user = await this.userService.findUserById(userid);
     const book = await this.bookRepository.findOne({
       where: { id: bookid },
@@ -98,19 +86,52 @@ export class StorebookService {
       throw new NotFoundException('존재하지 않는 도서입니다.');
     }
 
-    const storeBook = await this.storeBookRepository.findOne({
-      where: { book: { id: bookid } },
-      relations: { store: true },
+    // const storeBook = await this.storeBookRepository.findOne({
+    //   where: { book: { id: bookid } },
+    //   relations: { store: true },
+    // });
+    // console.log('storeBook', storeBook);
+    // if (
+    //   !storeBook ||
+    //   user.stores.every((store) => store.id !== storeBook.store.id)
+    // ) {
+    //   throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
+    // }
+
+    await this.storeBookRepository.update(
+      {
+        id: bookid,
+      },
+      { ...updateStoreBookDto },
+    );
+    // console.log('storebook', storebook);
+    return { message: '도서 정보가 수정되었습니다.' };
+  }
+
+  // 지점도서 삭제
+  async deleteStoreBook(storebookid: number, userid: number) {
+    const user = await this.userService.findUserById(userid);
+    const book = await this.storeBookRepository.findOne({
+      where: { id: storebookid },
     });
-    console.log('storeBook', storeBook);
-    if (
-      !storeBook ||
-      user.stores.every((store) => store.id !== storeBook.store.id)
-    ) {
-      throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
+
+    if (!book) {
+      throw new NotFoundException('존재하지 않는 도서입니다.');
     }
 
-    await this.storeBookRepository.delete({ id: bookid });
+    // const storeBook = await this.storeBookRepository.findOne({
+    //   where: { book: { id: bookid } },
+    //   relations: { store: true },
+    // });
+    // console.log('storeBook', storeBook);
+    // if (
+    //   !storeBook ||
+    //   user.stores.every((store) => store.id !== storeBook.store.id)
+    // ) {
+    //   throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
+    // }
+    console.log('storebookid', storebookid);
+    await this.storeBookRepository.delete({ id: storebookid });
 
     return { message: '도서 정보가 삭제되었습니다.' };
   }
