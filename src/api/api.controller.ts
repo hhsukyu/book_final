@@ -6,7 +6,7 @@ export class ApiController {
   constructor(private apiService: ApiService) {}
 
   @Get('book')
-  book() {
-    return this.apiService.bookupdate();
+  async book() {
+    return await this.apiService.bookupdate();
   }
 }
