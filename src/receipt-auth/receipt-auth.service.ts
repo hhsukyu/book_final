@@ -1,9 +1,16 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReceiptAuth } from '../entity/receiptAuth.entity';
 import { Store } from '../entity/store.entity';
+import { User } from '../entity/user.entity';
+import { UserService } from '../user/user.service';
 import { ImageAnnotatorClient } from '@google-cloud/vision';
+import { use } from 'passport';
 
 @Injectable()
 export class ReceiptAuthService {
@@ -14,13 +21,17 @@ export class ReceiptAuthService {
     private readonly receiptAuthRepository: Repository<ReceiptAuth>,
     @InjectRepository(Store)
     private readonly storeRepository: Repository<Store>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+    private readonly userService: UserService,
   ) {
     this.client = new ImageAnnotatorClient({
       keyFilename: 'google_ocr_key.json',
     });
   }
 
-  async analyzeFile(file: Express.Multer.File) {
+  async analyzeFile(file: Express.Multer.File, userId: number) {
+    await this.checkUser(userId);
     // 이미지를 Google Cloud Vision API에 전송
     const [result] = await this.client.textDetection({
       image: {
@@ -38,12 +49,22 @@ export class ReceiptAuthService {
     // string으로 텍스트 추출
     const receiptInfo = detections.map((text) => text.description).join();
     const matchedStore = await this.verifyStoreNameAndAddress(receiptInfo);
+    await this.verifyReceipt(receiptInfo);
 
     // OCR 결과를 데이터베이스에 저장
-    await this.receiptAuthRepository.save({
+    return await this.receiptAuthRepository.save({
       data: receiptInfo,
       store: { id: matchedStore },
+      user: { id: userId },
     });
+  }
+  // 유저 체크
+  async checkUser(userId: number) {
+    const user = await this.userService.findUserById(userId);
+    console.log(user);
+    if (user.role !== 0) {
+      throw new BadRequestException('손님만 가능합니다.');
+    }
   }
 
   // 추출한 정보를 바탕으로 가게 검증
@@ -70,5 +91,15 @@ export class ReceiptAuthService {
         receiptInfo.includes(store.store_address),
     );
     return matchedStore[0].id;
+  }
+
+  // 영수증 중복 체크
+  async verifyReceipt(receiptInfo: string) {
+    const receiptData = await this.receiptAuthRepository.find({
+      where: { data: receiptInfo },
+    });
+    if (receiptData.length > 0) {
+      throw new ConflictException('이미 인증된 영수증 입니다.');
+    }
   }
 }
