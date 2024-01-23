@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -17,9 +18,11 @@ export class StoreBook {
   id: number;
 
   @ManyToOne(() => Book, (book) => book.storebook)
+  @JoinColumn({ name: 'book_id', referencedColumnName: 'id' })
   book: Relation<Book>;
 
   @ManyToOne(() => Store, (store) => store.storebook, { cascade: true })
+  @JoinColumn({ name: 'store_id', referencedColumnName: 'id' })
   store: Relation<Store>;
 
   @Column()

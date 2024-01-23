@@ -96,7 +96,7 @@ export class BookService {
     const storeBook = await this.storeBookRepository.findOne({
       where: { book: { id: bookid } },
     });
-
+    console.log('storeBook', storeBook);
     if (
       !storeBook ||
       user.stores.every((store) => store.id !== storeBook.store.id)
