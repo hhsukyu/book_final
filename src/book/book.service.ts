@@ -25,6 +25,16 @@ export class BookService {
     // private readonly storeBookService: StorebookService,
   ) {}
 
+  async maingetBooks() {
+    const books = await this.bookRepository
+      .createQueryBuilder()
+      .orderBy('RAND()') // 랜덤하게 정렬
+      .take(30) // 상위 20개만 가져오기
+      .getMany();
+
+    return books;
+  }
+
   //도서 생성
   async createBook(createBookDto: CreateBookDto, userid: number) {
     const user = await this.userService.findUserById(userid);
@@ -48,6 +58,16 @@ export class BookService {
     const books = await this.bookRepository.find({});
 
     return books;
+  }
+
+  //도서 검색
+  async searchbook(booktitle: string) {
+    const books = await this.bookRepository.find({ select: ['title'] });
+
+    const resultbook = books.filter((book) => book.title.includes(booktitle));
+    // console.log(booktitle);
+    // console.log(resultbook);
+    return resultbook;
   }
 
   //도서 상세조회
