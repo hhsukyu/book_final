@@ -54,7 +54,6 @@ export class BookService {
     return book;
   }
 
-  //도서 조회
   async getBooks() {
     const books = await this.bookRepository.find({});
 

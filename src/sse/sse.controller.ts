@@ -6,7 +6,7 @@ export class SseController {
   constructor(private readonly sseService: SseService) {}
 
   @Sse(':userId')
-  sendClientAlarm(@Param('userId') userId: string) {
-    return this.sseService.sendClientAlarm(+userId);
+  sendClientNotification(@Param('userId') userId: string) {
+    return this.sseService.sendClientNotification(+userId);
   }
 }

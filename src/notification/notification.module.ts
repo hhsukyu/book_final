@@ -16,16 +16,6 @@ import { SseService } from 'src/sse/sse.service';
 import { RedisService } from 'src/configs/redis/redis.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      Notification,
-      User,
-      Book,
-      MyPage,
-      StoreBook,
-      Store,
-    ]),
-  ],
   exports: [NotificationService],
   controllers: [NotificationController],
   providers: [
