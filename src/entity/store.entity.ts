@@ -4,6 +4,7 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
+  Point,
   PrimaryGeneratedColumn,
   Relation,
   UpdateDateColumn,
@@ -41,6 +42,9 @@ export class Store {
 
   @Column()
   store_address: string;
+
+  @Column({ type: 'point' })
+  place: Point;
 
   @Column({ type: 'decimal', precision: 10, scale: 7 })
   latitude: number;
