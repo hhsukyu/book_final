@@ -6,9 +6,10 @@ import { StoreReview } from 'src/entity/storeReview.entity';
 import { User } from '../entity/user.entity';
 import { Store } from '../entity/store.entity';
 import { UserService } from '../user/user.service';
+import { MyPage } from 'src/entity/my-page.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([StoreReview, User, Store])],
+  imports: [TypeOrmModule.forFeature([StoreReview, User, Store, MyPage])],
   controllers: [StoreReviewController],
   providers: [StoreReviewService, UserService],
 })

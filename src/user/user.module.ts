@@ -8,10 +8,11 @@ import { Store } from 'src/entity/store.entity';
 import { BookReview } from '../entity/bookreview.entity';
 import { MenuService } from '../menu/menu.service';
 import { Menu } from '../entity/menu.entity';
+import { MyPage } from 'src/entity/my-page.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Store, BookReview, Menu]),
+    TypeOrmModule.forFeature([User, Store, BookReview, Menu, MyPage]),
     forwardRef(() => AuthModule),
   ],
   exports: [UserService, MenuService],
