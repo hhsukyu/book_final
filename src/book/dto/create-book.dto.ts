@@ -22,7 +22,7 @@ export class CreateBookDto {
   @ApiProperty({ description: '출판사' })
   publisher: string;
 
-  @IsDate()
+  @IsString()
   @ApiProperty({ description: '출판날짜' })
   publication_date: string;
 
@@ -30,11 +30,20 @@ export class CreateBookDto {
   @ApiProperty({ description: '장르' })
   genre: string;
 
-  @IsNumber()
+  @IsString()
   @ApiProperty({ description: 'ISBN' })
   isbn: string;
 
-  @IsNumber()
+  @IsString()
   @ApiProperty({ description: '시리즈' })
   setisbn: string;
+
+  @IsString()
+  @ApiProperty({ description: '완결여부' })
+  fnshYn: string;
+
+  @IsString()
+  @ApiProperty({ description: '이미지' })
+  book_image: string;
+
 }

@@ -16,6 +16,7 @@ import { BookReviewModule } from './bookreview/bookreview.module';
 import { RedisModule } from './configs/redis/redis.module';
 import { ReceiptAuthModule } from './receipt-auth/receipt-auth.module';
 import { ApiModule } from './api/api.module';
+import { StorebookModule } from './store-book/store-book.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ApiModule } from './api/api.module';
     RedisModule,
     ReceiptAuthModule,
     ApiModule,
+    StorebookModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
