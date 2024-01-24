@@ -9,23 +9,11 @@ import { Book } from 'src/entity/book.entity';
 import { BookService } from 'src/book/book.service';
 import { MyPage } from 'src/entity/my-page.entity';
 import { MyPageService } from 'src/my-page/my-page.service';
-import { StoreBook } from 'src/entity/store-book.entity';
-import { Store } from 'src/entity/store.entity';
-import { StoreService } from 'src/store/store.service';
-import { SseService } from 'src/sse/sse.service';
-import { RedisService } from 'src/configs/redis/redis.service';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Notification, User, Book, MyPage])],
   exports: [NotificationService],
   controllers: [NotificationController],
-  providers: [
-    NotificationService,
-    UserService,
-    BookService,
-    MyPageService,
-    StoreService,
-    SseService,
-    RedisService,
-  ],
+  providers: [NotificationService, UserService, BookService, MyPageService],
 })
 export class NotificationModule {}
