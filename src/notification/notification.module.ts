@@ -9,9 +9,12 @@ import { Book } from 'src/entity/book.entity';
 import { BookService } from 'src/book/book.service';
 import { MyPage } from 'src/entity/my-page.entity';
 import { MyPageService } from 'src/my-page/my-page.service';
+import { StoreBook } from 'src/entity/store-book.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Notification, User, Book, MyPage])],
+  imports: [
+    TypeOrmModule.forFeature([Notification, User, Book, MyPage, StoreBook]),
+  ],
   exports: [NotificationService],
   controllers: [NotificationController],
   providers: [NotificationService, UserService, BookService, MyPageService],
