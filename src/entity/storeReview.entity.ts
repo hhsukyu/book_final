@@ -49,5 +49,11 @@ export class StoreReview {
   updated_at: Date;
 
   @OneToOne(() => ReceiptAuth, (receiptAuth) => receiptAuth.store_reviews)
-  receiptAuth: ReceiptAuth;
+  receiptAuth: Relation<ReceiptAuth>;
+
+  @Column({ default: false })
+  is_receipt: boolean;
+
+  @Column()
+  receipt_id: number;
 }
