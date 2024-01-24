@@ -15,7 +15,7 @@ import { LoginType } from '../user/types/login.type';
 import { StoreReview } from './storeReview.entity';
 import { BookReview } from './bookreview.entity';
 import { MyPage } from './my-page.entity';
-import { ReceiptAuth } from './receiptAuth.entity';
+import { Receipt } from './receipt.entity';
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
 })
@@ -69,6 +69,6 @@ export class User {
   @JoinColumn()
   myPage: MyPage;
 
-  @OneToMany(() => ReceiptAuth, (receiptAuth) => receiptAuth.user)
-  receiptAuths: Relation<ReceiptAuth>[];
+  @OneToMany(() => Receipt, (receipt) => receipt.user)
+  receipts: Relation<Receipt>[];
 }

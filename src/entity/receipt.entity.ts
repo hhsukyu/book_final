@@ -5,27 +5,31 @@ import {
   ManyToOne,
   OneToOne,
   Relation,
+  CreateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { StoreReview } from './storeReview.entity';
 import { Store } from './store.entity';
 
 @Entity({
-  name: 'receipt_auth',
+  name: 'receipts',
 })
-export class ReceiptAuth {
+export class Receipt {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'text' })
   data: string;
 
-  @ManyToOne(() => User, (user) => user.receiptAuths)
+  @CreateDateColumn()
+  created_at: Date;
+
+  @ManyToOne(() => User, (user) => user.receipts)
   user: Relation<User>;
 
-  @OneToOne(() => StoreReview, (store_reviews) => store_reviews.receiptAuth)
+  @OneToOne(() => StoreReview, (store_reviews) => store_reviews.receipt)
   store_reviews: Relation<StoreReview>;
 
-  @ManyToOne(() => Store, (store) => store.receiptAuths)
+  @ManyToOne(() => Store, (store) => store.receipts)
   store: Relation<Store>;
 }

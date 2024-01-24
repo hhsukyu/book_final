@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ReceiptAuth } from '../entity/receiptAuth.entity';
+import { Receipt } from '../entity/receipt.entity';
 import { Store } from '../entity/store.entity';
 import { User } from '../entity/user.entity';
 import { StoreReview } from '../entity/storeReview.entity';
@@ -14,12 +14,12 @@ import { ImageAnnotatorClient } from '@google-cloud/vision';
 import { CreateStoreReviewDto } from '../store-review/dto/create-store-review.dto';
 
 @Injectable()
-export class ReceiptAuthService {
+export class ReceiptService {
   private readonly client: ImageAnnotatorClient;
 
   constructor(
-    @InjectRepository(ReceiptAuth)
-    private readonly receiptAuthRepository: Repository<ReceiptAuth>,
+    @InjectRepository(Receipt)
+    private readonly receiptAuthRepository: Repository<Receipt>,
     @InjectRepository(Store)
     private readonly storeRepository: Repository<Store>,
     @InjectRepository(User)
@@ -46,15 +46,33 @@ export class ReceiptAuthService {
       },
     });
     const detections = result.textAnnotations;
-    const keywords = ['합계', '부과세', '금액', '품명'];
-    const keywordResult = detections.some((result) =>
-      keywords.some((keyword) => result.description.includes(keyword)),
-    );
-    if (!keywordResult) {
-      throw new BadRequestException('영수증이 아닙니다.');
-    }
+    const keywords = [
+      '부가세',
+      '금액',
+      '품명',
+      '합계',
+      '카드',
+      '현금',
+      '주문',
+      '번호',
+      '사업자번호',
+      '점',
+    ];
+
     // string으로 텍스트 추출
     const receiptInfo = detections.map((text) => text.description).join();
+    const keywordResult = keywords.map((keyword) =>
+      receiptInfo.includes(keyword),
+    );
+    // keyword와 영수증정보에서 일치하는 개수
+    const keywordTrueCount = keywordResult.filter(
+      (value) => value === true,
+    ).length;
+
+    if (keywordTrueCount < 7) {
+      throw new BadRequestException('영수증이 아닙니다.');
+    }
+
     const matchedStore = await this.verifyStoreNameAndAddress(receiptInfo);
     await this.verifyReceipt(receiptInfo);
 
