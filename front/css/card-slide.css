@@ -48,13 +48,8 @@ body {
 }
 /* ----------- SLIDER ------------ */
 
-section {
-  position: relative;
-  height: 450px;
-  width: 1075px;
-  display: flex;
-  align-items: center;
-  margin: 0 auto; /* 가운데 정렬을 위해 margin 속성 추가 */
+.swiper {
+  width: 950px;
 }
 
 .card {
@@ -64,7 +59,6 @@ section {
   height: 400px;
   margin: 20px 0;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0; /* 카드가 섹션 내에서 축소되지 않도록 설정 */
 }
 
 .card::before {
@@ -142,18 +136,6 @@ section .card .image img {
   font-weight: 500;
 }
 
-.card .rating {
-  display: flex;
-  align-items: center;
-  margin-top: 18px;
-}
-
-.card .rating i {
-  font-size: 18px;
-  margin: 0 2px;
-  color: #7d2ae8;
-}
-
 .card .button {
   width: 100%;
   display: flex;
@@ -162,7 +144,7 @@ section .card .image img {
 }
 
 .card .button button {
-  background: #7d2ae8;
+  background: #ff269d;
   outline: none;
   border: none;
   color: #fff;
@@ -174,7 +156,7 @@ section .card .image img {
 }
 
 .button button:hover {
-  background: #6616d0;
+  background: #47c7ff;
 }
 
 .swiper-pagination {
@@ -199,73 +181,4 @@ section .card .image img {
 .swiper-button-prev:hover {
   opacity: 1;
   color: white;
-}
-
-.slide-container {
-  margin: 25px;
-  width: 350px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-}
-
-/*마이페이지*/
-
-.mypage-section {
-  margin-top: 500px;
-}
-
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.buttons {
-  margin: 10%;
-  text-align: center;
-}
-
-.btn-hover {
-  width: 200px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  margin: 20px;
-  height: 55px;
-  text-align: center;
-  border: none;
-  background-size: 300% 100%;
-
-  border-radius: 50px;
-
-  -o-transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
-
-.btn-hover:hover {
-  background-position: 100% 0;
-  moz-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
-
-.btn-hover:focus {
-  outline: none;
-}
-.btn-hover.color-8 {
-  background-image: linear-gradient(to right, #ff269d, #47c7ff);
-  box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
-}
-.update-container {
-  margin: 25px;
-  width: 20px;
-  height: 100px;
-  /* 상하좌우 정중앙 정렬하기 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
