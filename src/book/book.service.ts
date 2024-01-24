@@ -43,8 +43,6 @@ export class BookService {
     return book;
   }
 
-
-
   async maingetBooks() {
     const books = await this.bookRepository
       .createQueryBuilder()
@@ -54,7 +52,6 @@ export class BookService {
 
     return books;
   }
-
 
   async getBooks() {
     const books = await this.bookRepository.find({});

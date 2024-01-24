@@ -25,6 +25,9 @@ export class Notification {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => User, (user) => user.notifications) // 다대일 관계 설정
+  @ManyToOne(() => User, (user) => user.notifications, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  }) // 다대일 관계 설정
   user: User;
 }

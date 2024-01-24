@@ -16,6 +16,7 @@ export class TypeormModule {
         autoLoadEntities: true,
         // synchronize: true,
         logging: false,
+        namingStrategy : 
       }),
       inject: [ConfigService],
     });
