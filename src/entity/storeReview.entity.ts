@@ -12,7 +12,7 @@ import {
 import { User } from './user.entity';
 import { Store } from './store.entity';
 import { AdminReview } from './adminReview.entity';
-import { ReceiptAuth } from './receiptAuth.entity';
+import { Receipt } from './receipt.entity';
 
 @Entity({
   name: 'store_review', // 데이터베이스 테이블의 이름
@@ -48,8 +48,8 @@ export class StoreReview {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToOne(() => ReceiptAuth, (receiptAuth) => receiptAuth.store_reviews)
-  receiptAuth: Relation<ReceiptAuth>;
+  @OneToOne(() => Receipt, (receipt) => receipt.store_reviews)
+  receipt: Relation<Receipt>;
 
   @Column({ default: false })
   is_receipt: boolean;

@@ -14,6 +14,7 @@ import { BookModule } from './book/book.module';
 import { MyPageModule } from './my-page/my-page.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 import { RedisModule } from './configs/redis/redis.module';
+import { ReceiptModule } from './receipt/receipt.module';
 import { ApiModule } from './api/api.module';
 import { StorebookModule } from './store-book/store-book.module';
 import { TypeormModule } from './typeorm/typeorm.module';
@@ -36,6 +37,7 @@ import { ReceiptAuthModule } from './receipt-auth/receipt-auth.module';
     BookModule,
     MyPageModule,
     RedisModule,
+    ReceiptModule,
     ApiModule,
     StorebookModule,
     ReceiptAuthModule,

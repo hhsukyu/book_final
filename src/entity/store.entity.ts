@@ -13,7 +13,7 @@ import { Menu } from './menu.entity';
 import { StoreBook } from './store-book.entity';
 import { StoreReview } from './storeReview.entity';
 import { AdminReview } from './adminReview.entity';
-import { ReceiptAuth } from './receiptAuth.entity';
+import { Receipt } from './receipt.entity';
 
 @Entity({
   name: 'store',
@@ -61,8 +61,8 @@ export class Store {
   @OneToMany(() => StoreReview, (storeReview) => storeReview.store)
   store_reviews: Relation<StoreReview>[];
 
-  @OneToMany(() => ReceiptAuth, (receiptAuth) => receiptAuth.store)
-  receiptAuths: Relation<ReceiptAuth>[];
+  @OneToMany(() => Receipt, (receipt) => receipt.store)
+  receipts: Relation<Receipt>[];
 
   @Column()
   store_open: Date;
