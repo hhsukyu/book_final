@@ -70,5 +70,5 @@ export class User {
   myPage: MyPage;
 
   @OneToMany(() => ReceiptAuth, (receiptAuth) => receiptAuth.user)
-  receiptAuths: ReceiptAuth[];
+  receiptAuths: Relation<ReceiptAuth>[];
 }
