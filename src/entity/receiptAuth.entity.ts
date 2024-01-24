@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   OneToOne,
+  Relation,
 } from 'typeorm';
 import { User } from './user.entity';
 import { StoreReview } from './storeReview.entity';
@@ -16,18 +17,15 @@ export class ReceiptAuth {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  authenticationStatus: boolean;
-
   @Column({ type: 'text' })
   data: string;
 
   @ManyToOne(() => User, (user) => user.receiptAuths)
-  user: User;
+  user: Relation<User>;
 
   @OneToOne(() => StoreReview, (store_reviews) => store_reviews.receiptAuth)
-  store_reviews: StoreReview;
+  store_reviews: Relation<StoreReview>;
 
   @ManyToOne(() => Store, (store) => store.receiptAuths)
-  store: Store;
+  store: Relation<Store>;
 }
