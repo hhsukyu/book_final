@@ -7,9 +7,10 @@ import { ReceiptAuth } from '../entity/receiptAuth.entity';
 import { Store } from '../entity/store.entity';
 import { User } from '../entity/user.entity';
 import { UserService } from '../user/user.service';
+import { StoreReview } from '../entity/storeReview.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ReceiptAuth, Store, User])],
+  imports: [TypeOrmModule.forFeature([ReceiptAuth, Store, User, StoreReview])],
   providers: [ReceiptAuthService, UserService],
   controllers: [ReceiptAuthController],
 })

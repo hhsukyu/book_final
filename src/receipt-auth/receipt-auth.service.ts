@@ -8,9 +8,10 @@ import { Repository } from 'typeorm';
 import { ReceiptAuth } from '../entity/receiptAuth.entity';
 import { Store } from '../entity/store.entity';
 import { User } from '../entity/user.entity';
+import { StoreReview } from '../entity/storeReview.entity';
 import { UserService } from '../user/user.service';
 import { ImageAnnotatorClient } from '@google-cloud/vision';
-import { use } from 'passport';
+import { CreateStoreReviewDto } from '../store-review/dto/create-store-review.dto';
 
 @Injectable()
 export class ReceiptAuthService {
@@ -24,14 +25,20 @@ export class ReceiptAuthService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly userService: UserService,
+    @InjectRepository(StoreReview)
+    private storeReviewRepository: Repository<StoreReview>,
   ) {
     this.client = new ImageAnnotatorClient({
       keyFilename: 'google_ocr_key.json',
     });
   }
 
+  // 영수증 인증
   async analyzeFile(file: Express.Multer.File, userId: number) {
     await this.checkUser(userId);
+    if (!file) {
+      throw new BadRequestException('영수증 파일이 없습니다.');
+    }
     // 이미지를 Google Cloud Vision API에 전송
     const [result] = await this.client.textDetection({
       image: {
@@ -58,10 +65,27 @@ export class ReceiptAuthService {
       user: { id: userId },
     });
   }
+
+  // 영수증 리뷰 작성
+  async createReceiptReview(
+    file: Express.Multer.File,
+    userId: number,
+    createStoreReviewDto: CreateStoreReviewDto,
+  ) {
+    const receipt = await this.analyzeFile(file, userId);
+    const storeReview = await this.storeReviewRepository.save({
+      ...createStoreReviewDto,
+      user_id: userId,
+      store_id: receipt.store.id,
+      is_receipt: true,
+      receipt_id: receipt.id,
+    });
+    return storeReview;
+  }
+
   // 유저 체크
   async checkUser(userId: number) {
     const user = await this.userService.findUserById(userId);
-    console.log(user);
     if (user.role !== 0) {
       throw new BadRequestException('손님만 가능합니다.');
     }
