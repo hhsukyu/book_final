@@ -11,13 +11,38 @@ import { ReceiptService } from './receipt.service';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
 import { CreateStoreReviewDto } from '../store-review/dto/create-store-review.dto';
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 
-@UseGuards(accessTokenGuard)
-@Controller('receiptAuth')
+@Controller('receipts')
 export class ReceiptController {
   constructor(private readonly receiptService: ReceiptService) {}
 
-  @Post('receiptReview')
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Upload menu with image.',
+    type: 'multipart/form-data',
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'The image file to upload..',
+        },
+        content: {
+          type: 'string',
+          description: 'The content of the storeReview.',
+        },
+        rating: {
+          type: 'string',
+          description: 'The rating of the storeReview.',
+        },
+      },
+    },
+  })
+  @Post('review')
   @UseInterceptors(FileInterceptor('file'))
   async postReceiptReview(
     @UploadedFile() file: Express.Multer.File,
