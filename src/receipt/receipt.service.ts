@@ -19,7 +19,7 @@ export class ReceiptService {
 
   constructor(
     @InjectRepository(Receipt)
-    private readonly receiptAuthRepository: Repository<Receipt>,
+    private readonly receiptRepository: Repository<Receipt>,
     @InjectRepository(Store)
     private readonly storeRepository: Repository<Store>,
     @InjectRepository(User)
@@ -77,7 +77,7 @@ export class ReceiptService {
     await this.verifyReceipt(receiptInfo);
 
     // OCR 결과를 데이터베이스에 저장
-    return await this.receiptAuthRepository.save({
+    return await this.receiptRepository.save({
       data: receiptInfo,
       store: { id: matchedStore },
       user: { id: userId },
@@ -137,7 +137,7 @@ export class ReceiptService {
 
   // 영수증 중복 체크
   async verifyReceipt(receiptInfo: string) {
-    const receiptData = await this.receiptAuthRepository.find({
+    const receiptData = await this.receiptRepository.find({
       where: { data: receiptInfo },
     });
     if (receiptData.length > 0) {
