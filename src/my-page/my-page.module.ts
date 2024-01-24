@@ -8,7 +8,7 @@ import { Book } from 'src/entity/book.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([MyPage, User])],
-  providers: [MyPageService, MyPage],
+  providers: [MyPageService],
   controllers: [MyPageController],
 })
 export class MyPageModule {}
