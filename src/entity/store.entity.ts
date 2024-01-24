@@ -46,12 +46,6 @@ export class Store {
   @Column({ type: 'point' })
   place: Point;
 
-  @Column({ type: 'decimal', precision: 10, scale: 7 })
-  latitude: number;
-
-  @Column({ type: 'decimal', precision: 10, scale: 7 })
-  longitude: number;
-
   @OneToMany(() => Menu, (menu) => menu.store)
   menus: Relation<Menu>[];
 
