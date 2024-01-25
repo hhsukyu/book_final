@@ -30,13 +30,18 @@ body {
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 20px; /* Adjust margin as needed */
 }
 .logo-container {
   margin-bottom: 60px;
 }
-
+.alarm-box {
+  text-align: center;
+}
+.alarm-box img {
+  width: 30px; /* 원하는 크기로 조절하세요 */
+  height: 30px; /* 원하는 크기로 조절하세요 */
+  margin: 0 0 20 0px; /* 알림 버튼과의 간격 조절 (원하는 만큼) */
+}
 .page-link {
   background-color: #171717;
   color: #171717;
@@ -46,145 +51,115 @@ body {
   justify-content: center;
   margin-top: 20px;
 }
-/*별점*/
-.starpoint_wrap {
-  display: inline-block;
-}
-.starpoint_box {
+.review-container {
   position: relative;
-  background: url(https://ido-archive.github.io/svc/etc/element/img/sp_star.png)
-    0 0 no-repeat;
-  font-size: 0;
-}
-.starpoint_box .starpoint_bg {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 18px;
-  background: url(https://ido-archive.github.io/svc/etc/element/img/sp_star.png)
-    0 -20px no-repeat;
-  pointer-events: none;
-}
-.starpoint_box .label_star {
-  display: inline-block;
-  width: 10px;
-  height: 18px;
-  box-sizing: border-box;
-}
-.starpoint_box .star_radio {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
-}
-.starpoint_box .star_radio:nth-of-type(1):hover ~ .starpoint_bg,
-.starpoint_box .star_radio:nth-of-type(1):checked ~ .starpoint_bg {
-  width: 10%;
-}
-.starpoint_box .star_radio:nth-of-type(2):hover ~ .starpoint_bg,
-.starpoint_box .star_radio:nth-of-type(2):checked ~ .starpoint_bg {
-  width: 20%;
-}
-.starpoint_box .star_radio:nth-of-type(3):hover ~ .starpoint_bg,
-.starpoint_box .star_radio:nth-of-type(3):checked ~ .starpoint_bg {
-  width: 30%;
-}
-.starpoint_box .star_radio:nth-of-type(4):hover ~ .starpoint_bg,
-.starpoint_box .star_radio:nth-of-type(4):checked ~ .starpoint_bg {
-  width: 40%;
-}
-.starpoint_box .star_radio:nth-of-type(5):hover ~ .starpoint_bg,
-.starpoint_box .star_radio:nth-of-type(5):checked ~ .starpoint_bg {
-  width: 50%;
-}
-.starpoint_box .star_radio:nth-of-type(6):hover ~ .starpoint_bg,
-.starpoint_box .star_radio:nth-of-type(6):checked ~ .starpoint_bg {
-  width: 60%;
-}
-.starpoint_box .star_radio:nth-of-type(7):hover ~ .starpoint_bg,
-.starpoint_box .star_radio:nth-of-type(7):checked ~ .starpoint_bg {
-  width: 70%;
-}
-.starpoint_box .star_radio:nth-of-type(8):hover ~ .starpoint_bg,
-.starpoint_box .star_radio:nth-of-type(8):checked ~ .starpoint_bg {
-  width: 80%;
-}
-.starpoint_box .star_radio:nth-of-type(9):hover ~ .starpoint_bg,
-.starpoint_box .star_radio:nth-of-type(9):checked ~ .starpoint_bg {
-  width: 90%;
-}
-.starpoint_box .star_radio:nth-of-type(10):hover ~ .starpoint_bg,
-.starpoint_box .star_radio:nth-of-type(10):checked ~ .starpoint_bg {
-  width: 100%;
-}
-
-.blind {
-  position: absolute;
-  clip: rect(0 0 0 0);
-  margin: -1px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-/*버튼*/
-.frame {
-  width: 90%;
-  margin: 40px auto;
   text-align: center;
 }
-button {
-  margin: 20px;
+
+/*별점*/
+.rating_box {
+  margin-bottom: 20px;
+  font-size: xx-large;
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: flex-start; /* 수직 상단 정렬 */
 }
-.custom-btn {
-  width: 130px;
-  height: 40px;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px 25px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 500;
-  background: transparent;
+.create_review {
+  background: #f5f7fb;
+  width: 450px;
+  height: 130px;
+  border: 0;
+  border-radius: 10px;
+  resize: none;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.review_btn {
+  background: #47c7ff;
+  width: 450px;
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 22px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
   cursor: pointer;
+  color: #fff;
   transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  box-shadow:
-    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-  outline: none;
+}
+.review_btn:hover {
+  background: #ff269d;
 }
 
-/* 15 */
-.btn-15 {
+button:hover {
   background: #47c7ff;
-  border: none;
-  z-index: 1;
 }
-.btn-15:after {
-  position: absolute;
-  content: '';
-  width: 0;
-  height: 100%;
-  top: 0;
-  right: 0;
-  z-index: -1;
-  background-color: #ff269d;
-  border-radius: 5px;
-  box-shadow:
-    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+#reviewPostingBtn {
+  background: #47c7ff;
+  width: 450px;
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 22px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+  cursor: pointer;
+  color: #fff;
   transition: all 0.3s ease;
 }
-.btn-15:hover {
-  color: #fff;
+#reviewPostingBtn:hover {
+  background: #ff269d;
 }
-.btn-15:hover:after {
-  left: 0;
-  width: 100%;
+.reviewCardRow {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: auto;
 }
-.btn-15:active {
-  top: 2px;
+.book-info {
+  width: 20%;
+  text-align: center;
+}
+/* 도서 정보를 가운데 정렬하는 스타일 */
+.book-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* 이미지 크기 및 모서리를 설정하는 스타일 */
+.book-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 600px; /* 가로 최대 너비 설정 (원하는 크기로 조절) */
+  margin: 0 auto; /* 가로 가운데 정렬 */
+}
+
+/* 이미지 크기 및 모서리를 설정하는 스타일 */
+.book-info img {
+  width: 200px; /* 원하는 크기로 조절하세요 */
+  height: auto; /* 가로 비율 유지 */
+  border-radius: 10px; /* 모서리 둥글게 설정 */
+  margin-bottom: 10px; /* 이미지 아래 여백 조절 (원하는 만큼) */
+  margin-top: 50px;
+}
+
+/* 도서 정보 스타일 */
+.book-details {
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  padding: 15px;
+}
+
+/* 도서 제목 스타일 */
+.book-details h3 {
+  font-size: 1.5em; /* 원하는 크기로 조절하세요 */
+  margin-bottom: 10px; /* 도서 제목 아래 여백 조절 (원하는 만큼) */
+}
+
+/* 출판사 및 소개 스타일 */
+.book-details p {
+  font-size: 1em; /* 원하는 크기로 조절하세요 */
+  margin-bottom: 5px; /* 각 항목 아래 여백 조절 (원하는 만큼) */
 }
