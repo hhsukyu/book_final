@@ -1,16 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { Point } from 'wkx';
+import { Point, Repository } from 'typeorm';
+import { Store } from '../entity/store.entity';
 import { StoreService } from '../store/store.service';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class MapService {
-  constructor(private readonly storeService: StoreService) {}
+  constructor(
+    @InjectRepository(Store)
+    private readonly storeRepository: Repository<Store>,
+    private readonly storeService: StoreService,
+  ) {}
   async findNearCafe(location: Point) {
     const radiusNo = 10; //반경 10km 이내 점포 반환
     const storeList = await this.storeService.storelist();
     const nearCafe = [];
 
-    // 모든 점포를 일일히 대조하는 비효율적인 로직.. 개선점 질문 필요
+    //모든 점포를 일일히 대조하는 비효율적인 로직.. 개선점 질문 필요
     storeList.forEach((element) => {
       if (radiusNo >= this.getDistance(location, element.place)) {
         nearCafe.push(element);

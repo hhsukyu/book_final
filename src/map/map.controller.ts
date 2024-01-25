@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { MapService } from './map.service';
-import { Point } from 'wkx';
+import { Point } from 'typeorm';
 
 @Controller('map')
 export class MapController {

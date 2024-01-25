@@ -50,9 +50,8 @@ export class StoreController {
   async createStore(
     @Body() createStoreDto: CreateStoreDto,
     @UserId() userid: number,
-    @Body('place') place: number[],
   ) {
-    return await this.storeService.createStore(createStoreDto, userid, place);
+    return await this.storeService.createStore(createStoreDto, userid);
   }
 
   //지점 수정
@@ -63,14 +62,8 @@ export class StoreController {
     @Body() updateStoreDto: UpdateStoreDto,
     @Param('storeid') storeid: number,
     @UserId() userid: number,
-    @Body('place') place: number[],
   ) {
-    return await this.storeService.updateStore(
-      updateStoreDto,
-      storeid,
-      userid,
-      place,
-    );
+    return await this.storeService.updateStore(updateStoreDto, storeid, userid);
   }
 
   //지점 삭제 (회원탈퇴시 자동으로 삭제하도록?)

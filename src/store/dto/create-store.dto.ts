@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, IsString } from 'class-validator';
-// import { Point } from 'wkx';
 
 export class CreateStoreDto {
   @IsString()
@@ -14,10 +13,6 @@ export class CreateStoreDto {
   @IsString()
   @ApiProperty({ description: '지점위치' })
   store_address: string;
-
-  // @IsNumber({}, { each: true })
-  // @ApiProperty({ description: '지점좌표' })
-  // place: Point;
 
   @IsDate()
   @ApiProperty({ description: '오픈시간' })
