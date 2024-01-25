@@ -63,27 +63,26 @@ export class BookService {
     return books;
   }
 
-  async searchbook(bookTitle: string): Promise<string | Book[]> {
-    const cachedResult = await this.redisService.getBookInfo(bookTitle);
+  async searchbook(booktitle: string) {
+    const cachedResult = await this.redisService.getBookInfo(booktitle);
 
-    if (!cachedResult) {
-      console.log('test');
-      const books = await this.bookRepository.find({
-        where: { title: bookTitle },
-      });
-      const searchResult = books.filter((book) =>
-        book.title.includes(bookTitle),
-      );
-
-      await this.redisService.setBookInfo(
-        bookTitle,
-        JSON.stringify(searchResult),
-      );
-
-      return searchResult;
+    if (cachedResult || cachedResult !== null) {
+      console.log(cachedResult);
+      return cachedResult;
     }
-    console.log(cachedResult);
-    return cachedResult;
+    const searchResult = (await this.bookRepository.find()).filter((book) =>
+      book.title.includes(booktitle),
+    );
+
+    console.log('데이터에서 불러오기');
+    console.log(searchResult);
+
+    await this.redisService.setBookInfo(
+      booktitle,
+      JSON.stringify(searchResult),
+    );
+
+    return searchResult;
   }
 
   //도서 상세조회
