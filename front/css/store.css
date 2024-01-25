@@ -1,0 +1,94 @@
+@font-face {
+  font-family: 'LINESeedKR-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2')
+    format('woff2');
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'LINESeedKR-Bd';
+  font-weight: 700;
+}
+
+p {
+  font-family: 'LINESeedKR';
+  font-weight: 400;
+}
+
+body {
+  background-color: #171717 !important;
+  height: 100vh;
+  margin: 0 auto;
+  width: 100vw;
+}
+
+.bookboard {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+.logo-container {
+  margin-bottom: 60px;
+}
+
+.page-link {
+  background-color: #171717;
+  color: #171717;
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+/*가게 정보*/
+.store-image {
+  margin-bottom: 20px;
+  width: 50%;
+  height: auto;
+  border-radius: 10px;
+}
+/*메뉴 정보*/
+
+/*버튼*/
+.btn-hover {
+  width: 200px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 55px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+.btn-hover:hover {
+  background-position: 100% 0;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+.btn-hover:focus {
+  outline: none;
+}
+.btn-hover.color-8 {
+  background-image: linear-gradient(to right, #ff269d, #47c7ff);
+}
+.btn-container {
+  margin: 25px;
+  width: 20px;
+  height: 100px;
+  /* 상하좌우 정중앙 정렬하기 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
