@@ -22,7 +22,7 @@ function mainBookcard() {
       books.forEach((book) => {
         // console.log(book);
         body.innerHTML += `
-        <div class="swiper-slide card">
+        <div onclick="carddetail(${book.id})" class="swiper-slide card">
         <div class="card-content">
           <div class="image">
             <img
@@ -176,6 +176,37 @@ async function searchresult(search) {
       books.forEach((book) => {
         console.log(book);
       });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+//로그아웃
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function logout() {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+
+  document.cookie =
+    'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  document.cookie =
+    'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+  window.location.reload();
+}
+
+//책 자세히보기
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function carddetail(bookid) {
+  axios
+    .get('/books/' + bookid, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function (response) {
+      console.log(response.data);
     })
     .catch(function (error) {
       console.log(error);
