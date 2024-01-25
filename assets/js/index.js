@@ -199,6 +199,8 @@ function logout() {
 //책 자세히보기
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function carddetail(bookid) {
+  const booklabel = document.getElementById('bookmodallabel');
+  $('#bookModal').modal('show');
   axios
     .get('/books/' + bookid, {
       headers: {
@@ -207,6 +209,9 @@ function carddetail(bookid) {
     })
     .then(function (response) {
       console.log(response.data);
+      const book = response.data;
+
+      booklabel.innerHTML = book.title;
     })
     .catch(function (error) {
       console.log(error);
