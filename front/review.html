@@ -57,7 +57,9 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-            
+              <button class="btn" type="button">
+                <i class="fas fa-bell" width="32" height="32"></i>
+              </button>
               <img
                 src="https://github.com/mdo.png"
                 alt="mdo"
@@ -78,92 +80,113 @@
         </div>
       </div>
     </header>
-    <main>
-    <div class="container bookboard">
-      <div class="reviewCardRow row px-5 pt-5">
-        <h2 class="mb-4">지점리뷰 목록</h2>
-          <!-- Sample Review List -->
-            <div class="col-3 mb-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">지점리뷰 1</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and
-                    make up the bulk of the card's content.
-                  </p>
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-8">
+        <main>
+          <div class="bookboard mt-4">
+            <div class="col">
+              <h2 class="mt-4">지점리뷰 목록</h2>
+            </div>
+            <div
+              id="card-list"
+              class="card-container row row-cols-3 row-cols-md-4 g-4 col-12"
+            >
+              <div class="container mt-5">
+                <!-- Sample Review List -->
+                <div class="row row-cols-1 row-cols-md-3 g-4 reviewCardList">
+                  <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                      <h5 class="card-title">지점리뷰 1</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
+                      <p class="card-text">
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                      <h5 class="card-title">지점리뷰 2</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
+                      <p class="card-text">
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                      <h5 class="card-title">지점리뷰 3</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
+                      <p class="card-text">
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                      <h5 class="card-title">지점리뷰 3</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
+                      <p class="card-text">
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                      <h5 class="card-title">지점리뷰 3</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
+                      <p class="card-text">
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                      </p>
+                    </div>
+                  </div>
                 </div>
+                <footer>
+                  <!-- Review Submit -->
+                  <div class="review-container">
+                    <div class="rating_box">
+                      <span class="star1" onclick="clickstar1()"
+                        ><i class="fa-solid fa-star" style="color: #ffd43b"></i
+                      ></span>
+                      <span class="star2" onclick="clickstar2()"
+                        ><i class="fa-regular fa-star"></i
+                      ></span>
+                      <span class="star3" onclick="clickstar3()"
+                        ><i class="fa-regular fa-star"></i
+                      ></span>
+                      <span class="star4" onclick="clickstar4()"
+                        ><i class="fa-regular fa-star"></i
+                      ></span>
+                      <span class="star5" onclick="clickstar5()"
+                        ><i class="fa-regular fa-star"></i
+                      ></span>
+                    </div>
+                    <div class="review_box">
+                      <textarea
+                        class="create_review"
+                        placeholder="리뷰를 작성해주세요"
+                      ></textarea>
+                    </div>
+                    <div>
+                      <input
+                        class="review_btn"
+                        type="submit"
+                        value="리뷰 등록"
+                      />
+                    </div>
+                  </div>
+                </footer>
               </div>
+
+              <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
             </div>
-          <!-- 리뷰카드 양산용 라인 -->
-          <div class="col-3 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">지점리뷰 1</h5>
-                <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
-                <p class="card-text">
-                  Some quick example text to build on the card title and
-                  make up the bulk of the card's content.
-                </p>
-              </div>
-            </div>
-          </div>
-        <!-- 리뷰카드 양산용 라인 -->
-        <div class="col-3 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">지점리뷰 1</h5>
-              <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
-              <p class="card-text">
-                Some quick example text to build on the card title and
-                make up the bulk of the card's content.
-              </p>
-            </div>
-          </div>
-        </div>
-      <!-- 리뷰카드 양산용 라인 -->
-      <div class="col-3 mb-3">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">지점리뷰 1</h5>
-            <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
-            <p class="card-text">
-              Some quick example text to build on the card title and
-              make up the bulk of the card's content.
-            </p>
-          </div>
-        </div>
-      </div>
-    <!-- 리뷰카드 양산용 라인 -->
-    <div class="col-3 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">지점리뷰 1</h5>
-          <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
-          <p class="card-text">
-            Some quick example text to build on the card title and
-            make up the bulk of the card's content.
-          </p>
-        </div>
-      </div>
-    </div>
-  <!-- 리뷰카드 양산용 라인 -->
-  <div class="col-3 mb-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">지점리뷰 1</h5>
-        <h6 class="card-subtitle mb-2 text-muted">⭐⭐⭐⭐⭐</h6>
-        <p class="card-text">
-          Some quick example text to build on the card title and
-          make up the bulk of the card's content.
-        </p>
-      </div>
-    </div>
-  </div>
-   <!-- 리뷰카드 양산용 라인 -->
-  
-          </div>
-          <nav
+            <nav
               aria-label="Page navigation example"
               class="pagination-container"
             >
@@ -179,45 +202,11 @@
                 </li>
               </ul>
             </nav>
-          <!-- 리뷰 작성란 -->
-          <footer class="row mt-4">
-            <div class="review-container">
-              <div class="rating_box">
-                <span class="star1" onclick="clickstar1()"
-                  ><i class="fa-solid fa-star" style="color: #ffd43b"></i
-                ></span>
-                <span class="star2" onclick="clickstar2()"
-                  ><i class="fa-regular fa-star"></i
-                ></span>
-                <span class="star3" onclick="clickstar3()"
-                  ><i class="fa-regular fa-star"></i
-                ></span>
-                <span class="star4" onclick="clickstar4()"
-                  ><i class="fa-regular fa-star"></i
-                ></span>
-                <span class="star5" onclick="clickstar5()"
-                  ><i class="fa-regular fa-star"></i
-                ></span>
-              </div>
-              <div class="review_box">
-                <textarea
-                  class="create_review"
-                  placeholder="리뷰를 작성해주세요"
-                ></textarea>
-              </div>
-              <div>
-                <input class="review_btn" type="submit" value="리뷰 등록" />
-              </div>
-            </div>
-          </footer>
-
-            <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-            
+          </div>
         </main>
-
-      
+      </div>
+      <div class="col"></div>
+    </div>
     <script src="./js/review.js"></script>
 
     <script
