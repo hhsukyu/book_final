@@ -4,7 +4,6 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
-  Point,
   PrimaryGeneratedColumn,
   Relation,
   UpdateDateColumn,
@@ -15,6 +14,7 @@ import { StoreBook } from './store-book.entity';
 import { StoreReview } from './storeReview.entity';
 import { AdminReview } from './adminReview.entity';
 import { Receipt } from './receipt.entity';
+import { Point } from 'wkx';
 
 @Entity({
   name: 'store',
@@ -47,7 +47,7 @@ export class Store {
   @Column()
   store_address: string;
 
-  @Column({ type: 'point' })
+  @Column({ type: 'point', nullable: false })
   place: Point;
 
   @OneToMany(() => Menu, (menu) => menu.store)
