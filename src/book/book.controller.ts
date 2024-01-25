@@ -2,17 +2,15 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   Post,
-  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
+
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
 import { UserId } from 'src/auth/decorators/userId.decorator';
@@ -32,11 +30,17 @@ export class BookController {
     return await this.bookService.createBook(createBookDto, userid);
   }
 
-  // //도서 조회
-  // @Get('main')
-  // async maingetBooks() {
-  //   return await this.bookService.maingetBooks();
-  // }
+  //도서 검색
+  @Get('search')
+  async searchBook(@Query('booktitle') booktitle: string) {
+    return await this.bookService.searchbook(booktitle);
+  }
+
+  //도서 조회
+  @Get('main')
+  async maingetBooks() {
+    return await this.bookService.maingetBooks();
+  }
 
   //도서 조회
   @ApiBearerAuth('accessToken')

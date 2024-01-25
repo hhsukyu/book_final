@@ -14,11 +14,15 @@ import { Menu } from './menu.entity';
 import { StoreBook } from './store-book.entity';
 import { StoreReview } from './storeReview.entity';
 import { AdminReview } from './adminReview.entity';
+import { Receipt } from './receipt.entity';
 
 @Entity({
   name: 'store',
 })
 export class Store {
+  forEach(arg0: (store: any) => void) {
+    throw new Error('Method not implemented.');
+  }
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -54,6 +58,9 @@ export class Store {
 
   @OneToMany(() => StoreReview, (storeReview) => storeReview.store)
   store_reviews: Relation<StoreReview>[];
+
+  @OneToMany(() => Receipt, (receipt) => receipt.store)
+  receipts: Relation<Receipt>[];
 
   @Column()
   store_open: Date;

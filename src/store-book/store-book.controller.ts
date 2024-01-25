@@ -40,24 +40,27 @@ export class StorebookController {
     return await this.storebookService.getStoreBookById(storebookid);
   }
 
-  @Put('/:bookid')
+  @Put('/:storeid/:bookid')
   async updateStoreBook(
     @Param('bookid') bookid: number,
+    @Param('storeid') storeid: number,
     @UserId() userid: number,
     @Body() updateStoreBookDto: UpdateStoreBookDto,
   ) {
     return await this.storebookService.updateStoreBook(
       bookid,
       userid,
+      storeid,
       updateStoreBookDto,
     );
   }
 
-  @Delete('/:storebookid')
+  @Delete('/:storeid/:storebookid')
   async deleteStoreBook(
+    @Param('storeid') storeid: number,
     @Param('bookid') bookid: number,
     @UserId() userid: number,
   ) {
-    return await this.storebookService.deleteStoreBook(bookid, userid);
+    return await this.storebookService.deleteStoreBook(bookid, userid, storeid);
   }
 }

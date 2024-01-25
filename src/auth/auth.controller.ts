@@ -4,6 +4,7 @@ import {
   Get,
   Post,
   Put,
+  Query,
   Req,
   Res,
   UnauthorizedException,
@@ -74,6 +75,20 @@ export class AuthController {
     return this.authService.logout(userId);
   }
 
+  @Get('login/success')
+  async naverSuccess(
+    @Query('accessToken') accessToken: string,
+    @Query('refreshToken') refreshToken: string,
+    @Res() res: any,
+  ) {
+    console.log('teest');
+    res.cookie('accessToken', accessToken);
+    res.cookie('refreshToken', refreshToken);
+
+    //redirect할 본인 페이지 주소확인
+    res.redirect('http://localhost:3000');
+  }
+
   //네이버 일반사용자 소셜로그인
   @Get('naver')
   @UseGuards(AuthGuard('naver'))
@@ -119,8 +134,6 @@ export class AuthController {
   }
 
   //비밀번호 찾기-이메일 인증번호 전송
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
   @Post('/send-verification')
   async sendVerificationCode(
     @Body() sendVerificationCodeDto: SendVerificationCodeDto,
@@ -128,8 +141,6 @@ export class AuthController {
     await this.authService.sendVerificationCode(sendVerificationCodeDto.email);
   }
   //비밀번호 찾기-인증번호 확인
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
   @Post('/verify-code')
   async verifyCode(@Body() verifyCodeDto: VerifyCodeDto) {
     await this.authService.verifyCode(verifyCodeDto.code, verifyCodeDto.email);
