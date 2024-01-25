@@ -34,16 +34,28 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     });
   }
 
-  async getRefreshToken(userId: string) {
+  async getRefreshToken(userId: string): Promise<string | null> {
     return await this.client.get(`refresh_token:${userId}`);
   }
+
   async removeRefreshToken(userId: string): Promise<void> {
     await this.client.del(`refresh_token:${userId}`);
   }
-  async setVerificationCode(email: string, code: string) {
-    await this.client.set(`verification_code: ${email}`, code, { EX: 60 * 3 });
+
+  async setVerificationCode(email: string, code: string): Promise<void> {
+    await this.client.set(`verification_code:${email}`, code, { EX: 60 * 3 });
   }
-  async getVerificationCode(email: string) {
-    return await this.client.get(`verification_code: ${email}`);
+
+  async getVerificationCode(email: string): Promise<string | null> {
+    return await this.client.get(`verification_code:${email}`);
+  }
+
+  async getBookInfo(bookTitle: string): Promise<string | null> {
+    const cachedResult = await this.client.get(bookTitle);
+    return cachedResult ? JSON.parse(cachedResult) : null;
+  }
+
+  async setBookInfo(bookTitle: string, bookInfo: string): Promise<void> {
+    await this.client.set(bookTitle, bookInfo);
   }
 }

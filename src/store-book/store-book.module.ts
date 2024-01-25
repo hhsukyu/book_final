@@ -1,18 +1,25 @@
 import { Module } from '@nestjs/common';
 import { StorebookController } from './store-book.controller';
 import { StorebookService } from './store-book.service';
-import { StoreBook } from 'src/entity/store-book.entity';
+import { StoreBook } from '../entity/store-book.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Book } from 'src/entity/book.entity';
-import { Store } from 'src/entity/store.entity';
-import { BookService } from 'src/book/book.service';
-import { StoreService } from 'src/store/store.service';
-import { UserService } from 'src/user/user.service';
-import { User } from 'src/entity/user.entity';
+import { Book } from '../entity/book.entity';
+import { Store } from '../entity/store.entity';
+import { BookService } from '../book/book.service';
+import { StoreService } from '../store/store.service';
+import { UserService } from '../user/user.service';
+import { User } from '../entity/user.entity';
+import { RedisService } from '../configs/redis/redis.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([StoreBook, Book, Store, User])],
   controllers: [StorebookController],
-  providers: [StorebookService, BookService, StoreService, UserService],
+  providers: [
+    StorebookService,
+    BookService,
+    StoreService,
+    UserService,
+    RedisService,
+  ],
 })
 export class StorebookModule {}
