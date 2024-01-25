@@ -1,26 +1,27 @@
-import { Injectable, MessageEvent } from '@nestjs/common';
-import { Observable, Subject, filter, map } from 'rxjs';
+import { Injectable } from '@nestjs/common';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable()
 export class SseService {
-  private users$: Subject<any> = new Subject();
+  private clients = new Map<number, Subject<any>>();
 
-  private observer = this.users$.asObservable();
-
-  emitCardChangeEvent(userId: number, message: string) {
-    this.users$.next({ id: userId, message: message });
+  addClient(userId: number): Observable<any> {
+    const client = new Subject<any>();
+    this.clients.set(userId, client);
+    console.log(`클라이언트가 등록되었습니다. UserID: ${userId}`);
+    return client.asObservable();
   }
 
-  sendClientNotification(userId: number): Observable<any> {
-    return this.observer.pipe(
-      filter((user) => user.id === userId),
-      map((user) => {
-        return {
-          data: {
-            message: user.message,
-          },
-        } as MessageEvent;
-      }),
-    );
+  removeClient(userId: number): void {
+    this.clients.delete(userId);
+  }
+
+  emitNotification(userId: number, message: string): void {
+    console.log(userId, '-', message);
+    const client = this.clients.get(userId);
+    console.log('SSE:', client);
+    if (client) {
+      client.next({ message });
+    }
   }
 }

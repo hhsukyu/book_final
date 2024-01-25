@@ -41,7 +41,7 @@ export class StorebookController {
       bookid,
       storeid,
     );
-    console.log(notifyUser);
+    console.log('notifyUser:', notifyUser);
     return createdBook;
   }
 

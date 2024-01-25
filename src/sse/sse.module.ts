@@ -3,7 +3,7 @@ import { SseService } from './sse.service';
 import { SseController } from './sse.controller';
 
 @Module({
-  exports: [SseService],
+  //exports: [SseService],
   controllers: [SseController],
   providers: [SseService],
 })

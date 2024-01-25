@@ -4,11 +4,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Notification } from 'src/entity/notification.entity';
 import { UserService } from 'src/user/user.service';
 import { Book } from 'src/entity/book.entity';
+import { StoreService } from 'src/store/store.service';
+import { SseService } from 'src/sse/sse.service';
 
 @Injectable()
 export class NotificationService {
@@ -16,6 +17,9 @@ export class NotificationService {
     @InjectRepository(Notification)
     private readonly notificationRepository: Repository<Notification>,
     private readonly userService: UserService,
+    private readonly storeService: StoreService,
+    private readonly sseService: SseService,
+
     @InjectRepository(Book)
     private readonly bookRepository: Repository<Book>,
   ) {}
@@ -25,29 +29,46 @@ export class NotificationService {
   async createNotification(bookid: number, storeid: number) {
     //해당bookid의 책제목찾기
 
-    const Book = await this.bookRepository.findOne({
+    const book = await this.bookRepository.findOne({
       where: { id: bookid },
     });
 
-    const BookTitle = Book.title;
-    console.log(BookTitle);
+    if (!book) {
+      throw new NotFoundException('책을 찾을 수 없습니다.');
+    }
+    const bookTitle = book.title;
+    console.log('Noti 북타이틀', bookTitle);
 
     //bookid책을 위시리스트로 가지고있는 user 추출
-    const userIds = await this.userService.UsersByWishedBook(BookTitle);
+    const userIds = await this.userService.UsersByWishedBook(bookTitle);
+
+    if (!userIds || userIds.length === 0) {
+      console.log('위시리스트에 해당 책을 원하는 유저가 없습니다.');
+      return;
+    }
 
     //해당유저의 배열
-    console.log(userIds);
+    console.log('Noti 유저배열', userIds);
 
+    //지점이름가져오기
+    const storeName = await this.storeService.StoreNameById(storeid);
+
+    if (!storeName) {
+      throw new NotFoundException('가게를 찾을 수 없습니다.');
+    }
+
+    console.log(storeName);
     // userIds 배열에서 각각의 userId를 순회하면서 데이터를 저장
     for (const userId of userIds) {
       // 각 userId와 관련된 storeid와 bookid를 사용하여 데이터를 생성
       const notificationData = {
         user: { id: userId },
-        storeid: storeid, // 여기에 적절한 storeid 값을 지정해야 합니다.
-        bookid: bookid, // 여기에 적절한 bookid 값을 지정해야 합니다.
+        message: `${storeName}에 ${bookTitle} 서적이 입고되었습니다`,
       };
       // notificationRepository를 사용하여 데이터 저장
       await this.notificationRepository.save(notificationData);
+      // 생성된 알림을 클라이언트에게 보냅니다.
+      this.sseService.emitNotification(userId, notificationData.message);
     }
   }
 
