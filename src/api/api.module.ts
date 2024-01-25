@@ -6,7 +6,7 @@ import { ApiService } from './api.service';
 import { Page } from '../entity/bookUpdate.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Book, Page])],
+  imports: [TypeOrmModule.forFeature([Page, Book])],
   controllers: [ApiController],
   providers: [ApiService],
 })

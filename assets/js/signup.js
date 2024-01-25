@@ -48,6 +48,10 @@ function checkDuplicateEmail() {
     .then(function (response) {
       const isEmailExists = response.data.isEmailExists;
 
+      if ((emailInput.value = '')) {
+        emailError.textContent = '이메일을 입력해주세요';
+      }
+
       if (!isEmailExists) {
         emailError.textContent = '사용 가능한 이메일입니다.';
       } else {

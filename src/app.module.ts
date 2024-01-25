@@ -5,7 +5,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ConfigProjectModule } from './config/config.module';
-import { TypeormModule } from './typeorm/typeorm.module';
+
 import { StoreModule } from './store/store.module';
 import { AdminReviewModule } from './admin-review/adminReview.module';
 import { StoreReviewModule } from './store-review/store-review.module';
@@ -14,14 +14,18 @@ import { BookModule } from './book/book.module';
 import { MyPageModule } from './my-page/my-page.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 import { RedisModule } from './configs/redis/redis.module';
+import { ReceiptModule } from './receipt/receipt.module';
 import { ApiModule } from './api/api.module';
 import { NotificationModule } from './notification/notification.module';
 import { StorebookModule } from './store-book/store-book.module';
 import { SseModule } from './sse/sse.module';
+import { TypeormModule } from './typeorm/typeorm.module';
 
 @Module({
   imports: [
-    ConfigModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     ConfigProjectModule,
     TypeormModule.forRoot(),
     UserModule,
@@ -34,10 +38,12 @@ import { SseModule } from './sse/sse.module';
     BookModule,
     MyPageModule,
     RedisModule,
+    ReceiptModule,
     ApiModule,
     NotificationModule,
     StorebookModule,
     SseModule,
+    ReceiptModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],

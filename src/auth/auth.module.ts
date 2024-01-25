@@ -36,6 +36,9 @@ import { MyPage } from 'src/entity/my-page.entity';
     }),
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     RedisModule,
+    // SessionModule.forRoot({
+    //   session: { secret: 'your-secret-key' },
+    // }),
   ],
   exports: [
     accessTokenGuard,
