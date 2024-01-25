@@ -79,31 +79,37 @@
               <input class="form-control" type="file" id="formFile" />
             </div>
             <label for="wishlist" class="form-label">내 동네 설정</label>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="주소 입력" />
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-                id="button-addon2"
-              >
-                찾기
-              </button>
-            </div>
-            <label for="wishlist" class="form-label">위시리스트</label>
-            <div class="input-group mb-3">
+            <div class="form-group">
               <input
                 type="text"
                 class="form-control"
-                placeholder="위시리스트를 선택해주세요"
+                id="addressSearch"
+                name="address"
+                placeholder="주소 검색"
+                readonly
               />
               <button
-                class="btn btn-outline-secondary"
+                class="addressBtn"
                 type="button"
-                id="button-addon2"
+                onclick="searchAddress()"
               >
-                등록
+                주소 검색
               </button>
             </div>
+
+            <label for="wishlist" class="form-label">위시리스트</label>
+            <form>
+              <div class="form-group position-relative">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="wishlistInput"
+                  autocomplete="off"
+                  placeholder="위시리스트에 추가할 만화 검색"
+                />
+                <div id="searchResults"></div>
+              </div>
+            </form>
             <div class="update-container">
               <div class="col-md-4 mb-3 updatebtn">
                 <button class="btn-hover color-8">수정</button>
@@ -119,6 +125,8 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script src="./js/mypage.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

@@ -111,3 +111,6 @@ button:hover {
 #reviewPostingBtn:hover {
   background: #ff269d;
 }
+.reviewCardList {
+  display: flex;
+}
