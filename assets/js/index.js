@@ -3,27 +3,8 @@ const body = document.getElementById('card-list');
 const maincard = document.getElementById('maincard');
 const searchbox = document.getElementById('searchbox');
 
-window.onload = function () {
-  const cookieaccess = getCookie('accessToken');
-  const cookierefresh = getCookie('refreshToken');
-
-  if (cookieaccess && cookierefresh) {
-    localStorage.setItem('accessToken', cookieaccess);
-    localStorage.setItem('refreshToken', cookierefresh);
-  }
-
-  const token = localStorage.getItem('accessToken');
-
-  if (!token) {
-    loadHeader('home'); // load the home page by default
-  } else {
-    loadHeader('login');
-  }
-
-  mainBookcard();
-};
-
 //쿠키값을 로컬스토리지로 변경해주는 함수
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getCookie(name) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
@@ -31,6 +12,7 @@ function getCookie(name) {
 }
 
 //메인 추천도서 카드 부분
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function mainBookcard() {
   mainCardSlide();
   axios
@@ -87,12 +69,12 @@ async function keyevent(event) {
   const search = await document.getElementById('search-box').value;
   if (event.key === 'Enter') {
     event.preventDefault();
+    searchresult(search, event);
   }
 
   console.log(search);
   if (search !== '') {
     maincard.style.display = 'none';
-    searchresult(search, event);
   }
 }
 
@@ -107,6 +89,7 @@ async function mainkeyup() {
 }
 
 // header 부분
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function loadHeader(page) {
   let headerContent = '';
 
@@ -167,7 +150,7 @@ function loadHeader(page) {
             <ul
               class="dropdown-menu text-small justify-content-end text-end text-center"
             >
-              <li><a class="dropdown-item" href="#">내 정보</a></li>
+              <li><a class="dropdown-item" href="mypage.html">내 정보</a></li>
               <li><a class="dropdown-item" href="#">위시리스트</a></li>
               <li><hr class="dropdown-divider" /></li>
               <li><a onclick="logout()" class="dropdown-item">로그아웃</a></li>
@@ -180,24 +163,19 @@ function loadHeader(page) {
   header.innerHTML = headerContent;
 }
 
+//메인화면 검색 부분
 async function searchresult(search) {
   // searchbox.innerHTML = ``;
   console.log(search);
   await axios
     .get(`/books/search?booktitle=${search}`)
     .then(function (response) {
-      console.log(response.data[0]);
+      // console.log(response.data);
       const books = response.data;
-      const length = response.data.length;
-      console.log(length);
 
-      for (let i = 0; i <= length; i++) {
-        if (books[i].title == undefined) {
-          break;
-        }
-        console.log(response.data[i].title);
-      }
-      // searchbox.innerHTML = 'test';
+      books.forEach((book) => {
+        console.log(book);
+      });
     })
     .catch(function (error) {
       console.log(error);

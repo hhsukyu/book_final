@@ -52,10 +52,12 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
 
   async getBookInfo(bookTitle: string): Promise<string | null> {
     const cachedResult = await this.client.get(bookTitle);
-    return cachedResult ? JSON.parse(cachedResult) : null;
+    return cachedResult && cachedResult !== '[]'
+      ? JSON.parse(cachedResult)
+      : null;
   }
 
   async setBookInfo(bookTitle: string, bookInfo: string): Promise<void> {
-    await this.client.set(bookTitle, bookInfo);
+    await this.client.set(bookTitle, bookInfo, { EX: 60 * 2 });
   }
 }
