@@ -9,10 +9,17 @@ import { BookService } from '../book/book.service';
 import { StoreService } from '../store/store.service';
 import { UserService } from '../user/user.service';
 import { User } from '../entity/user.entity';
+import { RedisService } from '../configs/redis/redis.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([StoreBook, Book, Store, User])],
   controllers: [StorebookController],
-  providers: [StorebookService, BookService, StoreService, UserService],
+  providers: [
+    StorebookService,
+    BookService,
+    StoreService,
+    UserService,
+    RedisService,
+  ],
 })
 export class StorebookModule {}

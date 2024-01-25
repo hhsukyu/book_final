@@ -84,6 +84,8 @@ export class AuthController {
     console.log('teest');
     res.cookie('accessToken', accessToken);
     res.cookie('refreshToken', refreshToken);
+
+    //redirect할 본인 페이지 주소확인
     res.redirect('http://localhost:3000');
   }
 

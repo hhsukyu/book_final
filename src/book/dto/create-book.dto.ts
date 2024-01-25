@@ -45,5 +45,4 @@ export class CreateBookDto {
   @IsString()
   @ApiProperty({ description: '이미지' })
   book_image: string;
-
 }

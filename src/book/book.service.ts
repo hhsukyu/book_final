@@ -13,6 +13,7 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { UserService } from 'src/user/user.service';
 import { StoreBook } from 'src/entity/store-book.entity';
 import { StorebookService } from 'src/store-book/store-book.service';
+import { RedisService } from '../configs/redis/redis.service';
 
 @Injectable()
 export class BookService {
@@ -23,6 +24,8 @@ export class BookService {
     // private storeBookRepository: Repository<StoreBook>,
     private readonly userService: UserService,
     // private readonly storeBookService: StorebookService,
+
+    private readonly redisService: RedisService,
   ) {}
 
   async maingetBooks() {
@@ -60,14 +63,27 @@ export class BookService {
     return books;
   }
 
-  //도서 검색
-  async searchbook(booktitle: string) {
-    const books = await this.bookRepository.find({ select: ['title'] });
+  async searchbook(bookTitle: string): Promise<string | Book[]> {
+    const cachedResult = await this.redisService.getBookInfo(bookTitle);
 
-    const resultbook = books.filter((book) => book.title.includes(booktitle));
-    // console.log(booktitle);
-    // console.log(resultbook);
-    return resultbook;
+    if (!cachedResult) {
+      console.log('test');
+      const books = await this.bookRepository.find({
+        where: { title: bookTitle },
+      });
+      const searchResult = books.filter((book) =>
+        book.title.includes(bookTitle),
+      );
+
+      await this.redisService.setBookInfo(
+        bookTitle,
+        JSON.stringify(searchResult),
+      );
+
+      return searchResult;
+    }
+    console.log(cachedResult);
+    return cachedResult;
   }
 
   //도서 상세조회

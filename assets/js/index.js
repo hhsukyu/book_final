@@ -96,6 +96,7 @@ async function keyevent(event) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function mainkeyup() {
   const search = await document.getElementById('search-box').value;
 
@@ -176,7 +177,6 @@ function loadHeader(page) {
       </div>
     `;
   }
-
   header.innerHTML = headerContent;
 }
 
@@ -186,8 +186,18 @@ async function searchresult(search) {
   await axios
     .get(`/books/search?booktitle=${search}`)
     .then(function (response) {
-      console.log(response.data.length);
-      searchbox.innerHTML = 'test';
+      console.log(response.data[0]);
+      const books = response.data;
+      const length = response.data.length;
+      console.log(length);
+
+      for (let i = 0; i <= length; i++) {
+        if (books[i].title == undefined) {
+          break;
+        }
+        console.log(response.data[i].title);
+      }
+      // searchbox.innerHTML = 'test';
     })
     .catch(function (error) {
       console.log(error);
