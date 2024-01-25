@@ -16,6 +16,7 @@ export class TypeormModule {
         autoLoadEntities: true,
         synchronize: false,
         logging: false,
+        legacySpatialSupport: false,
       }),
       inject: [ConfigService],
     });
