@@ -20,9 +20,6 @@ import { Point } from 'wkx';
   name: 'store',
 })
 export class Store {
-  forEach(arg0: (store: any) => void) {
-    throw new Error('Method not implemented.');
-  }
   @PrimaryGeneratedColumn()
   id: number;
 

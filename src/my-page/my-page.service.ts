@@ -4,12 +4,14 @@ import { Repository } from 'typeorm';
 import { MyPage } from '../entity/my-page.entity';
 import { UpdateMyPageDto } from './dto/update-my-page.dto';
 import { CreateMyPageDto } from './dto/create-my-page.dto';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class MyPageService {
   constructor(
     @InjectRepository(MyPage)
     private myPageRepository: Repository<MyPage>,
+    private userService: UserService,
   ) {}
 
   async create(userId: number, createMyPageDto: CreateMyPageDto) {
@@ -21,8 +23,10 @@ export class MyPageService {
   }
 
   async findOne(userId: number) {
+    const user = await this.userService.findUserById(userId);
     const userDetail = await this.myPageRepository.findOne({
-      where: { user: { id: userId } },
+      where: { user: user },
+      select: ['address', 'wish_list'],
     });
     console.log(userDetail);
 
