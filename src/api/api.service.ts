@@ -9,17 +9,17 @@ import { Page } from '../entity/bookUpdate.entity';
 @Injectable()
 export class ApiService {
   constructor(
-    @InjectRepository(Book)
-    private bookRepository: Repository<Book>,
     @InjectRepository(Page)
     private readonly pageRepository: Repository<Page>,
+
+    @InjectRepository(Book)
+    private readonly bookRepository: Repository<Book>,
 
     private readonly configService: ConfigService,
   ) {}
 
   async bookupdate() {
     const key = await this.configService.get('book_api');
-
     // 페이지 번호를 불러옵니다.
     let page = await this.pageRepository.findOne({ where: { id: 1 } });
     if (!page) {
@@ -27,9 +27,7 @@ export class ApiService {
       page = this.pageRepository.create();
       await this.pageRepository.save(page);
     }
-
     let pageNo = page.pageNo;
-
     while (true) {
       const response = await axios.get(
         `https://www.kmas.or.kr/openapi/search/rgDtaMasterList`,
@@ -42,22 +40,18 @@ export class ApiService {
           },
         },
       );
-
       const books = await response.data.itemList;
-
       if (books.length === 0) {
         break;
       }
       console.log(books.length);
       console.log('---------------------------------------');
-
       for (const book of books) {
         console.log(book.title);
         const existingBook = await this.bookRepository.findOne({
           where: { title: book.title },
         });
-
-        if (existingBook === null) {
+        if (existingBook === null && !book.title.includes('전자책')) {
           const newBook = {
             title: book.title || '제목 없음',
             illustrator: book.pictrWritrNm || '미상',
@@ -71,16 +65,13 @@ export class ApiService {
             fnshYn: book.fnshYn || 'N',
             book_image: book.imageDownloadUrl || '이미지 없음',
           };
-
           await this.bookRepository.save(newBook);
           console.log('데이터 저장 성공');
         } else {
           console.log('존재');
         }
       }
-
       pageNo = pageNo + 100;
-
       // 페이지 번호를 업데이트합니다.
       page.pageNo = pageNo;
       await this.pageRepository.save(page);

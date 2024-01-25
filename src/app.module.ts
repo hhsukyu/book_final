@@ -5,7 +5,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ConfigProjectModule } from './config/config.module';
-import { TypeormModule } from './typeorm/typeorm.module';
+
 import { StoreModule } from './store/store.module';
 import { AdminReviewModule } from './admin-review/adminReview.module';
 import { StoreReviewModule } from './store-review/store-review.module';
@@ -17,10 +17,13 @@ import { RedisModule } from './configs/redis/redis.module';
 import { ReceiptModule } from './receipt/receipt.module';
 import { ApiModule } from './api/api.module';
 import { StorebookModule } from './store-book/store-book.module';
+import { TypeormModule } from './typeorm/typeorm.module';
 
 @Module({
   imports: [
-    ConfigModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     ConfigProjectModule,
     TypeormModule.forRoot(),
     UserModule,
@@ -36,6 +39,7 @@ import { StorebookModule } from './store-book/store-book.module';
     ReceiptModule,
     ApiModule,
     StorebookModule,
+    ReceiptModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
