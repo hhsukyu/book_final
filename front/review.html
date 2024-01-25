@@ -93,81 +93,8 @@
               class="card-container row row-cols-3 row-cols-md-4 g-4 col-12"
             >
               <div class="container mt-5">
-                <!-- Button trigger modal -->
-                <button
-                  class="btn"
-                  id="reviewPostingBtn"
-                  data-bs-toggle="modal"
-                  data-bs-target="#reviewModal"
-                >
-                  리뷰 작성하기
-                </button>
-
-                <!-- Review Modal -->
-                <div
-                  class="modal fade"
-                  id="reviewModal"
-                  tabindex="-1"
-                  aria-labelledby="reviewModalLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="reviewModalLabel">
-                          리뷰 작성
-                        </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <!-- Your review form goes here -->
-                        <div class="review-container">
-                          <div class="rating_box">
-                            <span class="star1" onclick="clickstar1()"
-                              ><i
-                                class="fa-solid fa-star"
-                                style="color: #ffd43b"
-                              ></i
-                            ></span>
-                            <span class="star2" onclick="clickstar2()"
-                              ><i class="fa-regular fa-star"></i
-                            ></span>
-                            <span class="star3" onclick="clickstar3()"
-                              ><i class="fa-regular fa-star"></i
-                            ></span>
-                            <span class="star4" onclick="clickstar4()"
-                              ><i class="fa-regular fa-star"></i
-                            ></span>
-                            <span class="star5" onclick="clickstar5()"
-                              ><i class="fa-regular fa-star"></i
-                            ></span>
-                          </div>
-                          <div class="review_box">
-                            <textarea
-                              class="create_review"
-                              placeholder="리뷰를 작성해주세요"
-                            ></textarea>
-                          </div>
-                          <div>
-                            <input
-                              class="review_btn"
-                              type="submit"
-                              value="리뷰 등록"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
                 <!-- Sample Review List -->
-                <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="row row-cols-1 row-cols-md-3 g-4 reviewCardList">
                   <div class="card" style="width: 18rem">
                     <div class="card-body">
                       <h5 class="card-title">지점리뷰 1</h5>
@@ -219,6 +146,41 @@
                     </div>
                   </div>
                 </div>
+                <footer>
+                  <!-- Review Submit -->
+                  <div class="review-container">
+                    <div class="rating_box">
+                      <span class="star1" onclick="clickstar1()"
+                        ><i class="fa-solid fa-star" style="color: #ffd43b"></i
+                      ></span>
+                      <span class="star2" onclick="clickstar2()"
+                        ><i class="fa-regular fa-star"></i
+                      ></span>
+                      <span class="star3" onclick="clickstar3()"
+                        ><i class="fa-regular fa-star"></i
+                      ></span>
+                      <span class="star4" onclick="clickstar4()"
+                        ><i class="fa-regular fa-star"></i
+                      ></span>
+                      <span class="star5" onclick="clickstar5()"
+                        ><i class="fa-regular fa-star"></i
+                      ></span>
+                    </div>
+                    <div class="review_box">
+                      <textarea
+                        class="create_review"
+                        placeholder="리뷰를 작성해주세요"
+                      ></textarea>
+                    </div>
+                    <div>
+                      <input
+                        class="review_btn"
+                        type="submit"
+                        value="리뷰 등록"
+                      />
+                    </div>
+                  </div>
+                </footer>
               </div>
 
               <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
