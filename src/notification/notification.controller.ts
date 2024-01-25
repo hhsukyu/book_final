@@ -9,6 +9,8 @@ import { NotificationService } from './notification.service';
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
+//신간도서 알림생성 : 바로 서비스에서 진행
+
   //알림 조회
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)

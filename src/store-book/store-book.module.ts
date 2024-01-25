@@ -12,6 +12,7 @@ import { User } from 'src/entity/user.entity';
 import { MyPage } from 'src/entity/my-page.entity';
 import { NotificationService } from 'src/notification/notification.service';
 import { Notification } from 'src/entity/notification.entity';
+import { SseService } from 'src/sse/sse.service';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { Notification } from 'src/entity/notification.entity';
     StoreService,
     UserService,
     NotificationService,
+    SseService,
   ],
 })
 export class StorebookModule {}
