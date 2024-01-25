@@ -14,14 +14,12 @@ import { StoreBook } from './store-book.entity';
 import { StoreReview } from './storeReview.entity';
 import { AdminReview } from './adminReview.entity';
 import { Receipt } from './receipt.entity';
+import { Point } from 'wkx';
 
 @Entity({
   name: 'store',
 })
 export class Store {
-  forEach(arg0: (store: any) => void) {
-    throw new Error('Method not implemented.');
-  }
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -46,11 +44,8 @@ export class Store {
   @Column()
   store_address: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 7 })
-  latitude: number;
-
-  @Column({ type: 'decimal', precision: 10, scale: 7 })
-  longitude: number;
+  @Column({ type: 'point', nullable: false })
+  place: Point;
 
   @OneToMany(() => Menu, (menu) => menu.store)
   menus: Relation<Menu>[];

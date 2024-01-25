@@ -15,6 +15,7 @@ import { MyPageModule } from './my-page/my-page.module';
 import { BookReviewModule } from './bookreview/bookreview.module';
 import { RedisModule } from './configs/redis/redis.module';
 import { ReceiptModule } from './receipt/receipt.module';
+import { MapModule } from './map/map.module';
 import { ApiModule } from './api/api.module';
 import { StorebookModule } from './store-book/store-book.module';
 import { TypeormModule } from './typeorm/typeorm.module';
@@ -37,9 +38,9 @@ import { TypeormModule } from './typeorm/typeorm.module';
     MyPageModule,
     RedisModule,
     ReceiptModule,
+    MapModule,
     ApiModule,
     StorebookModule,
-    ReceiptModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
