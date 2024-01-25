@@ -22,7 +22,7 @@ function mainBookcard() {
       books.forEach((book) => {
         // console.log(book);
         body.innerHTML += `
-        <div class="swiper-slide card">
+        <div onclick="carddetail(${book.id})" class="swiper-slide card">
         <div class="card-content">
           <div class="image">
             <img
@@ -176,6 +176,80 @@ async function searchresult(search) {
       books.forEach((book) => {
         console.log(book);
       });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+//로그아웃
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function logout() {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+
+  document.cookie =
+    'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  document.cookie =
+    'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+  window.location.reload();
+}
+
+//책 자세히보기
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function carddetail(bookid) {
+  const booklabel = document.getElementById('bookmodallabel');
+  const bodytitle = document.getElementById('modalcardtitle');
+  const bodydesc = document.getElementById('modalcarddesc');
+  const bodywr = document.getElementById('modalcardwr');
+  const bodyil = document.getElementById('modalcardil');
+  const bookcardimage = document.getElementById('bookcardImage');
+  const bookpublisher = document.getElementById('modalcardpublisher');
+  const bookpudate = document.getElementById('modalcardpudate');
+  const bookgenre = document.getElementById('modalcardgenre');
+  //연재확인
+  const fnishYn = document.getElementById('modalcardYn');
+
+  $('#bookModal').modal('show');
+  axios
+    .get('/books/' + bookid, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function (response) {
+      console.log(response.data);
+      const book = response.data;
+
+      booklabel.innerHTML = book.title;
+      bodytitle.innerHTML = book.title;
+      bodydesc.innerHTML = book.book_desc;
+      bodywr.innerHTML = book.writer;
+      bodyil.innerHTML = book.illustrator;
+      bookcardimage.src = book.book_image;
+      bookpublisher.innerHTML = book.publisher;
+      bookpudate.innerHTML = book.publication_date;
+      bookgenre.innerHTML = book.genre;
+
+      if (book.fnshYn === 'N') {
+        fnishYn.innerHTML = '연재중';
+      } else {
+        fnishYn.innerHTML = '완결';
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  axios
+    .get('/bookreview/' + bookid, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function (response) {
+      console.log(response);
     })
     .catch(function (error) {
       console.log(error);

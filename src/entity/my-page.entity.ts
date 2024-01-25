@@ -1,7 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 
-@Entity()
+@Entity({ name: 'mypages' })
 export class MyPage {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,5 +31,6 @@ export class MyPage {
   updated_at: Date;
 
   @OneToOne(() => User, (user) => user.myPage)
+  @JoinColumn({ name: 'MyPage_id', referencedColumnName: 'id' })
   user: User;
 }
