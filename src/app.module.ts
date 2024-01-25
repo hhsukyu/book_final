@@ -18,7 +18,6 @@ import { ReceiptModule } from './receipt/receipt.module';
 import { ApiModule } from './api/api.module';
 import { StorebookModule } from './store-book/store-book.module';
 import { TypeormModule } from './typeorm/typeorm.module';
-import { ReceiptAuthModule } from './receipt-auth/receipt-auth.module';
 
 @Module({
   imports: [
@@ -40,7 +39,7 @@ import { ReceiptAuthModule } from './receipt-auth/receipt-auth.module';
     ReceiptModule,
     ApiModule,
     StorebookModule,
-    ReceiptAuthModule,
+    ReceiptModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
