@@ -200,6 +200,17 @@ function logout() {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function carddetail(bookid) {
   const booklabel = document.getElementById('bookmodallabel');
+  const bodytitle = document.getElementById('modalcardtitle');
+  const bodydesc = document.getElementById('modalcarddesc');
+  const bodywr = document.getElementById('modalcardwr');
+  const bodyil = document.getElementById('modalcardil');
+  const bookcardimage = document.getElementById('bookcardImage');
+  const bookpublisher = document.getElementById('modalcardpublisher');
+  const bookpudate = document.getElementById('modalcardpudate');
+  const bookgenre = document.getElementById('modalcardgenre');
+  //연재확인
+  const fnishYn = document.getElementById('modalcardYn');
+
   $('#bookModal').modal('show');
   axios
     .get('/books/' + bookid, {
@@ -212,6 +223,33 @@ function carddetail(bookid) {
       const book = response.data;
 
       booklabel.innerHTML = book.title;
+      bodytitle.innerHTML = book.title;
+      bodydesc.innerHTML = book.book_desc;
+      bodywr.innerHTML = book.writer;
+      bodyil.innerHTML = book.illustrator;
+      bookcardimage.src = book.book_image;
+      bookpublisher.innerHTML = book.publisher;
+      bookpudate.innerHTML = book.publication_date;
+      bookgenre.innerHTML = book.genre;
+
+      if (book.fnshYn === 'N') {
+        fnishYn.innerHTML = '연재중';
+      } else {
+        fnishYn.innerHTML = '완결';
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  axios
+    .get('/bookreview/' + bookid, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function (response) {
+      console.log(response);
     })
     .catch(function (error) {
       console.log(error);
