@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -98,6 +99,8 @@ export class AuthService {
       currentRefreshToken: refreshToken,
     });
 
+    await this.redisService.setRefreshToken(user.email, refreshToken);
+
     return {
       accessToken,
       refreshToken,
@@ -109,6 +112,8 @@ export class AuthService {
     const user = await this.userService.findUserById(id);
 
     const accessToken = this.generateAccessToken(id, user.nickname);
+
+    await this.redisService.getRefreshToken(user.email);
 
     return accessToken;
   }
@@ -311,13 +316,21 @@ export class AuthService {
   //비밀번호 찾기- 이메일 인증번호 보내기
   async sendVerificationCode(email: string) {
     const code = String(Math.floor(Math.random() * 1000000)).padStart(6, '0');
-    await this.redisService.setVerificationCode(email, code);
-    await this.emailService.sendVerificationEmail(email, code);
+    await this.redisService.setVerificationCode(email, code.toString());
+    await this.emailService.sendVerificationEmail(email, code.toString());
+    console.log('email, code', email, code);
   }
+
   //비밀번호 찾기-인증번호 확인
   async verifyCode(code: string, email: string) {
     const storedCode = await this.redisService.getVerificationCode(email);
-    return storedCode === code;
+    console.log('storedCode,code', storedCode, code);
+
+    if (storedCode === code) {
+      return { message: '이메일 인증 성공' };
+    } else {
+      throw new ConflictException('인증번호가 일치하지 않습니다.');
+    }
   }
 
   //비밀번호 찾기-비밀번호 재설정

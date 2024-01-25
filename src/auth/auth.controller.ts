@@ -119,8 +119,6 @@ export class AuthController {
   }
 
   //비밀번호 찾기-이메일 인증번호 전송
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
   @Post('/send-verification')
   async sendVerificationCode(
     @Body() sendVerificationCodeDto: SendVerificationCodeDto,
@@ -128,8 +126,6 @@ export class AuthController {
     await this.authService.sendVerificationCode(sendVerificationCodeDto.email);
   }
   //비밀번호 찾기-인증번호 확인
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
   @Post('/verify-code')
   async verifyCode(@Body() verifyCodeDto: VerifyCodeDto) {
     await this.authService.verifyCode(verifyCodeDto.code, verifyCodeDto.email);
