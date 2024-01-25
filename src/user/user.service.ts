@@ -67,7 +67,15 @@ export class UserService {
   async findUserById(id: number) {
     return await this.userRepository.findOne({
       where: { id },
-      select: ['id', 'email', 'nickname', 'createdAt', 'updatedAt', 'role'],
+      select: [
+        'id',
+        'email',
+        'photo',
+        'nickname',
+        'createdAt',
+        'updatedAt',
+        'role',
+      ],
       relations: { stores: true },
     });
   }

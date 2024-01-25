@@ -18,11 +18,6 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <!-- slide.js -->
-    <!-- <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
-    /> -->
   </head>
   <body>
     <header class="py-3 mb-3">
@@ -68,7 +63,148 @@
       </div>
     </div>
 
+    <!-- 검색결과 화면 -->
     <div id="searchbox"></div>
+
+    <!-- 책 상세정보 모달창 -->
+    <div
+      class="modal fade"
+      id="bookModal"
+      tabindex="-1"
+      data-bs-keyboard="false"
+      aria-labelledby="detailbookdModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="bookmodallabel"></h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container bookboard">
+              <div class="book-info">
+                <!-- 도서 이미지 -->
+
+                <img
+                  src=""
+                  id="bookcardImage"
+                  class="img-fluid"
+                  alt="Book Cover"
+                />
+
+                <!-- 도서 정보 -->
+                <div class="book-details mt-3">
+                  <h3 id="modalcardtitle">도서 제목</h3>
+                  <p><strong>소개</strong>: <a id="modalcarddesc"></a></p>
+                  <p><strong>글작가</strong>: <a id="modalcardwr"></a></p>
+                  <p><strong>그림작가</strong>: <a id="modalcardil"></a></p>
+                  <p>
+                    <strong>출판사</strong>: <a id="modalcardpublisher"></a>
+                  </p>
+                  <p><strong>출판일</strong>: <a id="modalcardpudate"></a></p>
+                  <p><strong>장르</strong>: <a id="modalcardgenre"></a></p>
+                  <p><strong>연재여부</strong>: <a id="modalcardYn"></a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="reviewCardRow row pt-5">
+            <h2 class="mb-4">도서리뷰 목록</h2>
+            <div class="row px-3 pt-2 container reviewcardbox2 reviewcontainer">
+              <div class="reviewcardbox">
+                <!-- box-top -->
+                <div class="box-top">
+                  <!-- profile-box -->
+                  <div class="profile-box">
+                    <!-- user-image -->
+                    <div class="profile-img">
+                      <img
+                        src="https://i.namu.wiki/i/ansU2jw14dqvAVa_i_XyHO4uCuBh56segYeOz69QjRUeSPnmzzgz2o5_MzEpDiAojF_sNwFMQJk3ExK0mVW9aw.webp"
+                      />
+                    </div>
+                    <!-- username-Name -->
+                    <div class="name-user">
+                      <strong>test Username</strong>
+                    </div>
+                  </div>
+
+                  <!-- review box -->
+                  <div class="review-box">
+                    <!-- 별 부분 -->
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+
+                <!-- comment part -->
+                <div class="client-comment">
+                  <p>
+                    testsetseteseifj sidjf isjefifjidsjifsje ifjsfi jidsjsi
+                    ewsjij siesj ifj
+                  </p>
+                </div>
+              </div>
+              <!-- ...... -->
+              <div class="reviewcardbox">
+                <!-- box-top -->
+                <div class="box-top">
+                  <!-- profile-box -->
+                  <div class="profile-box">
+                    <!-- user-image -->
+                    <div class="profile-img">
+                      <img
+                        src="https://i.namu.wiki/i/ansU2jw14dqvAVa_i_XyHO4uCuBh56segYeOz69QjRUeSPnmzzgz2o5_MzEpDiAojF_sNwFMQJk3ExK0mVW9aw.webp"
+                      />
+                    </div>
+                    <!-- username-Name -->
+                    <div class="name-user">
+                      <strong>test Username</strong>
+                    </div>
+                  </div>
+
+                  <!-- review box -->
+                  <div class="review-box">
+                    <!-- 별 부분 -->
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+
+                <!-- comment part -->
+                <div class="client-comment">
+                  <p>
+                    testsetseteseifj sidjf isjefifjidsjifsje ifjsfi jidsjsi
+                    ewsjij siesj ifj
+                  </p>
+                </div>
+              </div>
+              <!-- ....... -->
+            </div>
+          </div>
+          <!-- <div class="modal-footer"> -->
+          <!-- <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button> -->
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
 
     <!-- 부트스트랩 js파일 -->
     <script
