@@ -99,8 +99,6 @@ export class AuthService {
       currentRefreshToken: refreshToken,
     });
 
-    await this.redisService.setRefreshToken(user.email, refreshToken);
-
     return {
       accessToken,
       refreshToken,
@@ -112,8 +110,6 @@ export class AuthService {
     const user = await this.userService.findUserById(id);
 
     const accessToken = this.generateAccessToken(id, user.nickname);
-
-    await this.redisService.getRefreshToken(user.email);
 
     return accessToken;
   }
