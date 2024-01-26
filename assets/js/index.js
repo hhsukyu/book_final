@@ -69,7 +69,7 @@ async function keyevent(event) {
   const search = await document.getElementById('search-box').value;
   if (event.key === 'Enter') {
     event.preventDefault();
-    searchresult(search, event);
+    searchresult(search);
   }
 
   console.log(search);
@@ -151,7 +151,7 @@ function loadHeader(page) {
               class="dropdown-menu text-small justify-content-end text-end text-center"
             >
               <li><a class="dropdown-item" href="mypage.html">내 정보</a></li>
-              <li><a class="dropdown-item" href="#">위시리스트</a></li>
+              <li><a class="dropdown-item" href="wishlist.html">위시리스트</a></li>
               <li><hr class="dropdown-divider" /></li>
               <li><a onclick="logout()" class="dropdown-item">로그아웃</a></li>
             </ul>
@@ -193,7 +193,7 @@ function logout() {
   document.cookie =
     'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-  window.location.reload();
+  window.location.href = 'index.html';
 }
 
 //책 자세히보기
@@ -213,11 +213,7 @@ function carddetail(bookid) {
 
   $('#bookModal').modal('show');
   axios
-    .get('/books/' + bookid, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    })
+    .get('/books/' + bookid)
     .then(function (response) {
       console.log(response.data);
       const book = response.data;

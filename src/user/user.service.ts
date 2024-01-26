@@ -11,7 +11,7 @@ import { ConfigService } from '@nestjs/config';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { CreateBookDto } from 'src/book/dto/create-book.dto';
+
 import { MyPage } from '../entity/my-page.entity';
 
 @Injectable()
@@ -80,7 +80,7 @@ export class UserService {
         'updatedAt',
         'role',
       ],
-      relations: { stores: true },
+      relations: { stores: true, myPage: true },
     });
   }
 

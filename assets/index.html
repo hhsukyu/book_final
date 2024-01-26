@@ -22,6 +22,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <!-- 지점 정보 스크롤 기능 -->
+    <script src="https://unpkg.com/scrollreveal"></script>
   </head>
   <body>
     <header class="py-3 mb-3">
@@ -43,28 +45,101 @@
     <!-- 카드 슬라이드 부분 -->
     <div id="maincard">
       <div class="card-row">
-        <div class="">
-          <div class="row bookboard mt-4">
-            <div>
-              <h2 class="mt-4">추천 도서목록</h2>
-            </div>
-            <div>
-              <section>
-                <div class="swiper mySwiper slide-container">
-                  <div class="swiper-wrapper content" id="card-list"></div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </section>
-            </div>
+        <div class="row bookboard mt-4">
+          <div>
+            <h2 class="mt-4">추천 도서목록</h2>
+          </div>
+          <div>
+            <section>
+              <div class="swiper mySwiper slide-container">
+                <div class="swiper-wrapper content" id="card-list"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </section>
           </div>
         </div>
       </div>
     </div>
 
     <!-- 장르별 추천도서 -->
-    <div id="genre"></div>
+    <div class="genre">
+      <div class="genre-categories">
+        <div class="genre-category">
+          <img src="장르1.png" alt="장르1 이미지" />
+          <span>액션</span>
+        </div>
+        <div class="genre-category">
+          <img src="장르2.png" alt="장르2 이미지" />
+          <span>무협</span>
+        </div>
+        <div class="genre-category">
+          <img src="장르3.png" alt="장르3 이미지" />
+          <span>코믹</span>
+        </div>
+        <div class="genre-category">
+          <img src="장르3.png" alt="장르3 이미지" />
+          <span>드라마</span>
+        </div>
+        <div class="genre-category">
+          <img src="장르3.png" alt="장르3 이미지" />
+          <span>순정</span>
+        </div>
+        <div class="genre-category">
+          <img src="장르3.png" alt="장르3 이미지" />
+          <span>판타지</span>
+        </div>
+        <!-- 추가적인 장르 카테고리 -->
+      </div>
+    </div>
+
+    <!-- 지점 목록 -->
+    <div class="stores">
+      <div class="album-store">
+        <div class="album-item">
+          <img src="이미지1.jpg" alt="앨범1" />
+          <div class="album-details">
+            <span class="album-title">앨범 제목 1</span>
+            <span class="album-intro">앨범 소개 1</span>
+            <span class="album-location">앨범 장소 1</span>
+          </div>
+        </div>
+        <div class="album-item">
+          <img src="이미지2.jpg" alt="앨범2" />
+          <div class="album-details">
+            <span class="album-title">앨범 제목 2</span>
+            <span class="album-intro">앨범 소개 2</span>
+            <span class="album-location">앨범 장소 2</span>
+          </div>
+        </div>
+        <div class="album-item">
+          <img src="이미지2.jpg" alt="앨범2" />
+          <div class="album-details">
+            <span class="album-title">앨범 제목 2</span>
+            <span class="album-intro">앨범 소개 2</span>
+            <span class="album-location">앨범 장소 2</span>
+          </div>
+        </div>
+        <div class="album-item">
+          <img src="이미지2.jpg" alt="앨범2" />
+          <div class="album-details">
+            <span class="album-title">앨범 제목 2</span>
+            <span class="album-intro">앨범 소개 2</span>
+            <span class="album-location">앨범 장소 2</span>
+          </div>
+        </div>
+        <div class="album-item">
+          <img src="이미지2.jpg" alt="앨범2" />
+          <div class="album-details">
+            <span class="album-title">앨범 제목 2</span>
+            <span class="album-intro">앨범 소개 2</span>
+            <span class="album-location">앨범 장소 2</span>
+          </div>
+        </div>
+        <!-- 나머지 앨범 아이템들도 동일한 구조로 추가 -->
+      </div>
+    </div>
 
     <!-- 검색결과 화면 -->
     <div id="searchbox"></div>
@@ -187,5 +262,8 @@
     <script src="./js/index.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/login.js"></script>
+    <script>
+      ScrollReveal().reveal('.headline');
+    </script>
   </body>
 </html>

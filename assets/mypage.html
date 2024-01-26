@@ -51,10 +51,15 @@
       <div class="col">
         <h2 class="mt-4 title-mypage">마이페이지</h2>
       </div>
-      <form>
+      <form id="mypageform" class="input-class" onsubmit="mypagebtn()">
         <label for="profile-picture" class="form-label">프로필 사진</label>
         <div class="mb-3">
-          <input class="form-control" type="file" id="formFile" />
+          <input
+            class="form-control"
+            name="profileimg"
+            type="file"
+            id="formFile"
+          />
         </div>
         <label for="wishlist" class="form-label">내 동네 설정</label>
         <div class="form-group">
@@ -72,22 +77,11 @@
           </button>
         </div>
 
-        <label for="wishlist" class="form-label">위시리스트</label>
-
-        <div class="form-group position-relative">
-          <input
-            type="text"
-            class="form-control"
-            id="wishlistInput"
-            autocomplete="off"
-            placeholder="위시리스트에 추가할 만화 검색"
-          />
-          <div id="searchResults"></div>
-        </div>
-
         <div class="update-container">
           <div class="col-md-4 mb-3 updatebtn">
-            <button type="submit" class="btn-hover color-8">수정</button>
+            <button onclick="mypagebtn()" class="btn-hover color-8">
+              수정
+            </button>
           </div>
         </div>
       </form>

@@ -60,6 +60,16 @@ export class BookService {
     return books;
   }
 
+  async wishlistbook(booktitle: string) {
+    console.log(booktitle);
+    const book = this.bookRepository.find({ select: ['id', 'title'] });
+
+    const result = (await book).filter((book) =>
+      book.title.includes(booktitle),
+    );
+    return result;
+  }
+
   async searchbook(booktitle: string) {
     const cachedResult = await this.redisService.getBookInfo(booktitle);
 
@@ -67,7 +77,12 @@ export class BookService {
       console.log(cachedResult);
       return cachedResult;
     }
-    const searchResult = (await this.bookRepository.find()).filter((book) =>
+
+    const book = this.bookRepository.find({
+      select: ['id', 'title', 'book_desc', 'book_image'],
+    });
+
+    const searchResult = (await book).filter((book) =>
       book.title.includes(booktitle),
     );
 

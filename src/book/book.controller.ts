@@ -30,6 +30,12 @@ export class BookController {
     return await this.bookService.createBook(createBookDto, userid);
   }
 
+  //wishlist 도서 검색
+  @Get('wishlist')
+  async wishlist(@Query('booktitle') booktitle: string) {
+    return await this.bookService.wishlistbook(booktitle);
+  }
+
   //도서 검색
   @Get('search')
   async searchBook(@Query('booktitle') booktitle: string) {
@@ -51,8 +57,8 @@ export class BookController {
   }
 
   //도서 상세조회
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
+  // @ApiBearerAuth('accessToken')
+  // @UseGuards(accessTokenGuard)
   @Get('/:bookid')
   async getBookById(@Param('bookid') id: number) {
     return await this.bookService.getBookById(id);

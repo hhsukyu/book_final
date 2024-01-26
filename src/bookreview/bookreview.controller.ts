@@ -20,7 +20,6 @@ export class BookReviewController {
 
   @UseGuards(accessTokenGuard)
   @Post()
-
   //리뷰작성
   create(
     @Param('bookId') book_id: number,
