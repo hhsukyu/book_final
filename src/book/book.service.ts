@@ -11,8 +11,6 @@ import { Repository } from 'typeorm';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { UserService } from 'src/user/user.service';
-import { StoreBook } from 'src/entity/store-book.entity';
-import { StorebookService } from 'src/store-book/store-book.service';
 import { RedisService } from '../configs/redis/redis.service';
 
 @Injectable()
