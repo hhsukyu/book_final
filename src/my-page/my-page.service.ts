@@ -15,6 +15,15 @@ export class MyPageService {
   ) {}
 
   async create(userId: number, createMyPageDto: CreateMyPageDto) {
+    const userDetail = await this.myPageRepository.findOne({
+      where: { user: { id: userId } },
+      //select: ['address', 'wish_list'],
+    });
+
+    if (userDetail) {
+      throw new NotFoundException('이미 등록되어있습니다');
+    }
+
     const myPage = await this.myPageRepository.save({
       ...createMyPageDto,
       user: { id: userId },
@@ -23,10 +32,9 @@ export class MyPageService {
   }
 
   async findOne(userId: number) {
-    const user = await this.userService.findUserById(userId);
     const userDetail = await this.myPageRepository.findOne({
-      where: { user: user },
-      select: ['address', 'wish_list'],
+      where: { user: { id: userId } },
+      //select: ['address', 'wish_list'],
     });
     console.log(userDetail);
 

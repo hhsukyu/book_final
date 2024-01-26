@@ -1,4 +1,5 @@
 import {
+  AfterInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -10,6 +11,7 @@ import {
 } from 'typeorm';
 import { Book } from './book.entity';
 import { Store } from './store.entity';
+import { Notification } from './notification.entity';
 
 @Entity({
   name: 'storebook',

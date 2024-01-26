@@ -21,10 +21,11 @@ import { RedisModule } from 'src/configs/redis/redis.module';
 import { EmailService } from 'src/configs/mailer/email.service';
 
 import { Book } from '../entity/book.entity';
+import { MyPage } from 'src/entity/my-page.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Book]),
+    TypeOrmModule.forFeature([User, Book, MyPage]),
     JwtModule,
     forwardRef(() => UserModule),
     JwtModule.registerAsync({

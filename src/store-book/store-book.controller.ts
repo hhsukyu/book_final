@@ -8,13 +8,17 @@ import {
   Put,
 } from '@nestjs/common';
 import { StorebookService } from './store-book.service';
+import { NotificationService } from '../notification/notification.service';
 import { CreateStoreBookDto } from './dto/create-storebook.dto';
 import { UserId } from 'src/auth/decorators/userId.decorator';
 import { UpdateStoreBookDto } from './dto/update-storebook.dto';
 
 @Controller('storebook')
 export class StorebookController {
-  constructor(private readonly storebookService: StorebookService) {}
+  constructor(
+    private readonly storebookService: StorebookService,
+    private readonly notificationService: NotificationService,
+  ) {}
 
   @Post('/:storeid/:bookid')
   async createStoreBook(
@@ -23,11 +27,21 @@ export class StorebookController {
     @Body() createStoreBookDto: CreateStoreBookDto,
   ) {
     console.log('storeid', storeid, 'bookid', bookid);
-    return await this.storebookService.createStoreBook(
+
+    const createdBook = await this.storebookService.createStoreBook(
       storeid,
       bookid,
       createStoreBookDto,
     );
+
+    //책이름, 지점이름 보냄
+    //북아이디와 스토어 아이디로 데이터에 저장함으로써 추후 이름이 바뀌어도 다 바뀔수 있도록함
+    const notifyUser = await this.notificationService.createNotification(
+      bookid,
+      storeid,
+    );
+    console.log('notifyUser:', notifyUser);
+    return createdBook;
   }
 
   @Get('')

@@ -5,13 +5,13 @@ import { User } from './user.entity';
 @Entity()
 export class BookReview {
   @PrimaryGeneratedColumn()
-  reviewid: number;
+  id: number;
 
   @Column({ name: 'book_id' })
-  bookid: number;
+  book_id: number;
 
   @Column({ name: 'user_id' })
-  userid: number;
+  user_id: number;
 
   @Column({ type: 'text', nullable: true })
   content: string;
