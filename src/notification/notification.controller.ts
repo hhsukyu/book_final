@@ -9,24 +9,24 @@ import { NotificationService } from './notification.service';
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
-//신간도서 알림생성 : 바로 서비스에서 진행
+  //신간도서 알림생성 : 바로 서비스에서 진행
 
-  //알림 조회
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
-  @Get()
-  readNotification(@UserId() userId: number) {
-    return this.notificationService.readNotification(+userId);
-  }
+  // //알림 조회
+  // @ApiBearerAuth('accessToken')
+  // @UseGuards(accessTokenGuard)
+  // @Get()
+  // readNotification(@UserId() userId: number) {
+  //   return this.notificationService.readNotification(+userId);
+  // }
 
-  //알림 삭제
-  @ApiBearerAuth('accessToken')
-  @UseGuards(accessTokenGuard)
-  @Delete(':notificationId')
-  deleteNotification(
-    @Param('notificationId') id: string,
-    @UserId() userId: number,
-  ) {
-    return this.notificationService.deleteNotification(+id, userId);
-  }
+  // //알림 삭제
+  // @ApiBearerAuth('accessToken')
+  // @UseGuards(accessTokenGuard)
+  // @Delete(':notificationId')
+  // deleteNotification(
+  //   @Param('notificationId') id: string,
+  //   @UserId() userId: number,
+  // ) {
+  //   return this.notificationService.deleteNotification(+id, userId);
+  // }
 }

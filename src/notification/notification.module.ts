@@ -13,6 +13,7 @@ import { StoreBook } from 'src/entity/store-book.entity';
 import { Store } from 'src/entity/store.entity';
 import { StoreService } from 'src/store/store.service';
 import { SseService } from 'src/sse/sse.service';
+import { RedisService } from 'src/configs/redis/redis.service';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { SseService } from 'src/sse/sse.service';
     MyPageService,
     StoreService,
     SseService,
+    RedisService,
   ],
 })
 export class NotificationModule {}

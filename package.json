@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^7.7.0",
-    "@nestjs-modules/ioredis": "^2.0.1",
     "@google-cloud/vision": "^4.0.2",
     "@nestjs-modules/ioredis": "^2.0.1",
     "@nestjs-modules/mailer": "^1.10.3",
@@ -31,6 +30,7 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/schedule": "^4.0.0",
     "@nestjs/swagger": "^7.1.17",
     "@nestjs/typeorm": "^10.0.1",
     "@types/papaparse": "^5.3.14",

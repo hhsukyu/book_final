@@ -68,48 +68,48 @@ export class NotificationService {
       // notificationRepository를 사용하여 데이터 저장
       await this.notificationRepository.save(notificationData);
       // 생성된 알림을 클라이언트에게 보냅니다.
-      this.sseService.emitNotification(userId, notificationData.message);
+      //this.sseService.emitNotification(userId, notificationData.message);
     }
   }
 
-  //알림 조회
-  async readNotification(userId: number) {
-    const notifications = await this.notificationRepository
-      .createQueryBuilder('notification')
-      .leftJoinAndSelect('notification.user', 'user')
-      .where('notification.userId = :userId', { userId })
-      .select([
-        'notification.id',
-        'notification.message',
-        'notification.createdAt',
-      ])
-      .orderBy({ 'notification.createdAt': 'DESC' })
-      .getMany();
+  // //알림 조회
+  // async readNotification(userId: number) {
+  //   const notifications = await this.notificationRepository
+  //     .createQueryBuilder('notification')
+  //     .leftJoinAndSelect('notification.user', 'user')
+  //     .where('notification.userId = :userId', { userId })
+  //     .select([
+  //       'notification.id',
+  //       'notification.message',
+  //       'notification.createdAt',
+  //     ])
+  //     .orderBy({ 'notification.createdAt': 'DESC' })
+  //     .getMany();
 
-    if (!notifications) {
-      throw new NotFoundException('알림이 존재하지 않습니다.');
-    }
-    return notifications;
-  }
+  //   if (!notifications) {
+  //     throw new NotFoundException('알림이 존재하지 않습니다.');
+  //   }
+  //   return notifications;
+  // }
 
-  async deleteNotification(id: number, userId: number) {
-    const notification = await this.notificationRepository.findOne({
-      where: { id },
-      relations: {
-        user: true,
-      },
-    });
+  // async deleteNotification(id: number, userId: number) {
+  //   const notification = await this.notificationRepository.findOne({
+  //     where: { id },
+  //     relations: {
+  //       user: true,
+  //     },
+  //   });
 
-    if (notification.user.id !== userId) {
-      throw new UnauthorizedException('삭제 권한이 없습니다.');
-    }
+  //   if (notification.user.id !== userId) {
+  //     throw new UnauthorizedException('삭제 권한이 없습니다.');
+  //   }
 
-    if (!notification) {
-      throw new NotFoundException('알림이 존재하지 않습니다.');
-    }
-    await this.notificationRepository.delete({ id });
-    return {
-      message: '알람 삭제',
-    };
-  }
+  //   if (!notification) {
+  //     throw new NotFoundException('알림이 존재하지 않습니다.');
+  //   }
+  //   await this.notificationRepository.delete({ id });
+  //   return {
+  //     message: '알람 삭제',
+  //   };
+  // }
 }

@@ -29,15 +29,11 @@ import { RedisService } from '../configs/redis/redis.service';
   controllers: [StorebookController],
   providers: [
     StorebookService,
-
     BookService,
-
     StoreService,
-
     UserService,
     NotificationService,
     SseService,
-    ,
     RedisService,
   ],
 })
