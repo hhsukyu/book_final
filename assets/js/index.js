@@ -2,6 +2,8 @@ const header = document.getElementById('header');
 const body = document.getElementById('card-list');
 const maincard = document.getElementById('maincard');
 const searchbox = document.getElementById('searchbox');
+const genrebtn = document.getElementById('genre');
+const storecontain = document.getElementById('stores');
 
 //쿠키값을 로컬스토리지로 변경해주는 함수
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -75,6 +77,8 @@ async function keyevent(event) {
   console.log(search);
   if (search !== '') {
     maincard.style.display = 'none';
+    genrebtn.style.display = 'none';
+    storecontain.style.display = 'none';
   }
 }
 
@@ -84,6 +88,8 @@ async function mainkeyup() {
 
   if (search === '') {
     maincard.style.display = 'block';
+    genrebtn.style.display = 'block';
+    storecontain.style.display = 'block';
     searchbox.innerHTML = '';
   }
 }
