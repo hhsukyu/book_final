@@ -37,6 +37,7 @@ import { SseService } from 'src/sse/sse.service';
     RedisService,
     NotificationService,
     SseService,
+    RedisService,
   ],
 })
 export class StorebookModule {}
