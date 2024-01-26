@@ -46,15 +46,34 @@ body {
   margin-top: 20px;
 }
 
-#card-body {
-  /* background-color: aqua; */
-  height: 400px;
+/*프로젝트 정보*/
+.project-title,
+.project-desc,
+.project-calendar,
+.project-calendar-desc,
+.project-goal,
+.project-goal-desc,
+.technology-stack,
+.technology-stack-desc {
+  margin: 30px;
+}
+.project-goal-desc li,
+.technology-stack-desc li {
+  margin: 20px;
 }
 
-.people_task {
-  background-color: #ff269d;
-}
 /*사람 정보*/
+.people-container {
+  font-family: 'LINESeedKR-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2')
+    format('woff2');
+  font-style: normal;
+}
+
+.people-title {
+  margin: 30px;
+}
+
 .people-image {
   margin-bottom: 20px;
   width: 100%;
@@ -65,17 +84,21 @@ body {
 }
 
 #card-body {
-  height: 300px;
-}
-
-#people_task {
-  font-size: 15px;
+  height: 320px;
 }
 
 .card a {
   text-decoration: none;
   color: #171717;
 }
+
+.github-link {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /*버튼*/
 .btn-hover {
   width: 200px;
@@ -106,7 +129,7 @@ body {
   background-image: linear-gradient(to right, #ff269d, #47c7ff);
 }
 .thanks-container {
-  /* background-color: #171717;
+  /* background-color: #171717; */
   margin: 25px;
   width: 20px;
   height: 100px;
@@ -116,9 +139,22 @@ body {
   align-items: center;
 }
 
-.thanks-name {
+.thanks-name-container {
   /* background-color: #ff269d; */
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: large;
+  font-family: 'LINESeedKR-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2')
+    format('woff2');
+  font-style: normal;
+}
+.thanks-name-container li {
+  list-style-type: none;
+}
+
+.thanks-name-container i {
+  display: flex;
+  margin: 5px; /* 원하는 간격으로 조절하세요 */
 }
