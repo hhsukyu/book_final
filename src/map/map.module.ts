@@ -6,9 +6,10 @@ import { Store } from '../entity/store.entity';
 import { StoreService } from 'src/store/store.service';
 import { UserService } from '../user/user.service';
 import { User } from 'src/entity/user.entity';
+import { MyPage } from 'src/entity/my-page.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Store, User])],
+  imports: [TypeOrmModule.forFeature([Store, User, MyPage])],
   controllers: [MapController],
   providers: [MapService, StoreService, UserService],
 })
