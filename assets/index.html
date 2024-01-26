@@ -18,6 +18,10 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <body>
     <header class="py-3 mb-3">
@@ -39,9 +43,7 @@
     <!-- 카드 슬라이드 부분 -->
     <div id="maincard">
       <div class="card-row">
-        <!-- <div class="col"></div> -->
         <div class="">
-          <!-- <main> -->
           <div class="row bookboard mt-4">
             <div>
               <h2 class="mt-4">추천 도서목록</h2>
@@ -57,11 +59,12 @@
               </section>
             </div>
           </div>
-          <!-- </main> -->
         </div>
-        <!-- <div class="col"></div> -->
       </div>
     </div>
+
+    <!-- 장르별 추천도서 -->
+    <div id="genre"></div>
 
     <!-- 검색결과 화면 -->
     <div id="searchbox"></div>
@@ -135,13 +138,13 @@
                   </div>
 
                   <!-- review box -->
-                  <div class="review-box">
+                  <div id="review-box" class="review-box">
                     <!-- 별 부분 -->
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
                   </div>
                 </div>
 
@@ -153,44 +156,6 @@
                   </p>
                 </div>
               </div>
-              <!-- ...... -->
-              <div class="reviewcardbox">
-                <!-- box-top -->
-                <div class="box-top">
-                  <!-- profile-box -->
-                  <div class="profile-box">
-                    <!-- user-image -->
-                    <div class="profile-img">
-                      <img
-                        src="https://i.namu.wiki/i/ansU2jw14dqvAVa_i_XyHO4uCuBh56segYeOz69QjRUeSPnmzzgz2o5_MzEpDiAojF_sNwFMQJk3ExK0mVW9aw.webp"
-                      />
-                    </div>
-                    <!-- username-Name -->
-                    <div class="name-user">
-                      <strong>test Username</strong>
-                    </div>
-                  </div>
-
-                  <!-- review box -->
-                  <div class="review-box">
-                    <!-- 별 부분 -->
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                </div>
-
-                <!-- comment part -->
-                <div class="client-comment">
-                  <p>
-                    testsetseteseifj sidjf isjefifjidsjifsje ifjsfi jidsjsi
-                    ewsjij siesj ifj
-                  </p>
-                </div>
-              </div>
-              <!-- ....... -->
             </div>
           </div>
           <!-- <div class="modal-footer"> -->
@@ -217,6 +182,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
     <!-- index js파일 -->
     <script src="./js/index.js"></script>
     <script src="./js/main.js"></script>
