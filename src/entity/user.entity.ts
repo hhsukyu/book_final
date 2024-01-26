@@ -76,7 +76,4 @@ export class User {
 
   @OneToMany(() => Receipt, (receipt) => receipt.user)
   receipts: Relation<Receipt>[];
-
-  @OneToMany(() => Notification, (notification) => notification.user)
-  notifications: Notification[];
 }
