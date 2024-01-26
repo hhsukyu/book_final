@@ -1,64 +1,102 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateBookReviewDto } from './dto/create-bookreview.dto';
 import { UpdateBookReviewDto } from './dto/update-bookreview.dto';
+import { UserService } from '../user/user.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/entity/user.entity';
+import { Repository } from 'typeorm';
+import { BookReview } from 'src/entity/bookreview.entity';
 
 @Injectable()
 export class BookReviewService {
-  private readonly bookReviews: Record<number, any> = {};
+  constructor(
+    @InjectRepository(BookReview)
+    private readonly bookReviewRepository: Repository<BookReview>,
+    @InjectRepository(User)
+    private readonly userService: UserService,
+  ) {}
 
-  create(
-    bookId: number,
+  async create(
+    book_id: number,
     userId: number,
     createBookReviewDto: CreateBookReviewDto,
   ) {
-    // 로그인한 사용자의 userId를 이용하여 글 작성
-    const id = Date.now();
-    this.bookReviews[id] = { id, bookId, userId, ...createBookReviewDto };
-    return this.bookReviews[id];
-  }
-
-  findAll(bookId: number) {
-    // 책에 대한 모든 후기를 반환
-    return Object.values(this.bookReviews).filter(
-      (review) => review.bookId === bookId,
-    );
-  }
-
-  findOne(bookId: number, id: number) {
-    // 특정 후기를 반환하며, 해당 후기가 해당 책에 속한 것인지 확인
-    const bookReview = this.bookReviews[id];
-    if (!bookReview || bookReview.bookId !== bookId) {
-      throw new NotFoundException('책 후기를 찾을 수 없습니다.');
-    }
+    const bookReview = await this.bookReviewRepository.save({
+      ...createBookReviewDto,
+      userId: userId,
+      book_id,
+    });
     return bookReview;
   }
 
-  update(
-    bookId: number,
+  //해당북 리뷰전체조회
+  async findAll(book_id: number) {
+    const bookreviews = await this.bookReviewRepository.find({
+      where: { book_id },
+    });
+
+    return bookreviews;
+  }
+
+  //리뷰상세조회
+  async findOne(book_id: number, id: number) {
+    const bookreview = await this.bookReviewRepository.findOne({
+      where: { book_id, id },
+    });
+    return bookreview;
+  }
+
+  async updateBookReview(
     id: number,
-    userId: number,
+    book_id: number,
+    userId: number, //이글을쓴사람만 수정할수있도록, 아니면 오류반환
     updateBookReviewDto: UpdateBookReviewDto,
   ) {
-    // 해당 글을 작성한 사용자만 수정 가능
-    const bookReview = this.findOne(bookId, id);
-    if (bookReview.userId !== userId) {
-      throw new UnauthorizedException('글을 수정할 권한이 없습니다.');
+    const bookreviews = await this.findreviewbyId(id);
+    if (!bookreviews) {
+      throw new BadRequestException('리뷰가 없습니다');
     }
-    this.bookReviews[id] = { ...bookReview, ...updateBookReviewDto };
-    return this.bookReviews[id];
+
+    if (bookreviews.user_id !== userId) {
+      throw new BadRequestException('작성자만 수정 가능합니다.');
+    }
+
+    const updatedReview = await this.bookReviewRepository.update(
+      {
+        book_id,
+      },
+      {
+        ...updateBookReviewDto,
+      },
+    );
+    return { updatedReview, message: '북리뷰 정보가 수정되었습니다.' };
   }
 
-  remove(bookId: number, id: number, userId: number) {
-    // 해당 글을 작성한 사용자만 삭제 가능
-    const bookReview = this.findOne(bookId, id);
-    if (bookReview.userId !== userId) {
-      throw new UnauthorizedException('글을 삭제할 권한이 없습니다.');
+  async deleteBookReview(book_id: number, id: number, userId: number) {
+    const review = await this.bookReviewRepository.findOne({
+      where: { id },
+    });
+
+    if (!review) {
+      throw new BadRequestException('리뷰가 없습니다');
     }
-    delete this.bookReviews[id];
-    return bookReview;
+
+    if (review.user_id !== userId) {
+      throw new BadRequestException('작성자만 삭제 가능합니다.');
+    }
+
+    const result = await this.bookReviewRepository.delete({ id });
+    return result;
+  }
+
+  async findreviewbyId(id: number) {
+    return await this.bookReviewRepository.findOne({
+      where: { id },
+    });
   }
 }
