@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../entity/user.entity';
 import { UserService } from '..//user/user.service';
 
 @Injectable()
@@ -16,6 +17,8 @@ export class StoreService {
   constructor(
     @InjectRepository(Store)
     private storeRepository: Repository<Store>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
     private readonly userService: UserService,
   ) {}
 
@@ -153,6 +156,14 @@ export class StoreService {
   async findStoreById(storeid: number) {
     return await this.storeRepository.findOne({
       where: { id: storeid },
+    });
+  }
+
+  async findUserByIdWithStore(id: number) {
+    return await this.userRepository.findOne({
+      where: { id },
+      select: ['id', 'email', 'nickname', 'createdAt', 'updatedAt'],
+      relations: { stores: true },
     });
   }
 }
