@@ -7,66 +7,65 @@ import {
   Put,
   Delete,
   UseGuards,
-  Request,
 } from '@nestjs/common';
 import { BookReviewService } from './bookreview.service';
 import { CreateBookReviewDto } from './dto/create-bookreview.dto';
 import { UpdateBookReviewDto } from './dto/update-bookreview.dto';
-import { accessTokenGuard } from '../auth/guard/access-token.guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
+import { UserId } from 'src/auth/decorators/userId.decorator';
 
-@Controller('bookreview')
+@Controller('books/:bookId/reviews')
 export class BookReviewController {
   constructor(private readonly bookReviewService: BookReviewService) {}
 
-  @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
-  @Post('/:bookId')
+  @Post()
+
+  //리뷰작성
   create(
-    @Param('bookId') bookId: number,
-    @Request() req: any,
+    @Param('bookId') book_id: number,
+    @UserId() userId: number,
     @Body() createBookReviewDto: CreateBookReviewDto,
   ) {
-    const userId = req.user.userId; //
-    return this.bookReviewService.create(bookId, userId, createBookReviewDto);
+    return this.bookReviewService.create(book_id, userId, createBookReviewDto);
   }
 
-  @Get('/:bookid')
-  findAll(@Param('bookId') bookId: number) {
-    return this.bookReviewService.findAll(bookId);
+  //특정책 전체조회
+  @Get()
+  findAll(@Param('bookId') book_id: number = 1) {
+    // 1로 현재 디폴트를 준 상태
+    return this.bookReviewService.findAll(book_id);
   }
 
-  @Get('/:bookId/reviews/:id')
-  findOne(@Param('bookId') bookId: number, @Param('id') id: number) {
-    return this.bookReviewService.findOne(bookId, id);
+  //특정책 특정리뷰조회
+  @Get(':id')
+  findOne(@Param('bookId') book_id: number, @Param('id') id: number) {
+    return this.bookReviewService.findOne(book_id, id);
   }
-  @ApiBearerAuth('accessToken')
+
   @UseGuards(accessTokenGuard)
   @Put(':id')
   update(
-    @Param('bookId') bookId: number,
-    @Param('reviewid') id: number,
-    @Request() req: any,
+    @Param('bookId') book_id: number,
+    @Param('id') id: number,
+    @UserId() userId: number,
     @Body() updateBookReviewDto: UpdateBookReviewDto,
   ) {
-    const userId = req.user.userId; // JWT AccessToken에서 userId 가져오기
-    return this.bookReviewService.update(
-      bookId,
+    return this.bookReviewService.updateBookReview(
+      book_id,
       id,
       userId,
       updateBookReviewDto,
     );
   }
 
-  @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
   @Delete(':id')
   remove(
-    @Param('bookId') bookId: number,
+    @Param('bookId') book_id: number,
     @Param('id') id: number,
-    @Request() req: any,
+    @UserId() userId: number,
   ) {
-    const userId = req.user.userId; // JWT AccessToken에서 userId 가져오기
-    return this.bookReviewService.remove(bookId, id, userId);
+    return this.bookReviewService.deleteBookReview(book_id, id, userId);
   }
 }
