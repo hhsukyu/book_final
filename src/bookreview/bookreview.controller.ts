@@ -32,7 +32,7 @@ export class BookReviewController {
 
   //특정책 전체조회
   @Get()
-  findAll(@Param('bookId') book_id: number = 1) {
+  findAll(@Param('bookId') book_id: number) {
     // 1로 현재 디폴트를 준 상태
     return this.bookReviewService.findAll(book_id);
   }
