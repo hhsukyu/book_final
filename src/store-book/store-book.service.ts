@@ -14,6 +14,7 @@ import { Store } from 'src/entity/store.entity';
 import { Book } from 'src/entity/book.entity';
 import { UserService } from 'src/user/user.service';
 import { UpdateStoreBookDto } from './dto/update-storebook.dto';
+import { BookService } from 'src/book/book.service';
 
 @Injectable()
 export class StorebookService {
@@ -28,6 +29,7 @@ export class StorebookService {
     // private readonly bookService: BookService,
     private readonly storeService: StoreService,
     private readonly userService: UserService,
+    private readonly bookService: BookService,
   ) {}
 
   //지점도서 등록
@@ -71,6 +73,28 @@ export class StorebookService {
 
     return storebook;
   }
+
+  //특정지점도서 전체조회
+  async getStoreBooks(storeid: number) {
+    const store = await this.storeService.findStoreById(storeid);
+    console.log('store', store, 'store.id', store.id);
+    return this.storeBookRepository.find({
+      where: { store_id: store.id },
+    });
+  }
+
+  // //지점도서 검색
+  // async searchStorebooks(title: string, storeid: number) {
+  //   const store = await this.storeService.findStoreById(storeid);
+  //   const book = await this.bookService.getBookById(bookid);
+
+  //   return this.storeBookRepository
+  //     .createQueryBuilder('storebook')
+  //     .leftJoinAndSelect('storebook.book', 'book')
+  //     .where('storebook.store = :store', { store: store })
+  //     .andWhere('book.title LIKE :title', { title: `%${title}%` })
+  //     .getMany();
+  // }
 
   // 지점도서 수정
   async updateStoreBook(
