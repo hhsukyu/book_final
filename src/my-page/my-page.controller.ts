@@ -13,7 +13,7 @@ import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
 import { CreateMyPageDto } from './dto/create-my-page.dto';
 
-@Controller('my-page')
+@Controller('mypage')
 export class MyPageController {
   constructor(private readonly myPageService: MyPageService) {}
 

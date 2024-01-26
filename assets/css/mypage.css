@@ -106,3 +106,50 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+#userinfo {
+  margin-left: 13%;
+  margin-right: 13%;
+}
+
+.addressBtn,
+.btn-hover:hover {
+  background-position: 100% 0;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+.addressBtn,
+.btn-hover:focus {
+  outline: none;
+}
+.btn-hover.color-8,
+.addressBtn {
+  background-image: linear-gradient(to right, #ff269d, #47c7ff);
+}
+.update-container {
+  margin: 25px;
+  width: 20px;
+  height: 100px;
+  /* 상하좌우 정중앙 정렬하기 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addressBtn {
+  width: 100px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 55px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}

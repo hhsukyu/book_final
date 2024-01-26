@@ -68,7 +68,7 @@ export class User {
   bookReviews: BookReview[];
 
   @OneToOne(() => MyPage, (myPage) => myPage.user)
-  @JoinColumn()
+  // @JoinColumn({ name: 'custom_user_id', referencedColumnName: 'id' })
   myPage: MyPage;
 
   @OneToMany(() => Notification, (notification) => notification.user)
