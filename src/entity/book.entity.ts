@@ -7,7 +7,7 @@ import {
   Relation,
   UpdateDateColumn,
 } from 'typeorm';
-import { StoreBook } from './store-book.entity';
+import { StoreBook } from './storeBook.entity';
 import { BookReview } from './bookreview.entity';
 
 @Entity({ name: 'books' })
