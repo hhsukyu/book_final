@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Param,
-  Get,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Post, Body, Get, Put, UseGuards } from '@nestjs/common';
 import { MyPageService } from './my-page.service';
 import { UpdateMyPageDto } from './dto/update-my-page.dto';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';

@@ -54,11 +54,20 @@ export class BookService {
     return book;
   }
 
-  //도서 조회
   async getBooks() {
     const books = await this.bookRepository.find({});
 
     return books;
+  }
+
+  async wishlistbook(booktitle: string) {
+    console.log(booktitle);
+    const book = this.bookRepository.find({ select: ['id', 'title'] });
+
+    const result = (await book).filter((book) =>
+      book.title.includes(booktitle),
+    );
+    return result;
   }
 
   async searchbook(booktitle: string) {
@@ -68,7 +77,12 @@ export class BookService {
       console.log(cachedResult);
       return cachedResult;
     }
-    const searchResult = (await this.bookRepository.find()).filter((book) =>
+
+    const book = this.bookRepository.find({
+      select: ['id', 'title', 'book_desc', 'book_image'],
+    });
+
+    const searchResult = (await book).filter((book) =>
       book.title.includes(booktitle),
     );
 
