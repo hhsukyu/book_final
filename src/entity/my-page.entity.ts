@@ -4,6 +4,8 @@ import {
   Column,
   OneToOne,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 
@@ -24,13 +26,16 @@ export class MyPage {
   @Column('simple-array', { nullable: true })
   wish_list: string[];
 
-  @Column({ type: 'datetime', nullable: true })
-  created_at: Date;
+  @Column('simple-array', { nullable: true })
+  like_store: string[];
 
-  @Column({ type: 'datetime', nullable: true })
-  updated_at: Date;
+  @CreateDateColumn({ type: 'datetime', nullable: false })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'datetime', nullable: false })
+  updatedAt: Date;
 
   @OneToOne(() => User, (user) => user.myPage)
-  @JoinColumn({ name: 'MyPage_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
 }

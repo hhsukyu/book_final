@@ -8,7 +8,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { MyPageService } from './my-page.service';
-import { UpdateMyPageDto } from './dto/update-my-page.dto';
+import { UpdateMyWishListDto } from './dto/update-my-wishlist.dto';
+import { UpdateMyAddressDto } from './dto/update-my-address.dto';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
 import { CreateMyPageDto } from './dto/create-my-page.dto';
@@ -33,11 +34,23 @@ export class MyPageController {
   }
 
   @UseGuards(accessTokenGuard)
-  @Put('')
+  @Put('address')
+  async address_change(
+    @UserId() userId: number,
+    @Body() updateMyAddressDto: UpdateMyAddressDto,
+  ) {
+    return await this.myPageService.address_change(userId, updateMyAddressDto);
+  }
+
+  @UseGuards(accessTokenGuard)
+  @Put('wishlist')
   async update(
     @UserId() userId: number,
-    @Body() updateMyPageDto: UpdateMyPageDto,
+    @Body() updateMyWishListDto: UpdateMyWishListDto,
   ) {
-    return await this.myPageService.update(userId, updateMyPageDto);
+    return await this.myPageService.wishList_likeStore_change(
+      userId,
+      updateMyWishListDto,
+    );
   }
 }

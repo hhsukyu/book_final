@@ -1,15 +1,6 @@
 import { IsNumber, IsOptional, IsString, IsArray } from 'class-validator';
 
-export class CreateMyPageDto {
-  @IsString()
-  address: string;
-
-  @IsNumber()
-  latitude: number;
-
-  @IsNumber()
-  longitude: number;
-
+export class UpdateMyWishListDto {
   @IsArray()
   @IsOptional()
   wish_list: string[] = [];
