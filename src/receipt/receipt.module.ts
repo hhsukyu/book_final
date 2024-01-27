@@ -8,9 +8,12 @@ import { Store } from '../entity/store.entity';
 import { User } from '../entity/user.entity';
 import { UserService } from '../user/user.service';
 import { StoreReview } from '../entity/storeReview.entity';
+import { MyPage } from 'src/entity/my-page.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Receipt, Store, User, StoreReview])],
+  imports: [
+    TypeOrmModule.forFeature([Receipt, Store, User, StoreReview, MyPage]),
+  ],
   providers: [ReceiptService, UserService],
   controllers: [ReceiptController],
 })

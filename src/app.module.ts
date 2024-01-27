@@ -17,7 +17,9 @@ import { RedisModule } from './configs/redis/redis.module';
 import { ReceiptModule } from './receipt/receipt.module';
 import { MapModule } from './map/map.module';
 import { ApiModule } from './api/api.module';
+import { NotificationModule } from './notification/notification.module';
 import { StorebookModule } from './store-book/store-book.module';
+import { SseModule } from './sse/sse.module';
 import { TypeormModule } from './typeorm/typeorm.module';
 
 @Module({
@@ -40,7 +42,10 @@ import { TypeormModule } from './typeorm/typeorm.module';
     ReceiptModule,
     MapModule,
     ApiModule,
+    NotificationModule,
     StorebookModule,
+    SseModule,
+    ReceiptModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],

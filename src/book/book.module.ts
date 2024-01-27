@@ -5,11 +5,12 @@ import { Book } from 'src/entity/book.entity';
 import { StoreBook } from 'src/entity/store-book.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from 'src/user/user.service';
-import { User } from '../entity/user.entity';
+import { User } from 'src/entity/user.entity';
+import { MyPage } from 'src/entity/my-page.entity';
 import { RedisService } from '../configs/redis/redis.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([StoreBook, User, Book])],
+  imports: [TypeOrmModule.forFeature([Book, StoreBook, User, MyPage])],
   controllers: [BookController],
   providers: [BookService, UserService, RedisService],
 })

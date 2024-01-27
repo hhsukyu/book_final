@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { StorebookService } from './store-book.service';
 import { CreateStoreBookDto } from './dto/create-storebook.dto';
@@ -39,6 +40,19 @@ export class StorebookController {
   async getStoreBookById(@Param('storebookid') storebookid: number) {
     return await this.storebookService.getStoreBookById(storebookid);
   }
+  //해당지점의 도서 전체조회
+  @Get('/:storeid')
+  getStoreBooks(@Param('storeid') storeid: number) {
+    return this.storebookService.getStoreBooks(storeid);
+  }
+
+  // @Get('/:storeid/storebooksearch')
+  // async searchStorebooks(
+  //   @Query('title') title: string,
+  //   @Param('storeid') storeid: number,
+  // ) {
+  //   return await this.storebookService.searchStorebooks(title, storeid);
+  // }
 
   @Put('/:storeid/:bookid')
   async updateStoreBook(

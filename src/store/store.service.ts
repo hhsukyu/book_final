@@ -166,4 +166,9 @@ export class StoreService {
       relations: { stores: true },
     });
   }
+
+  async StoreNameById(id: number) {
+    const store = await this.storeRepository.findOne({ where: { id } });
+    return store.store_name;
+  }
 }
