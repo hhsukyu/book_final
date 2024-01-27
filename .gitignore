@@ -40,3 +40,4 @@ google_key.json
 .development.env
 
 google_ocr_key.json
+.google_key.json
