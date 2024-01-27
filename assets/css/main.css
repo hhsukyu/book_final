@@ -247,3 +247,39 @@ body {
     flex-basis: 100%;
   }
 }
+
+/* 검색 결과 css */
+/*페이지네이션*/
+ul#pages,
+ul#pages li {
+  display: inline-block;
+  padding: 0;
+}
+
+ul#pages > li {
+  margin: 0px 3px;
+}
+
+#output {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px; /* Negative margin to counteract padding on columns */
+}
+
+#output > .col-3 {
+  padding: 15px; /* Padding to create space between columns */
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Optional margin for spacing from other elements */
+}
+
+.pagination a {
+  margin: 0 5px; /* Optional margin for spacing between Prev/Next and page numbers */
+}
+
+.card::before {
+  display: none;
+}
