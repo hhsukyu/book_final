@@ -6,6 +6,7 @@ import {
   Get,
   Put,
   UseGuards,
+  Patch,
 } from '@nestjs/common';
 import { MyPageService } from './my-page.service';
 import { UpdateMyWishListDto } from './dto/update-my-wishlist.dto';
@@ -13,6 +14,7 @@ import { UpdateMyAddressDto } from './dto/update-my-address.dto';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
 import { CreateMyPageDto } from './dto/create-my-page.dto';
+import { UpdateMyLikeStoreDto } from './dto/update-my-likestore';
 
 @Controller('mypage')
 export class MyPageController {
@@ -34,7 +36,7 @@ export class MyPageController {
   }
 
   @UseGuards(accessTokenGuard)
-  @Put('address')
+  @Patch('address')
   async address_change(
     @UserId() userId: number,
     @Body() updateMyAddressDto: UpdateMyAddressDto,
@@ -42,15 +44,26 @@ export class MyPageController {
     return await this.myPageService.address_change(userId, updateMyAddressDto);
   }
 
+  // 위시리스트 변경
   @UseGuards(accessTokenGuard)
-  @Put('wishlist')
-  async update(
+  @Patch('wishlist')
+  async updateWishList(
     @UserId() userId: number,
     @Body() updateMyWishListDto: UpdateMyWishListDto,
   ) {
-    return await this.myPageService.wishList_likeStore_change(
+    return await this.myPageService.updateWishList(userId, updateMyWishListDto);
+  }
+
+  // 라이크 스토어 변경
+  @UseGuards(accessTokenGuard)
+  @Patch('likestore')
+  async updateLikeStore(
+    @UserId() userId: number,
+    @Body() updateMyLikeStoreDto: UpdateMyLikeStoreDto,
+  ) {
+    return await this.myPageService.updateLikeStore(
       userId,
-      updateMyWishListDto,
+      updateMyLikeStoreDto,
     );
   }
 }

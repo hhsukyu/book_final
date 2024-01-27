@@ -1,6 +1,6 @@
 import { IsOptional, IsArray } from 'class-validator';
 
-export class UpdateMyWishListDto {
+export class UpdateMyLikeStoreDto {
   @IsArray()
-  wish_list: string[] = [];
+  like_store: string[] = [];
 }
