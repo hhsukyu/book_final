@@ -13,59 +13,68 @@ import { CreateBookReviewDto } from './dto/create-bookreview.dto';
 import { UpdateBookReviewDto } from './dto/update-bookreview.dto';
 import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
 import { UserId } from 'src/auth/decorators/userId.decorator';
+import { use } from 'passport';
 
-@Controller('books/:bookId/reviews')
+@Controller('bookreview')
 export class BookReviewController {
   constructor(private readonly bookReviewService: BookReviewService) {}
 
   @UseGuards(accessTokenGuard)
-  @Post()
-
-  //리뷰작성
-  create(
-    @Param('bookId') book_id: number,
+  @Post('/:bookId')
+  async create(
+    @Param('bookId') bookId: number,
     @UserId() userId: number,
     @Body() createBookReviewDto: CreateBookReviewDto,
   ) {
-    return this.bookReviewService.create(book_id, userId, createBookReviewDto);
+    console.log(bookId);
+    const addBookReview = await this.bookReviewService.create(
+      bookId,
+      userId,
+      createBookReviewDto,
+    );
+    console.log('addBookReview', addBookReview);
+    return addBookReview;
   }
 
   //특정책 전체조회
-  @Get()
-  findAll(@Param('bookId') book_id: number) {
-    // 1로 현재 디폴트를 준 상태
-    return this.bookReviewService.findAll(book_id);
+  @Get('/:bookId')
+  async findAll(@Param('bookId') book_id: number) {
+    return await this.bookReviewService.findAll(book_id);
   }
 
   //특정책 특정리뷰조회
-  @Get(':id')
-  findOne(@Param('bookId') book_id: number, @Param('id') id: number) {
-    return this.bookReviewService.findOne(book_id, id);
+  @Get('/:bookId/:reviewId')
+  findOne(
+    @Param('bookId') book_id: number,
+    @Param('reviewId') reviewId: number,
+  ) {
+    return this.bookReviewService.findOne(book_id, reviewId);
   }
 
+  //북리뷰 수정
   @UseGuards(accessTokenGuard)
-  @Put(':id')
+  @Put('/:bookId/:reviewId')
   update(
     @Param('bookId') book_id: number,
-    @Param('id') id: number,
+    @Param('reviewId') reviewId: number,
     @UserId() userId: number,
     @Body() updateBookReviewDto: UpdateBookReviewDto,
   ) {
     return this.bookReviewService.updateBookReview(
+      reviewId,
       book_id,
-      id,
       userId,
       updateBookReviewDto,
     );
   }
 
   @UseGuards(accessTokenGuard)
-  @Delete(':id')
+  @Delete('/:bookId/:reviewId')
   remove(
     @Param('bookId') book_id: number,
-    @Param('id') id: number,
+    @Param('reviewId') reviewId: number,
     @UserId() userId: number,
   ) {
-    return this.bookReviewService.deleteBookReview(book_id, id, userId);
+    return this.bookReviewService.deleteBookReview(book_id, reviewId, userId);
   }
 }
