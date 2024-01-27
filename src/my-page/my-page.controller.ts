@@ -2,6 +2,7 @@ import {
   Controller,
   Post,
   Body,
+  Param,
   Get,
   Put,
   UseGuards,
@@ -35,7 +36,7 @@ export class MyPageController {
   }
 
   @UseGuards(accessTokenGuard)
-  @Put('address')
+  @Patch('address')
   async address_change(
     @UserId() userId: number,
     @Body() updateMyAddressDto: UpdateMyAddressDto,
@@ -43,15 +44,26 @@ export class MyPageController {
     return await this.myPageService.address_change(userId, updateMyAddressDto);
   }
 
+  // 위시리스트 변경
   @UseGuards(accessTokenGuard)
-  @Put('wishlist')
-  async update(
+  @Patch('wishlist')
+  async updateWishList(
     @UserId() userId: number,
     @Body() updateMyWishListDto: UpdateMyWishListDto,
   ) {
-    return await this.myPageService.wishList_likeStore_change(
+    return await this.myPageService.updateWishList(userId, updateMyWishListDto);
+  }
+
+  // 라이크 스토어 변경
+  @UseGuards(accessTokenGuard)
+  @Patch('likestore')
+  async updateLikeStore(
+    @UserId() userId: number,
+    @Body() updateMyLikeStoreDto: UpdateMyLikeStoreDto,
+  ) {
+    return await this.myPageService.updateLikeStore(
       userId,
-      updateMyWishListDto,
+      updateMyLikeStoreDto,
     );
   }
 }
