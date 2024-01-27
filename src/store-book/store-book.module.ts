@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { StorebookController } from './store-book.controller';
 import { StorebookService } from './store-book.service';
-import { StoreBook } from '../entity/store-book.entity';
+import { StoreBook } from '../entity/storeBook.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from 'src/entity/book.entity';
 import { Store } from 'src/entity/store.entity';

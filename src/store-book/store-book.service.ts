@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 // import { BookService } from 'src/book/book.service';
-import { StoreBook } from 'src/entity/store-book.entity';
+import { StoreBook } from 'src/entity/storeBook.entity';
 import { StoreService } from 'src/store/store.service';
 import { Repository } from 'typeorm';
 import { CreateStoreBookDto } from './dto/create-storebook.dto';
@@ -82,19 +82,6 @@ export class StorebookService {
       where: { store_id: store.id },
     });
   }
-
-  // //지점도서 검색
-  // async searchStorebooks(title: string, storeid: number) {
-  //   const store = await this.storeService.findStoreById(storeid);
-  //   const book = await this.bookService.getBookById(bookid);
-
-  //   return this.storeBookRepository
-  //     .createQueryBuilder('storebook')
-  //     .leftJoinAndSelect('storebook.book', 'book')
-  //     .where('storebook.store = :store', { store: store })
-  //     .andWhere('book.title LIKE :title', { title: `%${title}%` })
-  //     .getMany();
-  // }
 
   // 지점도서 수정
   async updateStoreBook(
