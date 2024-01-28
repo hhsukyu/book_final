@@ -25,6 +25,10 @@ body {
   margin: 0 auto;
   width: 100vw;
 }
+#bookinfo {
+  margin-left: 13%;
+  margin-right: 13%;
+}
 
 .bookboard {
   background-color: #ffffff;
@@ -33,6 +37,7 @@ body {
   padding: 20px;
   margin: 20px; /* Adjust margin as needed */
 }
+
 .logo-container {
   margin-bottom: 60px;
 }
@@ -83,20 +88,21 @@ body {
   transition: all 0.4s ease-in-out;
 }
 
+.addressBtn,
 .btn-hover:hover {
   background-position: 100% 0;
   -o-transition: all 0.4s ease-in-out;
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-
+.addressBtn,
 .btn-hover:focus {
   outline: none;
 }
-.btn-hover.color-8 {
+.btn-hover.color-8,
+.addressBtn {
   background-image: linear-gradient(to right, #ff269d, #47c7ff);
 }
-
 .update-container {
   margin: 25px;
   width: 20px;
@@ -105,5 +111,76 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  max: width 700px;
 }
+
+/* .addressBtn {
+  width: 100px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 55px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+} */
+.address-container {
+  display: flex;
+}
+
+#bookcardImage {
+  background-color: aqua;
+  width: 50%;
+  margin-left: -20%;
+}
+
+.book-info {
+  display: flex;
+  justify-content: center; /* 가로 정렬 방식 설정 */
+  align-items: center; /* 세로 정렬 방식 설정 */
+  border-radius: 10%;
+  border: 1px solid;
+  border-color: black;
+}
+
+.book-details {
+  margin-left: 3%;
+}
+
+.carousel-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  display: flex;
+}
+
+.card {
+  flex: 0 0 33.33%; /* 각 카드가 1/3의 너비를 가지도록 설정 */
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Optional: Add some styling to the card */
+/* .card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card p {
+  margin: 10px 0;
+} */
