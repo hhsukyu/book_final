@@ -27,8 +27,7 @@ export class NotificationService {
   //알림 저장
   //유저아이디/책id/가게id => 프론트에서 유저명/책이름/가게이름
   async createNotification(bookid: number, storeid: number) {
-    //해당bookid의 책제목찾기
-
+    //해당bookid의 책여부확인
     const book = await this.bookRepository.findOne({
       where: { id: bookid },
     });
@@ -36,34 +35,30 @@ export class NotificationService {
     if (!book) {
       throw new NotFoundException('책을 찾을 수 없습니다.');
     }
-    const bookTitle = book.title;
-    console.log('Noti 북타이틀', bookTitle);
 
-    //bookid책을 위시리스트로 가지고있는 user 추출
-    const userIds = await this.userService.UsersByWishedBook(bookTitle);
+    // const bookTitle = book.title; console.log('Noti 북타이틀', bookTitle);
+
+    //bookid책을 위시리스트 & 관심지점으로 가지고있는 user 추출
+    const userIds = await this.userService.UsersByWishedBook(bookid, storeid);
 
     if (!userIds || userIds.length === 0) {
-      console.log('위시리스트에 해당 책을 원하는 유저가 없습니다.');
-      return;
+      throw new NotFoundException(
+        `${storeid}에 ${bookid}서적을 원하는 이용자가 없습니다.`,
+      );
     }
 
     //해당유저의 배열
     console.log('Noti 유저배열', userIds);
 
-    //지점이름가져오기
-    const storeName = await this.storeService.StoreNameById(storeid);
-
-    if (!storeName) {
-      throw new NotFoundException('가게를 찾을 수 없습니다.');
-    }
-
-    console.log(storeName);
     // userIds 배열에서 각각의 userId를 순회하면서 데이터를 저장
     for (const userId of userIds) {
       // 각 userId와 관련된 storeid와 bookid를 사용하여 데이터를 생성
       const notificationData = {
         user: { id: userId },
-        message: `${storeName}에 ${bookTitle} 서적이 입고되었습니다`,
+        sort: '신간알림',
+        book_id: bookid,
+        store_id: storeid,
+        message: `${storeid}에 ${bookid} 서적이 입고되었습니다`,
       };
       // notificationRepository를 사용하여 데이터 저장
       await this.notificationRepository.save(notificationData);
