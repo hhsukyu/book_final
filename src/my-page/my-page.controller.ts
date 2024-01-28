@@ -8,7 +8,7 @@ import {
   Patch,
 } from '@nestjs/common';
 import { MyPageService } from './my-page.service';
-import { UpdateMyWishListDto } from './dto/update-my-wishlist.dto';
+import { UpdateMyWishListDto } from './dto/update-my-wishList.dto';
 import { UpdateMyAddressDto } from './dto/update-my-address.dto';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
