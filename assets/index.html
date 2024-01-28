@@ -18,6 +18,12 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- 지점 정보 스크롤 기능 -->
+    <script src="https://unpkg.com/scrollreveal"></script>
   </head>
   <body>
     <header class="py-3 mb-3">
@@ -39,27 +45,117 @@
     <!-- 카드 슬라이드 부분 -->
     <div id="maincard">
       <div class="card-row">
-        <!-- <div class="col"></div> -->
-        <div class="">
-          <!-- <main> -->
-          <div class="row bookboard mt-4">
-            <div>
-              <h2 class="mt-4">추천 도서목록</h2>
-            </div>
-            <div>
-              <section>
-                <div class="swiper mySwiper slide-container">
-                  <div class="swiper-wrapper content" id="card-list"></div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </section>
-            </div>
+        <div class="row bookboard mt-4">
+          <div>
+            <h2 class="mt-4">추천 도서목록</h2>
           </div>
-          <!-- </main> -->
+          <div>
+            <section>
+              <div class="swiper mySwiper slide-container">
+                <div class="swiper-wrapper content" id="card-list"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </section>
+          </div>
         </div>
-        <!-- <div class="col"></div> -->
+      </div>
+    </div>
+
+    <!-- 장르별 추천도서 -->
+    <div id="genre" class="genre">
+      <div class="genre-categories">
+        <div class="genre-category">
+          <img
+            src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=35fab96e-4aef-4e43-9761-26136ebbd857"
+            alt="장르1 이미지"
+          />
+          <span>액션</span>
+        </div>
+        <div class="genre-category">
+          <img
+            src="https://www.kmas.or.kr:443/common/file/atchmnflDownload.ajax?fileImageId=43a1dce1-7194-4bb5-a862-48bc12a8701f"
+            alt="장르2 이미지"
+          />
+          <span>무협</span>
+        </div>
+        <div class="genre-category">
+          <img
+            src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=3000260694"
+            alt="장르3 이미지"
+          />
+          <span>코믹</span>
+        </div>
+        <div class="genre-category">
+          <img
+            src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=3000283205"
+            alt="장르3 이미지"
+          />
+          <span>드라마</span>
+        </div>
+        <div class="genre-category">
+          <img
+            src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=3000269964"
+            alt="장르3 이미지"
+          />
+          <span>순정</span>
+        </div>
+        <div class="genre-category">
+          <img
+            src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=2b024dc0-2328-4fb4-8db4-28f31b8304b4"
+            alt="장르3 이미지"
+          />
+          <span>판타지</span>
+        </div>
+        <!-- 추가적인 장르 카테고리 -->
+      </div>
+    </div>
+
+    <!-- 지점 목록 -->
+    <div id="stores" class="stores">
+      <div class="album-store">
+        <div class="album-item">
+          <img src="이미지1.jpg" alt="앨범1" />
+          <div class="album-details">
+            <span class="album-title">앨범 제목 1</span>
+            <span class="album-intro">앨범 소개 1</span>
+            <span class="album-location">앨범 장소 1</span>
+          </div>
+        </div>
+        <div class="album-item">
+          <img src="이미지2.jpg" alt="앨범2" />
+          <div class="album-details">
+            <span class="album-title">앨범 제목 2</span>
+            <span class="album-intro">앨범 소개 2</span>
+            <span class="album-location">앨범 장소 2</span>
+          </div>
+        </div>
+        <div class="album-item">
+          <img src="이미지2.jpg" alt="앨범2" />
+          <div class="album-details">
+            <span class="album-title">앨범 제목 2</span>
+            <span class="album-intro">앨범 소개 2</span>
+            <span class="album-location">앨범 장소 2</span>
+          </div>
+        </div>
+        <div class="album-item">
+          <img src="이미지2.jpg" alt="앨범2" />
+          <div class="album-details">
+            <span class="album-title">앨범 제목 2</span>
+            <span class="album-intro">앨범 소개 2</span>
+            <span class="album-location">앨범 장소 2</span>
+          </div>
+        </div>
+        <div class="album-item">
+          <img src="이미지2.jpg" alt="앨범2" />
+          <div class="album-details">
+            <span class="album-title">앨범 제목 2</span>
+            <span class="album-intro">앨범 소개 2</span>
+            <span class="album-location">앨범 장소 2</span>
+          </div>
+        </div>
+        <!-- 나머지 앨범 아이템들도 동일한 구조로 추가 -->
       </div>
     </div>
 
@@ -135,13 +231,13 @@
                   </div>
 
                   <!-- review box -->
-                  <div class="review-box">
+                  <div id="review-box" class="review-box">
                     <!-- 별 부분 -->
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
                   </div>
                 </div>
 
@@ -153,44 +249,6 @@
                   </p>
                 </div>
               </div>
-              <!-- ...... -->
-              <div class="reviewcardbox">
-                <!-- box-top -->
-                <div class="box-top">
-                  <!-- profile-box -->
-                  <div class="profile-box">
-                    <!-- user-image -->
-                    <div class="profile-img">
-                      <img
-                        src="https://i.namu.wiki/i/ansU2jw14dqvAVa_i_XyHO4uCuBh56segYeOz69QjRUeSPnmzzgz2o5_MzEpDiAojF_sNwFMQJk3ExK0mVW9aw.webp"
-                      />
-                    </div>
-                    <!-- username-Name -->
-                    <div class="name-user">
-                      <strong>test Username</strong>
-                    </div>
-                  </div>
-
-                  <!-- review box -->
-                  <div class="review-box">
-                    <!-- 별 부분 -->
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                </div>
-
-                <!-- comment part -->
-                <div class="client-comment">
-                  <p>
-                    testsetseteseifj sidjf isjefifjidsjifsje ifjsfi jidsjsi
-                    ewsjij siesj ifj
-                  </p>
-                </div>
-              </div>
-              <!-- ....... -->
             </div>
           </div>
           <!-- <div class="modal-footer"> -->
@@ -217,9 +275,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
     <!-- index js파일 -->
     <script src="./js/index.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/login.js"></script>
+    <script>
+      ScrollReveal().reveal('.headline');
+    </script>
   </body>
 </html>

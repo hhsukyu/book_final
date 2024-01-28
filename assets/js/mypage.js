@@ -13,30 +13,39 @@ window.onload = function () {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function userme() {
   const storetab = document.getElementById('storetab');
+
   const userimage = document.getElementById('formFile');
   const useraddress = document.getElementById('addressSearch');
 
   axios
-    .get('/mypage', {
+    .get('/user/me', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     })
     .then(function (response) {
-      console.log(response.data);
+      console.log(response);
       user = response.data;
 
       if (user.role === 0) {
         storetab.style.display = 'none';
+      } else if (user.role === 1) {
       }
 
-      userimage.defaultValue = user.photo;
-      useraddress.value = user.address;
+      if (user.mypage == null) {
+        console.log('test');
+      } else {
+        userimage.defaultValue = user.photo;
+        useraddress.value = user.address;
+      }
     })
     .catch(function (error) {
       console.log(error);
     });
 }
+
+//마이페이지 수정 및 저장
+function mypagebtn() {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function searchAddress() {
