@@ -57,5 +57,5 @@ body {
 #bookListContainer {
   display: flex;
   flex-wrap: wrap;
-  margin: -15px; /* Negative margin to counteract padding on columns */
+  margin: -15px;
 }

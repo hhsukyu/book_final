@@ -30,6 +30,7 @@ export class MyPageService {
 
     const myPage = await this.myPageRepository.save({
       user: { id: userId },
+      ...CreateMyPageDto,
     });
     return myPage;
   }
