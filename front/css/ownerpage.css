@@ -152,35 +152,17 @@ body {
   margin-left: 3%;
 }
 
-.carousel-container {
-  overflow: hidden;
-  width: 100%;
+#update-dropdown {
+  margin-left: 75%;
+  padding: 20px;
 }
 
-.carousel {
+/* .page-link {
+  background-color: #171717;
+  color: #171717;
+}
+.pagination-container {
   display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.slide {
-  display: flex;
-}
-
-.card {
-  flex: 0 0 33.33%; /* 각 카드가 1/3의 너비를 가지도록 설정 */
-  box-sizing: border-box;
-  padding: 10px;
-  text-align: center;
-}
-
-/* Optional: Add some styling to the card */
-/* .card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card p {
-  margin: 10px 0;
+  justify-content: center;
+  margin-top: 20px;
 } */
