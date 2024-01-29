@@ -1,6 +1,7 @@
 const header = document.getElementById('header');
 const body = document.getElementById('card-list');
 const maincard = document.getElementById('maincard');
+
 const searchbox = document.getElementById('searchbox');
 const bookListContainer = document.getElementById('bookListContainer');
 
@@ -101,6 +102,7 @@ function keyupEvent(event) {
 
   if (event.key === 'Enter' && search !== '') {
     event.preventDefault();
+    searchcontain.style.display = 'block';
     searchResult(search);
   } else if (event.key === 'Backspace' && search === '') {
     // 백스페이스 키이고 검색어가 없는 경우
