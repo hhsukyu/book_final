@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="./css/menubar.css" />
     <!-- main css -->
     <link rel="stylesheet" href="./css/main.css" />
+    <!-- introduce css -->
+    <link rel="stylesheet" href="./css/introduce.css" />
+
     <!-- axios.js -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link
@@ -180,232 +183,181 @@
 
     <!-- introduce part -->
     <div id="introduceContain">
-      <div class="row">
-        <div class="col-8">
-          <main>
-            <div class="row bookboard mt-4">
-              <div class="col">
-                <h2 class="mt-4 title-store">
-                  <i class="fa-solid fa-carrot" style="color: #ff269d"></i> FIVE
-                  BUNNIES
-                </h2>
-              </div>
-              <!-- project 정보 -->
-              <div class="project-container">
-                <h4 class="project-title">
-                  <i class="fa-solid fa-list-check" style="color: #47c7ff"></i>
-                  프로젝트
-                </h4>
-                <h5 class="project-desc">
-                  BOOKSURFING : 전국 각지의 만화카페의 정보와 보유한 만화책 종류
-                  등을 조회하고 후기를 남길 수 있는 사이트
-                </h5>
-                <h4 class="project-calendar">
-                  <i
-                    class="fa-solid fa-calendar-days"
-                    style="color: #47c7ff"
-                  ></i>
-                  일정
-                </h4>
-                <h5 class="project-calendar-desc">
-                  개발 일정: 20240112 ~ 20240131
-                </h5>
-                <h4 class="project-goal">
-                  <i class="fa-solid fa-check" style="color: #47c7ff"></i>
-                  목표
-                </h4>
-                <h5 class="project-goal-desc">
-                  <li>
-                    각자 맡은 바 역할에 대해 충실하게 공부하며 이력서에 쓸 수
-                    있는 문제해결사례 만들기
-                  </li>
-                  <li>만화책 DB 완성으로 원하는 작품 편하게 찾아보기</li>
-                  <li>네이버 지도 기능을 이용해 내 주변 만화카페 보기</li>
-                  <li>
-                    보유한 도서 검색 기능으로 원하는 책을 가진 만화카페 찾기
-                  </li>
-                </h5>
+      <div class="row bookboard mt-4">
+        <div class="col">
+          <h2 class="mt-4 title-store">
+            <i class="fa-solid fa-carrot" style="color: #ff269d"></i> FIVE
+            BUNNIES
+          </h2>
+        </div>
+        <!-- project 정보 -->
+        <div class="project-container">
+          <h4 class="project-title">
+            <i class="fa-solid fa-list-check" style="color: #47c7ff"></i>
+            프로젝트
+          </h4>
+          <h5 class="project-desc">
+            BOOKSURFING : 전국 각지의 만화카페의 정보와 보유한 만화책 종류 등을
+            조회하고 후기를 남길 수 있는 사이트
+          </h5>
+          <h4 class="project-calendar">
+            <i class="fa-solid fa-calendar-days" style="color: #47c7ff"></i>
+            일정
+          </h4>
+          <h5 class="project-calendar-desc">개발 일정: 20240112 ~ 20240131</h5>
+          <h4 class="project-goal">
+            <i class="fa-solid fa-check" style="color: #47c7ff"></i>
+            목표
+          </h4>
+          <h5 class="project-goal-desc">
+            <li>
+              각자 맡은 바 역할에 대해 충실하게 공부하며 이력서에 쓸 수 있는
+              문제해결사례 만들기
+            </li>
+            <li>만화책 DB 완성으로 원하는 작품 편하게 찾아보기</li>
+            <li>네이버 지도 기능을 이용해 내 주변 만화카페 보기</li>
+            <li>보유한 도서 검색 기능으로 원하는 책을 가진 만화카페 찾기</li>
+          </h5>
 
-                <h4 class="technology-stack">
-                  <i class="fa-solid fa-computer" style="color: #47c7ff"></i>
-                  기술스택
-                </h4>
-                <h5 class="technology-stack-desc">
-                  <li>프론트 - Vanilla JS</li>
-                  <li>
-                    백엔드 - Typescript - Nest.js - Typeorm - MySQL - API Test:
-                    Postman - 이미지 저장 ( 구글 스토리지 )
-                  </li>
-                </h5>
-              </div>
-              <!-- people 정보 -->
-              <div class="people-container">
-                <div class="people-title">
-                  <h4>
-                    <i class="fa-solid fa-user" style="color: #47c7ff"></i>
-                    구성원
-                  </h4>
-                </div>
-                <div class="row row-cols-1 row-cols-md-5 g-4">
-                  <div class="col">
-                    <div class="card h-100 border-light">
-                      <img src="../assets/url/image.png" class="people-image" />
-                      <div class="card-body" id="card-body">
-                        <h5 class="card-title" id="people_name">정규성</h5>
-                        <h6 class="card-subtitle mb-2" id="people_position">
-                          리더
-                        </h6>
-                        <div class="card-text" id="people_task">
-                          <div>책 후기 CRUD</div>
-                          <div>마이페이지 CRUD</div>
-                          <div>알림 기능</div>
-                          <div>프론트 연결 및 툴</div>
-                        </div>
-                      </div>
-                      <div class="card border-dark">
-                        <a
-                          href="https://github.com/gyusungjung"
-                          class="github-link"
-                        >
-                          Github-link</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card h-100 border-light">
-                      <img src="../assets/url/image.png" class="people-image" />
-                      <div class="card-body" id="card-body">
-                        <h5 class="card-title" id="people_name">이동하</h5>
-                        <h6 class="card-subtitle mb-2" id="people_position">
-                          부리더
-                        </h6>
-                        <div class="card-text" id="people_task">
-                          <div>회원가입 및 로그인</div>
-                          <div>지점메뉴 CRUD</div>
-                          <div>CI, CD</div>
-                          <div>Git hub 관리</div>
-                          <div>프론트 연결 및 툴</div>
-                        </div>
-                      </div>
-                      <div class="card border-dark">
-                        <a
-                          href="https://github.com/DevThive"
-                          class="github-link"
-                        >
-                          Github-link</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card h-100 border-light">
-                      <img src="../assets/url/image.png" class="people-image" />
-                      <div class="card-body" id="card-body">
-                        <h5 class="card-title" id="people_name">이주영</h5>
-                        <h6 class="card-subtitle mb-2" id="people_position">
-                          팀원
-                        </h6>
-                        <div class="card-text" id="people_task">
-                          <div>별점 후기 리뷰 CRUD</div>
-                          <div>지도 맵핑 CRUD</div>
-                          <div>프론트 연결 및 툴</div>
-                        </div>
-                      </div>
-                      <div class="card border-dark">
-                        <a
-                          href="https://github.com/precipice-"
-                          class="github-link"
-                        >
-                          Github-link</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card h-100 border-light">
-                      <img src="../assets/url/image.png" class="people-image" />
-                      <div class="card-body" id="card-body">
-                        <h5 class="card-title" id="people_name">한수경</h5>
-                        <h6 class="card-subtitle mb-2" id="people_position">
-                          팀원
-                        </h6>
-                        <div class="card-text" id="people_task">
-                          <div>리뷰 답글 CRUD</div>
-                          <div>영수증 리뷰 기능</div>
-                          <div>프론트 연결 및 툴</div>
-                        </div>
-                      </div>
-                      <div class="card border-dark">
-                        <a
-                          href="https://github.com/hhsukyu"
-                          class="github-link"
-                        >
-                          Github-link</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card h-100 border-light">
-                      <img src="../assets/url/image.png" class="people-image" />
-                      <div class="card-body" id="card-body">
-                        <h5 class="card-title" id="people_name">송창현</h5>
-                        <h6 class="card-subtitle mb-2" id="people_position">
-                          팀원
-                        </h6>
-                        <div class="card-text" id="people_task">
-                          <div>와이어 프레임</div>
-                          <div>소셜(네이버, 카카오) 로그인</div>
-                          <div>비밀번호 찾기</div>
-                          <div>만화책 CRUD</div>
-                          <div>프론트 연결 및 툴</div>
-                        </div>
-                      </div>
-                      <div class="card border-dark">
-                        <a
-                          href="https://github.com/songowen"
-                          class="github-link"
-                        >
-                          Github-link</a
-                        >
-                      </div>
-                    </div>
+          <h4 class="technology-stack">
+            <i class="fa-solid fa-computer" style="color: #47c7ff"></i>
+            기술스택
+          </h4>
+          <h5 class="technology-stack-desc">
+            <li>프론트 - Vanilla JS</li>
+            <li>
+              백엔드 - Typescript - Nest.js - Typeorm - MySQL - API Test:
+              Postman - 이미지 저장 ( 구글 스토리지 )
+            </li>
+          </h5>
+        </div>
+        <!-- people 정보 -->
+        <div class="people-container">
+          <div class="people-title">
+            <h4>
+              <i class="fa-solid fa-user" style="color: #47c7ff"></i>
+              구성원
+            </h4>
+          </div>
+          <div class="row row-cols-1 row-cols-md-5 g-4">
+            <div class="col">
+              <div class="card h-100 border-light">
+                <img src="./url/image.png" class="people-image" />
+                <div class="card-body" id="card-body">
+                  <h5 class="card-title" id="people_name">정규성</h5>
+                  <h6 class="card-subtitle mb-2" id="people_position">리더</h6>
+                  <div class="card-text" id="people_task">
+                    <div>책 후기 CRUD</div>
+                    <div>마이페이지 CRUD</div>
+                    <div>알림 기능</div>
+                    <div>프론트 연결 및 툴</div>
                   </div>
                 </div>
-              </div>
-              <!-- 버튼 -->
-              <div class="thanks-container">
-                <button class="btn-hover color-8">Special Thanks To</button>
-              </div>
-              <div class="thanks-name-container">
-                <i
-                  class="fa-solid fa-heart fa-bounce"
-                  style="color: #ff269d"
-                ></i>
-                <h5>아이디어 제공 : 염지원님</h5>
-                <i
-                  class="fa-solid fa-heart fa-bounce"
-                  style="color: #ff269d"
-                ></i>
-                <h5>튜터 : 이성일 튜터님</h5>
-                <i
-                  class="fa-solid fa-heart fa-bounce"
-                  style="color: #ff269d"
-                ></i>
-                <h5>sub 튜터 : 정영훈 튜터님</h5>
-                <i
-                  class="fa-solid fa-heart fa-bounce"
-                  style="color: #ff269d"
-                ></i>
-                <h5>B반 매니저: 이은한 매니저님</h5>
-                <i
-                  class="fa-solid fa-heart fa-bounce"
-                  style="color: #ff269d"
-                ></i>
+                <div class="card border-dark">
+                  <a href="https://github.com/gyusungjung" class="github-link">
+                    Github-link</a
+                  >
+                </div>
               </div>
             </div>
-          </main>
+            <div class="col">
+              <div class="card h-100 border-light">
+                <img src="./url/image.png" class="people-image" />
+                <div class="card-body" id="card-body">
+                  <h5 class="card-title" id="people_name">이동하</h5>
+                  <h6 class="card-subtitle mb-2" id="people_position">
+                    부리더
+                  </h6>
+                  <div class="card-text" id="people_task">
+                    <div>회원가입 및 로그인</div>
+                    <div>지점메뉴 CRUD</div>
+                    <div>CI, CD</div>
+                    <div>Git hub 관리</div>
+                    <div>프론트 연결 및 툴</div>
+                  </div>
+                </div>
+                <div class="card border-dark">
+                  <a href="https://github.com/DevThive" class="github-link">
+                    Github-link</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100 border-light">
+                <img src="./url/image.png" class="people-image" />
+                <div class="card-body" id="card-body">
+                  <h5 class="card-title" id="people_name">이주영</h5>
+                  <h6 class="card-subtitle mb-2" id="people_position">팀원</h6>
+                  <div class="card-text" id="people_task">
+                    <div>별점 후기 리뷰 CRUD</div>
+                    <div>지도 맵핑 CRUD</div>
+                    <div>프론트 연결 및 툴</div>
+                  </div>
+                </div>
+                <div class="card border-dark">
+                  <a href="https://github.com/precipice-" class="github-link">
+                    Github-link</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100 border-light">
+                <img src="./url/image.png" class="people-image" />
+                <div class="card-body" id="card-body">
+                  <h5 class="card-title" id="people_name">한수경</h5>
+                  <h6 class="card-subtitle mb-2" id="people_position">팀원</h6>
+                  <div class="card-text" id="people_task">
+                    <div>리뷰 답글 CRUD</div>
+                    <div>영수증 리뷰 기능</div>
+                    <div>프론트 연결 및 툴</div>
+                  </div>
+                </div>
+                <div class="card border-dark">
+                  <a href="https://github.com/hhsukyu" class="github-link">
+                    Github-link</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100 border-light">
+                <img src="./url/image.png" class="people-image" />
+                <div class="card-body" id="card-body">
+                  <h5 class="card-title" id="people_name">송창현</h5>
+                  <h6 class="card-subtitle mb-2" id="people_position">팀원</h6>
+                  <div class="card-text" id="people_task">
+                    <div>와이어 프레임</div>
+                    <div>소셜(네이버, 카카오) 로그인</div>
+                    <div>비밀번호 찾기</div>
+                    <div>만화책 CRUD</div>
+                    <div>프론트 연결 및 툴</div>
+                  </div>
+                </div>
+                <div class="card border-dark">
+                  <a href="https://github.com/songowen" class="github-link">
+                    Github-link</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 버튼 -->
+        <div class="thanks-container">
+          <button class="btn-hover color-8">Special Thanks To</button>
+        </div>
+        <div class="thanks-name-container">
+          <i class="fa-solid fa-heart fa-bounce" style="color: #ff269d"></i>
+          <h5>아이디어 제공 : 염지원님</h5>
+          <i class="fa-solid fa-heart fa-bounce" style="color: #ff269d"></i>
+          <h5>튜터 : 이성일 튜터님</h5>
+          <i class="fa-solid fa-heart fa-bounce" style="color: #ff269d"></i>
+          <h5>sub 튜터 : 정영훈 튜터님</h5>
+          <i class="fa-solid fa-heart fa-bounce" style="color: #ff269d"></i>
+          <h5>B반 매니저: 이은한 매니저님</h5>
+          <i class="fa-solid fa-heart fa-bounce" style="color: #ff269d"></i>
         </div>
       </div>
     </div>
@@ -459,42 +411,51 @@
             </div>
           </div>
           <div class="reviewCardRow row pt-5">
-            <h2 class="mb-4">도서리뷰 목록</h2>
-            <div class="row px-3 pt-2 container reviewcardbox2 reviewcontainer">
-              <div class="reviewcardbox">
-                <!-- box-top -->
-                <div class="box-top">
-                  <!-- profile-box -->
-                  <div class="profile-box">
-                    <!-- user-image -->
-                    <div class="profile-img">
-                      <img
-                        src="https://i.namu.wiki/i/ansU2jw14dqvAVa_i_XyHO4uCuBh56segYeOz69QjRUeSPnmzzgz2o5_MzEpDiAojF_sNwFMQJk3ExK0mVW9aw.webp"
-                      />
-                    </div>
-                    <!-- username-Name -->
-                    <div class="name-user">
-                      <strong>test Username</strong>
-                    </div>
-                  </div>
+            <div class="reviewrow pt-5">
+              <h2 class="mb-4" style="display: inline-block">도서리뷰 목록</h2>
+              <div id="reviewicon" onclick="addreviewbtn()">
+                <i class="fa fa-comment"></i>&nbsp;<strong>리뷰작성</strong>
+              </div>
+            </div>
 
-                  <!-- review box -->
-                  <div id="review-box" class="review-box">
-                    <!-- 별 부분 -->
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                  </div>
-                </div>
+            <div
+              id="reviewlist"
+              class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"
+            >
+              <div id="reviewcardbox" class="reviewcardbox">
+                <!-- 리뷰 내용 부분 -->
+              </div>
+            </div>
 
-                <!-- comment part -->
-                <div class="client-comment">
-                  <p>
-                    testsetseteseifj sidjf isjefifjidsjifsje ifjsfi jidsjsi
-                    ewsjij siesj ifj
-                  </p>
+            <!-- 리뷰 작성 폼 -->
+            <!-- <div class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"> -->
+            <div id="reviewadd" class="reivewcontain">
+              <div id="reviewaddbox" class="reviewaddbox">
+                <div class="review-box-container">
+                  <div class="star-widget">
+                    <input type="radio" name="rate" id="rate-5" />
+                    <label for="rate-5" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="rate-4" />
+                    <label for="rate-4" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="rate-3" />
+                    <label for="rate-3" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="rate-2" />
+                    <label for="rate-2" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="rate-1" />
+                    <label for="rate-1" class="fa fa-star"></label>
+                    <form action="#">
+                      <div class="reviewtextarea">
+                        <textarea
+                          id="comment"
+                          cols="30"
+                          placeholder="book review..."
+                        ></textarea>
+                      </div>
+                      <div class="reviewbtn">
+                        <button id="submitBtn" type="button">등록하기</button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

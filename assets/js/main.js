@@ -1,4 +1,5 @@
 const introducebox = document.getElementById('introduceContain');
+const iconreview = document.getElementById('reviewicon');
 window.onload = function () {
   const cookieaccess = getCookie('accessToken');
   const cookierefresh = getCookie('refreshToken');
@@ -14,6 +15,7 @@ window.onload = function () {
     loadHeader('home'); // load the home page by default
     searchfade();
     introducefade();
+    reviewfade();
   } else {
     loadHeader('login');
     searchfade();
@@ -35,6 +37,10 @@ async function searchfade() {
 
 async function introducefade() {
   introducebox.style.display = 'none';
+}
+
+function reviewfade() {
+  iconreview.style.display = 'none';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
