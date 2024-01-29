@@ -16,10 +16,12 @@ window.onload = function () {
     searchfade();
     introducefade();
     reviewfade();
+    genrefade();
   } else {
     loadHeader('login');
     searchfade();
     introducefade();
+    genrefade();
   }
 
   mainBookcard();
@@ -41,6 +43,10 @@ async function introducefade() {
 
 function reviewfade() {
   iconreview.style.display = 'none';
+}
+
+function genrefade() {
+  genrecontain.style.display = 'none';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

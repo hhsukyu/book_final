@@ -103,7 +103,7 @@ function addwish(bookid) {
   //위시리스트에 위시리스트 목록만 저장
   console.log(bookid);
   axios
-    .patch(
+    .post(
       '/mypage/wishlist',
       {
         wish_list: bookid,

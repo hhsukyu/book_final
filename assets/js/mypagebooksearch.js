@@ -5,6 +5,8 @@ let allnextPage;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let allgotoPage;
 
+const userbox = document.getElementById('userinfo');
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function keyevent(event) {
   const search = await document.getElementById('search-box').value;
@@ -15,11 +17,8 @@ async function keyevent(event) {
 
   console.log(search);
   if (search !== '') {
-    maincard.style.display = 'none';
-    genreform.style.display = 'none';
-    storecontain.style.display = 'none';
-    introducebox.style.display = 'none';
-    genrecontain.style.display = 'none';
+    userbox.style.display = 'none';
+
     searchbox.style.display = 'block';
   }
 }
@@ -31,9 +30,8 @@ async function mainkeyup() {
   const el = document.getElementById('pages');
 
   if (search === '') {
-    maincard.style.display = 'block';
-    genreform.style.display = 'block';
-    storecontain.style.display = 'block';
+    userbox.style.display = 'block';
+
     searchbox.style.display = 'none';
     // 검색 결과 데이터 초기화
     output.innerHTML = '';

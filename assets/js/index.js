@@ -1,9 +1,14 @@
 const header = document.getElementById('header');
 const body = document.getElementById('card-list');
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const maincard = document.getElementById('maincard');
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const searchbox = document.getElementById('searchbox');
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const genreform = document.getElementById('genre');
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const storecontain = document.getElementById('stores');
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const genrecontain = document.getElementById('genrebox');
 let reviewbookid;
 
