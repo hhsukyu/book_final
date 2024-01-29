@@ -13,6 +13,7 @@ import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 
 import { MyPage } from '../entity/my-page.entity';
+import { MyPageService } from 'src/my-page/my-page.service';
 
 @Injectable()
 export class UserService {
@@ -22,6 +23,7 @@ export class UserService {
     private readonly configService: ConfigService,
     @InjectRepository(MyPage) // My_page 레포지토리 추가
     private readonly myPageRepository: Repository<MyPage>,
+    private readonly myPageService: MyPageService,
   ) {}
 
   //유저 회원가입
@@ -36,6 +38,8 @@ export class UserService {
 
     const user = await this.userRepository.save(createUserDto);
 
+    const mypage = await this.myPageService.create(user.id);
+    console.log(mypage);
     return user.id;
   }
 
