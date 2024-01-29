@@ -69,7 +69,7 @@ export class BookService {
     );
     return result;
   }
-
+  //도서 검색하기
   async searchbook(booktitle: string) {
     const cachedResult = await this.redisService.getBookInfo(booktitle);
 
