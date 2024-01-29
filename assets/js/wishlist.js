@@ -102,6 +102,24 @@ async function getAutocompleteResults(searchbox) {
 function addwish(bookid) {
   //위시리스트에 위시리스트 목록만 저장
   console.log(bookid);
+  axios
+    .patch(
+      '/mypage/wishlist',
+      {
+        wish_list: bookid,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      },
+    )
+    .then(function (response) {
+      console.log('수정 성공');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 // 위시리스트를 태그

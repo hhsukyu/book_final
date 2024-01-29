@@ -4,6 +4,7 @@ const maincard = document.getElementById('maincard');
 const searchbox = document.getElementById('searchbox');
 const genreform = document.getElementById('genre');
 const storecontain = document.getElementById('stores');
+const genrecontain = document.getElementById('genrebox');
 let reviewbookid;
 
 //쿠키값을 로컬스토리지로 변경해주는 함수

@@ -30,6 +30,11 @@ export class BookController {
     return await this.bookService.createBook(createBookDto, userid);
   }
 
+  @Get('genre')
+  async generelist(@Query('bookgenre') bookgenre: string) {
+    return await this.bookService.genrebook(bookgenre);
+  }
+
   //wishlist 도서 검색
   @Get('wishlist')
   async wishlist(@Query('booktitle') booktitle: string) {

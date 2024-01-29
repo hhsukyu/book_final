@@ -69,42 +69,42 @@
     <!-- 장르별 추천도서 -->
     <div id="genre" class="genre">
       <div class="genre-categories">
-        <div class="genre-category">
+        <div onclick="genrebtn('액션')" class="genre-category">
           <img
             src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=35fab96e-4aef-4e43-9761-26136ebbd857"
             alt="장르1 이미지"
           />
           <span>액션</span>
         </div>
-        <div class="genre-category">
+        <div onclick="genrebtn('무협')" class="genre-category">
           <img
             src="https://www.kmas.or.kr:443/common/file/atchmnflDownload.ajax?fileImageId=43a1dce1-7194-4bb5-a862-48bc12a8701f"
             alt="장르2 이미지"
           />
           <span>무협</span>
         </div>
-        <div class="genre-category">
+        <div onclick="genrebtn('코믹')" class="genre-category">
           <img
             src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=3000260694"
             alt="장르3 이미지"
           />
           <span>코믹</span>
         </div>
-        <div class="genre-category">
+        <div onclick="genrebtn('드라마')" class="genre-category">
           <img
             src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=3000283205"
             alt="장르3 이미지"
           />
           <span>드라마</span>
         </div>
-        <div class="genre-category">
+        <div onclick="genrebtn('순정')" class="genre-category">
           <img
             src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=3000269964"
             alt="장르3 이미지"
           />
           <span>순정</span>
         </div>
-        <div class="genre-category">
+        <div onclick="genrebtn('판타지')" class="genre-category">
           <img
             src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=2b024dc0-2328-4fb4-8db4-28f31b8304b4"
             alt="장르3 이미지"
@@ -162,7 +162,7 @@
       </div>
     </div>
 
-    <!-- 검색결과 화면 -->
+    <!--검색결과 화면 -->
     <div id="searchbox">
       <div class="container bookboard">
         <div class="row bookListTitle px-5 pt-5">
@@ -176,6 +176,27 @@
             <a onclick="allprevPage()" id="btn_prev">Prev</a>
             <ul id="pages"></ul>
             <a onclick="allnextPage()" id="btn_next">Next</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 장르확인 화면 -->
+    <div id="genrebox">
+      <div class="container bookboard">
+        <div class="row bookListTitle px-5 pt-5">
+          <h2 class="mb-5">
+            <!-- 선택한 장르 표시 -->
+          </h2>
+          <div id="genreoutput"></div>
+          <!-- 도서카드 양산용 라인 -->
+
+          <!-- 페이지네이션 -->
+
+          <div class="pagination">
+            <a onclick="genreprevPage()" id="btn_prev">Prev</a>
+            <ul id="pages"></ul>
+            <a onclick="genrenextPage()" id="btn_next">Next</a>
           </div>
         </div>
       </div>
@@ -350,7 +371,7 @@
         </div>
         <div class="thanks-name-container">
           <i class="fa-solid fa-heart fa-bounce" style="color: #ff269d"></i>
-          <h5>아이디어 제공 : 염지원님</h5>
+          <h5>아이디어 및 로고 제공 : 염지원님</h5>
           <i class="fa-solid fa-heart fa-bounce" style="color: #ff269d"></i>
           <h5>튜터 : 이성일 튜터님</h5>
           <i class="fa-solid fa-heart fa-bounce" style="color: #ff269d"></i>
@@ -481,5 +502,6 @@
     <script src="./js/main.js"></script>
     <script src="./js/login.js"></script>
     <script src="./js/booksearch.js"></script>
+    <script src="./js/genre.js"></script>
   </body>
 </html>

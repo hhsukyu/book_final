@@ -49,5 +49,6 @@ function showintroduce() {
   maincard.style.display = 'none';
   genreform.style.display = 'none';
   storecontain.style.display = 'none';
+  searchbox.style.display = 'none';
   introducebox.style.display = 'block';
 }
