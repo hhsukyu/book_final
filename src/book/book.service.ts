@@ -79,7 +79,7 @@ export class BookService {
     }
 
     const book = this.bookRepository.find({
-      select: ['id', 'title', 'book_desc', 'book_image'],
+      select: ['id', 'title', 'book_image'],
     });
 
     const searchResult = (await book).filter((book) =>

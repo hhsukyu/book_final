@@ -7,7 +7,9 @@ import {
   Relation,
   UpdateDateColumn,
 } from 'typeorm';
+
 import { StoreBook } from './storeBook.entity';
+import { BookReview } from './bookreview.entity';
 
 @Entity({ name: 'books' })
 export class Book {
@@ -55,4 +57,7 @@ export class Book {
 
   @OneToMany(() => StoreBook, (storebook) => storebook.book)
   storebook: Relation<StoreBook>;
+
+  @OneToMany(() => BookReview, (bookReview) => bookReview.book)
+  bookReviews: Relation<BookReview>;
 }

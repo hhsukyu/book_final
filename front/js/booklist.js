@@ -4,7 +4,7 @@ const maincard = document.getElementById('maincard');
 const searchbox = document.getElementById('searchbox');
 const bookListContainer = document.getElementById('bookListContainer');
 
-let books = [];
+let booklist = [];
 // 서버 주소 (백엔드 API 주소로 수정 필요)
 const apiUrl = 'http://localhost:3000';
 
@@ -19,6 +19,7 @@ function getBooksForStore(storeid) {
     .then((response) => {
       console.log('response', response);
       // console.log('response',response);
+      booklist = response.data.map((book) => ({ title: book.title }));
       const books = response.data;
 
       books.forEach((book) => {
@@ -35,7 +36,6 @@ function showBooks(books) {
   // 도서 목록 초기화
   console.log(books.book);
   const bookdata = books.book;
-  bookdata.title;
   if (!bookListContainer) {
     console.error('bookListContainer not found.');
     return;
@@ -63,24 +63,19 @@ function showBooks(books) {
 }
 // 초기 페이지 로드 시 storeid가 1인 지점의 도서 목록 표시
 getBooksForStore(1);
+
 // 검색 결과 가져오기 함수
 function searchResult(search) {
   console.log('검색어:', search);
 
-  // 도서 필터링
-  const filteredBooks = books.filter(function (book) {
-    console.log('book.title', book.title);
-    return book.title.includes(search);
-  });
-  console.log('필터링된 도서:', filteredBooks);
+  const searchLowerCase = search.toLowerCase();
 
-  // 검색 기능 추가
-  function searchBooksByTitle(searchTerm) {
-    const searchResult = allBooks.filter((book) =>
-      book.title.includes(searchTerm),
-    );
-    showBooks(searchResult);
-  }
+  // 도서 필터링
+  const filteredBooks = booklist.filter(function (book) {
+    return book.title.toLowerCase().includes(searchLowerCase);
+  });
+
+  console.log('필터링된 도서:', filteredBooks);
 
   // 결과가 없는 경우
   const bookListContainer = document.getElementById('bookListContainer');
@@ -101,8 +96,8 @@ function searchResult(search) {
 
 // 키 입력 이벤트 발생 함수
 function keyupEvent(event) {
-  const searchBox = document.getElementById('search-box');
-  const search = searchBox.value.trim(); // 검색어 얻어오기 (trim()은 앞뒤 공백 제거)
+  const searchBox = document.getElementById('searchbox');
+  const search = searchBox.value.trim();
 
   if (event.key === 'Enter' && search !== '') {
     event.preventDefault();
@@ -117,4 +112,4 @@ function keyupEvent(event) {
 }
 
 // 키 입력 이벤트 리스너 등록
-document.getElementById('search-box').addEventListener('keyup', keyupEvent);
+document.getElementById('searchbox').addEventListener('keyup', keyupEvent);
