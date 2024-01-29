@@ -1,3 +1,5 @@
+const wishlist = document.getElementById('result-wish-box');
+
 window.onload = function () {
   const token = localStorage.getItem('accessToken');
 
@@ -12,8 +14,6 @@ window.onload = function () {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function userme() {
-  const wishlist = document.getElementById('result-wish-box');
-
   axios
     .get('/user/me', {
       headers: {
@@ -34,12 +34,28 @@ function userme() {
           Object.keys(wishs).forEach(function (key) {
             let wishname = wishs[key];
             console.log(wishname);
-            wishlist.innerHTML += `<div class="wishteg"><a>${wishname}</a>&nbsp &nbsp<i onclick="removewish(${key})" class="fa fa-xing"></i></div>`;
+            booknamedb(wishname);
+
             //위시리스트 추가 부분
           });
         } else {
         }
       }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function booknamedb(bookid) {
+  axios
+    .get('books/wishlist/' + bookid)
+    .then(function (response) {
+      const bookid = response.data.id;
+      const booktitle = response.data.title;
+      console.log(booktitle);
+
+      wishlist.innerHTML += `<div class="wishteg"><a>${booktitle}</a>&nbsp &nbsp<i onclick="removewish(${bookid})" class="fa fa-xing"></i></div>`;
     })
     .catch(function (error) {
       console.log(error);
@@ -116,6 +132,7 @@ function addwish(bookid) {
     )
     .then(function (response) {
       console.log('수정 성공');
+      window.location.reload();
     })
     .catch(function (error) {
       console.log(error);
@@ -123,7 +140,23 @@ function addwish(bookid) {
 }
 
 // 위시리스트를 태그
-async function removewish(wishlist) {
-  //위시리스트만 삭제하는 api 구현
+function removewish(wishlist) {
+  // 위시리스트만 삭제하는 api 구현
   console.log(wishlist);
+  axios
+    .delete('/mypage/wishlist', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      data: {
+        wish_list: wishlist,
+      },
+    })
+    .then(function (response) {
+      alert('삭제 성공');
+      window.location.reload();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }

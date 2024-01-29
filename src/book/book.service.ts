@@ -117,6 +117,16 @@ export class BookService {
     return book;
   }
 
+  //도서 상세조회
+  async getBooktitleById(id: number) {
+    const book = await this.bookRepository.findOne({
+      where: { id: id },
+      select: ['title', 'id'],
+    });
+
+    return book;
+  }
+
   //도서 수정
   async updateBook(
     bookid: number,

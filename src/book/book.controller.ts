@@ -61,6 +61,12 @@ export class BookController {
     return await this.bookService.getBooks();
   }
 
+  //위시리스트 추가 도서이름 확인
+  @Get('/wishlist/:bookid')
+  async getbooktitlebyid(@Param('bookid') bookid: number) {
+    return await this.bookService.getBooktitleById(bookid);
+  }
+
   //도서 상세조회
   // @ApiBearerAuth('accessToken')
   // @UseGuards(accessTokenGuard)

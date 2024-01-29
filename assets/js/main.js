@@ -14,13 +14,13 @@ window.onload = function () {
   if (!token) {
     loadHeader('home'); // load the home page by default
     searchfade();
-    introducefade();
+
     reviewfade();
     genrefade();
   } else {
     loadHeader('login');
     searchfade();
-    introducefade();
+
     genrefade();
   }
 
@@ -47,14 +47,4 @@ function reviewfade() {
 
 function genrefade() {
   genrecontain.style.display = 'none';
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function showintroduce() {
-  const introducebox = document.getElementById('introduceContain');
-  maincard.style.display = 'none';
-  genreform.style.display = 'none';
-  storecontain.style.display = 'none';
-  searchbox.style.display = 'none';
-  introducebox.style.display = 'block';
 }
