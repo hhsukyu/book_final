@@ -94,39 +94,4 @@ export class MyPageService {
 
     return myPage;
   }
-
-  // 위시리스트 변경 메서드
-  async updateWishList(
-    userId: number,
-    updateMyWishListDto: UpdateMyWishListDto,
-  ) {
-    const myPage = await this.findMyPage(userId);
-    myPage.wish_list = updateMyWishListDto.wish_list;
-    await this.myPageRepository.save(myPage);
-    return myPage;
-  }
-
-  // 라이크 스토어 변경 메서드
-  async updateLikeStore(
-    userId: number,
-    updateMyLikeStoreDto: UpdateMyLikeStoreDto,
-  ) {
-    const myPage = await this.findMyPage(userId);
-    myPage.like_store = updateMyLikeStoreDto.like_store;
-    await this.myPageRepository.save(myPage);
-    return myPage;
-  }
-
-  // MyPage 찾기
-  private async findMyPage(userId: number): Promise<MyPage> {
-    let myPage = await this.myPageRepository.findOne({
-      where: { user: { id: userId } },
-    });
-
-    if (!myPage) {
-      throw new NotFoundException(`MyPage with ID ${userId} not found`);
-    }
-
-    return myPage;
-  }
 }
