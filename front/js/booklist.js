@@ -1,6 +1,3 @@
-const searchbox = document.getElementById('searchbox');
-const bookListContainer = document.getElementById('bookListContainer');
-
 // 서버 주소 (백엔드 API 주소로 수정 필요)
 const apiUrl = 'http://localhost:3000';
 
@@ -59,8 +56,7 @@ getBooksForStore(1);
 
 // 키 입력 이벤트 발생 함수
 async function keyupEvent(event) {
-  const searchbox = document.getElementById('search-box');
-  const search = await document.getElementById('search-box').value;
+  const search = await document.getElementById('searchbox').value;
 
   if (event.key === 'Enter' && search !== '') {
     event.preventDefault();
@@ -80,7 +76,7 @@ async function keyupEvent(event) {
 }
 
 async function mainkeyup(event) {
-  const search = await document.getElementById('search-box').value;
+  const search = await document.getElementById('searchbox').value;
   if (search === '') {
     event.preventDefault(); // 백스페이스 키이고 검색어가 없는 경우
     const bookCard = document.getElementById('bookListContainer');
