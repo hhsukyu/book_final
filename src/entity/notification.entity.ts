@@ -17,6 +17,15 @@ export class Notification {
   id: number;
 
   @Column()
+  sort: string;
+
+  @Column({ nullable: true })
+  book_id: number;
+
+  @Column({ nullable: true })
+  store_id: number;
+
+  @Column({ nullable: true })
   message: string; // 알림 메시지
 
   @CreateDateColumn()
