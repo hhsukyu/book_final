@@ -1,7 +1,12 @@
 const header = document.getElementById('header');
 const body = document.getElementById('card-list');
 const maincard = document.getElementById('maincard');
-const searchbox = document.getElementById('searchbox');
+const searchbox = document.getElementById('search-box');
+const searchcontain = document.getElementById('searchbox');
+
+//사라지는 container
+const genrebtn = document.getElementById('genre');
+const storecontain = document.getElementById('stores');
 
 const data = [
   { title: '패턴', postNumber: 1 },
@@ -74,6 +79,7 @@ function searchResult() {
 }
 
 // 지점도서 목록을 가져오는 함수
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getBookList() {
   axios.get('/storebook/storebookid').then((response) => {
     const bookList = response.data;
@@ -103,10 +109,13 @@ function getBookList() {
 function keyupEvent(event) {
   const searchBox = document.getElementById('search-box');
   const search = searchBox.value.trim(); // 검색어 얻어오기 (trim()은 앞뒤 공백 제거)
+  maincard.style.display = 'none';
+  genrebtn.style.display = 'none';
 
   if (event.key === 'Enter' && search !== '') {
     // 엔터 키를 누르면서 검색어가 존재하면 검색 결과를 가져옴
     event.preventDefault();
+    searchcontain.style.display = 'block';
     searchResult(search);
   }
 }
