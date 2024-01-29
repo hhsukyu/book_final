@@ -28,19 +28,19 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     await this.client.quit();
   }
 
-  async setRefreshToken(userId: string, token: string): Promise<void> {
-    await this.client.set(`refresh_token:${userId}`, token, {
-      EX: 60 * 60 * 24 * 7,
-    });
-  }
+  // async setRefreshToken(userId: string, token: string): Promise<void> {
+  //   await this.client.set(`refresh_token:${userId}`, token, {
+  //     EX: 60 * 60 * 24 * 7,
+  //   });
+  // }
 
-  async getRefreshToken(userId: string): Promise<string | null> {
-    return await this.client.get(`refresh_token:${userId}`);
-  }
+  // async getRefreshToken(userId: string): Promise<string | null> {
+  //   return await this.client.get(`refresh_token:${userId}`);
+  // }
 
-  async removeRefreshToken(userId: string): Promise<void> {
-    await this.client.del(`refresh_token:${userId}`);
-  }
+  // async removeRefreshToken(userId: string): Promise<void> {
+  //   await this.client.del(`refresh_token:${userId}`);
+  // }
 
   async setVerificationCode(email: string, code: string): Promise<void> {
     await this.client.set(`verification_code:${email}`, code, { EX: 60 * 3 });
