@@ -44,8 +44,8 @@ export class Store {
   @Column()
   store_address: string;
 
-  @Column({ type: 'point', nullable: false })
-  place: Point;
+  @Column({ type: 'point', nullable: true })
+  place?: Point;
 
   @OneToMany(() => Menu, (menu) => menu.store)
   menus: Relation<Menu>[];
