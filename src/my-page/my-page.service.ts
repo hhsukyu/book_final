@@ -2,11 +2,11 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MyPage } from '../entity/my-page.entity';
-import { UpdateMyWishListDto } from './dto/update-my-wishList.dto';
+import { AddToWishListDto } from './dto/add-to-wishlist.dto';
 import { UpdateMyAddressDto } from './dto/update-my-address.dto';
-import { CreateMyPageDto } from './dto/create-my-page.dto';
+import { CreateMyPageDto } from './dto/add-to-address.dto';
 import { UserService } from '../user/user.service';
-import { UpdateMyLikeStoreDto } from './dto/update-my-likestore';
+import { AddToMyLikeStoreDto } from './dto/add-to-likestore';
 
 @Injectable()
 export class MyPageService {
@@ -16,14 +16,14 @@ export class MyPageService {
     private userService: UserService,
   ) {}
 
+  //주소추가하기
   async create(userId: number, createMyPageDto: CreateMyPageDto) {
     const userDetail = await this.myPageRepository.findOne({
       where: { user: { id: userId } },
-      //select: ['address', 'wish_list'],
     });
 
     if (userDetail) {
-      throw new NotFoundException('이미 등록되어있습니다');
+      throw new NotFoundException('주소가 이미 등록되어있습니다');
     }
 
     const myPage = await this.myPageRepository.save({
@@ -33,6 +33,7 @@ export class MyPageService {
     return myPage;
   }
 
+  //마이페이지 조회
   async findOne(userId: number) {
     const userDetail = await this.myPageRepository.findOne({
       where: { user: { id: userId } },
@@ -43,6 +44,7 @@ export class MyPageService {
     return userDetail;
   }
 
+  //주소 변경
   async address_change(userId: number, updateMyAddressDto: UpdateMyAddressDto) {
     const myPage = await this.myPageRepository.findOne({
       where: { user: { id: userId } },
@@ -61,23 +63,42 @@ export class MyPageService {
   }
 
   // 위시리스트 변경 메서드
-  async updateWishList(
-    userId: number,
-    updateMyWishListDto: UpdateMyWishListDto,
-  ) {
-    const myPage = await this.findMyPage(userId);
-    myPage.wish_list = updateMyWishListDto.wish_list;
+  async addToWishList(userId: number, addToWishListDto: AddToWishListDto) {
+    const myPage = await this.myPageRepository.findOne({
+      where: { user: { id: userId } },
+    });
+
+    if (!myPage) {
+      throw new NotFoundException(`MyPage with ID ${userId} not found`);
+    }
+
+    // 위시리스트에 새로운 아이템을 추가합니다.
+    const newWishList = [
+      ...(myPage.wish_list || []),
+      addToWishListDto.wish_list,
+    ];
+    myPage.wish_list = newWishList;
+
+    // 업데이트된 엔티티를 저장합니다.
     await this.myPageRepository.save(myPage);
     return myPage;
   }
 
-  // 라이크 스토어 변경 메서드
+  // 라이크 스토어에 아이템 추가
   async updateLikeStore(
     userId: number,
-    updateMyLikeStoreDto: UpdateMyLikeStoreDto,
+    updateMyLikeStoreDto: AddToMyLikeStoreDto,
   ) {
     const myPage = await this.findMyPage(userId);
-    myPage.like_store = updateMyLikeStoreDto.like_store;
+
+    // 라이크 스토어에 새로운 아이템을 추가합니다.
+    const newLikeStore = [
+      ...(myPage.like_store || []),
+      updateMyLikeStoreDto.like_store,
+    ];
+    myPage.like_store = newLikeStore;
+
+    // 업데이트된 엔티티를 저장합니다.
     await this.myPageRepository.save(myPage);
     return myPage;
   }
