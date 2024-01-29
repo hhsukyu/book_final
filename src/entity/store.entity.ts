@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 import { Menu } from './menu.entity';
-import { StoreBook } from './store-book.entity';
+import { StoreBook } from './storeBook.entity';
 import { StoreReview } from './storeReview.entity';
 import { AdminReview } from './adminReview.entity';
 import { Receipt } from './receipt.entity';

@@ -42,6 +42,23 @@ export class BookController {
     return await this.bookService.searchbook(booktitle);
   }
 
+  //지점도서 검색
+  @Get('searchStoreBook')
+  async searchStoreBook(
+    @Query('storeId') storeid: number,
+    @Query('bookTitle') booktitle: string,
+  ) {
+    try {
+      const searchResult = await this.bookService.searchStoreBook(
+        storeid,
+        booktitle,
+      );
+      return { success: true, data: searchResult };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
+
   //도서 조회
   @Get('main')
   async maingetBooks() {
