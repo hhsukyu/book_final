@@ -30,6 +30,7 @@ export class MyPageService {
 
     const myPage = await this.myPageRepository.save({
       user: { id: userId },
+      ...CreateMyPageDto,
     });
     return myPage;
   }
@@ -174,7 +175,7 @@ export class MyPageService {
 
   // MyPage 찾기
   private async findMyPage(userId: number): Promise<MyPage> {
-    let myPage = await this.myPageRepository.findOne({
+    const myPage = await this.myPageRepository.findOne({
       where: { user: { id: userId } },
     });
 

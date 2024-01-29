@@ -52,7 +52,7 @@ export class MyPageController {
 
   // 위시리스트 추가
   @UseGuards(accessTokenGuard)
-  @Patch('wishlist')
+  @Post('wishlist')
   async addToWishList(
     @UserId() userId: number,
     @Body() addToWishListDto: AddToWishListDto,

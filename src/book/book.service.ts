@@ -37,6 +37,17 @@ export class BookService {
     return books;
   }
 
+  //도서 장르별
+  async genrebook(bookgenre: string) {
+    console.log(bookgenre);
+    const book = this.bookRepository.find({
+      where: { genre: bookgenre },
+      select: ['id', 'book_image', 'title', 'genre'],
+    });
+
+    return book;
+  }
+
   //도서 생성
   async createBook(createBookDto: CreateBookDto, userid: number) {
     const user = await this.userService.findUserById(userid);
@@ -114,6 +125,16 @@ export class BookService {
   async getBookById(id: number) {
     const book = await this.bookRepository.findOne({
       where: { id: id },
+    });
+
+    return book;
+  }
+
+  //도서 상세조회
+  async getBooktitleById(id: number) {
+    const book = await this.bookRepository.findOne({
+      where: { id: id },
+      select: ['title', 'id'],
     });
 
     return book;
