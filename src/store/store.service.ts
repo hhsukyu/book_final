@@ -123,7 +123,7 @@ export class StoreService {
         .execute();
     }
 
-    return { message: '지점 정보가 수정되었습니다.' };
+    return { message: '지점 정보가 수정되었습니다..' };
   }
 
   //지점 삭제
