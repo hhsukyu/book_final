@@ -54,7 +54,6 @@ export class StorebookService {
       store_id: storeid,
       ...createStoreBookDto,
     });
-    console.log('storebook', storebook);
     return storebook;
   }
 
@@ -77,9 +76,9 @@ export class StorebookService {
   //특정지점도서 전체조회
   async getStoreBooks(storeid: number) {
     const store = await this.storeService.findStoreById(storeid);
-    console.log('store', store, 'store.id', store.id);
     return this.storeBookRepository.find({
       where: { store_id: store.id },
+      relations: { book: true },
     });
   }
 
