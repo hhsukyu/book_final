@@ -247,3 +247,143 @@ body {
     flex-basis: 100%;
   }
 }
+
+/* 검색 결과 css */
+/*페이지네이션*/
+ul#pages,
+ul#pages li {
+  display: inline-block;
+  padding: 0;
+}
+
+ul#pages > li {
+  margin: 0px 3px;
+}
+
+#output {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px; /* Negative margin to counteract padding on columns */
+}
+
+#output > .col-3 {
+  padding: 15px; /* Padding to create space between columns */
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Optional margin for spacing from other elements */
+}
+
+.pagination a {
+  margin: 0 5px; /* Optional margin for spacing between Prev/Next and page numbers */
+}
+
+.card::before {
+  display: none;
+}
+
+/* 리뷰 부분 css */
+.reviewrow {
+  display: flex;
+  align-items: center;
+}
+
+#reviewicon {
+  margin-left: 58%;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.review-box-container {
+  width: 100%;
+  /* background: #111; */
+  padding: 20px 30px;
+  outline: none;
+  border: 1px solid #444;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reivewcontain {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+}
+
+.review-box-container .star-widget input {
+  display: none;
+}
+
+.star-widget label {
+  font-size: 40px;
+  color: #444;
+  padding: 10px;
+  float: right;
+  transition: all 0.2s ease;
+}
+
+input:not(:checked) ~ label:hover,
+input:not(:checked) ~ label:hover ~ label {
+  color: #fd4;
+}
+
+input:checked ~ label {
+  color: #fd4;
+}
+
+input#rate-5:checked ~ label {
+  color: #fe7;
+  text-shadow: 0 0 20px #952;
+}
+
+form header {
+  width: 100%;
+  font-size: 25px;
+  color: #fe7;
+  font-weight: 500;
+  margin: 5px 20px 0;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+form .reviewtextarea {
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+
+form .reviewtextarea textarea {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  color: #eee;
+  border: 1px solid #333;
+  background: #222;
+  padding: 10px;
+  font-size: 17px;
+  resize: none;
+}
+
+form .reviewbtn {
+  height: 45px;
+  width: 100%;
+  margin: 15px 0;
+}
+
+form .reviewbtn button {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #444;
+  outline: none;
+  background: #222;
+  color: #999;
+  font-size: 17px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
