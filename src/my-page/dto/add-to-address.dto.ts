@@ -9,12 +9,4 @@ export class CreateMyPageDto {
 
   @IsNumber()
   longitude: number;
-
-  @IsArray()
-  @IsOptional()
-  wish_list: string[] = [];
-
-  @IsArray()
-  @IsOptional()
-  like_store: string[] = [];
 }
