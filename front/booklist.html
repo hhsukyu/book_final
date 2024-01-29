@@ -79,10 +79,12 @@
         <form class="col-12 col-md-6 d-flex mb-3 mb-lg-0" role="search">
           <input
             type="search"
+            onkeypress="keyupEvent(event)"
+            onkeyup="mainkeyup(event)"
             class="form-control"
             placeholder="소장도서 검색"
             aria-label="Search"
-            id="searchbox"
+            id="search-box"
           />
         </form>
       </div>

@@ -12,14 +12,15 @@ import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { UserService } from 'src/user/user.service';
 import { RedisService } from '../configs/redis/redis.service';
+import { StoreBook } from 'src/entity/storeBook.entity';
 
 @Injectable()
 export class BookService {
   constructor(
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,
-    // @InjectRepository(StoreBook)
-    // private storeBookRepository: Repository<StoreBook>,
+    @InjectRepository(StoreBook)
+    private storeBookRepository: Repository<StoreBook>,
     private readonly userService: UserService,
     // private readonly storeBookService: StorebookService,
 
@@ -106,6 +107,18 @@ export class BookService {
     );
 
     return searchResult;
+  }
+
+  //지점도서 검색
+  async searchStoreBook(storeid: number, booktitle: string): Promise<Book[]> {
+    const storeBooks = await this.storeBookRepository
+      .createQueryBuilder('storeBook')
+      .innerJoinAndSelect('storeBook.book', 'book')
+      .where('storeBook.store.id = :storeid', { storeid })
+      .andWhere('book.title LIKE :booktitle', { booktitle: `%${booktitle}%` })
+      .getMany();
+
+    return storeBooks.map((storeBook) => storeBook.book);
   }
 
   //도서 상세조회
