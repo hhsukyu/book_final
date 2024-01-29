@@ -9,6 +9,10 @@ import { NotificationService } from './notification.service';
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
+  //1. 모든 user에게 보내는 전체 메세지
+
+  //2. 특정 store의 알림 공지
+
   //신간도서 알림생성 : 바로 서비스에서 진행
 
   // //알림 조회
