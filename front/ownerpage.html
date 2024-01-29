@@ -76,42 +76,54 @@
           <h2 class="mt-4 title-mypage">마이페이지</h2>
         </div>
         <div class="col">
-          <div class="dropdown" id="update-dropdown">
+          <div class="btn-group" role="group">
+            <div class="dropdown" id="update-dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                data-toggle="dropdown"
+                aria-expanded="false"
+                id="dropdownToggleTitle"
+              >
+                수정 목록
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li>
+                  <a
+                    class="dropdown-item active"
+                    href="#"
+                    onclick="changeTitle('지점 정보')"
+                    >지점 정보</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    onclick="changeTitle('메뉴 정보')"
+                    >메뉴 정보</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    onclick="changeTitle('보유 책 정보')"
+                    >보유 책 정보</a
+                  >
+                </li>
+              </ul>
+            </div>
             <button
-              class="btn btn-secondary dropdown-toggle"
               type="button"
-              data-toggle="dropdown"
-              aria-expanded="false"
-              id="dropdownToggleTitle"
+              class="btn btn-secondary"
+              data-toggle="modal"
+              data-target="#staticBackdrop"
+              id="post-book"
+              onclick="modalBook()"
             >
-              수정 목록
+              책 등록
             </button>
-            <ul class="dropdown-menu dropdown-menu-dark">
-              <li>
-                <a
-                  class="dropdown-item active"
-                  href="#"
-                  onclick="changeTitle('지점 정보')"
-                  >지점 정보</a
-                >
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  href="#"
-                  onclick="changeTitle('메뉴 정보')"
-                  >메뉴 정보</a
-                >
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  href="#"
-                  onclick="changeTitle('보유 책 정보')"
-                  >보유 책 정보</a
-                >
-              </li>
-            </ul>
           </div>
         </div>
         <div class="store-container">
@@ -248,6 +260,41 @@
           </div>
         </div>
       </div>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content" id="modalcontent">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">책 등록하기</h5>
+            </div>
+            <div class="modal-body">
+              <label for="store-picture" class="form-label">책 파일</label>
+              <div class="mb-3">
+                <input class="form-control" type="file" id="formFile" />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-dark"
+                data-bs-dismiss="modal"
+              >
+                수정
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- </div>
         </div>
       </div> -->
@@ -255,11 +302,8 @@
     <!-- </div>
       <div class="col"></div> -->
     <!-- </div> -->
-    <script src="./js/mypage.js"></script>
-    <script src="./js/ownerpage.js">
-      </script
-          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
-    </script>
+    <script src="./js/ownerpage.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
