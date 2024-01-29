@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MyPage } from '../entity/my-page.entity';
-import { UpdateMyWishListDto } from './dto/update-my-wishlist.dto';
+import { UpdateMyWishListDto } from './dto/update-my-wishList.dto';
 import { UpdateMyAddressDto } from './dto/update-my-address.dto';
 import { CreateMyPageDto } from './dto/create-my-page.dto';
 import { UserService } from '../user/user.service';
