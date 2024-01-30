@@ -1,4 +1,5 @@
 const apiUrl = 'http://localhost:3000';
+let email = '';
 
 function sendEmail() {
   const email = document.getElementById('email').value;
@@ -27,7 +28,14 @@ function verifyCode() {
     .post(`${apiUrl}/auth/verify-code`, { code, email })
     .then((response) => {
       // 성공적으로 코드를 확인했을 때의 로직
-      console.log(response.data);
+      console.log('response.config.data', response.config.data);
+      // response.config.data를 JSON 형식으로 파싱
+      const requestData = JSON.parse(response.config.data);
+
+      // email 속성에 접근
+      const email = requestData.email;
+
+      console.log('email', email);
 
       document.getElementById('verificationForm').style.display = 'none';
       document.getElementById('passwordResetForm').style.display = 'block';
@@ -39,22 +47,19 @@ function verifyCode() {
         // 인증 코드가 일치하지 않는 경우
         alert('인증 코드가 일치하지 않습니다. 다시 확인해주세요.');
       } else {
-        // 다른 에러 처리 로직
         alert('인증 코드 확인에 실패했습니다. 다시 시도해주세요.');
       }
-    });
-
     });
 }
 
 function resetPassword() {
   const newPassword = document.getElementById('newPassword').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
-
+  console.log('email', email);
   if (newPassword === confirmPassword) {
     axios
       .put(`${apiUrl}/auth/update-password`, {
-        userId: 5, // 여기에 적절한 유저 ID를 넣어주세요.
+        email: 'email',
         password: newPassword,
         checkPassword: confirmPassword,
       })
