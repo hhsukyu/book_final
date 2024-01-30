@@ -252,6 +252,7 @@ export class BookService {
       book_image: bookData.book_image,
     }));
 
-    await this.bookRepository.save(createBookDtos);
+    const books = await this.bookRepository.save(createBookDtos);
+    return books;
   }
 }
