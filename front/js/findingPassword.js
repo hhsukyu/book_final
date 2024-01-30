@@ -4,7 +4,7 @@ function sendEmail() {
   const email = document.getElementById('email').value;
 
   axios
-    .post('apiUrl + /send-verification', { email })
+    .post(`${apiUrl}/auth/send-verification`, { email })
     .then((response) => {
       // 성공적으로 이메일을 보냈을 때의 로직
       console.log(response.data);
@@ -20,17 +20,56 @@ function sendEmail() {
 }
 
 function verifyCode() {
-  document.getElementById('verificationForm').style.display = 'none';
-  document.getElementById('passwordResetForm').style.display = 'block';
+  const code = document.getElementById('verificationCode').value;
+  const email = document.getElementById('email').value;
+
+  axios
+    .post(`${apiUrl}/auth/verify-code`, { code, email })
+    .then((response) => {
+      // 성공적으로 코드를 확인했을 때의 로직
+      console.log(response.data);
+
+      document.getElementById('verificationForm').style.display = 'none';
+      document.getElementById('passwordResetForm').style.display = 'block';
+    })
+    .catch((error) => {
+      // 코드 확인에 실패했을 때의 로직
+      console.error(error);
+      if (error.response.status === 409) {
+        // 인증 코드가 일치하지 않는 경우
+        alert('인증 코드가 일치하지 않습니다. 다시 확인해주세요.');
+      } else {
+        // 다른 에러 처리 로직
+        alert('인증 코드 확인에 실패했습니다. 다시 시도해주세요.');
+      }
+    });
+
+    });
 }
 
 function resetPassword() {
-  let newPassword = document.getElementById('newPassword').value;
-  let confirmPassword = document.getElementById('confirmPassword').value;
+  const newPassword = document.getElementById('newPassword').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
 
   if (newPassword === confirmPassword) {
-    alert('비밀번호가 재설정되었습니다.');
-    $('#myModal').modal('hide');
+    axios
+      .put(`${apiUrl}/auth/update-password`, {
+        userId: 5, // 여기에 적절한 유저 ID를 넣어주세요.
+        password: newPassword,
+        checkPassword: confirmPassword,
+      })
+      .then((response) => {
+        // 성공적으로 비밀번호를 재설정했을 때의 로직
+        console.log(response.data);
+
+        alert('비밀번호가 성공적으로 재설정되었습니다.');
+        $('#myModal').modal('hide');
+      })
+      .catch((error) => {
+        // 비밀번호 재설정에 실패했을 때의 로직
+        console.error(error);
+        alert('비밀번호 재설정에 실패했습니다. 다시 시도해주세요.');
+      });
   } else {
     alert('비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
   }
