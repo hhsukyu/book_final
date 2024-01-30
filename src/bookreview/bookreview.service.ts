@@ -55,6 +55,7 @@ export class BookReviewService {
       where: { book: { id: book_id } },
     });
     console.log('bookreviews', bookreviews);
+    console.log('bookreviews length:', bookreviews.length);
     return bookreviews;
   }
 
