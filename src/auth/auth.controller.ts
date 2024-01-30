@@ -155,4 +155,12 @@ export class AuthController {
   ) {
     await this.authService.updatePassword(userId, updatePasswordDto);
   }
+
+  //사용자 사장님으로 전환
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
+  @Put('/changeOwner')
+  async changeOwner(@UserId() userid: number) {
+    return this.authService.changeOwner(userid);
+  }
 }
