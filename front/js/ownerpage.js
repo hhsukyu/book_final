@@ -28,3 +28,11 @@ function searchAddress() {
     },
   }).open();
 }
+
+function clickModal() {
+  $('#menuUpdateModal').modal('show');
+}
+
+function deleteMenu() {
+  document.querySelector('#menuCard').style.display = 'none';
+}
