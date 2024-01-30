@@ -65,7 +65,7 @@
         </li>
         <li class="nav-item" role="presentation">
           <button
-            onclick="startstorefade()"
+            onclick="startstorefade(), storeinfo()"
             class="nav-link"
             id="profile-tab"
             data-bs-toggle="tab"
@@ -102,14 +102,22 @@
           aria-labelledby="home-tab"
           tabindex="0"
         >
-          <form id="mypageform" class="input-class" onsubmit="mypagebtn()">
+          <form
+            id="mypageform"
+            class="input-class"
+            onsubmit="myprofilebtn(event)"
+          >
             <label for="profile-picture" class="form-label">프로필 사진</label>
             <div class="mb-3">
+              <div>
+                <img id="profileImage" src="" alt="프로필 이미지" />
+              </div>
               <input
                 class="form-control"
                 name="profileimg"
                 type="file"
-                id="formFile"
+                id="profileimg"
+                value=""
               />
             </div>
             <label for="wishlist" class="form-label">내 동네 설정</label>
@@ -134,9 +142,7 @@
 
             <div class="update-container">
               <div class="col-md-4 mb-3 updatebtn">
-                <button onclick="myprofilebtn()" class="btn-hover color-8">
-                  수정
-                </button>
+                <button type="submit" class="btn-hover color-8">수정</button>
               </div>
             </div>
           </form>
@@ -185,119 +191,53 @@
               </li>
             </ul>
           </div>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-toggle="modal"
-            data-target="#staticBackdrop"
-            id="post-book"
-            onclick="modalBook()"
-          >
-            책 등록
-          </button>
           <div class="store-container">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-toggle="modal"
+              data-target="#addstoremodal"
+              id="store-menu"
+            >
+              지점 등록
+            </button>
             <div class="col">
               <h4 class="mt-4 title-store">지점 정보</h4>
             </div>
-            <label for="store-name" class="form-label">지점명</label>
-            <div class="mb-3">
-              <input
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="변경할 지점명을 적어주세요"
-              />
-            </div>
-            <label for="store-picture" class="form-label">지점 사진</label>
-            <div class="mb-3">
-              <input class="form-control" type="file" id="formFile" />
-            </div>
-            <label for="store-desc" class="form-label">지점 설명</label>
-            <div class="mb-3">
-              <input
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="우리 지점에 대해 소개해주세요."
-              />
-            </div>
-            <label for="store-address" class="form-label">지점 주소</label>
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="주소를 입력해주세요."
-              />
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-                id="button-addon2"
-                onclick="searchAddress()"
-              >
-                찾기
-              </button>
-            </div>
-            <div class="mb-3">
-              <input
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="상세 주소를 입력해주세요."
-              />
-            </div>
-            <label for="running-time" class="form-label">운영 시간</label>
-            <label for="opening-time">Opening Time:</label>
-            <input type="time" id="opening-time" name="opening-time" required />
-
-            <label for="closing-time">Closing Time:</label>
-            <input type="time" id="closing-time" name="closing-time" required />
-
-            <div class="update-container">
-              <div class="col-md-4 mb-3 updatebtn">
-                <button class="btn-hover color-8">수정 완료</button>
-              </div>
+            <div class="bookboard">
+              <div id="mypagestores"></div>
             </div>
           </div>
+
           <div id="storemenulist" class="menu-container">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-toggle="modal"
+              data-target="#addmenumodal"
+              id="add-menu"
+            >
+              메뉴 등록
+            </button>
             <div class="col">
               <h4 class="mt-4 title-mypage">메뉴 정보</h4>
             </div>
-            <label for="menu-name" class="form-label">메뉴명</label>
-            <div class="mb-3">
-              <input
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="변경할 메뉴명을 적어주세요"
-              />
-            </div>
-            <label for="store-picture" class="form-label">메뉴 사진</label>
-            <div class="mb-3">
-              <input class="form-control" type="file" id="formFile" />
-            </div>
-            <label for="store-desc" class="form-label">메뉴 설명</label>
-            <div class="mb-3">
-              <input
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="메뉴에 대해 소개해주세요."
-              />
-            </div>
-            <label for="store-price" class="form-label">메뉴 가격</label>
-            <div class="mb-3">
-              <input
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="메뉴 가격을 정해주세요."
-              />
-            </div>
-            <div class="update-container">
-              <div class="col-md-4 mb-3 updatebtn">
-                <button class="btn-hover color-8">수정 완료</button>
-              </div>
-            </div>
           </div>
           <div id="storebooklist" class="booklist-container">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-toggle="modal"
+              data-target="#staticBackdrop"
+              id="post-book"
+            >
+              책 등록
+            </button>
             <div class="row-cols-md-4">
               <div class="col">
                 <h4 class="mt-4 title-mypage">보유 책 정보</h4>
               </div>
+
               <!-- 도서카드 양산용 라인 -->
               <div class="col-4 mb-3 storeBookCard">
                 <div class="col">
@@ -333,11 +273,13 @@
                 </ul>
               </nav>
             </div>
-            <div class="update-container">
+            <!-- <div class="update-container">
               <div class="col-md-4 mb-3 updatebtn">
-                <button class="btn-hover color-8">수정 완료</button>
+                <button onclick="bookbtn()" class="btn-hover color-8">
+                  수정 완료
+                </button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div
@@ -361,7 +303,218 @@
       </div>
     </div>
 
-    <!-- Modal -->
+    <!-- 지점 수정 Modal -->
+    <div
+      class="modal fade bd-example-modal-lg"
+      id="updatestoremodal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="updatestoremodal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="modalcontent">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updatestoremodal">지점 수정</h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label for="store-name" class="form-label">지점명</label>
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  id="upstorename"
+                  placeholder="변경할 지점명을 적어주세요"
+                />
+              </div>
+              <label for="store-picture" class="form-label">지점 사진</label>
+              <div>
+                <img id="storeImage" src="" alt="스토어 이미지" />
+              </div>
+              <div class="mb-3">
+                <input class="form-control" type="file" id="storeimg" />
+              </div>
+              <label for="store-desc" class="form-label">지점 설명</label>
+              <div class="mb-3">
+                <textarea
+                  class="form-control"
+                  id="upstoredesc"
+                  placeholder="우리 지점에 대해 소개해주세요."
+                ></textarea>
+              </div>
+              <label for="store-address" class="form-label">지점 주소</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="주소를 입력해주세요."
+                  id="upstoreaddress"
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-addon2"
+                  onclick="searchAddress()"
+                >
+                  찾기
+                </button>
+              </div>
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  id="upstoredetailaddress"
+                  placeholder="상세 주소를 입력해주세요."
+                />
+              </div>
+              <label for="running-time" class="form-label">운영 시간</label>
+              <label for="opening-time">Opening Time:</label>
+              <input
+                type="time"
+                id="upopening-time"
+                name="opening-time"
+                required
+              />
+
+              <label for="closing-time">Closing Time:</label>
+              <input
+                type="time"
+                id="upclosing-time"
+                name="closing-time"
+                required
+              />
+
+              <div class="update-container">
+                <div class="col-md-4 mb-3 updatebtn">
+                  <button
+                    onclick="updatestore(event)"
+                    class="btn-hover color-8"
+                  >
+                    수정 완료
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              onclick="storemodalfade()"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 지점 파일 Modal -->
+    <div
+      class="modal fade bd-example-modal-lg"
+      id="addstoremodal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="addstoremodal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="modalcontent">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addstoremodal">1책 등록하기</h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label for="store-name" class="form-label">지점명</label>
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  id="storename"
+                  placeholder="변경할 지점명을 적어주세요"
+                />
+              </div>
+              <label for="store-picture" class="form-label">지점 사진</label>
+              <div class="mb-3">
+                <input class="form-control" type="file" id="createstoreimg" />
+              </div>
+              <label for="store-desc" class="form-label">지점 설명</label>
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  id="storedesc"
+                  placeholder="우리 지점에 대해 소개해주세요."
+                />
+              </div>
+              <label for="store-address" class="form-label">지점 주소</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="주소를 입력해주세요."
+                  id="createstoreaddress"
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-addon2"
+                  onclick="createstoreAddress()"
+                >
+                  찾기
+                </button>
+              </div>
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  id="storedetailaddress"
+                  placeholder="상세 주소를 입력해주세요."
+                />
+              </div>
+              <label for="running-time" class="form-label">운영 시간</label>
+              <label for="opening-time">Opening Time:</label>
+              <input
+                type="time"
+                id="opening-time"
+                name="opening-time"
+                required
+              />
+
+              <label for="closing-time">Closing Time:</label>
+              <input
+                type="time"
+                id="closing-time"
+                name="closing-time"
+                required
+              />
+
+              <div class="update-container">
+                <div class="col-md-4 mb-3 updatebtn">
+                  <button
+                    type="button"
+                    onclick="storebtn(event)"
+                    class="btn-hover color-8"
+                  >
+                    수정 완료
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- csv 등록 Modal -->
     <div
       class="modal fade"
       id="staticBackdrop"
@@ -390,25 +543,86 @@
         </div>
       </div>
     </div>
+
+    <!-- 메뉴 등록 Modal -->
+    <div
+      class="modal fade"
+      id="addmenumodal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="addmenumodal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content" id="modalcontent">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">책 등록하기</h5>
+          </div>
+          <div class="modal-body">
+            <form onsubmit="menubtn(event)">
+              <label for="menu-name" class="form-label">메뉴명</label>
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  id="menuname"
+                  placeholder="변경할 메뉴명을 적어주세요"
+                />
+              </div>
+              <label for="menu-picture" class="form-label">메뉴 사진</label>
+              <div class="mb-3">
+                <input class="form-control" type="file" id="menuimg" />
+              </div>
+              <label for="menu-desc" class="form-label">메뉴 설명</label>
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  id="menudesc"
+                  placeholder="메뉴에 대해 소개해주세요."
+                />
+              </div>
+              <label for="menu-price" class="form-label">메뉴 가격</label>
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  id="menuprice"
+                  placeholder="메뉴 가격을 정해주세요."
+                />
+              </div>
+              <div class="update-container">
+                <div class="col-md-4 mb-3 updatebtn">
+                  <button type="submit" class="btn-hover color-8">
+                    수정 완료
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              수정
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </div>
     <!-- </main> -->
 
     <!-- 지도 api -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- Popper.js 스크립트 -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <!-- 부트스트랩 -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <!-- index js파일 -->

@@ -35,7 +35,7 @@ export class MyPageController {
 
   //주소 변경하기
   @UseGuards(accessTokenGuard)
-  @Patch('address')
+  @Put('address')
   async address_change(
     @UserId() userId: number,
     @Body() updateMyAddressDto: UpdateMyAddressDto,

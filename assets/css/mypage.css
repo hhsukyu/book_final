@@ -313,3 +313,26 @@ form .reviewbtn button {
   border-radius: 10%;
   border: 1px solid;
 }
+
+/* 프로필 이미지 부분 */
+#profileImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+#storeImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 15%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* 스토어 부분 디자인 */
+#mypagestores {
+  display: flex; /* Flex 컨테이너로 설정합니다. */
+  justify-content: center; /* 요소를 가로로 가운데로 정렬합니다. */
+}

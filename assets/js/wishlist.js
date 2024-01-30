@@ -163,6 +163,8 @@ function addwish(bookid) {
     })
     .catch(function (error) {
       console.log(error);
+      alert(error.response.data.message);
+      window.location.reload();
     });
 }
 
@@ -262,7 +264,7 @@ function addstore(storeid) {
       window.location.reload();
     })
     .catch(function (error) {
-      console.log(error);
+      alert(error.response.data.message);
     });
 }
 

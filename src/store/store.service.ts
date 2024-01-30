@@ -58,6 +58,7 @@ export class StoreService {
     const store = await this.storeRepository.find({
       where: { id: storeid },
       select: [
+        'id',
         'store_name',
         'store_desc',
         'store_img',
@@ -76,6 +77,7 @@ export class StoreService {
     createStoreDto: CreateStoreDto,
     userid: number,
     place: number[],
+    url: string,
   ) {
     const user = await this.userService.findUserById(userid);
 
@@ -86,6 +88,7 @@ export class StoreService {
     const store = await this.storeRepository.save({
       ...createStoreDto,
       admin: user,
+      store_img: url,
     });
 
     const newPlace = this.storeRepository
@@ -105,6 +108,7 @@ export class StoreService {
     storeid: number,
     userid: number,
     place: number[],
+    url: string,
   ) {
     const user = await this.userService.findUserById(userid);
     const store = await this.findStoreById(storeid);
@@ -119,6 +123,7 @@ export class StoreService {
       },
       {
         ...updateStoreDto,
+        store_img: url,
       },
     );
 
