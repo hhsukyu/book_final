@@ -75,7 +75,7 @@ export class MyPageController {
 
   // 라이크 스토어 추가
   @UseGuards(accessTokenGuard)
-  @Patch('likestore')
+  @Post('likestore')
   async updateLikeStore(
     @UserId() userId: number,
     @Body() updateMyLikeStoreDto: AddToMyLikeStoreDto,

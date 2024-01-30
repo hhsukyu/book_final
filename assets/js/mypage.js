@@ -5,13 +5,41 @@ window.onload = function () {
     loadHeader('home'); // load the home page by default
   } else {
     loadHeader('login');
-    searchfade();
   }
 
   userme();
 };
-function searchfade() {
-  searchbox.style.display = 'none';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function changeTitle(selectedItem) {
+  // 선택된 항목의 내용으로 드롭다운 토글 제목을 변경
+  document.getElementById('dropdownToggleTitle').innerHTML = selectedItem;
+  if (selectedItem === '지점 정보') {
+    document.querySelector('.store-container').style.display = 'block';
+    document.querySelector('.menu-container').style.display = 'none';
+    document.querySelector('.booklist-container').style.display = 'none';
+    document.querySelector('#post-book').style.display = 'none';
+  }
+  if (selectedItem === '메뉴 정보') {
+    document.querySelector('.store-container').style.display = 'none';
+    document.querySelector('.menu-container').style.display = 'block';
+    document.querySelector('.booklist-container').style.display = 'none';
+    document.querySelector('#post-book').style.display = 'none';
+  }
+  if (selectedItem === '보유 책 정보') {
+    document.querySelector('.store-container').style.display = 'none';
+    document.querySelector('.menu-container').style.display = 'none';
+    document.querySelector('.booklist-container').style.display = 'block';
+    document.querySelector('#post-book').style.display = 'block';
+  }
+}
+
+function startstorefade() {
+  const menulist = document.getElementById('storemenulist');
+  const booklist = document.getElementById('storebooklist');
+
+  menulist.style.display = 'none';
+  booklist.style.display = 'none';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

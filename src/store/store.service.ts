@@ -42,6 +42,17 @@ export class StoreService {
     return user.stores;
   }
 
+  //마이페이지 지점 검색
+  async findmypagestore(storename: string) {
+    const stores = await this.storeRepository.find();
+
+    const result = stores.filter((store) =>
+      store.store_name.includes(storename),
+    );
+
+    return result;
+  }
+
   //지점 상세 조회
   async findstoreByid(storeid: number) {
     const store = await this.storeRepository.find({
@@ -170,5 +181,14 @@ export class StoreService {
   async StoreNameById(id: number) {
     const store = await this.storeRepository.findOne({ where: { id } });
     return store.store_name;
+  }
+
+  //지점 스토어 이름 찾기 함수
+  async StoremypageNameById(id: number) {
+    const store = await this.storeRepository.findOne({
+      where: { id },
+      select: ['id', 'store_name'],
+    });
+    return store;
   }
 }

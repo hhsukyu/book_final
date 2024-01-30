@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { StoreService } from './store.service';
@@ -25,6 +26,18 @@ export class StoreController {
   @Get('')
   async storelist() {
     return await this.storeService.storelist();
+  }
+
+  //마이페이지 스토어 부분 이름 검색
+  @Get('/liststore/:storeid')
+  findmypagestorename(@Param('storeid') storeid: number) {
+    return this.storeService.StoremypageNameById(storeid);
+  }
+
+  //지점 검색 만들기
+  @Get('/mypage')
+  findmypagestore(@Query('storeName') storeName: string) {
+    return this.storeService.findmypagestore(storeName);
   }
 
   //본인 지점 조회

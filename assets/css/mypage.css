@@ -292,3 +292,24 @@ form .reviewbtn button {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
+/*버튼 드롭박스*/
+
+.book-details {
+  margin-left: 3%;
+}
+
+.btn-group {
+  margin-left: 55%;
+}
+
+#update-dropdown {
+  margin-left: 80px;
+  margin-right: 10px;
+}
+
+#post-book {
+  background-color: #ff269d;
+  border-radius: 10%;
+  border: 1px solid;
+}

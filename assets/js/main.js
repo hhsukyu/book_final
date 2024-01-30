@@ -1,4 +1,3 @@
-const introducebox = document.getElementById('introduceContain');
 const iconreview = document.getElementById('reviewicon');
 window.onload = function () {
   const cookieaccess = getCookie('accessToken');
@@ -35,10 +34,6 @@ async function searchfade() {
   if (search === '') {
     searchbox.style.display = 'none';
   }
-}
-
-async function introducefade() {
-  introducebox.style.display = 'none';
 }
 
 function reviewfade() {
