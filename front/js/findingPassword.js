@@ -1,6 +1,22 @@
+const apiUrl = 'http://localhost:3000';
+
 function sendEmail() {
-  document.getElementById('emailForm').style.display = 'none';
-  document.getElementById('verificationForm').style.display = 'block';
+  const email = document.getElementById('email').value;
+
+  axios
+    .post('apiUrl + /send-verification', { email })
+    .then((response) => {
+      // 성공적으로 이메일을 보냈을 때의 로직
+      console.log(response.data);
+      alert('인증번호를 전송했습니다.');
+      document.getElementById('emailForm').style.display = 'none';
+      document.getElementById('verificationForm').style.display = 'block';
+    })
+    .catch((error) => {
+      // 이메일 전송에 실패했을 때의 로직
+      console.error(error);
+      // 실패 메시지를 사용자에게 보여줄 수 있습니다.
+    });
 }
 
 function verifyCode() {
