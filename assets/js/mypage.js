@@ -77,7 +77,7 @@ function userme() {
 }
 
 //마이페이지 수정 및 저장
-function mypagebtn() {}
+function myprofilebtn() {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function searchAddress() {
