@@ -7,13 +7,16 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
 import { UserId } from 'src/auth/decorators/userId.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('books')
 export class BookController {
@@ -102,4 +105,31 @@ export class BookController {
   // ) {
   //   return await this.bookService.updateBook(bookid, updateBookDto, userid);
   // }
+
+  // 도서 생성 CSV
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Upload menu with image.',
+    type: 'multipart/form-data',
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'The image file to upload..',
+        },
+      },
+    },
+  })
+  @Post('/file')
+  @UseInterceptors(FileInterceptor('file'))
+  async createBookByCsv(
+    @UploadedFile() file: Express.Multer.File,
+    @UserId() userid: number,
+  ) {
+    return await this.bookService.createBookByCsv(file, userid);
+  }
 }
