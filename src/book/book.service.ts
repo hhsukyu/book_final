@@ -203,20 +203,19 @@ export class BookService {
         keywordFnshYn.includes(bookData.fnshYn),
     );
 
-    // isbn 중복 확인
-    let isDuplicateIsbn = false;
+    //csv 파일 내에서 title 중복 확인
+    let isDuplicateTitle = false;
     filterBooksData.forEach((bookData, index) => {
       filterBooksData.slice(index + 1).forEach((otherBookData) => {
-        if (otherBookData.isbn === bookData.isbn) {
-          return (isDuplicateIsbn = true);
+        if (otherBookData.title === bookData.title) {
+          return (isDuplicateTitle = true);
         }
       });
     });
-    console.log(isDuplicateIsbn);
 
     for (const bookData of filterBooksData) {
       if (
-        isDuplicateIsbn ||
+        isDuplicateTitle ||
         !bookData.title ||
         !bookData.book_desc ||
         !bookData.writer ||
@@ -224,17 +223,17 @@ export class BookService {
         !bookData.publisher ||
         !bookData.publication_date ||
         !bookData.genre ||
-        !bookData.isbn ||
         !bookData.fnshYn ||
         !bookData.book_image
       ) {
         throw new BadRequestException(
-          'CSV 파일에 입력되지 않은 컬럼이 있거나 중복된 isbn이 존재합니다.',
+          'CSV 파일에 입력되지 않은 컬럼이 있거나 중복된 title이 존재합니다.',
         );
       }
 
+      // 책 제목 중복확인
       const existingBook = await this.bookRepository.findOne({
-        where: { isbn: bookData.isbn },
+        where: { title: bookData.tile },
       });
       if (existingBook) {
         throw new ConflictException('이미 존재하는 도서입니다.');
@@ -249,7 +248,6 @@ export class BookService {
       publisher: bookData.publisher,
       publication_date: bookData.publication_date,
       genre: bookData.genre,
-      isbn: bookData.isbn,
       fnshYn: bookData.fnshYn,
       book_image: bookData.book_image,
     }));
