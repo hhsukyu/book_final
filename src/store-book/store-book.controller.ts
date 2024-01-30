@@ -45,6 +45,12 @@ export class StorebookController {
     return createdBook;
   }
 
+  //해당지점의 도서 전체조회
+  @Get('/:storeid')
+  getStoreBooks(@Param('storeid') storeid: number) {
+    return this.storebookService.getStoreBooks(storeid);
+  }
+
   @Get('')
   async getBooksInStore() {
     return await this.storebookService.getBooksInStore();
@@ -53,11 +59,6 @@ export class StorebookController {
   @Get('/:storebookid')
   async getStoreBookById(@Param('storebookid') storebookid: number) {
     return await this.storebookService.getStoreBookById(storebookid);
-  }
-  //해당지점의 도서 전체조회
-  @Get('/:storeid')
-  getStoreBooks(@Param('storeid') storeid: number) {
-    return this.storebookService.getStoreBooks(storeid);
   }
 
   // @Get('/:storeid/storebooksearch')

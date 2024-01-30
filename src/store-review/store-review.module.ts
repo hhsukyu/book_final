@@ -7,10 +7,11 @@ import { User } from '../entity/user.entity';
 import { Store } from '../entity/store.entity';
 import { UserService } from '../user/user.service';
 import { MyPage } from 'src/entity/my-page.entity';
+import { MyPageService } from 'src/my-page/my-page.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([StoreReview, User, Store, MyPage])],
   controllers: [StoreReviewController],
-  providers: [StoreReviewService, UserService],
+  providers: [StoreReviewService, UserService, MyPageService],
 })
 export class StoreReviewModule {}

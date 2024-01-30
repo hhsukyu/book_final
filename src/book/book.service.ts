@@ -13,14 +13,15 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { UserService } from 'src/user/user.service';
 import { RedisService } from '../configs/redis/redis.service';
 import { parse } from 'papaparse';
+import { StoreBook } from 'src/entity/storeBook.entity';
 
 @Injectable()
 export class BookService {
   constructor(
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,
-    // @InjectRepository(StoreBook)
-    // private storeBookRepository: Repository<StoreBook>,
+    @InjectRepository(StoreBook)
+    private storeBookRepository: Repository<StoreBook>,
     private readonly userService: UserService,
     // private readonly storeBookService: StorebookService,
 
@@ -35,6 +36,17 @@ export class BookService {
       .getMany();
 
     return books;
+  }
+
+  //도서 장르별
+  async genrebook(bookgenre: string) {
+    console.log(bookgenre);
+    const book = this.bookRepository.find({
+      where: { genre: bookgenre },
+      select: ['id', 'book_image', 'title', 'genre'],
+    });
+
+    return book;
   }
 
   //도서 생성
@@ -70,7 +82,7 @@ export class BookService {
     );
     return result;
   }
-
+  //도서 검색하기
   async searchbook(booktitle: string) {
     const cachedResult = await this.redisService.getBookInfo(booktitle);
 
@@ -98,10 +110,32 @@ export class BookService {
     return searchResult;
   }
 
+  //지점도서 검색
+  async searchStoreBook(storeid: number, booktitle: string): Promise<Book[]> {
+    const storeBooks = await this.storeBookRepository
+      .createQueryBuilder('storeBook')
+      .innerJoinAndSelect('storeBook.book', 'book')
+      .where('storeBook.store.id = :storeid', { storeid })
+      .andWhere('book.title LIKE :booktitle', { booktitle: `%${booktitle}%` })
+      .getMany();
+
+    return storeBooks.map((storeBook) => storeBook.book);
+  }
+
   //도서 상세조회
   async getBookById(id: number) {
     const book = await this.bookRepository.findOne({
       where: { id: id },
+    });
+
+    return book;
+  }
+
+  //도서 상세조회
+  async getBooktitleById(id: number) {
+    const book = await this.bookRepository.findOne({
+      where: { id: id },
+      select: ['title', 'id'],
     });
 
     return book;

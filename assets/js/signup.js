@@ -39,7 +39,7 @@ function checkPasswordMatch() {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function checkDuplicateEmail() {
+function checkDuplicateEmail(event) {
   const emailInput = document.getElementById('Regemail');
   const emailError = document.getElementById('emailError');
 
@@ -48,11 +48,10 @@ function checkDuplicateEmail() {
     .then(function (response) {
       const isEmailExists = response.data.isEmailExists;
 
-      if ((emailInput.value = '')) {
+      if (emailInput.value === '') {
         emailError.textContent = '이메일을 입력해주세요';
-      }
-
-      if (!isEmailExists) {
+      } else if (!isEmailExists) {
+        event.preventDefault();
         emailError.textContent = '사용 가능한 이메일입니다.';
       } else {
         emailError.textContent = '중복된 이메일입니다.';
@@ -61,4 +60,7 @@ function checkDuplicateEmail() {
     .catch(function (error) {
       console.log(error);
     });
+
+  // 중복 확인 이후에 입력한 이메일 유지
+  event.preventDefault();
 }

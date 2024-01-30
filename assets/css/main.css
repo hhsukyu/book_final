@@ -387,3 +387,25 @@ form .reviewbtn button {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
+/* 장르 페이지네이션 */
+ul#genrepages,
+ul#genrepages li {
+  display: inline-block;
+  padding: 0;
+  cursor: pointer;
+}
+
+ul#genrepages > li {
+  margin: 0px 3px;
+}
+
+#genreoutput {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px; /* Negative margin to counteract padding on columns */
+}
+
+#genreoutput > .col-3 {
+  padding: 15px; /* Padding to create space between columns */
+}

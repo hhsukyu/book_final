@@ -14,12 +14,14 @@ window.onload = function () {
   if (!token) {
     loadHeader('home'); // load the home page by default
     searchfade();
-    introducefade();
+
     reviewfade();
+    genrefade();
   } else {
     loadHeader('login');
     searchfade();
-    introducefade();
+
+    genrefade();
   }
 
   mainBookcard();
@@ -43,11 +45,6 @@ function reviewfade() {
   iconreview.style.display = 'none';
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function showintroduce() {
-  const introducebox = document.getElementById('introduceContain');
-  maincard.style.display = 'none';
-  genreform.style.display = 'none';
-  storecontain.style.display = 'none';
-  introducebox.style.display = 'block';
+function genrefade() {
+  genrecontain.style.display = 'none';
 }

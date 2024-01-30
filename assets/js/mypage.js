@@ -5,10 +5,14 @@ window.onload = function () {
     loadHeader('home'); // load the home page by default
   } else {
     loadHeader('login');
+    searchfade();
   }
 
   userme();
 };
+function searchfade() {
+  searchbox.style.display = 'none';
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function userme() {
