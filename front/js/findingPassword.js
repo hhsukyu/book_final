@@ -1,5 +1,4 @@
 const apiUrl = 'http://localhost:3000';
-let email = '';
 
 function sendEmail() {
   const email = document.getElementById('email').value;
@@ -20,6 +19,8 @@ function sendEmail() {
     });
 }
 
+let checkEmail = '';
+
 function verifyCode() {
   const code = document.getElementById('verificationCode').value;
   const email = document.getElementById('email').value;
@@ -34,7 +35,7 @@ function verifyCode() {
 
       // email 속성에 접근
       const email = requestData.email;
-
+      checkEmail = email;
       console.log('email', email);
 
       document.getElementById('verificationForm').style.display = 'none';
@@ -55,11 +56,11 @@ function verifyCode() {
 function resetPassword() {
   const newPassword = document.getElementById('newPassword').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
-  console.log('email', email);
+
   if (newPassword === confirmPassword) {
     axios
       .put(`${apiUrl}/auth/update-password`, {
-        email: 'email',
+        email: checkEmail,
         password: newPassword,
         checkPassword: confirmPassword,
       })
