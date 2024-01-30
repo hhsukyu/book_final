@@ -346,4 +346,12 @@ export class AuthService {
     user.password = hashedPassword;
     await this.userRepository.save(user);
   }
+
+  //사용자 사장으로 전환
+  async changeOwner(userid: number) {
+    const user = await this.userRepository.findOne({ where: { id: userid } });
+
+    user.role = 1;
+    return this.userRepository.save(user);
+  }
 }
