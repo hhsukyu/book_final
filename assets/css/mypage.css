@@ -292,3 +292,63 @@ form .reviewbtn button {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
+/*버튼 드롭박스*/
+
+.book-details {
+  margin-left: 3%;
+}
+
+.btn-group {
+  margin-left: 55%;
+}
+
+#update-dropdown {
+  margin-left: 80px;
+  margin-right: 10px;
+}
+
+#post-book {
+  background-color: #ff269d;
+  border-radius: 10%;
+  border: 1px solid;
+}
+
+/* 프로필 이미지 부분 */
+#profileImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+#storeImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 15%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* 스토어 부분 디자인 */
+#mypagestores {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#mypagestores > div {
+  width: 49%; /* 요소의 너비를 50%로 설정하여 2개씩 표시합니다. */
+  margin: 2px;
+}
+
+/* 메뉴 부분 */
+#menulist {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#menulist > div {
+  width: 49%; /* 요소의 너비를 50%로 설정하여 2개씩 표시합니다. */
+  margin: 2px;
+}

@@ -1,4 +1,3 @@
-const introducebox = document.getElementById('introduceContain');
 const iconreview = document.getElementById('reviewicon');
 window.onload = function () {
   const cookieaccess = getCookie('accessToken');
@@ -13,33 +12,19 @@ window.onload = function () {
 
   if (!token) {
     loadHeader('home'); // load the home page by default
-    searchfade();
 
     reviewfade();
     genrefade();
   } else {
     loadHeader('login');
-    searchfade();
 
     genrefade();
   }
-
+  loadStores();
   mainBookcard();
 };
 
 // 검색 결과창 메인 화면에서 실행하지 않으면 안보이도록 작업
-async function searchfade() {
-  const searchbox = document.getElementById('searchbox');
-  const search = await document.getElementById('search-box').value;
-
-  if (search === '') {
-    searchbox.style.display = 'none';
-  }
-}
-
-async function introducefade() {
-  introducebox.style.display = 'none';
-}
 
 function reviewfade() {
   iconreview.style.display = 'none';
