@@ -1,33 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { wktToGeoJSON } from '@terraformer/wkt';
+import { Point } from 'wkx';
 import { StoreService } from '../store/store.service';
 
 @Injectable()
 export class MapService {
   constructor(private readonly storeService: StoreService) {}
-  async findNearCafe(location: string) {
+  async findNearCafe(location: Point) {
     const radiusNo = 10; //반경 10km 이내 점포 반환
     const storeList = await this.storeService.storelist();
     const nearCafe = [];
-    const locationNum = [];
 
-    const newLocation = location.split('!').map((x) => x.trim());
-    newLocation.forEach((element) => {
-      locationNum.push(parseFloat(element));
-    });
-
+    // 모든 점포를 일일히 대조하는 비효율적인 로직.. 개선점 질문 필요
     storeList.forEach((element) => {
-      console.log(element.place);
-      const newplace = wktToGeoJSON(element.place).coordinates;
-      console.log(newplace);
-      if (radiusNo > this.getDistance(locationNum, newplace)) {
+      if (radiusNo >= this.getDistance(location, element.place)) {
         nearCafe.push(element);
       }
     });
     return JSON.stringify(nearCafe);
   }
 
-  async findNearCafeSearch(location: string, keyword: string) {
+  async findNearCafeSearch(location: Point, keyword: string) {
     const nearCafe = JSON.parse(await this.findNearCafe(location));
     const haveCafe = [];
     nearCafe.forEach(async (cafe) => {
@@ -47,7 +39,7 @@ export class MapService {
     return (deg * Math.PI) / 180.0;
   }
 
-  getDistance(point1: number[], point2: number[]) {
+  getDistance(point1: Point, point2: Point) {
     const R = 6371; // Radius of the Earth in km
     const dLat = this.deg2rad(point2[0] - point1[0]);
     const dLon = this.deg2rad(point2[1] - point1[1]);

@@ -74,23 +74,23 @@ export class StoreService {
 
   //지점 등록
   async createStore(
-    { place, ...createStoreDto }: CreateStoreDto,
+    createStoreDto: CreateStoreDto,
     userid: number,
-
     place: number[],
     url: string,
-
   ) {
     const user = await this.userService.findUserById(userid);
 
     if (user.role === 0) {
       throw new BadRequestException('지점 사장만 지점 생성이 가능합니다.');
     }
+    console.log(place);
     const store = await this.storeRepository.save({
       ...createStoreDto,
       admin: user,
       store_img: url,
     });
+
     const newPlace = this.storeRepository
       .createQueryBuilder()
       .update()
@@ -104,13 +104,11 @@ export class StoreService {
 
   //지점 수정
   async updateStore(
-    { place, ...updateStoreDto }: UpdateStoreDto,
+    updateStoreDto: UpdateStoreDto,
     storeid: number,
     userid: number,
-
     place: number[],
     url: string,
-
   ) {
     const user = await this.userService.findUserById(userid);
     const store = await this.findStoreById(storeid);
@@ -130,7 +128,6 @@ export class StoreService {
     );
 
     //주소가 수정되었을 경우에만 실행
-    console.log(place);
     if (place[0] != 0 && place[1] != 0) {
       const newPlace = this.storeRepository
         .createQueryBuilder()
