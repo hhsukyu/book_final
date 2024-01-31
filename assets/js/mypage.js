@@ -11,37 +11,6 @@ window.onload = function () {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function changeTitle(selectedItem) {
-  // 선택된 항목의 내용으로 드롭다운 토글 제목을 변경
-  document.getElementById('dropdownToggleTitle').innerHTML = selectedItem;
-  if (selectedItem === '지점 정보') {
-    document.querySelector('.store-container').style.display = 'block';
-    document.querySelector('.menu-container').style.display = 'none';
-    document.querySelector('.booklist-container').style.display = 'none';
-    document.querySelector('#post-book').style.display = 'none';
-  }
-  if (selectedItem === '메뉴 정보') {
-    document.querySelector('.store-container').style.display = 'none';
-    document.querySelector('.menu-container').style.display = 'block';
-    document.querySelector('.booklist-container').style.display = 'none';
-    document.querySelector('#post-book').style.display = 'none';
-  }
-  if (selectedItem === '보유 책 정보') {
-    document.querySelector('.store-container').style.display = 'none';
-    document.querySelector('.menu-container').style.display = 'none';
-    document.querySelector('.booklist-container').style.display = 'block';
-    document.querySelector('#post-book').style.display = 'block';
-  }
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function startstorefade() {
-  const menulist = document.getElementById('storemenulist');
-  const booklist = document.getElementById('storebooklist');
-
-  menulist.style.display = 'none';
-  booklist.style.display = 'none';
-}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function userme() {
@@ -170,11 +139,13 @@ function storebtn(event) {
 //store 처음 저장
 
 const storelist = document.getElementById('mypagestores');
+const menulist = document.getElementById('menulist');
 
 //지점 정보 가져오는 부분
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function storeinfo() {
   storelist.innerHTML = '';
+
   axios
     .get('/user/me', {
       headers: {
@@ -223,7 +194,7 @@ function addstorelist(store) {
 
   console.log(store);
   storelist.innerHTML += `
-    <div id="storelistcard" class="card mb-3" onclick="updatemodal(${store.id})" style="max-width: 50%; margin: 10px;">
+    <div id="storelistcard" class="card mb-3" onclick="updatemodal(${store.id})" >
       <div class="row g-0">
         <div class="col-md-4">
           <img src="${img}" class="img-fluid rounded-start" alt="...">
@@ -246,6 +217,7 @@ let checkstoreid;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function updatemodal(store) {
   $('#updatestoremodal').modal('show');
+  menulist.innerHTML = '';
   const storename = document.getElementById('upstorename');
   const storeimg = document.getElementById('storeImage');
   const storedesc = document.getElementById('upstoredesc');
@@ -275,6 +247,7 @@ function updatemodal(store) {
       closetime.value = store.store_close;
       checkstoreid = store.id;
       console.log(checkstoreid);
+      menuinfo(checkstoreid);
     })
     .catch(function (error) {
       console.log(error);
@@ -325,18 +298,6 @@ function updatestore(event) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function storemodalfade() {
   $('#updatestoremodal').modal('hide');
-}
-
-//메뉴 수정 버튼
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function menubtn(event) {
-  event.preventDefault();
-  const menuname = document.getElementById('menuname').value;
-  const menuimg = document.getElementById('menuimg').value;
-  const menudesc = document.getElementById('menudesc').value;
-  const menuprice = document.getElementById('menuprice').value;
-
-  console.log(menuname, menuimg, menudesc, menuprice);
 }
 
 //책 수정 버튼

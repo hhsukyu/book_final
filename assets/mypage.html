@@ -65,7 +65,7 @@
         </li>
         <li class="nav-item" role="presentation">
           <button
-            onclick="startstorefade(), storeinfo()"
+            onclick=" storeinfo()"
             class="nav-link"
             id="profile-tab"
             data-bs-toggle="tab"
@@ -154,43 +154,6 @@
           aria-labelledby="profile-tab"
           tabindex="0"
         >
-          <div class="dropdown" id="update-dropdown">
-            <button
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              aria-expanded="false"
-              id="dropdownToggleTitle"
-            >
-              수정 목록
-            </button>
-            <ul class="dropdown-menu dropdown-menu-dark">
-              <li>
-                <a
-                  class="dropdown-item active"
-                  href="#"
-                  onclick="changeTitle('지점 정보')"
-                  >지점 정보</a
-                >
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  href="#"
-                  onclick="changeTitle('메뉴 정보')"
-                  >메뉴 정보</a
-                >
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  href="#"
-                  onclick="changeTitle('보유 책 정보')"
-                  >보유 책 정보</a
-                >
-              </li>
-            </ul>
-          </div>
           <div class="store-container">
             <button
               type="button"
@@ -209,24 +172,7 @@
             </div>
           </div>
 
-          <div id="storemenulist" class="menu-container">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-toggle="modal"
-              data-target="#addmenumodal"
-              id="add-menu"
-            >
-              메뉴 등록
-            </button>
-            <div class="col">
-              <h4 class="mt-4 title-mypage">메뉴 정보</h4>
-            </div>
-            <div class="bookboard">
-              <div id="menuContainer" class="row"></div>
-            </div>
-          </div>
-          <div id="storebooklist" class="booklist-container">
+          <!-- <div id="storebooklist" class="booklist-container">
             <button
               type="button"
               class="btn btn-secondary"
@@ -239,10 +185,10 @@
             <div class="row-cols-md-4">
               <div class="col">
                 <h4 class="mt-4 title-mypage">보유 책 정보</h4>
-              </div>
+              </div> -->
 
-              <!-- 도서카드 양산용 라인 -->
-              <div class="col-4 mb-3 storeBookCard">
+          <!-- 도서카드 양산용 라인 -->
+          <!-- <div class="col-4 mb-3 storeBookCard">
                 <div class="col">
                   <div class="card">
                     <img
@@ -255,11 +201,11 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- 도서카드 양산용 라인 -->
+              </div> -->
+          <!-- 도서카드 양산용 라인 -->
 
-              <!-- 페이지네이션 -->
-              <nav
+          <!-- 페이지네이션 -->
+          <!-- <nav
                 aria-label="Page navigation example"
                 class="pagination-container"
               >
@@ -275,33 +221,15 @@
                   </li>
                 </ul>
               </nav>
-            </div>
-            <!-- <div class="update-container">
+            </div> -->
+          <!-- <div class="update-container">
               <div class="col-md-4 mb-3 updatebtn">
                 <button onclick="bookbtn()" class="btn-hover color-8">
                   수정 완료
                 </button>
               </div>
             </div> -->
-          </div>
-        </div>
-        <div
-          class="tab-pane fade"
-          id="contact-tab-pane"
-          role="tabpanel"
-          aria-labelledby="contact-tab"
-          tabindex="0"
-        >
-          ...
-        </div>
-        <div
-          class="tab-pane fade"
-          id="disabled-tab-pane"
-          role="tabpanel"
-          aria-labelledby="disabled-tab"
-          tabindex="0"
-        >
-          ...
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -378,6 +306,9 @@
                 tabindex="0"
               >
                 <!-- 스토어 수정 부분 -->
+                <div class="col">
+                  <h4 class="mt-4 title-store">지점 정보</h4>
+                </div>
                 <form>
                   <label for="store-name" class="form-label">지점명</label>
                   <div class="mb-3">
@@ -468,6 +399,19 @@
                 tabindex="0"
               >
                 <!-- 스토어 메뉴 부분 -->
+                <button
+                  class="btn btn-primary"
+                  data-bs-target="#addmenumodaltoggle"
+                  data-bs-toggle="modal"
+                >
+                  메뉴 등록
+                </button>
+                <div class="col">
+                  <h4 class="mt-4 title-mypage">메뉴 정보</h4>
+                </div>
+                <div class="bookboard">
+                  <div id="menulist"></div>
+                </div>
               </div>
               <div
                 class="tab-pane fade"
@@ -477,15 +421,6 @@
                 tabindex="0"
               >
                 <!-- 스토어 책 부분 -->
-              </div>
-              <div
-                class="tab-pane fade"
-                id="pills-disabled"
-                role="tabpanel"
-                aria-labelledby="pills-disabled-tab"
-                tabindex="0"
-              >
-                ...
               </div>
             </div>
             <!-- 탭 바디 부분 -->
@@ -504,7 +439,7 @@
       </div>
     </div>
 
-    <!-- 지점 파일 Modal -->
+    <!-- 지점 등록 Modal -->
     <div
       class="modal fade bd-example-modal-lg"
       id="addstoremodal"
@@ -589,7 +524,7 @@
                     onclick="storebtn(event)"
                     class="btn-hover color-8"
                   >
-                    수정 완료
+                    지점 등록하기
                   </button>
                 </div>
               </div>
@@ -641,20 +576,20 @@
     <!-- 메뉴 등록 Modal -->
     <div
       class="modal fade"
-      id="addmenumodal"
+      id="addmenumodaltoggle"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
       tabindex="-1"
-      aria-labelledby="addmenumodal"
+      aria-labelledby="addmenumodaltoggle"
       aria-hidden="true"
     >
       <div class="modal-dialog">
         <div class="modal-content" id="modalcontent">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">책 등록하기</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">메뉴 등록하기</h5>
           </div>
           <div class="modal-body">
-            <form onsubmit="menubtn(event)">
+            <form>
               <label for="menu-name" class="form-label">메뉴명</label>
               <div class="mb-3">
                 <input
@@ -685,23 +620,22 @@
               </div>
               <div class="update-container">
                 <div class="col-md-4 mb-3 updatebtn">
-                  <button type="submit" class="btn-hover color-8">
+                  <button onclick="addmenu(event)" class="btn-hover color-8">
                     수정 완료
                   </button>
                 </div>
               </div>
             </form>
           </div>
-          <!-- <div class="modal-footer">
+          <div class="modal-footer">
             <button
-              type="button"
               class="btn btn-dark"
-              data-bs-dismiss="modal"
-              aria-label="Close"
+              data-bs-target="#updatestoremodal"
+              data-bs-toggle="modal"
             >
-              수정
+              돌아가기
             </button>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
