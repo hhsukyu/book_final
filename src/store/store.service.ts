@@ -42,11 +42,23 @@ export class StoreService {
     return user.stores;
   }
 
+  //마이페이지 지점 검색
+  async findmypagestore(storename: string) {
+    const stores = await this.storeRepository.find();
+
+    const result = stores.filter((store) =>
+      store.store_name.includes(storename),
+    );
+
+    return result;
+  }
+
   //지점 상세 조회
   async findstoreByid(storeid: number) {
     const store = await this.storeRepository.find({
       where: { id: storeid },
       select: [
+        'id',
         'store_name',
         'store_desc',
         'store_img',
@@ -65,6 +77,7 @@ export class StoreService {
     createStoreDto: CreateStoreDto,
     userid: number,
     place: number[],
+    url: string,
   ) {
     const user = await this.userService.findUserById(userid);
 
@@ -75,6 +88,7 @@ export class StoreService {
     const store = await this.storeRepository.save({
       ...createStoreDto,
       admin: user,
+      store_img: url,
     });
 
     const newPlace = this.storeRepository
@@ -94,6 +108,7 @@ export class StoreService {
     storeid: number,
     userid: number,
     place: number[],
+    url: string,
   ) {
     const user = await this.userService.findUserById(userid);
     const store = await this.findStoreById(storeid);
@@ -108,6 +123,7 @@ export class StoreService {
       },
       {
         ...updateStoreDto,
+        store_img: url,
       },
     );
 
@@ -170,5 +186,14 @@ export class StoreService {
   async StoreNameById(id: number) {
     const store = await this.storeRepository.findOne({ where: { id } });
     return store.store_name;
+  }
+
+  //지점 스토어 이름 찾기 함수
+  async StoremypageNameById(id: number) {
+    const store = await this.storeRepository.findOne({
+      where: { id },
+      select: ['id', 'store_name'],
+    });
+    return store;
   }
 }
