@@ -7,12 +7,14 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { StorebookService } from './store-book.service';
 import { NotificationService } from '../notification/notification.service';
 import { CreateStoreBookDto } from './dto/create-storebook.dto';
 import { UserId } from 'src/auth/decorators/userId.decorator';
 import { UpdateStoreBookDto } from './dto/update-storebook.dto';
+import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
 
 @Controller('storebook')
 export class StorebookController {
@@ -21,6 +23,7 @@ export class StorebookController {
     private readonly notificationService: NotificationService,
   ) {}
 
+  @UseGuards(accessTokenGuard)
   @Post('/:storeid/:bookid')
   async createStoreBook(
     @Param('storeid') storeid: number,
@@ -69,6 +72,7 @@ export class StorebookController {
   //   return await this.storebookService.searchStorebooks(title, storeid);
   // }
 
+  @UseGuards(accessTokenGuard)
   @Put('/:storeid/:bookid')
   async updateStoreBook(
     @Param('bookid') bookid: number,
@@ -84,12 +88,14 @@ export class StorebookController {
     );
   }
 
+  @UseGuards(accessTokenGuard)
   @Delete('/:storeid/:storebookid')
   async deleteStoreBook(
     @Param('storeid') storeid: number,
-    @Param('bookid') bookid: number,
+    @Param('storebookid') bookid: number,
     @UserId() userid: number,
   ) {
+    console.log(storeid, bookid);
     return await this.storebookService.deleteStoreBook(bookid, userid, storeid);
   }
 }

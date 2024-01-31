@@ -5,11 +5,11 @@ function menuinfo(storeid) {
   axios
     .get('/menu/storeid/' + storeid)
     .then(function (response) {
-      console.log(response.data);
+      //   console.log(response.data);
       const menus = response.data;
 
       menus.forEach((menu) => {
-        console.log(menu);
+        // console.log(menu);
         menulists(menu);
       });
     })
@@ -95,7 +95,7 @@ let checkmenuid;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function updatemenumodal(event, menuid) {
   event.preventDefault();
-  console.log(checkstoreid, menuid);
+  //   console.log(checkstoreid, menuid);
   const menuname = document.getElementById('upmenuname');
   const menuimg = document.getElementById('upmenuimge');
   const menudesc = document.getElementById('upmenudesc');
