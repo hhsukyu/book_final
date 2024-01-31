@@ -152,6 +152,7 @@ export class AuthService {
     // 네이버 이메일로 사용자를 찾는다.
     const email = req.user.userProfile.userEmail;
     const nickname = req.user.userProfile.userNick;
+    const photo = req.user.userProfile.userProfileImage;
     let OAuthUser = await this.userRepository.findOne({
       where: { email },
     });
@@ -166,6 +167,7 @@ export class AuthService {
       OAuthUser = await this.userRepository.save({
         email,
         nickname,
+        photo,
         password: hashedNaverPassword,
       });
     }
@@ -233,6 +235,7 @@ export class AuthService {
     // 카카오 이메일로 사용자를 찾는다.
     const email = req.user.userProfile.userEmail;
     const nickname = req.user.userProfile.userNick;
+    const photo = req.user.userProfile.userProfileImage;
     let OAuthUser = await this.userRepository.findOne({
       where: { email },
     });
@@ -247,10 +250,11 @@ export class AuthService {
       OAuthUser = await this.userRepository.save({
         email,
         nickname,
+        photo,
         password: hashedKakaoPassword,
       });
     }
-
+    console.log('photo', photo);
     const accessToken = this.generateAccessToken(
       OAuthUser.id,
       OAuthUser.nickname,
