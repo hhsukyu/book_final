@@ -17,12 +17,6 @@ export class MyPage {
   @Column({ nullable: true })
   address: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 7, nullable: true })
-  latitude: number;
-
-  @Column({ type: 'decimal', precision: 10, scale: 7, nullable: true })
-  longitude: number;
-
   @Column('simple-array', { nullable: true })
   wish_list: string[];
 

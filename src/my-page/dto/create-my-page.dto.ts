@@ -4,12 +4,6 @@ export class CreateMyPageDto {
   @IsString()
   address: string;
 
-  @IsNumber()
-  latitude: number;
-
-  @IsNumber()
-  longitude: number;
-
   @IsArray()
   @IsOptional()
   wish_list: string[] = [];
