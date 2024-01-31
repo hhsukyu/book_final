@@ -1,12 +1,20 @@
 let mapDiv = document.getElementById('map');
+/**
+ *
+ * @callback addressToCoordinateCallback
+ */
 
-function addressToCoordinate(address) {
+/**
+ *
+ * @param {string} address
+ * @param {addressToCoordinateCallback} callback
+ */
+function addressToCoordinate(address, callback) {
   naver.maps.Service.geocode(
     {
       query: address,
     },
     function (status, response) {
-      console.log(response);
       if (status === naver.maps.Service.Status.ERROR) {
         return alert('Something Wrong!');
       }
@@ -22,16 +30,13 @@ function addressToCoordinate(address) {
       if (item.roadAddress) {
         htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
       }
-
       if (item.jibunAddress) {
         htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
       }
-
       if (item.englishAddress) {
         htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
       }
-
-      map.setCenter(point);
+      callback(point);
     },
   );
 }
@@ -53,32 +58,43 @@ window.onload = function () {
     loadHeader('login');
   }
 
-  if (!token) {
-    let map = new naver.maps.Map(mapDiv, {
-      center: new naver.maps.LatLng(37.4986253, 127.0280285),
-      zoom: 16,
-    }); // load the map by default
-  } else {
-    // load userinfo
-    axios
-      .get('/mypage', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then(function (response) {
-        address = response.data.address;
-        if (!address) {
-          console.log('no address');
-        } else {
-          addressToCoordinate(address);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  let map = new naver.maps.Map(mapDiv, {
+    center: new naver.maps.LatLng(37.4986253, 127.0280285),
+    zoom: 16,
+  });
+
   searchResult();
+
+  // load the map by default
+  if (!token) {
+    return;
+  }
+
+  // load userinfo
+  axios
+    .get('/mypage', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function (response) {
+      address = response.data.address;
+      if (!address) {
+        console.log('no address');
+      } else {
+        onReq(address);
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  function onReq(address) {
+    addressToCoordinate(address, (point) => {
+      console.log(point);
+      map.setCenter(point);
+    });
+  }
 };
 
 async function searchResult() {
@@ -86,6 +102,7 @@ async function searchResult() {
     .get('/store', {})
     .then(async function (response) {
       const stores = response.data;
+      console.log(stores);
       const pages = numPages(stores);
 
       changePage(1); // set default page
