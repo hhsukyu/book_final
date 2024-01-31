@@ -20,7 +20,7 @@ window.onload = function () {
 
     genrefade();
   }
-
+  loadStores();
   mainBookcard();
 };
 

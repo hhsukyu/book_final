@@ -73,6 +73,12 @@ export class BookController {
     return await this.bookService.maingetBooks();
   }
 
+  //리뷰 순위에 따른 도서 30개 조회
+  @Get('rank')
+  async getBooksByRank() {
+    return await this.bookService.getBooksByRank();
+  }
+
   //도서 조회
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)

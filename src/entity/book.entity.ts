@@ -55,6 +55,9 @@ export class Book {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column({ default: 0 })
+  reviewCount: number;
+
   @OneToMany(() => StoreBook, (storebook) => storebook.book)
   storebook: Relation<StoreBook>;
 
