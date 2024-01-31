@@ -452,7 +452,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content" id="modalcontent">
           <div class="modal-header">
-            <h5 class="modal-title" id="addstoremodal">1책 등록하기</h5>
+            <h5 class="modal-title" id="addstoremodal">지점 등록하기</h5>
           </div>
           <div class="modal-body">
             <form>
@@ -666,6 +666,9 @@
                 />
               </div>
               <label for="menu-picture" class="form-label">메뉴 사진</label>
+              <div>
+                <img id="upmenuimge" src="" alt="메뉴 이미지" />
+              </div>
               <div class="mb-3">
                 <input class="form-control" type="file" id="upmenuimg" />
               </div>
@@ -687,23 +690,22 @@
               </div>
               <div class="update-container">
                 <div class="col-md-4 mb-3 updatebtn">
-                  <button onclick="menubtn(event)" class="btn-hover color-8">
+                  <button onclick="updatemenu(event)" class="btn-hover color-8">
                     수정 완료
                   </button>
                 </div>
               </div>
             </form>
           </div>
-          <!-- <div class="modal-footer">
+          <div class="modal-footer">
             <button
-              type="button"
               class="btn btn-dark"
-              data-bs-dismiss="modal"
-              aria-label="Close"
+              data-bs-target="#updatestoremodal"
+              data-bs-toggle="modal"
             >
-              수정
+              돌아가기
             </button>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>

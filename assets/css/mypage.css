@@ -331,6 +331,14 @@ form .reviewbtn button {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
+#upmenuimge {
+  width: 150px;
+  height: 150px;
+  border-radius: 15%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
 /* 스토어 부분 디자인 */
 #mypagestores {
   display: flex;
@@ -351,4 +359,9 @@ form .reviewbtn button {
 #menulist > div {
   width: 49%; /* 요소의 너비를 50%로 설정하여 2개씩 표시합니다. */
   margin: 2px;
+}
+
+#menucardbtn {
+  display: flex;
+  flex-wrap: wrap;
 }
