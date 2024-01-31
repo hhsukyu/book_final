@@ -1,5 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { MapService } from './map.service';
+import { Point } from 'wkx';
 
 @Controller('map')
 export class MapController {
@@ -10,14 +11,14 @@ export class MapController {
 
   //주위 매장 값 반환
   @Get('/:location')
-  async findNearCafe(@Param('location') location: string) {
+  async findNearCafe(@Param('location') location: Point) {
     return await this.mapService.findNearCafe(location);
   }
 
   //보유 도서 기반 주위 매장 값 반환
   @Get('/:location/keyword/:keyword')
   async findNearCafeSearch(
-    @Param('location') location: string,
+    @Param('location') location: Point,
     @Param('keyword') keyword: string,
   ) {
     return await this.mapService.findNearCafeSearch(location, keyword);

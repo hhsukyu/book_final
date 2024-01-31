@@ -70,8 +70,6 @@ export class StoreController {
   async createStore(
     @Body() createStoreDto: CreateStoreDto,
     @UserId() userid: number,
-
-  ) {
     @Body('place') place: number[],
     @UploadedFile() file: Express.Multer.File,
   ) {
@@ -82,7 +80,6 @@ export class StoreController {
       place,
       url,
     );
-
   }
 
   //지점 수정
@@ -94,7 +91,6 @@ export class StoreController {
     @Body() updateStoreDto: UpdateStoreDto,
     @Param('storeid') storeid: number,
     @UserId() userid: number,
-
     @Body('place') place: number[],
     @UploadedFile() file: Express.Multer.File,
   ) {
@@ -106,7 +102,6 @@ export class StoreController {
       place,
       url,
     );
-
   }
 
   //지점 삭제 (회원탈퇴시 자동으로 삭제하도록?)
