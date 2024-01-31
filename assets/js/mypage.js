@@ -269,6 +269,7 @@ function updatestore(event) {
   const formData = new FormData();
   formData.append('store_name', document.getElementById('upstorename').value);
   formData.append('store_desc', document.getElementById('upstoredesc').value);
+
   formData.append('file', storeimgFile);
   formData.append(
     'store_address',

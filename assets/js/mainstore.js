@@ -25,179 +25,173 @@ function loadStores() {
       console.log(error);
     });
 }
+
 //---------------지점자세히 보기---------------------------//
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// function carddetail(bookid) {
-//   const storelabel = document.getElementById('storemodallabel');
-//   const bodytitle = document.getElementById('modalcardStoretitle');
-//   const bodydesc = document.getElementById('modalcardStoredesc');
-//   const bodyad = document.getElementById('modalcardStoreAd');
-//   const bodyop = document.getElementById('modalcardStoreOp');
-//   const bodycl = document.getElementById('modalcardStoreCl');
+function storecarddetail(storeid) {
+  const storelabel = document.getElementById('storemodallabel');
+  const bodyname = document.getElementById('modalcardStorename');
+  const bodystoredesc = document.getElementById('modalcardStoredesc');
+  const bodyad = document.getElementById('modalcardStoreAd');
+  const bodyopen = document.getElementById('modalcardStoreOp');
+  const bodyclose = document.getElementById('modalcardStoreCl');
+  const storecardimage = document.getElementById('storecardImage');
 
-//   addStoreReview.style.display = 'none';
+  addStoreReview.style.display = 'none';
 
-//   reviewbookid = bookid;
-//   $('#storeModal').modal('show');
-//   axios
-//     .get('/books/' + bookid)
-//     .then(function (response) {
-//       console.log(response.data);
-//       bookreivew(bookid);
-//       const book = response.data;
+  reviewstoreid = storeid;
+  $('#storeModal').modal('show');
+  axios
+    .get('/store/' + storeid)
+    .then(function (response) {
+      console.log(response.data);
+      storereview(storeid);
+      const book = response.data;
 
-//       booklabel.innerHTML = book.title;
-//       bodytitle.innerHTML = book.title;
-//       bodydesc.innerHTML = book.book_desc;
-//       bodywr.innerHTML = book.writer;
-//       bodyil.innerHTML = book.illustrator;
-//       bookcardimage.src = book.book_image;
-//       bookpublisher.innerHTML = book.publisher;
-//       bookpudate.innerHTML = book.publication_date;
-//       bookgenre.innerHTML = book.genre;
+      storelabel.innerHTML = store.store_name;
+      bodyname.innerHTML = store.store_name;
+      bodystoredesc.innerHTML = store.store_desc;
+      bodyad.innerHTML = store.store_address;
+      bodyopen.innerHTML = store.store_open;
+      storecardimage.src = store.store_img;
+      bodyclose.innerHTML = store.store_close;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
 
-//       if (book.fnshYn === 'N') {
-//         fnishYn.innerHTML = '연재중';
-//       } else {
-//         fnishYn.innerHTML = '완결';
-//       }
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
+function storereview(storeid) {
+  axios
+    .get('/reviews/' + storeid, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function (response) {
+      const reviewbox1 = document.getElementById('storereviewlist');
+      storeReviewcard.style.display = 'block';
+      reviewbox1.innerHTML = '';
+      const comments = response.data;
+      console.log(comments);
 
-// function bookreivew(bookid) {
-//   axios
-//     .get('/bookreview/' + bookid, {
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-//       },
-//     })
-//     .then(function (response) {
-//       const reviewbox1 = document.getElementById('reviewlist');
-//       reviewcard.style.display = 'block';
-//       reviewbox1.innerHTML = '';
-//       const comments = response.data;
-//       console.log(comments);
+      comments.forEach((comment) => {
+        reviewbox1.innerHTML += `
+        <div class="box-top">
+      <!-- profile-box -->
+      <div class="profile-box">
+        <!-- user-image -->
+        <div class="profile-img">
+          <img id="reviewimage" src="${comment.user.photo}" />
+        </div>
+        <!-- username-Name -->
+        <div class="name-user">
+          <strong id="reviewname">${comment.user.nickname}</strong>
+        </div>
+      </div>
 
-//       comments.forEach((comment) => {
-//         reviewbox1.innerHTML += `
-//         <div class="box-top">
-//       <!-- profile-box -->
-//       <div class="profile-box">
-//         <!-- user-image -->
-//         <div class="profile-img">
-//           <img id="reviewimage" src="${comment.user.photo}" />
-//         </div>
-//         <!-- username-Name -->
-//         <div class="name-user">
-//           <strong id="reviewname">${comment.user.nickname}</strong>
-//         </div>
-//       </div>
+      <!-- review box -->
+      <div id="review-box" class="review-box">
+        ${reviewstar(comment.rating)}
+        <!-- 별 부분 -->
+      </div>
+    </div>
 
-//       <!-- review box -->
-//       <div id="review-box" class="review-box">
-//         ${reviewstar(comment.rating)}
-//         <!-- 별 부분 -->
-//       </div>
-//     </div>
+    <!-- comment part -->
+    <div class="client-comment">
+      <p id="reviewcomment">
+        ${comment.content}
+      </p>
+    </div>
+    `;
+      });
+      function reviewstar(rating) {
+        let stars = '';
+        for (let i = 1; i <= rating; i++) {
+          stars += '<i class="fa fa-star"></i>';
+        }
+        return stars;
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
 
-//     <!-- comment part -->
-//     <div class="client-comment">
-//       <p id="reviewcomment">
-//         ${comment.content}
-//       </p>
-//     </div>
-//     `;
-//       });
-//       function reviewstar(rating) {
-//         let stars = '';
-//         for (let i = 1; i <= rating; i++) {
-//           stars += '<i class="fa fa-star"></i>';
-//         }
-//         return stars;
-//       }
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
+// 지점 리뷰 등록 버튼 클릭 이벤트
 
-// //책 리뷰 등록 버튼 클릭 이벤트
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let submitstorereview;
 
-// // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// let submitreview;
+const storeReviewcard = document.getElementById('storereviewlist');
+const addStoreReview = document.getElementById('addStoreReview');
 
-// const reviewcard = document.getElementById('reviewlist');
-// const addStoreReview = document.getElementById('addStoreReview');
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function addstorereviewbtn() {
+  const commentTextarea = document.getElementById('storecomment');
+  const starInputs = document.querySelectorAll('input[name="rate"]');
+  //리뷰 등록 부분 초기화
+  commentTextarea.value = '';
+  let selectedStarValue = null;
+  // 책 리뷰 부분 숨김
+  storeReviewcard.style.display = 'none';
+  addStoreReview.style.display = 'block';
+  console.log(reviewstoreid);
+  // 전송 처리 함수
 
-// // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// async function addreviewbtn() {
-//   const commentTextarea = document.getElementById('comment');
-//   const starInputs = document.querySelectorAll('input[name="rate"]');
-//   //리뷰 등록 부분 초기화
-//   commentTextarea.value = '';
-//   let selectedStarValue = null;
-//   // 책 리뷰 부분 숨김
-//   reviewcard.style.display = 'none';
-//   addStoreReview.style.display = 'block';
-//   console.log(reviewbookid);
-//   // 전송 처리 함수
+  function handleSubmit(event) {
+    event.preventDefault();
+    // 선택된 별점 값 가져오기
 
-//   function handleSubmit(event) {
-//     event.preventDefault();
-//     // 선택된 별점 값 가져오기
+    starInputs.forEach((input) => {
+      if (input.checked) {
+        selectedStarValue = input.id.split('-')[1];
+      }
+    });
+    // 작성된 댓글 가져오기
 
-//     starInputs.forEach((input) => {
-//       if (input.checked) {
-//         selectedStarValue = input.id.split('-')[1];
-//       }
-//     });
-//     // 작성된 댓글 가져오기
+    const comment = commentTextarea.value;
 
-//     const comment = commentTextarea.value;
+    // console.log(comment, selectedStarValue);
 
-//     // console.log(comment, selectedStarValue);
+    // 서버로 데이터 전송
+    sendStoreFeedback(selectedStarValue, comment);
+  }
 
-//     // 서버로 데이터 전송
-//     sendFeedback(selectedStarValue, comment);
-//   }
+  // 지점리뷰 데이터 저장
+  function sendStoreFeedback(starValue, comment) {
+    console.log(starValue, comment);
 
-//   // 리뷰 데이터 저장
-//   function sendFeedback(starValue, comment) {
-//     console.log(starValue, comment);
+    axios
+      .post(
+        '/reviews/' + reviewstoreid,
+        {
+          rating: starValue,
+          content: comment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        },
+      )
+      .then(function (response) {
+        alert('댓글 등록');
+        // reviewcard.style.display = 'block';
+        addreview.style.display = 'none';
+        commentTextarea.value = '';
+        starValue = null;
+        storereview(reviewstoreid);
+      })
+      .catch(function (error) {
+        alert(error);
+      });
+  }
 
-//     axios
-//       .post(
-//         '/bookreview/' + reviewbookid,
-//         {
-//           rating: starValue,
-//           content: comment,
-//         },
-//         {
-//           headers: {
-//             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-//           },
-//         },
-//       )
-//       .then(function (response) {
-//         alert('댓글 등록');
-//         // reviewcard.style.display = 'block';
-//         addreview.style.display = 'none';
-//         commentTextarea.value = '';
-//         starValue = null;
-//         bookreivew(reviewbookid);
-//       })
-//       .catch(function (error) {
-//         alert(error);
-//       });
-//   }
+  // 이벤트 핸들러 등록
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.addEventListener('click', handleSubmit);
 
-//   // 이벤트 핸들러 등록
-//   const submitBtn = document.getElementById('submitBtn');
-//   submitBtn.addEventListener('click', handleSubmit);
-
-//   // submitreview 변수에 handleSubmit 함수 할당
-//   submitreview = handleSubmit;
-// }
+  // submitstorereview 변수에 handleSubmit 함수 할당
+  submitstorereview = handleSubmit;
+}
