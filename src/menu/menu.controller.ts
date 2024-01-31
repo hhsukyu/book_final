@@ -28,6 +28,15 @@ export class MenuController {
     return await this.menuService.menulist(storeid);
   }
 
+  //특정 메뉴 조회
+  @Get('/storeid/:storeid/:menuid')
+  async menudetail(
+    @Param('storeid') storeid: number,
+    @Param('menuid') menuid: number,
+  ) {
+    return await this.menuService.storemenudetail(storeid, menuid);
+  }
+
   //메뉴 등록
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)

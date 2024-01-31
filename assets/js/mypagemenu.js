@@ -37,8 +37,11 @@ function menulists(menu) {
         <div class="card-body">
           <h5 class="card-title">${menu.food_name}</h5>
           <p class="card-text">${menu.food_desc}</p>
+          <div id="menucardbtn">
           <p class="card-text"><small class="text-body-secondary">${menu.food_price}</small></p>
-        </div>
+          <button onclick="updatemenumodal(event, ${menu.id})" class="btn" data-bs-target="#updatemenumodal" data-bs-toggle="modal">수정하기</button>
+          </div>  
+          </div>
       </div>
     </div>
   </div>`;
@@ -86,6 +89,59 @@ function addmenu(event) {
     });
 }
 
+//수정할 메뉴 아이디
+let checkmenuid;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function updatemenumodal(event, menuid) {
+  event.preventDefault();
+  console.log(checkstoreid, menuid);
+  const menuname = document.getElementById('upmenuname');
+  const menuimg = document.getElementById('upmenuimge');
+  const menudesc = document.getElementById('upmenudesc');
+  const menuprice = document.getElementById('upmenuprice');
+
+  axios
+    .get(`/menu/storeid/${checkstoreid}/${menuid}`)
+    .then(function (response) {
+      const menu = response.data;
+      menuname.value = menu.food_name;
+      menudesc.value = menu.food_desc;
+      menuimg.src = menu.food_img;
+      menuprice.value = menu.food_price;
+      checkmenuid = menuid;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
 //메뉴 수정
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function updatemenu() {}
+function updatemenu(event) {
+  event.preventDefault();
+  //   console.log(checkstoreid, checkmenuid);
+
+  const storeimgInput = document.getElementById('storeimg');
+  const storeimgFile = storeimgInput.files[0];
+
+  const formData = new FormData();
+  formData.append('store_name', document.getElementById('upstorename').value);
+  formData.append('store_desc', document.getElementById('upstoredesc').value);
+  formData.append('file', storeimgFile);
+  formData.append(
+    'store_address',
+    document.getElementById('upstoreaddress').value +
+      document.getElementById('upstoredetailaddress').value,
+  );
+
+  axops
+    .patch(`/menu/storeid/${checkstoreid}/${checkmenuid}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function (response) {})
+    .catch(function (error) {});
+}
