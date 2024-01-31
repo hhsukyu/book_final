@@ -149,7 +149,7 @@ function loadHeader(page) {
             >
               <li><a class="dropdown-item" href="mypage.html">내 정보</a></li>
               <li><a class="dropdown-item" href="wishlist.html">위시리스트</a></li>              
-              <li><a class="dropdown-item" href="ownerAplication.html">사장님으로 전환하기</a></li>
+              <li><a class="dropdown-item" href="#" onclick="openOwnerApplicationModal()">사장님으로 전환하기</a></li>
               <li><hr class="dropdown-divider" /></li>
               <li><a onclick="logout()" class="dropdown-item">로그아웃</a></li>
             </ul>
@@ -337,7 +337,7 @@ async function addreviewbtn() {
           },
         },
       )
-      .then(function () {
+      .then(function (response) {
         alert('댓글 등록');
         // reviewcard.style.display = 'block';
         addreview.style.display = 'none';
