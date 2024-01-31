@@ -9,9 +9,10 @@ import { StoreBook } from 'src/entity/storeBook.entity';
 import { Menu } from 'src/entity/menu.entity';
 import { MyPage } from 'src/entity/my-page.entity';
 import { MyPageService } from 'src/my-page/my-page.service';
+import { MenuService } from 'src/menu/menu.service';
 @Module({
   imports: [TypeOrmModule.forFeature([User, Store, StoreBook, Menu, MyPage])],
-  providers: [StoreService, UserService, MyPageService],
+  providers: [StoreService, UserService, MyPageService, MenuService],
   controllers: [StoreController],
 })
 export class StoreModule {}
