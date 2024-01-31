@@ -102,6 +102,10 @@
           aria-labelledby="home-tab"
           tabindex="0"
         >
+          <label for="user-email" class="form-label">Email</label>
+          <div class="mb-3" id="user-Email"></div>
+          <label for="user-nickname" class="form-label">nickname : </label>
+          <div id="user-Nickname" class="mb-3"></div>
           <form
             id="mypageform"
             class="input-class"
@@ -294,6 +298,20 @@
                   Book
                 </button>
               </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="pills-review-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-review"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-review"
+                  aria-selected="false"
+                >
+                  review
+                </button>
+              </li>
             </ul>
             <!-- 헤드 탭 부분 -->
             <!-- 탭 바디 부분 -->
@@ -421,6 +439,17 @@
                 tabindex="0"
               >
                 <!-- 스토어 책 부분 -->
+                <h1>스토어 책 부분</h1>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="pills-review"
+                role="tabpanel"
+                aria-labelledby="pills-review-tab"
+                tabindex="0"
+              >
+                <!-- 사장님 리뷰 부분 -->
+                <h1>사장님 리뷰 부분</h1>
               </div>
             </div>
             <!-- 탭 바디 부분 -->

@@ -18,6 +18,8 @@ function userme() {
 
   const userimage = document.getElementById('profileImage');
   const useraddress = document.getElementById('addressSearch');
+  const useremail = document.getElementById('user-Email');
+  const usernickname = document.getElementById('user-Nickname');
 
   axios
     .get('/user/me', {
@@ -29,6 +31,8 @@ function userme() {
       console.log(response);
       user = response.data;
 
+      useremail.innerHTML = `<p class="fs-6">${user.email}</p>`;
+      usernickname.innerHTML = `<p class="fs-6">${user.nickname}</p>`;
       userimage.src = user.photo;
       useraddress.value = user.myPage.address;
       console.log(user.photo);
