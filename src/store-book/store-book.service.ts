@@ -144,17 +144,7 @@ export class StorebookService {
     if (user.stores.every((s) => s.id !== store.id)) {
       throw new BadRequestException('소유주만 삭제 및 수정이 가능합니다.');
     }
-    // const storeBook = await this.storeBookRepository.findOne({
-    //   where: { book: { id: bookid } },
-    //   relations: { store: true },
-    // });
-    // console.log('storeBook', storeBook);
-    // if (
-    //   !storeBook ||
-    //   user.stores.every((store) => store.id !== storeBook.store.id)
-    // ) {
-    //   throw new BadRequestException('지점 사장님만 삭제가 가능합니다.');
-    // }
+
     console.log('storebookid', storebookid);
     await this.storeBookRepository.delete({ id: storebookid });
 

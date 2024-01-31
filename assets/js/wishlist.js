@@ -35,7 +35,7 @@ function userme() {
         if (stores) {
           Object.keys(stores).forEach(function (key) {
             let storeid = stores[key];
-            console.log(storeid);
+            // console.log(storeid);
             storenamedb(storeid);
             //위시리스트 추가 부분
           });
@@ -44,7 +44,7 @@ function userme() {
         if (wishs) {
           Object.keys(wishs).forEach(function (key) {
             let wishname = wishs[key];
-            console.log(wishname);
+            // console.log(wishname);
             booknamedb(wishname);
 
             //위시리스트 추가 부분
@@ -63,7 +63,7 @@ function booknamedb(bookid) {
     .then(function (response) {
       const bookid = response.data.id;
       const booktitle = response.data.title;
-      console.log(booktitle);
+      // console.log(booktitle);
 
       wishlist.innerHTML += `<div class="wishteg"><a>${booktitle}</a>&nbsp &nbsp<i onclick="removewish(${bookid})" class="fa fa-xing"></i></div>`;
     })
@@ -79,7 +79,7 @@ function storenamedb(storeid) {
       console.log(response);
       const storeid = response.data.id;
       const storename = response.data.store_name;
-      console.log(storename);
+      // console.log(storename);
 
       storelist.innerHTML += `<div class="wishteg"><a>${storename}</a>&nbsp &nbsp<i onclick="removestore(${storeid})" class="fa fa-xing"></i></div>`;
     })

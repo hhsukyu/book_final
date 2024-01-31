@@ -155,10 +155,10 @@ function storeinfo() {
       },
     })
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
       user = response.data;
       let checkstore = user.stores;
-      console.log(checkstore);
+      // console.log(checkstore);
       if (checkstore.length !== 0) {
         axios
           .get('/store/mystore', {
@@ -194,7 +194,7 @@ function addstorelist(store) {
       'http://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
   }
 
-  console.log(store);
+  // console.log(store);
   storelist.innerHTML += `
     <div id="storelistcard" class="card mb-3" onclick="updatemodal(${store.id})" >
       <div class="row g-0">
@@ -220,6 +220,7 @@ let checkstoreid;
 function updatemodal(store) {
   $('#updatestoremodal').modal('show');
   menulist.innerHTML = '';
+  books.innerHTML = '';
   const storename = document.getElementById('upstorename');
   const storeimg = document.getElementById('storeImage');
   const storedesc = document.getElementById('upstoredesc');
@@ -250,6 +251,7 @@ function updatemodal(store) {
       checkstoreid = store.id;
       console.log(checkstoreid);
       menuinfo(checkstoreid);
+      bookinfo(checkstoreid);
     })
     .catch(function (error) {
       console.log(error);
