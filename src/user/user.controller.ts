@@ -31,6 +31,18 @@ export class UserController {
 
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
+  @Put('profileimg')
+  @UseInterceptors(FileInterceptor('file'))
+  async updateuserimg(
+    @UserId() userid: number,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const url = await this.menuService.uploadImage(file);
+    return this.userService.updateuserImg(userid, url);
+  }
+
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
   @Get('')
   findAll() {
     return this.userService.findAll();

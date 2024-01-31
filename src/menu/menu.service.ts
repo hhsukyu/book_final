@@ -142,6 +142,7 @@ export class MenuService {
 
   // 이미지 업로드 구글 스토리지
   async uploadImage(file: Express.Multer.File): Promise<string> {
+    console.log(file);
     const fileName = Date.now() + file.originalname;
     const bucket = this.storage.bucket(this.bucket);
 

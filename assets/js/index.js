@@ -336,7 +336,7 @@ async function addreviewbtn() {
           },
         },
       )
-      .then(function (response) {
+      .then(function () {
         alert('댓글 등록');
         // reviewcard.style.display = 'block';
         addreview.style.display = 'none';

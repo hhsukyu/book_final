@@ -35,7 +35,7 @@ export class MyPageController {
 
   //주소 변경하기
   @UseGuards(accessTokenGuard)
-  @Patch('address')
+  @Put('address')
   async address_change(
     @UserId() userId: number,
     @Body() updateMyAddressDto: UpdateMyAddressDto,
@@ -75,7 +75,7 @@ export class MyPageController {
 
   // 라이크 스토어 추가
   @UseGuards(accessTokenGuard)
-  @Patch('likestore')
+  @Post('likestore')
   async updateLikeStore(
     @UserId() userId: number,
     @Body() updateMyLikeStoreDto: AddToMyLikeStoreDto,

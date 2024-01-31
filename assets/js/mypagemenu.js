@@ -1,0 +1,91 @@
+//메뉴 불러오기
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function menuinfo(storeid) {
+  console.log(storeid);
+  axios
+    .get('/menu/storeid/' + storeid)
+    .then(function (response) {
+      console.log(response.data);
+      const menus = response.data;
+
+      menus.forEach((menu) => {
+        console.log(menu);
+        menulists(menu);
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+//메뉴 화면에 출력
+function menulists(menu) {
+  let img = `${menu.food_img}`;
+
+  if (menu.food_img === '') {
+    img =
+      'http://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
+  }
+
+  menulist.innerHTML += `
+  <div id="menulistcard" class="card mb-3" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="${img}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">${menu.food_name}</h5>
+          <p class="card-text">${menu.food_desc}</p>
+          <p class="card-text"><small class="text-body-secondary">${menu.food_price}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+//메뉴 등록 부분
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function addmenu(event) {
+  event.preventDefault();
+  //food 이미지 부분
+  const menuimgInput = document.getElementById('menuimg');
+  const menuimgFile = menuimgInput.files[0];
+
+  const menuname = document.getElementById('menuname').value;
+
+  const menudesc = document.getElementById('menudesc').value;
+  const menuprice = document.getElementById('menuprice').value;
+
+  //   if(menuimgInput.value === "") {
+
+  //   }
+
+  const formData = new FormData();
+  formData.append('food_name', menuname);
+
+  formData.append('file', menuimgFile);
+  formData.append('food_desc', menudesc);
+  formData.append('food_price', menuprice);
+
+  //스토어 아이디 확인용
+  console.log(checkstoreid);
+  axios
+    .post('menu/storeid/' + checkstoreid, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function () {
+      alert('메뉴등록 성공');
+      window.location.reload();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+//메뉴 수정
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function updatemenu() {}

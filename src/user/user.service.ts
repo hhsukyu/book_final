@@ -121,6 +121,21 @@ export class UserService {
     return result;
   }
 
+  async updateuserImg(userid: number, url: string) {
+    const isUser = await this.findUserById(userid);
+
+    if (!isUser) {
+      throw new NotFoundException('존재하지 않는 사용자입니다.');
+    }
+
+    const result = await this.userRepository.update(
+      { id: userid },
+      { photo: url },
+    );
+
+    return result;
+  }
+
   async updateUser(
     id: number,
     updateProfileDto: UpdateProfileDto,
