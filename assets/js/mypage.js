@@ -82,8 +82,6 @@ function myprofilebtn(event) {
         '/mypage/address',
         {
           address: address,
-          latitude: 0,
-          longitude: 0,
         },
         {
           headers: {
@@ -259,7 +257,7 @@ function updatemodal(store) {
 function updatestore(event) {
   event.preventDefault();
 
-  const storeimgInput = document.getElementById('storeImage');
+  const storeimgInput = document.getElementById('storeimg');
   const storeimgFile = storeimgInput.files[0];
 
   const formData = new FormData();

@@ -43,6 +43,28 @@ export class MenuService {
     return menulist;
   }
 
+  //특정 메뉴 조회
+  async storemenudetail(storeid: number, menuid: number) {
+    const store = await this.storeRepository.findOne({
+      where: { id: storeid },
+      relations: { menus: true },
+    });
+
+    if (store) {
+      const menu = store.menus.find((menu) => menu.id === menuid);
+      if (menu) {
+        // 메뉴를 찾았을 때의 처리
+        return menu;
+      } else {
+        // 메뉴를 찾지 못했을 때의 처리
+        console.log('해당 메뉴를 찾을 수 없습니다.');
+      }
+    } else {
+      // 스토어를 찾지 못했을 때의 처리
+      console.log('해당 스토어를 찾을 수 없습니다.');
+    }
+  }
+
   //메뉴 등록
   async createMyStoreMenu(
     storeid: number,
