@@ -35,11 +35,13 @@ function changeUserType() {
     .then((response) => {
       console.log('response', response.data);
       alert('사장님으로 전환되었습니다.');
+      // 모달 닫기
+      $('#myModal').modal('hide');
     })
     .catch((error) => {
       alert('사장님 전환에 실패했습니다.');
       console.error(error);
+      // 모달 닫기
+      $('#myModal').modal('hide');
     });
-  // 모달 닫기
-  ownerApplicationModal.hide();
 }
