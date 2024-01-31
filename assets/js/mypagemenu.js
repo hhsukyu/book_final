@@ -122,26 +122,27 @@ function updatemenu(event) {
   event.preventDefault();
   //   console.log(checkstoreid, checkmenuid);
 
-  const storeimgInput = document.getElementById('storeimg');
-  const storeimgFile = storeimgInput.files[0];
+  const menuimgInput = document.getElementById('upmenuimg');
+  const menuimgFile = menuimgInput.files[0];
 
   const formData = new FormData();
-  formData.append('store_name', document.getElementById('upstorename').value);
-  formData.append('store_desc', document.getElementById('upstoredesc').value);
-  formData.append('file', storeimgFile);
-  formData.append(
-    'store_address',
-    document.getElementById('upstoreaddress').value +
-      document.getElementById('upstoredetailaddress').value,
-  );
+  formData.append('food_name', document.getElementById('upmenuname').value);
+  formData.append('food_desc', document.getElementById('upmenudesc').value);
+  formData.append('file', menuimgFile);
+  formData.append('food_price', document.getElementById('upmenuprice').value);
 
-  axops
+  axios
     .patch(`/menu/storeid/${checkstoreid}/${checkmenuid}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     })
-    .then(function (response) {})
-    .catch(function (error) {});
+    .then(function () {
+      alert('메뉴수정 성공');
+      window.location.reload();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
