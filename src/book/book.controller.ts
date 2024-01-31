@@ -7,13 +7,16 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
 import { UserId } from 'src/auth/decorators/userId.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('books')
 export class BookController {
@@ -30,6 +33,11 @@ export class BookController {
     return await this.bookService.createBook(createBookDto, userid);
   }
 
+  @Get('genre')
+  async generelist(@Query('bookgenre') bookgenre: string) {
+    return await this.bookService.genrebook(bookgenre);
+  }
+
   //wishlist 도서 검색
   @Get('wishlist')
   async wishlist(@Query('booktitle') booktitle: string) {
@@ -42,10 +50,33 @@ export class BookController {
     return await this.bookService.searchbook(booktitle);
   }
 
+  //지점도서 검색
+  @Get('searchStoreBook')
+  async searchStoreBook(
+    @Query('storeId') storeid: number,
+    @Query('bookTitle') booktitle: string,
+  ) {
+    try {
+      const searchResult = await this.bookService.searchStoreBook(
+        storeid,
+        booktitle,
+      );
+      return { success: true, data: searchResult };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
+
   //도서 조회
   @Get('main')
   async maingetBooks() {
     return await this.bookService.maingetBooks();
+  }
+
+  //리뷰 순위에 따른 도서 30개 조회
+  @Get('rank')
+  async getBooksByRank() {
+    return await this.bookService.getBooksByRank();
   }
 
   //도서 조회
@@ -54,6 +85,12 @@ export class BookController {
   @Get('')
   async getBooks() {
     return await this.bookService.getBooks();
+  }
+
+  //위시리스트 추가 도서이름 확인
+  @Get('/wishlist/:bookid')
+  async getbooktitlebyid(@Param('bookid') bookid: number) {
+    return await this.bookService.getBooktitleById(bookid);
   }
 
   //도서 상세조회
@@ -74,4 +111,31 @@ export class BookController {
   // ) {
   //   return await this.bookService.updateBook(bookid, updateBookDto, userid);
   // }
+
+  // 도서 생성 CSV
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Upload menu with image.',
+    type: 'multipart/form-data',
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'The image file to upload..',
+        },
+      },
+    },
+  })
+  @Post('/file')
+  @UseInterceptors(FileInterceptor('file'))
+  async createBookByCsv(
+    @UploadedFile() file: Express.Multer.File,
+    @UserId() userid: number,
+  ) {
+    return await this.bookService.createBookByCsv(file, userid);
+  }
 }

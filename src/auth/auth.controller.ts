@@ -146,13 +146,16 @@ export class AuthController {
     await this.authService.verifyCode(verifyCodeDto.code, verifyCodeDto.email);
   }
   //비밀번호 찾기-비밀번호 재설정
+  @Put('/update-password')
+  async updatePassword(@Body() updatePasswordDto: UpdatePasswordDto) {
+    await this.authService.updatePassword(updatePasswordDto);
+  }
+
+  //사용자 사장님으로 전환
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
-  @Put('/update-password')
-  async updatePassword(
-    @UserId() userId: number,
-    @Body() updatePasswordDto: UpdatePasswordDto,
-  ) {
-    await this.authService.updatePassword(userId, updatePasswordDto);
+  @Put('/changeOwner')
+  async changeOwner(@UserId() userid: number) {
+    return this.authService.changeOwner(userid);
   }
 }

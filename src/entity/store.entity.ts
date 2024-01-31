@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 import { Menu } from './menu.entity';
-import { StoreBook } from './store-book.entity';
+import { StoreBook } from './storeBook.entity';
 import { StoreReview } from './storeReview.entity';
 import { AdminReview } from './adminReview.entity';
 import { Receipt } from './receipt.entity';
@@ -59,11 +59,11 @@ export class Store {
   @OneToMany(() => Receipt, (receipt) => receipt.store)
   receipts: Relation<Receipt>[];
 
-  @Column()
-  store_open: Date;
+  @Column({ type: 'varchar' })
+  store_open: string;
 
-  @Column()
-  store_close: Date;
+  @Column({ type: 'varchar' })
+  store_close: string;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -7,10 +7,11 @@ import { Store } from '../entity/store.entity';
 import { UserService } from '../user/user.service';
 import { Menu } from '../entity/menu.entity';
 import { MyPage } from 'src/entity/my-page.entity';
+import { MyPageService } from 'src/my-page/my-page.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Menu, User, Store, MyPage])],
-  providers: [MenuService, UserService],
+  providers: [MenuService, UserService, MyPageService],
   controllers: [MenuController],
 })
 export class MenuModule {}

@@ -18,11 +18,11 @@ export class CreateStoreDto {
   @ApiProperty({ description: '지점좌표' })
   place: number[];
 
-  @IsDate()
+  @IsString()
   @ApiProperty({ description: '오픈시간' })
-  store_open: Date;
+  store_open: string;
 
-  @IsDate()
+  @IsString()
   @ApiProperty({ description: '마감시간' })
-  store_close: Date;
+  store_close: string;
 }

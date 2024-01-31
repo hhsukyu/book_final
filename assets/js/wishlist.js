@@ -1,3 +1,7 @@
+const wishlist = document.getElementById('result-wish-box');
+
+const storelist = document.getElementById('result-store-box');
+
 window.onload = function () {
   const token = localStorage.getItem('accessToken');
 
@@ -12,8 +16,6 @@ window.onload = function () {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function userme() {
-  const wishlist = document.getElementById('result-wish-box');
-
   axios
     .get('/user/me', {
       headers: {
@@ -25,21 +27,61 @@ function userme() {
       const user = response.data;
       const mypage = response.data.myPage;
       const wishs = mypage.wish_list;
+      const stores = mypage.like_store;
 
       if (user.mypage === null) {
         console.log('test');
       } else if (user.mypage !== null) {
-        // console.log(wishs);
+        if (stores) {
+          Object.keys(stores).forEach(function (key) {
+            let storeid = stores[key];
+            console.log(storeid);
+            storenamedb(storeid);
+            //위시리스트 추가 부분
+          });
+        }
+
         if (wishs) {
           Object.keys(wishs).forEach(function (key) {
             let wishname = wishs[key];
             console.log(wishname);
-            wishlist.innerHTML += `<div class="wishteg"><a>${wishname}</a>&nbsp &nbsp<i onclick="removewish(${key})" class="fa fa-xing"></i></div>`;
+            booknamedb(wishname);
+
             //위시리스트 추가 부분
           });
-        } else {
         }
       }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function booknamedb(bookid) {
+  axios
+    .get('books/wishlist/' + bookid)
+    .then(function (response) {
+      const bookid = response.data.id;
+      const booktitle = response.data.title;
+      console.log(booktitle);
+
+      wishlist.innerHTML += `<div class="wishteg"><a>${booktitle}</a>&nbsp &nbsp<i onclick="removewish(${bookid})" class="fa fa-xing"></i></div>`;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function storenamedb(storeid) {
+  axios
+    .get('store/liststore/' + storeid)
+    .then(function (response) {
+      console.log(response);
+      const storeid = response.data.id;
+      const storename = response.data.store_name;
+      console.log(storename);
+
+      storelist.innerHTML += `<div class="wishteg"><a>${storename}</a>&nbsp &nbsp<i onclick="removestore(${storeid})" class="fa fa-xing"></i></div>`;
     })
     .catch(function (error) {
       console.log(error);
@@ -56,7 +98,7 @@ async function wishkey(event) {
     searchresult.style.display = 'block';
     fullsearchbox.style.height = '200px';
     if (event.key === 'Enter') {
-      getAutocompleteResults(searchbox);
+      wishResults(searchbox);
     }
   } else {
     searchresult.style.display = 'none';
@@ -78,7 +120,7 @@ async function deletebox() {
 }
 
 // 위시리스트 도서 검색
-async function getAutocompleteResults(searchbox) {
+async function wishResults(searchbox) {
   const searchresult = document.getElementById('searchResults');
   searchresult.innerHTML = ``;
   await axios
@@ -99,13 +141,151 @@ async function getAutocompleteResults(searchbox) {
 }
 
 // 위시리스트 도서 검색 클릭시 위시리스트에 저장
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function addwish(bookid) {
   //위시리스트에 위시리스트 목록만 저장
   console.log(bookid);
+  axios
+    .post(
+      '/mypage/wishlist',
+      {
+        wish_list: bookid,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      },
+    )
+    .then(function () {
+      console.log('수정 성공');
+      window.location.reload();
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert(error.response.data.message);
+      window.location.reload();
+    });
 }
 
-// 위시리스트를 태그
-async function removewish(wishlist) {
-  //위시리스트만 삭제하는 api 구현
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function removewish(wishlist) {
+  // 위시리스트만 삭제하는 api 구현
   console.log(wishlist);
+  axios
+    .delete('/mypage/wishlist', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      data: {
+        wish_list: wishlist,
+      },
+    })
+    .then(function () {
+      alert('삭제 성공');
+      window.location.reload();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function storykey(event) {
+  const searchresult = document.getElementById('storesearchResults');
+  const searchbox = await document.getElementById('storelistInput').value;
+  const fullsearchbox = document.getElementById('storelistsearch');
+
+  if (searchbox !== '') {
+    searchresult.style.display = 'block';
+    fullsearchbox.style.height = '200px';
+    if (event.key === 'Enter') {
+      storeResults(searchbox);
+    }
+  } else {
+    searchresult.style.display = 'none';
+    searchresult.innerHTML = ``;
+  }
+}
+
+//keyup delete searchbox
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function storydeletebox() {
+  const searchbox = await document.getElementById('storelistInput').value;
+  const searchresult = document.getElementById('storesearchResults');
+  const fullsearchbox = document.getElementById('storelistsearch');
+
+  if (searchbox === '') {
+    fullsearchbox.style.height = '0px';
+    searchresult.innerHTML = '';
+  }
+}
+
+// 위시리스트 도서 검색
+async function storeResults(searchbox) {
+  const searchresult = document.getElementById('storesearchResults');
+  searchresult.innerHTML = ``;
+  await axios
+    .get(`/store/mypage?storeName=${searchbox}`)
+    .then(function (response) {
+      // console.log(response.data);
+      const stores = response.data;
+      // console.log(books);
+      searchresult.innerHTML += '<ul>';
+      stores.forEach((store) => {
+        searchresult.innerHTML += `<li id="wishlistli" onclick="addstore(${store.id})">${store.store_name}</li>`;
+      });
+      searchresult.innerHTML += '</ul>';
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+// 위시리스트 도서 검색 클릭시 위시리스트에 저장
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function addstore(storeid) {
+  //위시리스트에 위시리스트 목록만 저장
+  console.log(storeid);
+  axios
+    .post(
+      '/mypage/likestore',
+      {
+        like_store: storeid,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      },
+    )
+    .then(function () {
+      console.log('수정 성공');
+      window.location.reload();
+    })
+    .catch(function (error) {
+      alert(error.response.data.message);
+    });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function removestore(storeid) {
+  // 위시리스트만 삭제하는 api 구현
+  console.log(storeid);
+  axios
+    .delete('/mypage/likestore', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+      data: {
+        like_store: storeid,
+      },
+    })
+    .then(function () {
+      alert('삭제 성공');
+      window.location.reload();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }

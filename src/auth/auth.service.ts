@@ -330,13 +330,15 @@ export class AuthService {
   }
 
   //비밀번호 찾기-비밀번호 재설정
-  async updatePassword(userId: number, updatePasswordDto: UpdatePasswordDto) {
+  async updatePassword(updatePasswordDto: UpdatePasswordDto) {
     if (updatePasswordDto.password !== updatePasswordDto.checkPassword) {
       throw new BadRequestException(
         '비밀번호와 확인 비밀번호가 일치하지 않습니다.',
       );
     }
-    const user = await this.userRepository.findOne({ where: { id: userId } });
+    const user = await this.userRepository.findOne({
+      where: { email: updatePasswordDto.email },
+    });
 
     const saltRounds = +this.configService.get<number>('SALT_ROUNDS');
     const salt = await bcrypt.genSalt(saltRounds);
@@ -345,5 +347,13 @@ export class AuthService {
 
     user.password = hashedPassword;
     await this.userRepository.save(user);
+  }
+
+  //사용자 사장으로 전환
+  async changeOwner(userid: number) {
+    const user = await this.userRepository.findOne({ where: { id: userid } });
+
+    user.role = 1;
+    return this.userRepository.save(user);
   }
 }

@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="./css/menubar.css" />
     <!-- main css -->
     <link rel="stylesheet" href="./css/main.css" />
+    <!-- introduce css -->
+    <link rel="stylesheet" href="./css/introduce.css" />
+
     <!-- axios.js -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link
@@ -66,42 +69,42 @@
     <!-- 장르별 추천도서 -->
     <div id="genre" class="genre">
       <div class="genre-categories">
-        <div class="genre-category">
+        <div onclick="genrebtn('액션')" class="genre-category">
           <img
             src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=35fab96e-4aef-4e43-9761-26136ebbd857"
             alt="장르1 이미지"
           />
           <span>액션</span>
         </div>
-        <div class="genre-category">
+        <div onclick="genrebtn('무협')" class="genre-category">
           <img
             src="https://www.kmas.or.kr:443/common/file/atchmnflDownload.ajax?fileImageId=43a1dce1-7194-4bb5-a862-48bc12a8701f"
             alt="장르2 이미지"
           />
           <span>무협</span>
         </div>
-        <div class="genre-category">
+        <div onclick="genrebtn('코믹')" class="genre-category">
           <img
             src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=3000260694"
             alt="장르3 이미지"
           />
           <span>코믹</span>
         </div>
-        <div class="genre-category">
+        <div onclick="genrebtn('드라마')" class="genre-category">
           <img
             src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=3000283205"
             alt="장르3 이미지"
           />
           <span>드라마</span>
         </div>
-        <div class="genre-category">
+        <div onclick="genrebtn('순정')" class="genre-category">
           <img
             src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=3000269964"
             alt="장르3 이미지"
           />
           <span>순정</span>
         </div>
-        <div class="genre-category">
+        <div onclick="genrebtn('판타지')" class="genre-category">
           <img
             src="https://www.kmas.or.kr/common/file/atchmnflDownload.ajax?fileImageId=2b024dc0-2328-4fb4-8db4-28f31b8304b4"
             alt="장르3 이미지"
@@ -115,7 +118,7 @@
     <!-- 지점 목록 -->
     <div id="stores" class="stores">
       <div class="album-store">
-        <div class="album-item">
+        <!-- <div class="album-item">
           <img src="이미지1.jpg" alt="앨범1" />
           <div class="album-details">
             <span class="album-title">앨범 제목 1</span>
@@ -154,13 +157,31 @@
             <span class="album-intro">앨범 소개 2</span>
             <span class="album-location">앨범 장소 2</span>
           </div>
-        </div>
+        </div> -->
         <!-- 나머지 앨범 아이템들도 동일한 구조로 추가 -->
       </div>
     </div>
 
-    <!-- 검색결과 화면 -->
-    <div id="searchbox"></div>
+    <!-- 장르확인 화면 -->
+    <div id="genrebox">
+      <div class="container bookboard">
+        <div class="row bookListTitle px-5 pt-5">
+          <h2 class="mb-5">
+            <!-- 선택한 장르 표시 -->
+          </h2>
+          <div id="genreoutput"></div>
+          <!-- 도서카드 양산용 라인 -->
+
+          <!-- 페이지네이션 -->
+
+          <div class="pagination">
+            <a onclick="genreprevPage()" id="btn_prev">Prev</a>
+            <ul id="genrepages"></ul>
+            <a onclick="genrenextPage()" id="btn_next">Next</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- 책 상세정보 모달창 -->
     <div
@@ -211,55 +232,55 @@
             </div>
           </div>
           <div class="reviewCardRow row pt-5">
-            <h2 class="mb-4">도서리뷰 목록</h2>
-            <div class="row px-3 pt-2 container reviewcardbox2 reviewcontainer">
-              <div class="reviewcardbox">
-                <!-- box-top -->
-                <div class="box-top">
-                  <!-- profile-box -->
-                  <div class="profile-box">
-                    <!-- user-image -->
-                    <div class="profile-img">
-                      <img
-                        src="https://i.namu.wiki/i/ansU2jw14dqvAVa_i_XyHO4uCuBh56segYeOz69QjRUeSPnmzzgz2o5_MzEpDiAojF_sNwFMQJk3ExK0mVW9aw.webp"
-                      />
-                    </div>
-                    <!-- username-Name -->
-                    <div class="name-user">
-                      <strong>test Username</strong>
-                    </div>
-                  </div>
+            <div class="reviewrow pt-5">
+              <h2 class="mb-4" style="display: inline-block">도서리뷰 목록</h2>
+              <div id="reviewicon" onclick="addreviewbtn()">
+                <i class="fa fa-comment"></i>&nbsp;<strong>리뷰작성</strong>
+              </div>
+            </div>
 
-                  <!-- review box -->
-                  <div id="review-box" class="review-box">
-                    <!-- 별 부분 -->
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                  </div>
-                </div>
+            <div
+              id="reviewlist"
+              class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"
+            >
+              <div id="reviewcardbox" class="reviewcardbox">
+                <!-- 리뷰 내용 부분 -->
+              </div>
+            </div>
 
-                <!-- comment part -->
-                <div class="client-comment">
-                  <p>
-                    testsetseteseifj sidjf isjefifjidsjifsje ifjsfi jidsjsi
-                    ewsjij siesj ifj
-                  </p>
+            <!-- 리뷰 작성 폼 -->
+            <!-- <div class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"> -->
+            <div id="reviewadd" class="reivewcontain">
+              <div id="reviewaddbox" class="reviewaddbox">
+                <div class="review-box-container">
+                  <div class="star-widget">
+                    <input type="radio" name="rate" id="rate-5" />
+                    <label for="rate-5" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="rate-4" />
+                    <label for="rate-4" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="rate-3" />
+                    <label for="rate-3" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="rate-2" />
+                    <label for="rate-2" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="rate-1" />
+                    <label for="rate-1" class="fa fa-star"></label>
+                    <form action="#">
+                      <div class="reviewtextarea">
+                        <textarea
+                          id="comment"
+                          cols="30"
+                          placeholder="book review..."
+                        ></textarea>
+                      </div>
+                      <div class="reviewbtn">
+                        <button id="submitBtn" type="button">등록하기</button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- <div class="modal-footer"> -->
-          <!-- <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button> -->
-          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -280,8 +301,8 @@
     <script src="./js/index.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/login.js"></script>
-    <script>
-      ScrollReveal().reveal('.headline');
-    </script>
+    <script src="./js/booksearch.js"></script>
+    <script src="./js/genre.js"></script>
+    <script src="./js/mainstore.js"></script>
   </body>
 </html>

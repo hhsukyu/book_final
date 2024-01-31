@@ -11,10 +11,12 @@ window.onload = function () {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function userme() {
   const storetab = document.getElementById('storetab');
 
-  const userimage = document.getElementById('formFile');
+  const userimage = document.getElementById('profileImage');
   const useraddress = document.getElementById('addressSearch');
 
   axios
@@ -27,22 +29,158 @@ function userme() {
       console.log(response);
       user = response.data;
 
+      userimage.src = user.photo;
+      useraddress.value = user.myPage.address;
+      console.log(user.photo);
+
       if (user.role === 0) {
         storetab.style.display = 'none';
-      } else if (user.role === 1) {
-      }
-
-      if (user.mypage == null) {
-        console.log('test');
-      } else {
-        userimage.defaultValue = user.photo;
-        useraddress.value = user.address;
       }
     })
     .catch(function (error) {
       console.log(error);
     });
 }
+
+//마이페이지 수정 및 저장
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function myprofilebtn(event) {
+  event.preventDefault();
+  const profileimgInput = document.getElementById('profileimg');
+  const addressInput = document.getElementById('addressSearch');
+
+  const profileimgFile = profileimgInput.files[0];
+  const address = addressInput.value;
+
+  const formData = new FormData();
+  formData.append('file', profileimgFile);
+
+  if (!profileimgFile) {
+    console.log('넘어가기');
+  } else {
+    axios
+      .put('/user/profileimg', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then(function () {
+        // 성공적으로 이미지를 서버로 전송한 후의 처리
+
+        console.log('이미지 저장 성공');
+      })
+      .catch(function (error) {
+        // 에러 처리
+        console.log(error);
+      });
+  }
+
+  if (address !== '') {
+    axios
+      .put(
+        '/mypage/address',
+        {
+          address: address,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        },
+      )
+      .then(function () {
+        console.log('주소 저장 성공');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  } else {
+    console.log('넘어가기');
+  }
+}
+
+//지점 신규 등록
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function storebtn(event) {
+  event.preventDefault();
+
+  const storeimgInput = document.getElementById('createstoreimg');
+  const storeimgFile = storeimgInput.files[0];
+
+  const formData = new FormData();
+  formData.append('store_name', document.getElementById('storename').value);
+  formData.append('store_desc', document.getElementById('storedesc').value);
+  formData.append('file', storeimgFile);
+  formData.append(
+    'store_address',
+    document.getElementById('createstoreaddress').value +
+      document.getElementById('storedetailaddress').value,
+  );
+  formData.append('store_open', document.getElementById('opening-time').value);
+  formData.append('store_close', document.getElementById('closing-time').value);
+
+  axios
+    .post('/store', formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function () {
+      alert('지점이 등록되었습니다.');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+//store 처음 저장
+
+const storelist = document.getElementById('mypagestores');
+const menulist = document.getElementById('menulist');
+
+//지점 정보 가져오는 부분
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function storeinfo() {
+  storelist.innerHTML = '';
+
+  axios
+    .get('/user/me', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function (response) {
+      console.log(response);
+      user = response.data;
+      let checkstore = user.stores;
+      console.log(checkstore);
+      if (checkstore.length !== 0) {
+        axios
+          .get('/store/mystore', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+          .then(function (response) {
+            console.log(response.data);
+            const storeinfos = response.data;
+            storeinfos.forEach((store) => {
+              addstorelist(store);
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        console.log('등록된 지점이 없습니다.');
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
 
 //마이페이지 수정 및 저장
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -271,7 +409,9 @@ function updatestore(event) {
     document.getElementById('upstoreaddress').value +
       document.getElementById('upstoredetailaddress').value,
   );
+
   formData.append('place', [0, 0]); // 추후 네이버 좌표변환 API 적용
+
   formData.append(
     'store_open',
     document.getElementById('upopening-time').value,
@@ -310,6 +450,15 @@ function searchAddress() {
   new daum.Postcode({
     oncomplete: function (data) {
       document.getElementById('addressSearch').value = data.roadAddress;
+    },
+  }).open();
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function createstoreAddress() {
+  new daum.Postcode({
+    oncomplete: function (data) {
+      document.getElementById('createstoreaddress').value = data.roadAddress;
     },
   }).open();
 }

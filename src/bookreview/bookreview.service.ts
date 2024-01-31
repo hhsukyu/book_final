@@ -44,6 +44,10 @@ export class BookReviewService {
       user: user,
       book: book,
     });
+
+    // 리뷰 갯수 업데이트
+    await this.bookRepository.increment({ id: book_id }, 'reviewCount', 1);
+
     console.log('bookReview', bookReview);
     return bookReview;
   }
@@ -55,6 +59,7 @@ export class BookReviewService {
       where: { book: { id: book_id } },
     });
     console.log('bookreviews', bookreviews);
+    console.log('bookreviews length:', bookreviews.length);
     return bookreviews;
   }
 
@@ -112,6 +117,8 @@ export class BookReviewService {
       throw new UnauthorizedException('당신이 쓴글이 아닙니다!!!!');
 
     await this.bookReviewRepository.delete({ id: reviewId });
+
+    await this.bookRepository.increment({ id: book_id }, 'reviewCount', -1);
 
     return { message: '북리뷰 정보가 삭제되었습니다.', bookreview };
   }

@@ -10,6 +10,7 @@ import { MenuService } from '../menu/menu.service';
 import { Menu } from '../entity/menu.entity';
 import { MyPage } from 'src/entity/my-page.entity';
 import { MyPageModule } from 'src/my-page/my-page.module';
+import { MyPageService } from 'src/my-page/my-page.service';
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { MyPageModule } from 'src/my-page/my-page.module';
   ],
   exports: [UserService, MenuService],
   controllers: [UserController],
-  providers: [UserService, MenuService],
+  providers: [UserService, MenuService, MyPageService],
 })
 export class UserModule {}
