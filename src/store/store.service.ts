@@ -108,6 +108,7 @@ export class StoreService {
     );
 
     //주소가 수정되었을 경우에만 실행
+    console.log(place);
     if (place[0] != 0 && place[1] != 0) {
       const newPlace = this.storeRepository
         .createQueryBuilder()
