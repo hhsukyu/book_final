@@ -1,4 +1,6 @@
-// const apiUrl = 'http://localhost:3000';
+function openFindingPWModal() {
+  $('#myModal').modal('show');
+}
 
 function sendEmail() {
   const email = document.getElementById('resetEmail').value;
