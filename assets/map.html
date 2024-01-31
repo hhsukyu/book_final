@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style></style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- card slide css -->
+    <link rel="stylesheet" href="./css/card-slide.css" />
+    <!-- MenuBar css -->
+    <link rel="stylesheet" href="./css/menubar.css" />
+    <!-- main css -->
+    <link rel="stylesheet" href="./css/main.css" />
+    <!-- introduce css -->
+    <link rel="stylesheet" href="./css/introduce.css" />
+
+    <!-- axios.js -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>BOOKSURFING Map Page</title>
+  </head>
+  <body>
+    <!-- logo & 헤더 부분 -->
+    <header class="py-3 mb-3">
+      <div class="container">
+        <div class="row">
+          <div class="col text-center logo-container">
+            <img
+              src="./url/image.png"
+              id="logo"
+              onclick="window.location.href='index.html'"
+            />
+          </div>
+        </div>
+      </div>
+      <div id="header"></div>
+    </header>
+    <div class="row">
+      <div class="col-8">
+        <main>
+          <div
+            class="row bookboard mt-4"
+            id="map-container"
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              margin-left: 13.3%;
+              margin-right: 13.3%;
+            "
+          >
+            <div
+              id="map"
+              style="
+                width: 100%;
+                height: 100%;
+                position: relative;
+                overflow: hidden;
+                background: rgb(248, 249, 250);
+              "
+              tabindex="0"
+            ></div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1oqqcytosu"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- index js파일 -->
+    <script src="./js/map.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/login.js"></script>
+  </body>
+</html>
