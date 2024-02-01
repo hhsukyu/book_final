@@ -349,7 +349,7 @@
                     <img id="storeImage" src="" alt="스토어 이미지" />
                   </div>
                   <div class="mb-3">
-                    <input class="form-control" type="file" id="storeimg" />
+                    <input class="form-control" type="file" id="upstoreimg" />
                   </div>
                   <label for="store-desc" class="form-label">지점 설명</label>
                   <div class="mb-3">
@@ -373,7 +373,7 @@
                       class="btn btn-outline-secondary"
                       type="button"
                       id="button-addon2"
-                      onclick="searchAddress()"
+                      onclick="updatestoreAddress()"
                     >
                       찾기
                     </button>
@@ -381,7 +381,7 @@
                   <div class="mb-3">
                     <input
                       class="form-control"
-                      id="upstoredetailaddress"
+                      id="updatestoreaddress2"
                       placeholder="상세 주소를 입력해주세요."
                     />
                   </div>
@@ -405,7 +405,7 @@
                   <div class="update-container">
                     <div class="col-md-4 mb-3 updatebtn">
                       <button
-                        onclick="updatestore(event)"
+                        onclick="updatestorebtn(event)"
                         class="btn-hover color-8"
                       >
                         수정 완료
@@ -428,7 +428,7 @@
                     <h4 class="mt-4 title-mypage">메뉴 정보</h4>
                   </div>
                   <button
-                    class="btn btn-primary"
+                    class="btn"
                     data-bs-target="#addmenumodaltoggle"
                     data-bs-toggle="modal"
                   >
@@ -450,7 +450,7 @@
                 <div class="book-flex">
                   <h1>스토어 책 부분</h1>
                   <button
-                    class="btn btn-primary"
+                    class="btn"
                     data-bs-target="#addbookmodaltoggle"
                     data-bs-toggle="modal"
                   >
@@ -897,6 +897,10 @@
     <!-- </main> -->
 
     <!-- 지도 api -->
+    <script
+      type="text/javascript"
+      src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1oqqcytosu&submodules=geocoder"
+    ></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- Popper.js 스크립트 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
