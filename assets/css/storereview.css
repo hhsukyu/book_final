@@ -339,11 +339,11 @@ ul#pages > li {
   padding: 20px 30px;
 }
 
-.review-box-container .star-widget input {
+.review-box-container .star-widget1 input {
   display: none;
 }
 
-.star-widget label {
+.star-widget1 label {
   font-size: 40px;
   color: #444;
   padding: 10px;
@@ -360,7 +360,7 @@ input:checked ~ label {
   color: #fd4;
 }
 
-input#rate-5:checked ~ label {
+input#storerate-5:checked ~ label {
   color: #fe7;
   text-shadow: 0 0 20px #952;
 }
@@ -484,3 +484,28 @@ ul#genrepages > li {
 #genreoutput > .col-3 > .col > .card > .card-img-top {
   height: 450px;
 }
+
+/*-----------*/
+/* #storecardImage {
+    justify-content: center; 
+    align-items: center; 
+  }
+  
+  .storeReviewCardRow {
+    display: flex;
+    align-items: center;
+  
+    flex-wrap: wrap;
+    justify-content: space-between;
+  } */
+/* .admin-review {
+  margin-left: 50px;
+}
+#storereviewlist {
+  margin-left: 20px;
+  --bs-gutter-x: -1.5rem;
+} */
+/* #storereviewlist {
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+  } */
