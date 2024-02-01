@@ -183,7 +183,11 @@ export class BookService {
   }
 
   // 도서 생성 CSV
-  async createBookByCsv(file: Express.Multer.File, userid: number) {
+  async createBookByCsv(
+    file: Express.Multer.File,
+    userid: number,
+    storeid: number,
+  ) {
     const user = await this.userService.findUserById(userid);
     if (user.role === 0) {
       throw new BadRequestException('지점 사장만 도서 생성이 가능합니다.');
@@ -205,7 +209,15 @@ export class BookService {
     }
 
     const booksData = parseResult.data as any[];
-    const keywordGenre = ['액션', '무협', '코믹', '드라마', '순정', '판타지'];
+    const keywordGenre = [
+      '액션',
+      '무협',
+      '코믹',
+      '드라마',
+      '순정',
+      '판타지',
+      '미상',
+    ];
     const keywordFnshYn = ['Y', 'N'];
 
     // 조건에 일치하는 값만 가져오기
@@ -242,29 +254,103 @@ export class BookService {
           'CSV 파일에 입력되지 않은 컬럼이 있거나 중복된 title이 존재합니다.',
         );
       }
+    }
 
-      // 책 제목 중복확인
-      const existingBook = await this.bookRepository.findOne({
-        where: { title: bookData.tile },
+    // book repsoitory에서 모두 찾기
+    const existingBook = await this.bookRepository.find();
+
+    // book repository에서 title만 가져오기
+    const filterTitle = existingBook.map((book) => book.title);
+
+    // book repository에서 title 중복 데이터 빼고 가져오기
+    const uniqueBooks = filterBooksData.filter(
+      (book) => !filterTitle.includes(book.title),
+    );
+
+    // store book repository에서 모두 찾기
+    const filterStoreBook = await this.storeBookRepository.find({
+      where: { store_id: storeid },
+      relations: { book: true },
+    });
+
+    // store book repository에서 title만 가져오기
+    const filterStoreBookTitle = filterStoreBook.map((book) => book.book.title);
+
+    // storebook repository에서 title 중복 데이터 빼고 가져오기
+    const uniqueStoreBooks = filterBooksData.filter(
+      (book) => !filterStoreBookTitle.includes(book.title),
+    );
+
+    if (uniqueStoreBooks.length === 0) {
+      throw new BadRequestException('이미 등록된 데이터입니다.');
+    }
+
+    const userStore = await this.userService.findUserByIdWithStore(userid);
+    if (userStore.stores.every((s) => s.id !== storeid)) {
+      throw new BadRequestException('본인 보유하신 지점인지 확인해주세요.');
+    }
+
+    // storeBooks 데이터로 book 찾기
+    for (const uniqueStoreBook of uniqueStoreBooks) {
+      const findBooks = await this.bookRepository.find({
+        where: {
+          title: uniqueStoreBook.title,
+          book_desc: uniqueStoreBook.book_desc,
+          writer: uniqueStoreBook.writer,
+          illustrator: uniqueStoreBook.illustrator,
+          publisher: uniqueStoreBook.publisher,
+          publication_date: uniqueStoreBook.publication_date,
+          isbn: uniqueStoreBook.isbn,
+          genre: uniqueStoreBook.genre,
+          setisbn: uniqueStoreBook.setisbn,
+          fnshYn: uniqueStoreBook.fnshYn,
+          book_image: uniqueStoreBook.book_image,
+        },
       });
-      if (existingBook) {
-        throw new ConflictException('이미 존재하는 도서입니다.');
+
+      const findBooksIdAndSetisbn = findBooks.map((book) => ({
+        id: book.id,
+        setisbn: book.setisbn,
+      }));
+
+      for (const book of findBooksIdAndSetisbn) {
+        const storeBooks = await this.storeBookRepository.save({
+          store_id: storeid,
+          book_id: book.id,
+          setisbn: book.setisbn,
+        });
       }
     }
 
-    const createBookDtos = filterBooksData.map((bookData) => ({
+    const createBookDtos = uniqueBooks.map((bookData) => ({
       title: bookData.title,
       book_desc: bookData.book_desc,
       writer: bookData.writer,
       illustrator: bookData.illustrator,
       publisher: bookData.publisher,
       publication_date: bookData.publication_date,
+      isbn: bookData.isbn,
       genre: bookData.genre,
+      setisbn: bookData.setisbn,
       fnshYn: bookData.fnshYn,
       book_image: bookData.book_image,
     }));
 
     const books = await this.bookRepository.save(createBookDtos);
-    return books;
+
+    const booksIdAndSetisbn = books.map((book) => ({
+      id: book.id,
+      setisbn: book.setisbn,
+    }));
+
+    for (const book of booksIdAndSetisbn) {
+      const storeBooks = await this.storeBookRepository.save({
+        store_id: storeid,
+        book_id: book.id,
+        setisbn: book.setisbn,
+      });
+    }
+
+    return { message: 'OK' };
   }
 }

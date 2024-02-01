@@ -130,12 +130,13 @@ export class BookController {
       },
     },
   })
-  @Post('/file')
+  @Post('/file/:storeid')
   @UseInterceptors(FileInterceptor('file'))
   async createBookByCsv(
     @UploadedFile() file: Express.Multer.File,
     @UserId() userid: number,
+    @Param('storeid') storeid: number,
   ) {
-    return await this.bookService.createBookByCsv(file, userid);
+    return await this.bookService.createBookByCsv(file, userid, storeid);
   }
 }

@@ -321,6 +321,8 @@ form .reviewbtn button {
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  margin-left: 40%; /*추가작성*/
+  margin-bottom: 5%; /*추가작성*/
 }
 
 #storeImage {
