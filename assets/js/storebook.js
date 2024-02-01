@@ -60,6 +60,20 @@ function storebookdelete(bookid) {
 }
 
 //csv 등록 부분
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function csvfile(event) {
   event.preventDefault();
+
+  axios
+    .post(`/file/${checkstoreid}`, formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function () {
+      alert('csv 저장 성공');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
