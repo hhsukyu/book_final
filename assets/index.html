@@ -427,14 +427,14 @@
                 <div class="container bookboard">
                   <div class="store-info">
                     <!-- 지점 이미지 -->
-
-                    <img
-                      src=""
-                      id="storecardImage"
-                      class="img-fluid"
-                      alt="Store Cover"
-                    />
-
+                    <div id="storedetailimg">
+                      <img
+                        src=""
+                        id="storecardImage"
+                        class="img-fluid"
+                        alt="Store Cover"
+                      />
+                    </div>
                     <!-- 지점 정보 -->
                     <div class="book-details mt-3">
                       <h3 id="modalcardStorename">지점명</h3>
@@ -470,7 +470,7 @@
                     </div>
                   </div>
                   <div class="bookboard">
-                    <div id="menulist"></div>
+                    <div id="storemenulist"></div>
                   </div>
                 </div>
                 <div
@@ -485,7 +485,7 @@
                     <h1>지점 소장도서</h1>
                   </div>
                   <div class="bookboard">
-                    <div id="booklist"></div>
+                    <div id="storebooklist"></div>
                   </div>
                 </div>
               </div>
@@ -511,10 +511,7 @@
                         </div>
                       </div>
 
-                      <div
-                        id="storereviewlist"
-                        class="row px-3 pt-2 storefinalcontain"
-                      >
+                      <div id="storereviewlist" class="row px-3 pt-2">
                         <div id="storereviewcardbox" class="reviewcardbox">
                           <!-- 리뷰 내용 부분 -->
                         </div>

@@ -27,3 +27,8 @@
 #storereviewlist {
   margin-left: -15px;
 }
+
+#storedetailimg {
+  display: flex;
+  justify-content: center;
+}

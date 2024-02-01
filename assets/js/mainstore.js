@@ -112,6 +112,8 @@ function storecarddetail(storeid) {
     .then(function (response) {
       console.log('response.data', response.data);
       storereview(storeid);
+      menuinfo(storeid);
+      bookinfo(storeid);
       const store = response.data[0];
       console.log('store', store);
 
@@ -312,8 +314,11 @@ function findAdminReviewsByReview(storeid, storeReviewid) {
     });
 }
 
+const storebookinfo = document.getElementById('storebooklist');
+
 //지점소장도서 정보
 function bookinfo(storeid) {
+  storebookinfo.innerHTML = '';
   axios
     .get(`storebook/${storeid}`)
     .then(function (response) {
@@ -329,11 +334,11 @@ function bookinfo(storeid) {
       console.log(error);
     });
 }
-const books = document.getElementById('booklist');
+
 function booklist(book) {
   const bookinfo = book.book;
   console.log(book);
-  books.innerHTML += `
+  storebookinfo.innerHTML += `
   <div id="booklistcard" class="card mb-3" >
     <div class="row g-0">
       <div class="col-md-4">
@@ -341,7 +346,6 @@ function booklist(book) {
       </div>
       <div class="col-md-8">
         <div class="card-body">
-        <i class="fa fa-xing" onclick="storebookdelete(${book.id})">삭제</i>
         <div>
           <h5 class="card-title">${bookinfo.title}</h5>
         </div>  
@@ -358,6 +362,7 @@ function booklist(book) {
 //메뉴 불러오기
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function menuinfo(storeid) {
+  storemenuinfo.innerHTML = '';
   console.log(storeid);
   axios
     .get('/menu/storeid/' + storeid)
@@ -375,6 +380,7 @@ function menuinfo(storeid) {
     });
 }
 
+const storemenuinfo = document.getElementById('storemenulist');
 //메뉴 화면에 출력
 function menulists(menu) {
   let img = `${menu.food_img}`;
@@ -384,7 +390,7 @@ function menulists(menu) {
       'http://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
   }
 
-  menulist.innerHTML += `
+  storemenuinfo.innerHTML += `
   <div id="menulistcard" class="card mb-3" >
     <div class="row g-0">
       <div class="col-md-4">
@@ -396,7 +402,6 @@ function menulists(menu) {
           <p class="card-text">${menu.food_desc}</p>
           <div id="menucardbtn">
           <p class="card-text"><small class="text-body-secondary">${menu.food_price}</small></p>
-          <button onclick="updatemenumodal(event, ${menu.id})" class="btn" data-bs-target="#updatemenumodal" data-bs-toggle="modal">수정하기</button>
           </div>  
           </div>
       </div>
