@@ -67,6 +67,7 @@ window.onload = function () {
 
   // load the map by default
   if (!token) {
+    storeSearch({ x: 127.0280285, y: 37.4986253 });
     return;
   }
 
@@ -92,18 +93,26 @@ window.onload = function () {
   function onReq(address) {
     addressToCoordinate(address, (point) => {
       map.setCenter(point);
+      storeSearch(point);
     });
   }
 };
 
-async function storeSearch(location) {
-  axios.get(`/map/${location}`, {}).then(async function (response) {
-    const stores = response.data;
-    let marker = new naver.maps.Marker({});
-    stores.forEach((element) => {
-      element.place;
+function storeSearch(location) {
+  axios
+    .get('/map', { location })
+    .then(function (response) {
+      const stores = response.data;
+      console.log(stores);
+      let latlngs = [];
+      stores.forEach((element) => {
+        console.log(element.place);
+        latlngs.push(element.place);
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-  });
 }
 
 async function searchResult() {
