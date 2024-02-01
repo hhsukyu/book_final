@@ -1,6 +1,6 @@
 // 매장 정보를 가져와서 표시하는 함수
 function loadStores() {
-  console.log('로드 스토어 실행됨!!!!!!!!!!!!');
+  console.log('로드 스토어 실행됨!!');
   const storeContainer = document.querySelector('.album-store');
   storeContainer.innerHTML = ''; // 기존 내용을 비웁니다.
   axios
@@ -9,7 +9,7 @@ function loadStores() {
       const stores = response.data;
       stores.forEach((store) => {
         const storeElement = `
-          <div class="album-item">
+          <div class="album-item"onclick="storecarddetail(${store.id})">
             <img src="${store.store_img || '기본 이미지 경로'}" alt="${store.store_name}" />
             <div class="album-details">
               <span class="album-title">${store.store_name}</span>
@@ -44,9 +44,10 @@ function storecarddetail(storeid) {
   axios
     .get('/store/' + storeid)
     .then(function (response) {
-      console.log(response.data);
+      console.log('response.data', response.data);
       storereview(storeid);
-      const book = response.data;
+      const store = response.data[0];
+      console.log('store', store);
 
       storelabel.innerHTML = store.store_name;
       bodyname.innerHTML = store.store_name;
