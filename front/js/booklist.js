@@ -1,5 +1,5 @@
 // 서버 주소 (백엔드 API 주소로 수정 필요)
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'http://43.203.75.81:3000/';
 
 // 특정 storeid에 해당하는 도서 목록 가져오기
 function getBooksForStore(storeid) {
