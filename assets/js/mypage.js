@@ -355,25 +355,6 @@ async function updatestorebtn(event) {
   const openingtimeInput = document.getElementById('upopening-time');
   const closingtimeInput = document.getElementById('upclosing-time');
 
-  const formData = new FormData();
-  formData.append('store_name', document.getElementById('upstorename').value);
-  formData.append('store_desc', document.getElementById('upstoredesc').value);
-
-  formData.append('file', storeimgFile);
-  formData.append(
-    'store_address',
-    document.getElementById('upstoreaddress').value +
-      document.getElementById('upstoredetailaddress').value,
-  );
-  formData.append('place', [0, 0]); // 추후 네이버 좌표변환 API 적용
-  formData.append(
-    'store_open',
-    document.getElementById('upopening-time').value,
-  );
-  formData.append(
-    'store_close',
-    document.getElementById('upclosing-time').value,
-  );
   console.log(createstoreaddressInput2, storedetailaddressInput2);
 
   const resultaddress =
