@@ -22,6 +22,7 @@ import { EmailService } from 'src/configs/mailer/email.service';
 
 import { Book } from '../entity/book.entity';
 import { MyPage } from 'src/entity/my-page.entity';
+import { MyPageService } from 'src/my-page/my-page.service';
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { MyPage } from 'src/entity/my-page.entity';
     KakaoAdminStrategy,
     KakaoAuthGuard,
     EmailService,
+    MyPageService,
   ],
 })
 export class AuthModule {}
