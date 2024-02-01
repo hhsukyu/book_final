@@ -91,18 +91,26 @@ window.onload = function () {
 
   function onReq(address) {
     addressToCoordinate(address, (point) => {
-      console.log(point);
       map.setCenter(point);
     });
   }
 };
+
+async function storeSearch(location) {
+  axios.get(`/map/${location}`, {}).then(async function (response) {
+    const stores = response.data;
+    let marker = new naver.maps.Marker({});
+    stores.forEach((element) => {
+      element.place;
+    });
+  });
+}
 
 async function searchResult() {
   axios
     .get('/store', {})
     .then(async function (response) {
       const stores = response.data;
-      console.log(stores);
       const pages = numPages(stores);
 
       changePage(1); // set default page
@@ -122,9 +130,9 @@ async function searchResult() {
           <div onclick="carddetail(${card.id})" class="col-3 mb-3">
             <div class="col">
               <div class="card">
-                <img src="${card.book_image}" class="card-img-top" alt="...">
+                <img src="${card.store_image}" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">${card.title}</h5>
+                  <h5 class="card-title">${card.store_name}</h5>
                 </div>
               </div>
             </div>
@@ -187,12 +195,6 @@ async function searchResult() {
       console.log(error);
     });
 }
-
-// 주소 좌표로 변환
-// let map = new naver.maps.Map(mapDiv, {
-//   center: new naver.maps.LatLng(37.4986253, 127.0280285),
-//   zoom: 16,
-// });
 
 function introduce() {
   if (navigator.geolocation) {
