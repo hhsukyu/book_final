@@ -464,6 +464,9 @@
               >
                 <!-- 사장님 리뷰 부분 -->
                 <h1>사장님 리뷰 부분</h1>
+                <div class="bookboard">
+                  <div id="ownerreviewlist"></div>
+                </div>
               </div>
             </div>
             <!-- 탭 바디 부분 -->
@@ -604,10 +607,14 @@
           <div class="modal-body">
             <label for="store-picture" class="form-label">책 파일</label>
             <div class="mb-3">
-              <input class="form-control" type="file" id="formFile" />
+              <input class="form-control" type="file" id="csvfile" />
             </div>
           </div>
           <div class="modal-footer">
+            <button class="btn btn-dark" onclick="csvfile(event)">
+              저장하기
+            </button>
+
             <button
               class="btn btn-dark"
               data-bs-target="#updatestoremodal"
@@ -756,6 +763,95 @@
         </div>
       </div>
     </div>
+
+    <!-- 관리자 댓글 달기 모달 -->
+    <div
+      class="modal fade"
+      id="addownerreviewmodal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      aria-hidden="true"
+      aria-labelledby="addownerreviewmodal"
+      tabindex="-1"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addownerreviewmodal">
+              리뷰 댓글달기
+            </h1>
+          </div>
+          <div class="modal-body">
+            <label for="menu-desc" class="form-label">사장님 댓글</label>
+            <div class="mb-3">
+              <input
+                class="form-control"
+                id="ownerreview"
+                placeholder="댓글을 작성해주세요."
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-dark"
+              data-bs-target="#updatestoremodal"
+              data-bs-toggle="modal"
+            >
+              돌아가기
+            </button>
+            <button class="btn btn-dark" onclick="submitadminreview(event)">
+              답글달기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 관리자 댓글 수정 모달 -->
+    <div
+      class="modal fade"
+      id="updateownerreviewmodal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      aria-hidden="true"
+      aria-labelledby="updateownerreviewmodal"
+      tabindex="-1"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="updateownerreviewmodal">
+              리뷰 댓글수정
+            </h1>
+          </div>
+          <div class="modal-body">
+            <label for="menu-desc" class="form-label">사장님 댓글</label>
+            <div class="mb-3">
+              <input
+                class="form-control"
+                id="upownerreview"
+                placeholder="댓글을 작성해주세요."
+                value=""
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-dark"
+              data-bs-target="#updatestoremodal"
+              data-bs-toggle="modal"
+            >
+              돌아가기
+            </button>
+            <button class="btn btn-dark" onclick="updateadminreview(event)">
+              답글수정
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 관리자 댓글 수정 부분 -->
+
     <!-- </main> -->
 
     <!-- 지도 api -->
@@ -775,5 +871,6 @@
     <script src="./js/index.js"></script>
     <script src="./js/mypagemenu.js"></script>
     <script src="./js/storebook.js"></script>
+    <script src="./js/ownerreview.js"></script>
   </body>
 </html>

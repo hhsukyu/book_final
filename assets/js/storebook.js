@@ -42,6 +42,7 @@ function booklist(book) {
 }
 
 //store 보유 도서 삭제
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function storebookdelete(bookid) {
   console.log(checkstoreid, bookid);
   axios
@@ -56,4 +57,9 @@ function storebookdelete(bookid) {
     .catch(function (error) {
       console.log(error);
     });
+}
+
+//csv 등록 부분
+function csvfile(event) {
+  event.preventDefault();
 }

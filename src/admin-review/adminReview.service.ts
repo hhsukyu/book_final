@@ -34,9 +34,9 @@ export class AdminReviewService {
     const adminReview = await this.adminReviewRepository.find({
       where: { storeId, storeReviewId },
     });
-    if (adminReview.length === 0) {
-      throw new BadRequestException('리뷰에 대한 답글이 존재하지 않습니다.');
-    }
+    // if (adminReview.length === 0) {
+    //   throw new BadRequestException('리뷰에 대한 답글이 존재하지 않습니다.');
+    // }
     return adminReview;
   }
 
