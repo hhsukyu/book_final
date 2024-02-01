@@ -83,6 +83,7 @@ async function username(userid) {
 
 let admincontentstoreid;
 let admincontentreviewid;
+let adminreviewid;
 //사장님 댓글 나기는 부분
 function openowner(reviewid, storeid) {
   admincontentstoreid = storeid;
@@ -113,6 +114,8 @@ function submitadminreview(event) {
 
 function updateadminreview(event) {
   event.preventDefault();
+  console.log(adminreviewid, admincontentstoreid, admincontentreviewid);
+  // @Put(`reviews/${admincontentstoreid}/${admincontentreviewid}/adminReview/`)
 }
 const admincontent = document.getElementById('upownerreview');
 function updatecommentinfo(reviewid, storeid) {
@@ -121,9 +124,11 @@ function updatecommentinfo(reviewid, storeid) {
     .get(`reviews/${storeid}/${reviewid}/adminReview`)
     .then(function (response) {
       const adminreviewcontent = response.data[0];
+      console.log(adminreviewcontent);
+      adminreviewid = adminreviewcontent.id;
       admincontent.value = adminreviewcontent.content;
     })
-    .then(function (error) {
+    .catch(function (error) {
       console.log(error);
     });
 }
