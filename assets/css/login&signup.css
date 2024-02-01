@@ -1,0 +1,249 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.hero {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 4));
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+}
+
+.form-box {
+  width: 380px;
+  height: 420px;
+  position: relative;
+  margin: 6% auto;
+  background: #fff;
+  padding: 5px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#logo-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#logo-img img {
+  margin-top: 60px;
+}
+
+.button-box {
+  width: 220px;
+  margin: 35px auto;
+  position: relative;
+  box-shadow: 0 0 20px 9px #ff20641f;
+  border-radius: 30px;
+}
+
+.toggle-btn {
+  padding: 10px 30px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  outline: none;
+  position: relative;
+}
+
+#btn {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 110px;
+  height: 100%;
+  background: linear-gradient(to right, rgb(234, 153, 215), #95eaf0);
+  border-radius: 30px;
+  transition: 0.5s;
+}
+
+.social-icons {
+  margin: 30px auto;
+  text-align: center;
+}
+
+.social-icons img {
+  width: 30px;
+  margin: 0 12px;
+  box-shadow: 0 0 20px 0 #7f7f7f3d;
+  cursor: pointer;
+  border-radius: 5%;
+}
+
+.input-class {
+  top: 180px;
+  position: absolute;
+  width: 280px;
+  transition: 0.5s;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 0;
+  margin: 5px 0;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 1px solid #999;
+  outline: none;
+  background: transparent;
+}
+
+.submit-btn {
+  width: 85%;
+  padding: 10px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background: linear-gradient(to right, rgb(234, 153, 215), #95eaf0);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+}
+
+.chech-box {
+  margin: 30px 10px 30px 0;
+}
+
+.loginSpan {
+  color: #777;
+  font-size: 12px;
+  bottom: 68px;
+  position: absolute;
+}
+
+#loginForm {
+  left: 50px;
+}
+
+#signupForm {
+  left: 450px;
+}
+
+/* ----------------logo ------------- */
+
+@font-face {
+  font-family: 'LINESeedKR-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2')
+    format('woff2');
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'LINESeedKR-Bd';
+  font-weight: 700;
+}
+
+p {
+  font-family: 'LINESeedKR';
+  font-weight: 400;
+}
+
+body {
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 4));
+  height: 100vh;
+  margin: 0 auto;
+  width: 100vw;
+}
+
+.bookboard {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px; /* Adjust margin as needed */
+}
+.logo-container {
+  margin-top: 12%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* ----------------findingpassword ------------- */
+
+/*----버튼*-----*/
+
+.btn-hover {
+  width: 150px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 40px;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  margin-bottom: 10px;
+}
+
+.btn-hover:hover {
+  background-position: 100% 0;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.btn-hover:focus {
+  outline: none;
+}
+.btn-hover.color-8 {
+  background-image: linear-gradient(to right, rgb(234, 153, 215), #95eaf0);
+}
+
+a {
+  display: block;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  color: #47c7ff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(234, 153, 215);
+}
+
+/* 모달 헤더 스타일 */
+
+.modal-header {
+  border-bottom: 2px solid gainsboro !important;
+}
+/* 모달 타이틀 스타일 */
+.modal-title {
+  color: #333; /* 모달 타이틀의 글자 색상을 설정합니다. */
+  font-size: 24px; /* 모달 타이틀의 글자 크기를 설정합니다. */
+}
+
+/* 모달 바디 스타일 */
+.modal-body {
+  padding: 20px; /* 모달 바디의 여백을 설정합니다. */
+
+  /* background-color: #f8f9fa; */
+}
+.modalBtn {
+  text-align: center;
+  justify-content: center;
+}
+
+/* 이메일 입력 필드 크기 조절 */
+.form-control {
+  width: 30%; /* 입력 필드가 부모 요소의 100%를 차지하도록 설정합니다. */
+  padding: 10px; /* 위아래 패딩을 늘려서 높이를 조절합니다. */
+  font-size: 16px; /* 폰트 크기를 조절합니다. */
+  border-radius: 10px; /* 모서리를 둥글게 설정합니다. */
+  border: 2px solid gainsboro; /* 테두리 선을 화이트로 설정합니다. */
+}
+.passwordSettingModal {
+  background-color: #ffffff;
+}

@@ -1,0 +1,369 @@
+@font-face {
+  font-family: 'LINESeedKR-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2')
+    format('woff2');
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'LINESeedKR-Bd';
+  font-weight: 700;
+}
+
+p {
+  font-family: 'LINESeedKR';
+  font-weight: 400;
+}
+
+body {
+  background-color: #171717 !important;
+  height: 100vh;
+  margin: 0 auto;
+  width: 100vw;
+}
+
+.bookboard {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px; /* Adjust margin as needed */
+}
+.logo-container {
+  margin-bottom: 60px;
+}
+
+.page-link {
+  background-color: #171717;
+  color: #171717;
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+/*마이페이지*/
+
+.mypage-section {
+  margin-top: 500px;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.buttons {
+  margin: 10%;
+  text-align: center;
+}
+
+.btn-hover {
+  width: 200px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 55px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+
+  border-radius: 50px;
+
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.btn-hover:hover {
+  background-position: 100% 0;
+  moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.btn-hover:focus {
+  outline: none;
+}
+.btn-hover.color-8 {
+  background-image: linear-gradient(to right, #ff269d, #47c7ff);
+  box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+.update-container {
+  margin: 25px;
+  width: 20px;
+  height: 100px;
+  /* 상하좌우 정중앙 정렬하기 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#userinfo {
+  margin-left: 13%;
+  margin-right: 13%;
+}
+
+.addressBtn,
+.btn-hover:hover {
+  background-position: 100% 0;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+.addressBtn,
+.btn-hover:focus {
+  outline: none;
+}
+.btn-hover.color-8,
+.addressBtn {
+  background-image: linear-gradient(to right, #ff269d, #47c7ff);
+}
+.update-container {
+  margin: 25px;
+  width: 20px;
+  height: 100px;
+  /* 상하좌우 정중앙 정렬하기 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addressBtn {
+  width: 100px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 55px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+/* 검색 부분 */
+ul#pages,
+ul#pages li {
+  display: inline-block;
+  padding: 0;
+}
+
+ul#pages > li {
+  margin: 0px 3px;
+}
+
+#output {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px; /* Negative margin to counteract padding on columns */
+}
+
+#output > .col-3 {
+  padding: 15px; /* Padding to create space between columns */
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Optional margin for spacing from other elements */
+}
+
+.pagination a {
+  margin: 0 5px; /* Optional margin for spacing between Prev/Next and page numbers */
+}
+
+.card::before {
+  display: none;
+}
+
+/* 리뷰 부분 css */
+.reviewrow {
+  display: flex;
+  align-items: center;
+}
+
+#reviewicon {
+  margin-left: 58%;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.review-box-container {
+  width: 100%;
+  /* background: #111; */
+  padding: 20px 30px;
+  outline: none;
+  border: 1px solid #444;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reivewcontain {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+}
+
+.review-box-container .star-widget input {
+  display: none;
+}
+
+.star-widget label {
+  font-size: 40px;
+  color: #444;
+  padding: 10px;
+  float: right;
+  transition: all 0.2s ease;
+}
+
+input:not(:checked) ~ label:hover,
+input:not(:checked) ~ label:hover ~ label {
+  color: #fd4;
+}
+
+input:checked ~ label {
+  color: #fd4;
+}
+
+input#rate-5:checked ~ label {
+  color: #fe7;
+  text-shadow: 0 0 20px #952;
+}
+
+form header {
+  width: 100%;
+  font-size: 25px;
+  color: #fe7;
+  font-weight: 500;
+  margin: 5px 20px 0;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+form .reviewtextarea {
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+
+form .reviewtextarea textarea {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  color: #eee;
+  border: 1px solid #333;
+  background: #222;
+  padding: 10px;
+  font-size: 17px;
+  resize: none;
+}
+
+form .reviewbtn {
+  height: 45px;
+  width: 100%;
+  margin: 15px 0;
+}
+
+form .reviewbtn button {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #444;
+  outline: none;
+  background: #222;
+  color: #999;
+  font-size: 17px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/*버튼 드롭박스*/
+
+.book-details {
+  margin-left: 3%;
+}
+
+.btn-group {
+  margin-left: 55%;
+}
+
+#update-dropdown {
+  margin-left: 80px;
+  margin-right: 10px;
+}
+
+#post-book {
+  background-color: #ff269d;
+  border-radius: 10%;
+  border: 1px solid;
+}
+
+/* 프로필 이미지 부분 */
+#profileImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  margin-left: 40%; /*추가작성*/
+  margin-bottom: 5%; /*추가작성*/
+}
+
+#storeImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 15%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+#upmenuimge {
+  width: 150px;
+  height: 150px;
+  border-radius: 15%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* 스토어 부분 디자인 */
+#mypagestores {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#mypagestores > div {
+  width: 49%; /* 요소의 너비를 50%로 설정하여 2개씩 표시합니다. */
+  margin: 2px;
+}
+
+/* 메뉴 부분 */
+#menulist {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#menulist > div {
+  width: 49%; /* 요소의 너비를 50%로 설정하여 2개씩 표시합니다. */
+  margin: 2px;
+}
+
+#menucardbtn {
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,473 @@
+@font-face {
+  font-family: 'LINESeedKR-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2')
+    format('woff2');
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'LINESeedKR-Bd';
+  font-weight: 700;
+}
+
+p {
+  font-family: 'LINESeedKR';
+  font-weight: 400;
+}
+
+body {
+  background-color: #171717 !important;
+  height: 100vh;
+  margin: 0 auto;
+  width: 100vw;
+}
+
+.bookboard {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px; /* Adjust margin as needed */
+}
+.logo-container {
+  margin-bottom: 60px;
+}
+
+.page-link {
+  background-color: #171717;
+  color: #171717;
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#mainCard {
+  border-radius: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#bookcardImage {
+  width: 50%;
+}
+
+.book-info {
+  display: flex;
+  justify-content: center; /* 가로 정렬 방식 설정 */
+  align-items: center; /* 세로 정렬 방식 설정 */
+}
+
+.book-details {
+  margin-left: 5%;
+}
+
+.reviewCardRow {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: auto;
+}
+
+#reviewcard {
+  height: 5%;
+}
+
+.reviewcardbox {
+  width: 50%;
+  box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 15px;
+  cursor: pointer;
+}
+
+.reviewcardbox2 {
+  width: 50%;
+  box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 15px;
+}
+
+.profile-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.profile-box {
+  display: flex;
+  align-items: center;
+}
+
+.name-user {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-user strong {
+  color: #3d3d3d;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.review-box {
+  color: #f9d71c;
+}
+
+.box-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.client-comment p {
+  font-size: 0.9rem;
+  color: #4f4f4f;
+}
+
+.reviewcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.reviewCardRow {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-right: 1.5rem !important;
+  padding-left: 3rem !important;
+}
+
+.genre-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.genre-category {
+  flex: 0 0 calc(25% - 20px);
+  margin: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.genre-category img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.genre-category span {
+  margin-top: 10px;
+  color: #ffffff;
+}
+
+.genre {
+  /* background-color: #ffffff; */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px; /* Adjust margin as needed */
+  margin-left: 13.2%;
+  margin-right: 13.2%;
+}
+
+/**운영매장 css 추가작성*/
+.operating-stores {
+  color: #ffffff;
+  margin-left: 16%;
+}
+
+.stores {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px; /* Adjust margin as needed */
+  margin-left: 13.2%;
+  margin-right: 13.2%;
+}
+
+.album-store {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.album-item {
+  flex: 0 0 calc(25% - 20px);
+  margin: 10px;
+  text-align: center;
+  background-color: #ffffff; /* 이부분 추가함*/
+  border-radius: 30px; /* 이부분 추가함*/
+}
+
+.album-item img {
+  width: 100%;
+  height: 50%; /* 이부분 변경함 auto -> 50%*/
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  margin-bottom: 10px; /* 이부분 추가함*/
+}
+
+.album-details {
+  margin-top: 10px;
+}
+
+.album-title {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px; /* 이부분 추가함*/
+  font-size: large; /* 이부분 추가함*/
+}
+
+.album-intro,
+.album-location {
+  display: block;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .album-item {
+    flex-basis: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .album-item {
+    flex-basis: 100%;
+  }
+}
+
+/* 검색 결과 css */
+/*페이지네이션*/
+ul#pages,
+ul#pages li {
+  display: inline-block;
+  padding: 0;
+}
+
+ul#pages > li {
+  margin: 0px 3px;
+}
+
+#output {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px; /* Negative margin to counteract padding on columns */
+}
+
+#output > .col-3 {
+  padding: 15px; /* Padding to create space between columns */
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Optional margin for spacing from other elements */
+}
+
+.pagination a {
+  margin: 0 5px; /* Optional margin for spacing between Prev/Next and page numbers */
+}
+
+.card::before {
+  display: none;
+}
+
+/* 리뷰 부분 css */
+.reviewrow {
+  display: flex;
+  align-items: center;
+}
+
+#reviewicon {
+  margin-left: 58%;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.review-box-container {
+  width: 100%;
+  /* background: #111; */
+  padding: 20px 30px;
+  outline: none;
+  border: 1px solid #444;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reivewcontain {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+}
+
+.review-box-container .star-widget input {
+  display: none;
+}
+
+.star-widget label {
+  font-size: 40px;
+  color: #444;
+  padding: 10px;
+  float: right;
+  transition: all 0.2s ease;
+}
+
+input:not(:checked) ~ label:hover,
+input:not(:checked) ~ label:hover ~ label {
+  color: #fd4;
+}
+
+input:checked ~ label {
+  color: #fd4;
+}
+
+input#rate-5:checked ~ label {
+  color: #fe7;
+  text-shadow: 0 0 20px #952;
+}
+
+form header {
+  width: 100%;
+  font-size: 25px;
+  color: #fe7;
+  font-weight: 500;
+  margin: 5px 20px 0;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+form .reviewtextarea {
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+
+form .reviewtextarea textarea {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  color: #eee;
+  border: 1px solid #333;
+  background: #222;
+  padding: 10px;
+  font-size: 17px;
+  resize: none;
+}
+
+form .reviewbtn {
+  height: 45px;
+  width: 100%;
+  margin: 15px 0;
+}
+
+form .reviewbtn button {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #444;
+  outline: none;
+  background: #222;
+  color: #999;
+  font-size: 17px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* 장르 페이지네이션 */
+ul#genrepages,
+ul#genrepages li {
+  display: inline-block;
+  padding: 0;
+  cursor: pointer;
+}
+
+ul#genrepages > li {
+  margin: 0px 3px;
+}
+
+#genreoutput {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px; /* Negative margin to counteract padding on columns */
+}
+
+#genreoutput > .col-3 {
+  padding: 15px; /* Padding to create space between columns */
+}
+
+/* 장르 별 카드 */ /* 이부분 추가*/
+#genreoutput > .col-3 > .col > .card {
+  height: 550px;
+}
+
+#genreoutput > .col-3 > .col > .card > .card-img-top {
+  height: 450px;
+}
+
+/* 모달 헤더 스타일 */
+.modal-header {
+  border-bottom: 2px solid gainsboro !important;
+}
+/* 모달 타이틀 스타일 */
+.modal-title {
+  color: #333; /* 모달 타이틀의 글자 색상을 설정합니다. */
+  font-size: 24px; /* 모달 타이틀의 글자 크기를 설정합니다. */
+}
+
+/* 모달 바디 스타일 */
+.modal-body {
+  padding: 20px; /* 모달 바디의 여백을 설정합니다. */
+
+  /* background-color: #f8f9fa; */
+}
+.modalBtn {
+  text-align: center;
+  justify-content: center;
+}
+
+/* 이메일 입력 필드 크기 조절 */
+.form-control {
+  width: 30%; /* 입력 필드가 부모 요소의 100%를 차지하도록 설정합니다. */
+  padding: 10px; /* 위아래 패딩을 늘려서 높이를 조절합니다. */
+  font-size: 16px; /* 폰트 크기를 조절합니다. */
+  border-radius: 10px; /* 모서리를 둥글게 설정합니다. */
+  border: 2px solid gainsboro; /* 테두리 선을 화이트로 설정합니다. */
+}
+.passwordSettingModal {
+  background-color: #ffffff;
+}
+/* 장르 별 카드 */ /* 이부분 추가*/
+#genreoutput > .col-3 > .col > .card {
+  height: 550px;
+}
+
+#genreoutput > .col-3 > .col > .card > .card-img-top {
+  height: 450px;
+}
