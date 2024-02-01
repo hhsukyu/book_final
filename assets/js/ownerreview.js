@@ -26,7 +26,7 @@ async function reviewlist(review, storeid) {
 
   reviews.innerHTML += `
       <div class="bookboard">
-        <button onclick="openowner(${review.id}, ${storeid})" data-bs-target="#addownerreviewmodal" data-bs-toggle="modal" class="btn">답글달기</button>
+        <button id="adminreviewbtn" class="btn" onclick="openowner(${review.id}, ${storeid})" data-bs-target="#addownerreviewmodal" data-bs-toggle="modal">답글달기</button>
         <div class="author">${usernameResult}</div>
         <div class="content">${review.content}</div>
         <!-- 별 부분 -->  
