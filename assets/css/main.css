@@ -484,57 +484,14 @@ ul#genrepages > li {
   flex-wrap: wrap;
   justify-content: space-between;
 } */
-
-#storeModal .storeReviewCardRow {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 20px;
+.admin-review {
+  margin-left: 50px;
 }
-
-#storeModal .store-info {
-  display: flex;
-  align-items: center;
-}
-
-#storecardImage {
-  width: 50%; /* Adjust the width as needed */
-  margin-right: 20px; /* Add margin for spacing */
-}
-
 #storereviewlist {
-  width: calc(50% - 20px); /* Adjust the width as needed */
+  margin-left: 20px;
+  --bs-gutter-x: -1.5rem;
 }
-
-#reviewicon {
-  margin-left: auto; /* Move the review icon to the right */
-}
-
-#addStoreReview {
-  width: 100%;
-  margin-top: 20px; /* Add margin for spacing */
-}
-
-.reivewcontain {
-  width: 100%;
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
-  #storecardImage {
-    width: 100%; /* Full width for smaller screens */
-    margin-right: 0; /* Remove margin for smaller screens */
-    margin-bottom: 20px; /* Add margin at the bottom for spacing */
-  }
-
-  #storereviewlist {
-    width: 100%; /* Full width for smaller screens */
-  }
-}
-#reviewlist {
-  padding-left: 20px; /* Add padding to the left */
-  padding-right: 20px; /* Add padding to the right */
-  width: 100%; /* Set width to 100% */
-  box-sizing: border-box; /* Include padding and border in total width */
-}
+/* #storereviewlist {
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+} */

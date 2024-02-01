@@ -29,6 +29,7 @@ function loadStores() {
 
 //---------------지점자세히 보기---------------------------//
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 function storecarddetail(storeid) {
   const storelabel = document.getElementById('storemodallabel');
   const bodyname = document.getElementById('modalcardStorename');
@@ -64,7 +65,6 @@ function storecarddetail(storeid) {
 }
 const storereviewbox1 = document.getElementById('storereviewlist');
 function storereview(storeid) {
-  findAdminReviewsByReview(1, 1);
   axios
     .get('/reviews/' + storeid, {
       headers: {
@@ -76,8 +76,6 @@ function storereview(storeid) {
       storereviewbox1.innerHTML = '';
       const comments = response.data;
       console.log('comments', comments);
-      console.log('response.data[0]', response.data[0]);
-
       comments.forEach((comment) => {
         storereviewlist(comment);
       });
@@ -105,6 +103,13 @@ async function username(userid) {
 
 async function storereviewlist(comment) {
   const usernameResult = await username(comment.user_id);
+
+  // 리뷰에 대한 답글 조회
+  const adminReviews = await findAdminReviewsByReview(
+    reviewstoreid,
+    comment.id,
+  );
+  console.log('adminReviews', adminReviews);
   storereviewbox1.innerHTML += `
   <div class="box-top">
 <!-- profile-box -->
@@ -126,11 +131,21 @@ async function storereviewlist(comment) {
 
 <!-- comment part -->
 <div class="client-comment">
-<p id="reviewcomment">
+<h6 id="reviewcomment">
   ${comment.content}
-</p>
+</h6>
 </div>
-
+<!-- 리뷰에 대한 답글 표시 -->
+    ${adminReviews
+      .map(
+        (adminReview) => `
+      <div class="admin-review">
+      <p class="admin-comment-heading"><strong>사장님의 댓글:</strong></p>
+        <p>${adminReview.content}</p>
+      </div>
+    `,
+      )
+      .join('')}
 `;
   function reviewstar(rating) {
     let stars = '';
@@ -228,7 +243,7 @@ function findAdminReviewsByReview(storeid, storeReviewid) {
     })
     .catch((error) => {
       console.error('Error fetching Admin Reviews:', error);
-      // 오류 처리 로직 추가
-      throw error; // 더 상세한 오류 처리를 위해 다시 throw
+
+      throw error;
     });
 }
