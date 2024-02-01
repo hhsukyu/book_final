@@ -190,7 +190,7 @@ ul#pages > li {
 }
 
 /* 리뷰 부분 css */
-.reviewrow {
+.storereviewrow {
   display: flex;
   align-items: center;
 }

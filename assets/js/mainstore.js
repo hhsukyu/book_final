@@ -86,9 +86,24 @@ function storereview(storeid) {
     });
 }
 
+//리뷰 부분 유저 이름 확인
+async function username(userid) {
+  try {
+    const response = await axios.get(`/user/mypage/${userid}`);
+    const user = response.data;
+    let result = `
+        <a>${user.nickname}</a>
+      `;
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // 지점 리뷰 등록 버튼 클릭 이벤트
 
-function storereviewlist(comment) {
+async function storereviewlist(comment) {
+  const usernameResult = await username(comment.user_id);
   storereviewbox1.innerHTML += `
   <div class="box-top">
 <!-- profile-box -->
@@ -97,7 +112,7 @@ function storereviewlist(comment) {
   
   <!-- username-Name -->
   <div class="name-user">
-    <strong id="reviewname">${comment.user_id}</strong>
+    <strong id="reviewname">${usernameResult}</strong>
   </div>
 </div>
 
