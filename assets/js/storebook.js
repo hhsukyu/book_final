@@ -63,10 +63,15 @@ function storebookdelete(bookid) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function csvfile(event) {
   event.preventDefault();
+  const csvInput = document.getElementById('csvfile');
+  const csvFile = csvInput.files[0];
 
+  const formData = new FormData();
+  formData.append('file', csvFile);
   axios
-    .post(`/file/${checkstoreid}`, formData, {
+    .post(`/books/file/${checkstoreid}`, formData, {
       headers: {
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     })
