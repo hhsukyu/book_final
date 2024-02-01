@@ -163,17 +163,19 @@
           tabindex="0"
         >
           <div class="store-container">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-toggle="modal"
-              data-target="#addstoremodal"
-              id="store-menu"
-            >
-              지점 등록
-            </button>
-            <div class="col">
-              <h4 class="mt-4 title-store">지점 정보</h4>
+            <div class="store-flex">
+              <div class="col">
+                <h4 class="mt-4 title-store">지점 정보</h4>
+              </div>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-toggle="modal"
+                data-target="#addstoremodal"
+                id="store-menu"
+              >
+                지점 등록
+              </button>
             </div>
             <div class="bookboard">
               <div id="mypagestores"></div>
@@ -421,15 +423,17 @@
                 tabindex="0"
               >
                 <!-- 스토어 메뉴 부분 -->
-                <button
-                  class="btn btn-primary"
-                  data-bs-target="#addmenumodaltoggle"
-                  data-bs-toggle="modal"
-                >
-                  메뉴 등록
-                </button>
-                <div class="col">
-                  <h4 class="mt-4 title-mypage">메뉴 정보</h4>
+                <div class="menu-flex">
+                  <div class="col">
+                    <h4 class="mt-4 title-mypage">메뉴 정보</h4>
+                  </div>
+                  <button
+                    class="btn btn-primary"
+                    data-bs-target="#addmenumodaltoggle"
+                    data-bs-toggle="modal"
+                  >
+                    메뉴 등록
+                  </button>
                 </div>
                 <div class="bookboard">
                   <div id="menulist"></div>
@@ -443,14 +447,16 @@
                 tabindex="0"
               >
                 <!-- 스토어 책 부분 -->
-                <h1>스토어 책 부분</h1>
-                <button
-                  class="btn btn-primary"
-                  data-bs-target="#addbookmodaltoggle"
-                  data-bs-toggle="modal"
-                >
-                  책 등록
-                </button>
+                <div class="book-flex">
+                  <h1>스토어 책 부분</h1>
+                  <button
+                    class="btn btn-primary"
+                    data-bs-target="#addbookmodaltoggle"
+                    data-bs-toggle="modal"
+                  >
+                    책 등록
+                  </button>
+                </div>
                 <div class="bookboard">
                   <div id="booklist"></div>
                 </div>
@@ -563,7 +569,7 @@
                 required
               />
 
-              <div class="update-container">
+              <div class="update-container" id="store-update-container">
                 <div class="col-md-4 mb-3 updatebtn">
                   <button
                     type="button"
@@ -672,7 +678,7 @@
                   placeholder="메뉴 가격을 정해주세요."
                 />
               </div>
-              <div class="update-container">
+              <div class="update-container" id="menu-update-container">
                 <div class="col-md-4 mb-3 updatebtn">
                   <button onclick="addmenu(event)" class="btn-hover color-8">
                     수정 완료
@@ -742,7 +748,7 @@
                   placeholder="메뉴 가격을 정해주세요."
                 />
               </div>
-              <div class="update-container">
+              <div class="update-container" id="menu-update-container">
                 <div class="col-md-4 mb-3 updatebtn">
                   <button onclick="updatemenu(event)" class="btn-hover color-8">
                     수정 완료
