@@ -26,6 +26,15 @@ export class UserService {
     private readonly myPageService: MyPageService,
   ) {}
 
+  //유저 이름 확인
+  async findusername(userid: number) {
+    const user = await this.userRepository.findOne({
+      where: { id: userid },
+      select: ['nickname'],
+    });
+    return user;
+  }
+
   //유저 회원가입
   async create(createUserDto: CreateUserDto) {
     const { email } = createUserDto;

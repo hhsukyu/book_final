@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Put,
   Query,
   UploadedFile,
@@ -27,6 +28,11 @@ export class UserController {
   @Get('email')
   findEmail(@Query('email') email: string) {
     return this.userService.findEmail(email);
+  }
+
+  @Get('mypage/:userid')
+  findusername(@Param('userid') userid: number) {
+    return this.userService.findusername(userid);
   }
 
   @ApiBearerAuth('accessToken')

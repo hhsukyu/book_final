@@ -15,14 +15,14 @@ import { UserId } from '../auth/decorators/userId.decorator';
 import { CreateStoreReviewDto } from './dto/create-store-review.dto';
 import { UpdateStoreReviewDto } from './dto/update-store-review.dto';
 
-@Controller('reviews/:store_id')
+@Controller('reviews')
 export class StoreReviewController {
   constructor(private readonly storeReviewService: StoreReviewService) {}
 
   //리뷰 등록
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
-  @Post('')
+  @Post('/:store_id')
   async createStoreReview(
     @Param('store_id') store_id: number,
     @UserId() user_id: number,
@@ -36,12 +36,12 @@ export class StoreReviewController {
   }
 
   //모든 리뷰 조회
-  @Get('')
+  @Get('/:store_id')
   async findReviewList(@Param('store_id') store_id: number) {
     return await this.storeReviewService.findReviewList(store_id);
   }
 
-  @Get('/reviewid/:reviewid')
+  @Get('/:store_id/reviewid/:reviewid')
   async findOneReview(
     @Param('store_id') store_id: number,
     @Param('reviewid') reviewid: number,
@@ -52,7 +52,7 @@ export class StoreReviewController {
   //리뷰 수정
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
-  @Put('/reviewid/:reviewid')
+  @Put('/:store_id/reviewid/:reviewid')
   async editOneReview(
     @Param('store_id') store_id: number,
     @Param('reviewid') reviewid: number,
@@ -69,7 +69,7 @@ export class StoreReviewController {
 
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
-  @Delete('/reviewid/:reviewid')
+  @Delete('/:store_id/reviewid/:reviewid')
   async deleteOneReview(
     @Param('store_id') store_id: number,
     @Param('reviewid') reviewid: number,

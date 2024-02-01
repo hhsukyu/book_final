@@ -221,6 +221,7 @@ function updatemodal(store) {
   $('#updatestoremodal').modal('show');
   menulist.innerHTML = '';
   books.innerHTML = '';
+  reviews.innerHTML = '';
   const storename = document.getElementById('upstorename');
   const storeimg = document.getElementById('storeImage');
   const storedesc = document.getElementById('upstoredesc');
@@ -252,6 +253,7 @@ function updatemodal(store) {
       console.log(checkstoreid);
       menuinfo(checkstoreid);
       bookinfo(checkstoreid);
+      reviewinfo(checkstoreid);
     })
     .catch(function (error) {
       console.log(error);
