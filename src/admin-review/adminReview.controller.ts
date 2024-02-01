@@ -15,12 +15,12 @@ import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
-@Controller('reviews/:storeId')
+@Controller('reviews')
 export class AdminReviewController {
   constructor(private readonly adminReviewService: AdminReviewService) {}
 
   // 특정 리뷰에 대한 리뷰 답글 조회
-  @Get(':storeReviewId/adminReview')
+  @Get('/:storeId/:storeReviewId/adminReview')
   async findAdminReviewsByReview(
     @Param('storeId') storeId: number,
     @Param('storeReviewId') storeReviewId: number,
@@ -32,7 +32,7 @@ export class AdminReviewController {
   }
 
   // 가게에 대한 리뷰 답글 조회
-  @Get('adminReview')
+  @Get('/:storeId/adminReview')
   async findAdminReviewsByStore(@Param('storeId') storeId: number) {
     return await this.adminReviewService.findAdminReviewsByStore(storeId);
   }
@@ -40,7 +40,7 @@ export class AdminReviewController {
   // 리뷰 답글 작성
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
-  @Post(':storeReviewId/adminReview')
+  @Post('/:storeId/:storeReviewId/adminReview')
   async createAdminReview(
     @Param('storeId') storeId: number,
     @Param('storeReviewId') storeReviewId: number,
@@ -58,7 +58,7 @@ export class AdminReviewController {
   // 리뷰 답글 수정
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
-  @Put(':storeReviewId/adminReview/:id')
+  @Put('/:storeId/:storeReviewId/adminReview/:id')
   async updateAdminReview(
     @Param('storeId') storeId: number,
     @Param('storeReviewId') storeReviewId: number,
@@ -78,7 +78,7 @@ export class AdminReviewController {
   // 리뷰 답글 삭제
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
-  @Delete(':storeReviewId/adminReview/:id')
+  @Delete('/:storeId/:storeReviewId/adminReview/:id')
   async deleteAdminReview(
     @Param('storeId') storeId: number,
     @Param('storeReviewId') storeReviewId: number,

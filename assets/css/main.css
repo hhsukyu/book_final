@@ -463,3 +463,11 @@ ul#genrepages > li {
 .passwordSettingModal {
   background-color: #ffffff;
 }
+/* 장르 별 카드 */ /* 이부분 추가*/
+#genreoutput > .col-3 > .col > .card {
+  height: 550px;
+}
+
+#genreoutput > .col-3 > .col > .card > .card-img-top {
+  height: 450px;
+}

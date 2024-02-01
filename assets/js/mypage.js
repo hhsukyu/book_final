@@ -221,6 +221,7 @@ function updatemodal(store) {
   $('#updatestoremodal').modal('show');
   menulist.innerHTML = '';
   books.innerHTML = '';
+  reviews.innerHTML = '';
   const storename = document.getElementById('upstorename');
   const storeimg = document.getElementById('storeImage');
   const storedesc = document.getElementById('upstoredesc');
@@ -252,6 +253,7 @@ function updatemodal(store) {
       console.log(checkstoreid);
       menuinfo(checkstoreid);
       bookinfo(checkstoreid);
+      reviewinfo(checkstoreid);
     })
     .catch(function (error) {
       console.log(error);
@@ -276,6 +278,7 @@ function updatestore(event) {
     document.getElementById('upstoreaddress').value +
       document.getElementById('upstoredetailaddress').value,
   );
+  formData.append('place', [0, 0]); // 추후 네이버 좌표변환 API 적용
   formData.append(
     'store_open',
     document.getElementById('upopening-time').value,

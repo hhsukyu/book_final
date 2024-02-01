@@ -62,7 +62,7 @@ function storecarddetail(storeid) {
       console.log(error);
     });
 }
-
+const storereviewbox1 = document.getElementById('storereviewlist');
 function storereview(storeid) {
   axios
     .get('/reviews/' + storeid, {
@@ -71,49 +71,15 @@ function storereview(storeid) {
       },
     })
     .then(function (response) {
-      const reviewbox1 = document.getElementById('storereviewlist');
       storeReviewcard.style.display = 'block';
-      reviewbox1.innerHTML = '';
+      storereviewbox1.innerHTML = '';
       const comments = response.data;
-      console.log(comments);
+      console.log('comments', comments);
+      console.log('response.data[0]', response.data[0]);
 
       comments.forEach((comment) => {
-        reviewbox1.innerHTML += `
-        <div class="box-top">
-      <!-- profile-box -->
-      <div class="profile-box">
-        <!-- user-image -->
-        <div class="profile-img">
-          <img id="reviewimage" src="${comment.user.photo}" />
-        </div>
-        <!-- username-Name -->
-        <div class="name-user">
-          <strong id="reviewname">${comment.user.nickname}</strong>
-        </div>
-      </div>
-
-      <!-- review box -->
-      <div id="review-box" class="review-box">
-        ${reviewstar(comment.rating)}
-        <!-- 별 부분 -->
-      </div>
-    </div>
-
-    <!-- comment part -->
-    <div class="client-comment">
-      <p id="reviewcomment">
-        ${comment.content}
-      </p>
-    </div>
-    `;
+        storereviewlist(comment);
       });
-      function reviewstar(rating) {
-        let stars = '';
-        for (let i = 1; i <= rating; i++) {
-          stars += '<i class="fa fa-star"></i>';
-        }
-        return stars;
-      }
     })
     .catch(function (error) {
       console.log(error);
@@ -122,6 +88,41 @@ function storereview(storeid) {
 
 // 지점 리뷰 등록 버튼 클릭 이벤트
 
+function storereviewlist(comment) {
+  storereviewbox1.innerHTML += `
+  <div class="box-top">
+<!-- profile-box -->
+<div class="profile-box">
+  <!-- user-image -->
+  
+  <!-- username-Name -->
+  <div class="name-user">
+    <strong id="reviewname">${comment.user_id}</strong>
+  </div>
+</div>
+
+<!-- review box -->
+<div id="review-box" class="review-box">
+  ${reviewstar(comment.rating)}
+  <!-- 별 부분 -->
+</div>
+</div>
+
+<!-- comment part -->
+<div class="client-comment">
+<p id="reviewcomment">
+  ${comment.content}
+</p>
+</div>
+`;
+  function reviewstar(rating) {
+    let stars = '';
+    for (let i = 1; i <= rating; i++) {
+      stars += '<i class="fa fa-star"></i>';
+    }
+    return stars;
+  }
+}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let submitstorereview;
 
