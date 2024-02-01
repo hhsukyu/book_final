@@ -18,6 +18,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { RedisService } from 'src/configs/redis/redis.service';
 import { EmailService } from 'src/configs/mailer/email.service';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { MyPageService } from 'src/my-page/my-page.service';
 
 @Injectable()
 export class AuthService {
@@ -29,6 +30,7 @@ export class AuthService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
+    private readonly myPageService: MyPageService,
   ) {}
 
   /// 유저 회원가입
@@ -170,6 +172,10 @@ export class AuthService {
         photo,
         password: hashedNaverPassword,
       });
+
+      //마이페이지생성
+      const mypage = await this.myPageService.create(OAuthUser.id);
+      console.log(mypage);
     }
 
     const accessToken = this.generateAccessToken(
@@ -253,6 +259,9 @@ export class AuthService {
         photo,
         password: hashedKakaoPassword,
       });
+      //마이페이지생성
+      const mypage = await this.myPageService.create(OAuthUser.id);
+      console.log(mypage);
     }
     console.log('photo', photo);
     const accessToken = this.generateAccessToken(
