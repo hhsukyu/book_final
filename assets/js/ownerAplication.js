@@ -24,7 +24,7 @@ function openOwnerApplicationModal() {
 function changeUserType() {
   axios
     .put(
-      'http://localhost:3000/auth/changeOwner',
+      '/auth/changeOwner',
       {},
       {
         headers: {
