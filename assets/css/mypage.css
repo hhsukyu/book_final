@@ -33,6 +33,32 @@ body {
   padding: 20px;
   margin: 20px; /* Adjust margin as needed */
 }
+
+/* 사장님 리뷰부분 답글달기 버튼*/
+.bookboard > .btn {
+  margin-left: 90%;
+  position: relative;
+}
+
+/* 사장님 리뷰부분 작성자*/
+.bookboard > .author {
+  position: relative;
+  top: -32px; /* 위로 이동 */
+}
+
+/* 사장님 리뷰부분 내용*/
+.bookboard > .content {
+  position: relative;
+  top: -10px;
+}
+
+/* 사장님 리뷰부분 수정
+.ownerresult > a > .btn {
+  margin-left: 92%;
+  position: relative;
+  top: -32px;
+} */
+
 .logo-container {
   margin-bottom: 60px;
 }
@@ -378,6 +404,11 @@ form .reviewbtn button {
 #mypagestores > div {
   width: 49%; /* 요소의 너비를 50%로 설정하여 2개씩 표시합니다. */
   margin: 2px;
+}
+
+/*마이페이지 지점정보 높이 통일 */
+#storelistcard > .row {
+  height: 240px;
 }
 
 /*스토어 지점등록 위치 변경을 위해 class 추가함*/
