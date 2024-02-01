@@ -307,10 +307,6 @@ function storemodalfade() {
   $('#updatestoremodal').modal('hide');
 }
 
-//책 수정 버튼
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function bookbtn() {}
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function searchAddress() {
   new daum.Postcode({
