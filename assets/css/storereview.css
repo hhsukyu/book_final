@@ -294,7 +294,7 @@ ul#pages > li {
 
 /*store 페이지네이션*/
 .store-pagination {
-  background-color: #f9d71c;
+  background-color: #3d3d3d;
   display: flex;
   justify-content: center;
   align-items: center;
