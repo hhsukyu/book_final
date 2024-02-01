@@ -16,3 +16,24 @@
   overflow: hidden;
   background: rgb(248, 249, 250);
 }
+
+/** 지도 store **/
+.output {
+  background-color: #ffff;
+  width: 80% !important;
+  position: relative;
+  bottom: 100%;
+  left: 95%;
+  border-radius: 2%;
+}
+.output > .col-3 {
+  background-color: #ffff;
+  position: relative;
+  bottom: 100%;
+  width: 100%;
+  margin-bottom: 8%;
+}
+
+.output > .col-3 > .col > .card > .card-img-top {
+  height: 50%; /*사진 불러옴에 따라 추후 수정 일단 50%로 맞춤*/
+}
