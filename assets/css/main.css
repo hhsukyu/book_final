@@ -496,3 +496,7 @@ ul#genrepages > li {
 #genreoutput > .col-3 > .col > .card > .card-img-top {
   height: 450px;
 }
+
+#menulistcard > .g-0 .col-md-4 img {
+  height: 150px;
+}
