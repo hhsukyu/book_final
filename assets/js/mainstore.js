@@ -64,6 +64,7 @@ function storecarddetail(storeid) {
 }
 const storereviewbox1 = document.getElementById('storereviewlist');
 function storereview(storeid) {
+  findAdminReviewsByReview(1, 1);
   axios
     .get('/reviews/' + storeid, {
       headers: {
@@ -129,6 +130,7 @@ async function storereviewlist(comment) {
   ${comment.content}
 </p>
 </div>
+
 `;
   function reviewstar(rating) {
     let stars = '';
@@ -144,6 +146,7 @@ let submitstorereview;
 const storeReviewcard = document.getElementById('storereviewlist');
 const addStoreReview = document.getElementById('addStoreReview');
 
+//리뷰등록
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function addstorereviewbtn() {
   const commentTextarea = document.getElementById('storecomment');
@@ -154,7 +157,7 @@ async function addstorereviewbtn() {
   // 책 리뷰 부분 숨김
   storeReviewcard.style.display = 'none';
   addStoreReview.style.display = 'block';
-  console.log(reviewstoreid);
+  console.log('reviewstoreid', reviewstoreid);
   // 전송 처리 함수
 
   function handleSubmit(event) {
@@ -178,7 +181,7 @@ async function addstorereviewbtn() {
 
   // 지점리뷰 데이터 저장
   function sendStoreFeedback(starValue, comment) {
-    console.log(starValue, comment);
+    console.log('starValue', starValue, 'comment', comment);
 
     axios
       .post(
@@ -196,7 +199,7 @@ async function addstorereviewbtn() {
       .then(function (response) {
         alert('댓글 등록');
         // reviewcard.style.display = 'block';
-        addreview.style.display = 'none';
+        addStoreReview.style.display = 'none';
         commentTextarea.value = '';
         starValue = null;
         storereview(reviewstoreid);
@@ -207,9 +210,25 @@ async function addstorereviewbtn() {
   }
 
   // 이벤트 핸들러 등록
-  const submitBtn = document.getElementById('submitBtn');
-  submitBtn.addEventListener('click', handleSubmit);
+  const submitStoreReviewBtn = document.getElementById('submitStoreReviewBtn');
+  submitStoreReviewBtn.addEventListener('click', handleSubmit);
 
   // submitstorereview 변수에 handleSubmit 함수 할당
   submitstorereview = handleSubmit;
+}
+// 특정 리뷰에 대한 사장님리뷰 답글 조회
+function findAdminReviewsByReview(storeid, storeReviewid) {
+  return axios
+    .get(`/reviews/${storeid}/${storeReviewid}/adminReview`)
+    .then((response) => {
+      const adminReviews = response.data;
+      console.log('adminReviews', adminReviews);
+
+      return adminReviews;
+    })
+    .catch((error) => {
+      console.error('Error fetching Admin Reviews:', error);
+      // 오류 처리 로직 추가
+      throw error; // 더 상세한 오류 처리를 위해 다시 throw
+    });
 }
