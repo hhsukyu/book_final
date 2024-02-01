@@ -129,7 +129,7 @@ function updateadminreview(event) {
     )
     .then(function () {
       alert('사장님 댓글 수정완료');
-      window.location.reload();
+      reviewinfo(admincontentstoreid);
     })
     .catch(function (error) {
       console.log(error);
