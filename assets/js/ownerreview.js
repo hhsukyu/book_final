@@ -111,13 +111,31 @@ function submitadminreview(event) {
       console.log(error);
     });
 }
+const admincontent = document.getElementById('upownerreview');
 
 function updateadminreview(event) {
   event.preventDefault();
   console.log(adminreviewid, admincontentstoreid, admincontentreviewid);
-  // @Put(`reviews/${admincontentstoreid}/${admincontentreviewid}/adminReview/`)
+  const result = admincontent.value;
+  axios
+    .put(
+      `reviews/${admincontentstoreid}/${admincontentreviewid}/adminReview/${adminreviewid}`,
+      { content: result },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      },
+    )
+    .then(function () {
+      alert('사장님 댓글 수정완료');
+      window.location.reload();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
-const admincontent = document.getElementById('upownerreview');
+
 function updatecommentinfo(reviewid, storeid) {
   console.log(reviewid, storeid);
   axios
@@ -126,6 +144,8 @@ function updatecommentinfo(reviewid, storeid) {
       const adminreviewcontent = response.data[0];
       console.log(adminreviewcontent);
       adminreviewid = adminreviewcontent.id;
+      admincontentstoreid = storeid;
+      admincontentreviewid = reviewid;
       admincontent.value = adminreviewcontent.content;
     })
     .catch(function (error) {
