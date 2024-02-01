@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="./css/main.css" />
     <!-- introduce css -->
     <link rel="stylesheet" href="./css/introduce.css" />
+    <!-- storereview css -->
+    <link rel="stylesheet" href="./css/storereview.css" />
 
     <!-- axios.js -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -115,11 +117,12 @@
       </div>
     </div>
 
+    <div>
+      <h2 class="operating-stores">운영 매장</h2>
+    </div>
+
     <!-- 지점 목록 -->
     <div id="stores" class="stores">
-      <div>
-        <h2 class="operating-stores">운영 매장</h2>
-      </div>
       <div class="album-store">
         <!-- <div class="album-item">
           <img src="이미지1.jpg" alt="앨범1" />
@@ -329,6 +332,112 @@
         </div>
       </div>
     </div>
+
+    <!--  스토어 상세정보 모달창 -->
+    <div
+      class="modal fade"
+      id="storeModal"
+      tabindex="-1"
+      data-bs-keyboard="false"
+      aria-labelledby="detailstoredModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="storemodallabel"></h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container bookboard">
+              <div class="store-info">
+                <!-- 지점 이미지 -->
+
+                <img
+                  src=""
+                  id="storecardImage"
+                  class="img-fluid"
+                  alt="Store Cover"
+                />
+
+                <!-- 지점 정보 -->
+                <div class="book-details mt-3">
+                  <h3 id="modalcardStorename">지점명</h3>
+                  <p>
+                    <strong>지점 설명</strong>: <a id="modalcardStoredesc"></a>
+                  </p>
+                  <p><strong>주소</strong>: <a id="modalcardStoreAd"></a></p>
+                  <p>
+                    <strong>오픈시간</strong>: <a id="modalcardStoreOp"></a>
+                  </p>
+                  <p>
+                    <strong>마감시간</strong>: <a id="modalcardStoreCl"></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="storeReviewCardRow row pt-5">
+            <div class="reviewrow pt-5">
+              <h2 class="mb-4" style="display: inline-block">지점리뷰 목록</h2>
+              <div id="reviewicon" onclick="addstorereviewbtn()">
+                <i class="fa fa-comment"></i>&nbsp;<strong>리뷰작성</strong>
+              </div>
+            </div>
+
+            <div
+              id="storereviewlist"
+              class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"
+            >
+              <div id="reviewcardbox" class="reviewcardbox">
+                <!-- 리뷰 내용 부분 -->
+              </div>
+            </div>
+
+            <!-- 리뷰 작성 폼 -->
+            <!-- <div class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"> -->
+            <div id="addStoreReview" class="reivewcontain">
+              <div id="storereviewaddbox" class="reviewaddbox">
+                <div class="review-box-container">
+                  <div class="star-widget1">
+                    <input type="radio" name="rate" id="storerate-5" />
+                    <label for="storerate-5" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="storerate-4" />
+                    <label for="storerate-4" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="storerate-3" />
+                    <label for="storerate-3" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="storerate-2" />
+                    <label for="storerate-2" class="fa fa-star"></label>
+                    <input type="radio" name="rate" id="storerate-1" />
+                    <label for="storerate-1" class="fa fa-star"></label>
+                    <form action="#">
+                      <div class="reviewtextarea">
+                        <textarea
+                          id="storecomment"
+                          cols="30"
+                          placeholder="지점 리뷰를 작성해주세요."
+                        ></textarea>
+                      </div>
+                      <div class="reviewbtn">
+                        <button id="submitStoreReviewBtn" type="button">
+                          등록하기
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 부트스트랩 js파일 -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

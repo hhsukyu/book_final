@@ -76,15 +76,21 @@ export class StoreService {
   async createStore(
     createStoreDto: CreateStoreDto,
     userid: number,
-    place: number[],
+    place: string,
     url: string,
   ) {
     const user = await this.userService.findUserById(userid);
+    const dataArray = place.split(',');
+    const longitude = dataArray[0]; // "126.8652937"
+    const latitude = dataArray[1]; //
+
+    console.log(longitude, latitude);
+    console.log(place);
 
     if (user.role === 0) {
       throw new BadRequestException('지점 사장만 지점 생성이 가능합니다.');
     }
-    console.log(place);
+
     const store = await this.storeRepository.save({
       ...createStoreDto,
       admin: user,
@@ -95,10 +101,11 @@ export class StoreService {
       .createQueryBuilder()
       .update()
       .set({
-        place: () => `ST_GeomFromText('POINT(${place[1]} ${place[0]})')`,
+        place: () => `ST_GeomFromText('Point(${longitude} ${latitude})')`,
       })
       .where('id = :id', { id: store.id })
       .execute();
+
     return store;
   }
 
@@ -107,11 +114,17 @@ export class StoreService {
     updateStoreDto: UpdateStoreDto,
     storeid: number,
     userid: number,
-    place: number[],
+    place: string,
     url: string,
   ) {
     const user = await this.userService.findUserById(userid);
     const store = await this.findStoreById(storeid);
+
+    const dataArray = place.split(',');
+    const longitude = dataArray[0]; // 경도
+    const latitude = dataArray[1]; // 위도
+
+    console.log(longitude, latitude);
 
     if (user.stores.every((s) => s.id !== store.id)) {
       throw new BadRequestException('지점 사장님만 수정이 가능합니다.');
@@ -127,19 +140,19 @@ export class StoreService {
       },
     );
 
-    //주소가 수정되었을 경우에만 실행
-    if (place[0] != 0 && place[1] != 0) {
+    // 주소가 수정되었을 경우에만 실행
+    if (place !== '0,0') {
       const newPlace = this.storeRepository
         .createQueryBuilder()
         .update()
         .set({
-          place: () => `ST_GeomFromText('POINT(${place[1]} ${place[0]})')`,
+          place: () => `ST_GeomFromText('POINT(${latitude} ${longitude})')`,
         })
         .where('id = :id', { id: storeid })
         .execute();
     }
 
-    return { message: '지점 정보가 수정되었습니다..' };
+    return { message: '지점 정보가 수정되었습니다.' };
   }
 
   //지점 삭제

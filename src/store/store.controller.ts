@@ -70,7 +70,7 @@ export class StoreController {
   async createStore(
     @Body() createStoreDto: CreateStoreDto,
     @UserId() userid: number,
-    @Body('place') place: number[],
+    @Body('place') place: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
     const url = await this.menuService.uploadImage(file);
@@ -91,7 +91,7 @@ export class StoreController {
     @Body() updateStoreDto: UpdateStoreDto,
     @Param('storeid') storeid: number,
     @UserId() userid: number,
-    @Body('place') place: number[],
+    @Body('place') place: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
     const url = await this.menuService.uploadImage(file);

@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'http://43.203.75.81:3000/';
 
 function sendEmail() {
   const email = document.getElementById('email').value;

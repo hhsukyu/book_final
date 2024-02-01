@@ -53,6 +53,7 @@ function storebookdelete(bookid) {
     })
     .then(function () {
       alert('도서 삭제 성공');
+      window.location.reload();
     })
     .catch(function (error) {
       console.log(error);
