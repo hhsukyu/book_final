@@ -15,6 +15,7 @@ function loadStores() {
               <span class="album-title">${store.store_name}</span>
               <span class="album-intro">${store.store_desc}</span>
               <span class="album-location">${store.store_address}</span>
+              <span class="album-open">${store.store_open} ~ ${store.store_close}</span>
             </div>
           </div>
         `;
