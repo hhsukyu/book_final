@@ -1,12 +1,20 @@
 let mapDiv = document.getElementById('map');
+/**
+ *
+ * @callback addressToCoordinateCallback
+ */
 
-function addressToCoordinate(address) {
+/**
+ *
+ * @param {string} address
+ * @param {addressToCoordinateCallback} callback
+ */
+function addressToCoordinate(address, callback) {
   naver.maps.Service.geocode(
     {
       query: address,
     },
     function (status, response) {
-      console.log(response);
       if (status === naver.maps.Service.Status.ERROR) {
         return alert('Something Wrong!');
       }
@@ -22,16 +30,13 @@ function addressToCoordinate(address) {
       if (item.roadAddress) {
         htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
       }
-
       if (item.jibunAddress) {
         htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
       }
-
       if (item.englishAddress) {
         htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
       }
-
-      map.setCenter(point);
+      callback(point);
     },
   );
 }
@@ -53,33 +58,53 @@ window.onload = function () {
     loadHeader('login');
   }
 
-  if (!token) {
-    let map = new naver.maps.Map(mapDiv, {
-      center: new naver.maps.LatLng(37.4986253, 127.0280285),
-      zoom: 16,
-    }); // load the map by default
-  } else {
-    // load userinfo
-    axios
-      .get('/mypage', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then(function (response) {
-        address = response.data.address;
-        if (!address) {
-          console.log('no address');
-        } else {
-          addressToCoordinate(address);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  let map = new naver.maps.Map(mapDiv, {
+    center: new naver.maps.LatLng(37.4986253, 127.0280285),
+    zoom: 16,
+  });
+
   searchResult();
+
+  // load the map by default
+  if (!token) {
+    return;
+  }
+
+  // load userinfo
+  axios
+    .get('/mypage', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function (response) {
+      address = response.data.address;
+      if (!address) {
+        console.log('no address');
+      } else {
+        onReq(address);
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  function onReq(address) {
+    addressToCoordinate(address, (point) => {
+      map.setCenter(point);
+    });
+  }
 };
+
+async function storeSearch(location) {
+  axios.get(`/map/${location}`, {}).then(async function (response) {
+    const stores = response.data;
+    let marker = new naver.maps.Marker({});
+    stores.forEach((element) => {
+      element.place;
+    });
+  });
+}
 
 async function searchResult() {
   axios
@@ -105,9 +130,9 @@ async function searchResult() {
           <div onclick="carddetail(${card.id})" class="col-3 mb-3">
             <div class="col">
               <div class="card">
-                <img src="${card.book_image}" class="card-img-top" alt="...">
+                <img src="${card.store_image}" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">${card.title}</h5>
+                  <h5 class="card-title">${card.store_name}</h5>
                 </div>
               </div>
             </div>
@@ -170,12 +195,6 @@ async function searchResult() {
       console.log(error);
     });
 }
-
-// 주소 좌표로 변환
-// let map = new naver.maps.Map(mapDiv, {
-//   center: new naver.maps.LatLng(37.4986253, 127.0280285),
-//   zoom: 16,
-// });
 
 function introduce() {
   if (navigator.geolocation) {
