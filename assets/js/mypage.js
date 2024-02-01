@@ -275,6 +275,7 @@ function updatestore(event) {
     document.getElementById('upstoreaddress').value +
       document.getElementById('upstoredetailaddress').value,
   );
+  formData.append('place', [0, 0]); // 추후 네이버 좌표변환 API 적용
   formData.append(
     'store_open',
     document.getElementById('upopening-time').value,
