@@ -346,66 +346,79 @@
             ></button>
           </div>
           <div class="modal-body">
+            <!-- 모달 탭 부분 -->
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="pills-home-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-home"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-home"
+                  aria-selected="true"
+                >
+                  Home
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="pills-profile-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-profile"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-profile"
+                  aria-selected="false"
+                >
+                  Menu
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="pills-contact-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-contact"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-contact"
+                  aria-selected="false"
+                >
+                  Book
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="pills-review-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-review"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-review"
+                  aria-selected="false"
+                >
+                  review
+                </button>
+              </li>
+            </ul>
+            <!-- 헤드 탭 부분 -->
+            <!-- 탭 바디 부분 -->
+            <div class="tab-content" id="pills-tabContent">
+              <div
+                class="tab-pane fade show active"
+                id="pills-home"
+                role="tabpanel"
+                aria-labelledby="pills-home-tab"
+                tabindex="0"
+              >
+                <!--홈 부분 -->
+                
+                
             <div class="container bookboard">
-              <!-- 모달 탭 부분 -->
-              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="nav-link active"
-                    id="pills-home-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#pills-home"
-                    type="button"
-                    role="tab"
-                    aria-controls="pills-home"
-                    aria-selected="true"
-                  >
-                    Home
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="nav-link"
-                    id="pills-profile-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#pills-profile"
-                    type="button"
-                    role="tab"
-                    aria-controls="pills-profile"
-                    aria-selected="false"
-                  >
-                    Menu
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="nav-link"
-                    id="pills-contact-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#pills-contact"
-                    type="button"
-                    role="tab"
-                    aria-controls="pills-contact"
-                    aria-selected="false"
-                  >
-                    Book
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="nav-link"
-                    id="pills-review-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#pills-review"
-                    type="button"
-                    role="tab"
-                    aria-controls="pills-review"
-                    aria-selected="false"
-                  >
-                    review
-                  </button>
-                </li>
-              </ul>
               <div class="store-info">
                 <!-- 지점 이미지 -->
 
@@ -432,59 +445,114 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="storeReviewCardRow row pt-5">
-            <div class="reviewrow pt-5">
-              <h2 class="mb-4" style="display: inline-block">지점리뷰 목록</h2>
-              <div id="reviewicon" onclick="addstorereviewbtn()">
-                <i class="fa fa-comment"></i>&nbsp;<strong>리뷰작성</strong>
+              </div>
+            <!-- 스토어 수정 부분 -->
+            <div class="tab-content" id="pills-tabContent">
+              <div
+                class="tab-pane fade"
+                id="pills-profile"
+                role="tabpanel"
+                aria-labelledby="pills-profile-tab"
+                tabindex="0"
+              >
+             
+                <div class="menu-flex">
+                  <div class="col">
+                    <h4 class="mt-4 title-mypage">메뉴 정보</h4>
+                  </div>
+                </div>
+                <div class="bookboard">
+                  <div id="menulist"></div>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="pills-contact"
+                role="tabpanel"
+                aria-labelledby="pills-contact-tab"
+                tabindex="0"
+              >
+                <!-- 스토어 책 부분 -->
+                <div class="book-flex">
+                  <h1>지점 소장도서</h1>
+                </div>
+                <div class="bookboard">
+                  <div id="booklist"></div>
+                </div>
               </div>
             </div>
-
             <div
-              id="storereviewlist"
-              class="px-3 pt-2 container reviewcardbox2 reviewcontainer"
-            >
-              <div id="reviewcardbox" class="reviewcardbox">
-                <!-- 리뷰 내용 부분 -->
-              </div>
-            </div>
-
-            <!-- 리뷰 작성 폼 -->
-            <!-- <div class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"> -->
-            <div id="addStoreReview" class="reivewcontain">
-              <div id="storereviewaddbox" class="reviewaddbox">
-                <div class="review-box-container">
-                  <div class="star-widget1">
-                    <input type="radio" name="rate" id="storerate-5" />
-                    <label for="storerate-5" class="fa fa-star"></label>
-                    <input type="radio" name="rate" id="storerate-4" />
-                    <label for="storerate-4" class="fa fa-star"></label>
-                    <input type="radio" name="rate" id="storerate-3" />
-                    <label for="storerate-3" class="fa fa-star"></label>
-                    <input type="radio" name="rate" id="storerate-2" />
-                    <label for="storerate-2" class="fa fa-star"></label>
-                    <input type="radio" name="rate" id="storerate-1" />
-                    <label for="storerate-1" class="fa fa-star"></label>
-                    <form action="#">
-                      <div class="reviewtextarea">
-                        <textarea
-                          id="storecomment"
-                          cols="30"
-                          placeholder="지점 리뷰를 작성해주세요."
-                        ></textarea>
+            class="tab-pane fade"
+            id="pills-review"
+            role="tabpanel"
+            aria-labelledby="pills-review-tab"
+            tabindex="0"
+          >
+            <!-- 사장님 리뷰 부분 -->
+            <h1>지점 리뷰 목록</h1>
+            <div class="bookboard">
+              <div id="ownerreviewlist">
+                <div class="storeReviewCardRow row pt-5">
+                  <div class="reviewrow pt-5">
+                    <h2 class="mb-4" style="display: inline-block">지점리뷰 목록</h2>
+                    <div id="reviewicon" onclick="addstorereviewbtn()">
+                      <i class="fa fa-comment"></i>&nbsp;<strong>리뷰작성</strong>
+                    </div>
+                  </div>
+      
+                  <div
+                    id="storereviewlist"
+                    class="row px-3 pt-2  "
+                  >
+                    <div id="storereviewcardbox" class="reviewcardbox">
+                      <!-- 리뷰 내용 부분 -->
+                    </div>
+                  </div>
+      
+                  <!-- 리뷰 작성 폼 -->
+                  <!-- <div class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"> -->
+                  <div id="addStoreReview" class="reivewcontain">
+                    <div id="storereviewaddbox" class="reviewaddbox">
+                      <div class="review-box-container">
+                        <div class="star-widget1">
+                          <input type="radio" name="rate" id="storerate-5" />
+                          <label for="storerate-5" class="fa fa-star"></label>
+                          <input type="radio" name="rate" id="storerate-4" />
+                          <label for="storerate-4" class="fa fa-star"></label>
+                          <input type="radio" name="rate" id="storerate-3" />
+                          <label for="storerate-3" class="fa fa-star"></label>
+                          <input type="radio" name="rate" id="storerate-2" />
+                          <label for="storerate-2" class="fa fa-star"></label>
+                          <input type="radio" name="rate" id="storerate-1" />
+                          <label for="storerate-1" class="fa fa-star"></label>
+                          <form action="#">
+                            <div class="reviewtextarea">
+                              <textarea
+                                id="storecomment"
+                                cols="30"
+                                placeholder="지점 리뷰를 작성해주세요."
+                              ></textarea>
+                            </div>
+                            <div class="reviewbtn">
+                              <button id="submitStoreReviewBtn" type="button">
+                                등록하기
+                              </button>
+                            </div>
+                          </form>
+                        </div>
                       </div>
-                      <div class="reviewbtn">
-                        <button id="submitStoreReviewBtn" type="button">
-                          등록하기
-                        </button>
-                      </div>
-                    </form>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          </div>
+
+
+
+
+          
         </div>
       </div>
     </div>

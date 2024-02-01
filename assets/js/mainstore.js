@@ -63,7 +63,7 @@ function storecarddetail(storeid) {
       console.log(error);
     });
 }
-const storereviewbox1 = document.getElementById('storereviewlist');
+const storereviewbox1 = document.getElementById('storereviewcardbox');
 function storereview(storeid) {
   axios
     .get('/reviews/' + storeid, {
@@ -139,7 +139,7 @@ async function storereviewlist(comment) {
     ${adminReviews
       .map(
         (adminReview) => `
-      <div class="admin-review">
+      <div class="admin-review bookboard">
       <p class="admin-comment-heading"><strong>사장님의 댓글:</strong></p>
         <p>${adminReview.content}</p>
       </div>
@@ -290,4 +290,52 @@ function booklist(book) {
     </div>
   </div>
   `;
+}
+//메뉴 불러오기
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function menuinfo(storeid) {
+  console.log(storeid);
+  axios
+    .get('/menu/storeid/' + storeid)
+    .then(function (response) {
+      //   console.log(response.data);
+      const menus = response.data;
+
+      menus.forEach((menu) => {
+        // console.log(menu);
+        menulists(menu);
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+//메뉴 화면에 출력
+function menulists(menu) {
+  let img = `${menu.food_img}`;
+
+  if (menu.food_img === '') {
+    img =
+      'http://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
+  }
+
+  menulist.innerHTML += `
+  <div id="menulistcard" class="card mb-3" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="${img}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">${menu.food_name}</h5>
+          <p class="card-text">${menu.food_desc}</p>
+          <div id="menucardbtn">
+          <p class="card-text"><small class="text-body-secondary">${menu.food_price}</small></p>
+          <button onclick="updatemenumodal(event, ${menu.id})" class="btn" data-bs-target="#updatemenumodal" data-bs-toggle="modal">수정하기</button>
+          </div>  
+          </div>
+      </div>
+    </div>
+  </div>`;
 }
