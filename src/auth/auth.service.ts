@@ -190,9 +190,9 @@ export class AuthService {
 
     if (OAuthUser) {
       res.redirect(
-        `http://localhost:3000/auth/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+        `/auth/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
       );
-    } else res.redirect('http://localhost:3000/login&signup.html');
+    } else res.redirect('/login&signup.html');
   }
 
   //네이버 지점업주 회원가입/로그인
@@ -231,9 +231,9 @@ export class AuthService {
 
     if (OAuthUser)
       res.redirect(
-        `http://localhost:3000/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+        `/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
       );
-    else res.redirect('http://localhost:3000/login/failure');
+    else res.redirect('/login/failure');
   }
 
   //카카오 회원가입/로그인

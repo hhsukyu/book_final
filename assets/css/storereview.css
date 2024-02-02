@@ -32,3 +32,9 @@
   display: flex;
   justify-content: center;
 }
+
+#storereviewicon {
+  margin-left: 66%;
+  padding: 20px;
+  cursor: pointer;
+}
