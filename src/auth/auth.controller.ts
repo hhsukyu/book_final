@@ -86,7 +86,7 @@ export class AuthController {
     res.cookie('refreshToken', refreshToken);
 
     //redirect할 본인 페이지 주소확인
-    res.redirect('http://localhost:3000');
+    res.redirect('');
   }
 
   //네이버 일반사용자 소셜로그인
