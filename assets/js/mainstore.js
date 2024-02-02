@@ -1,13 +1,27 @@
 // 매장 정보를 가져와서 표시하는 함수
 function loadStores() {
-  console.log('로드 스토어 실행됨!!');
-  const storeContainer = document.querySelector('.album-store');
-  storeContainer.innerHTML = ''; // 기존 내용을 비웁니다.
+  console.log('로드 스토어 실행됨!!!!!!!!!!!!');
   axios
     .get('/store')
-    .then(function (response) {
+    .then(async function (response) {
       const stores = response.data;
-      stores.forEach((store) => {
+      const pages = numPages(stores);
+
+      //   const itemsPerPage = 16;
+
+      changePage(1); // set default page
+      await addPages(); // generate page navigation
+
+      // reference to keep track of current page
+      let currentPage = 1;
+
+      function numPages(cardsArray) {
+        const itemsPerPage = 8;
+        // returns the number of pages
+        return Math.ceil(cardsArray.length / itemsPerPage);
+      }
+
+      function createCardElement(store) {
         const storeElement = `
           <div class="album-item"onclick="storecarddetail(${store.id})">
             <img src="${store.store_img || '기본 이미지 경로'}" alt="${store.store_name}" />
@@ -19,8 +33,58 @@ function loadStores() {
             </div>
           </div>
         `;
-        storeContainer.innerHTML += storeElement;
-      });
+        return storeElement;
+      }
+      function changePage(page) {
+        const output = document.querySelector('.album-store');
+        output.innerHTML = '';
+        const itemsPerPage = 8;
+
+        if (page < 1) page = 1;
+        if (page > pages) page = pages;
+        output.innerHTML = '';
+
+        for (
+          let i = (page - 1) * itemsPerPage;
+          i < page * itemsPerPage && i < stores.length;
+          i++
+        ) {
+          // 검색 정보 배열로 저장
+
+          const store = stores[i];
+          output.innerHTML += createCardElement(store);
+        }
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      async function addPages() {
+        const el = document.getElementById('storepages');
+        el.innerHTML = '';
+        for (let i = 1; i < pages + 1; i++) {
+          el.innerHTML += `<li><a onclick="allgotoPage(${i})">${i}</a></li>`;
+        }
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      async function nextPage() {
+        console.log(pages);
+        console.log(changePage);
+        if (currentPage < pages) changePage(++currentPage);
+      }
+      allnextPage = nextPage;
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      async function prevPage() {
+        if (currentPage > 1) changePage(--currentPage);
+      }
+      allprevPage = prevPage;
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      async function gotoPage(page) {
+        currentPage = page;
+        changePage(page);
+      }
+      allgotoPage = gotoPage;
     })
     .catch(function (error) {
       console.log(error);
@@ -48,6 +112,8 @@ function storecarddetail(storeid) {
     .then(function (response) {
       console.log('response.data', response.data);
       storereview(storeid);
+      menuinfo(storeid);
+      bookinfo(storeid);
       const store = response.data[0];
       console.log('store', store);
 
@@ -63,7 +129,7 @@ function storecarddetail(storeid) {
       console.log(error);
     });
 }
-const storereviewbox1 = document.getElementById('storereviewlist');
+const storereviewbox1 = document.getElementById('storereviewcardbox');
 function storereview(storeid) {
   axios
     .get('/reviews/' + storeid, {
@@ -139,7 +205,7 @@ async function storereviewlist(comment) {
     ${adminReviews
       .map(
         (adminReview) => `
-      <div class="admin-review">
+      <div class="admin-review bookboard">
       <p class="admin-comment-heading"><strong>사장님의 댓글:</strong></p>
         <p>${adminReview.content}</p>
       </div>
@@ -246,4 +312,99 @@ function findAdminReviewsByReview(storeid, storeReviewid) {
 
       throw error;
     });
+}
+
+const storebookinfo = document.getElementById('storebooklist');
+
+//지점소장도서 정보
+function bookinfo(storeid) {
+  storebookinfo.innerHTML = '';
+  axios
+    .get(`storebook/${storeid}`)
+    .then(function (response) {
+      //   console.log(response.data);
+      const books = response.data;
+
+      books.forEach((book) => {
+        // console.log(book);
+        booklist(book);
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function booklist(book) {
+  const bookinfo = book.book;
+  console.log(book);
+  storebookinfo.innerHTML += `
+  <div id="booklistcard" class="card mb-3" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="${bookinfo.book_image}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+        <div>
+          <h5 class="card-title">${bookinfo.title}</h5>
+        </div>  
+          <p class="card-text">${bookinfo.writer}</p>
+          <div id="menucardbtn">
+          <p class="card-text"><small class="text-body-secondary">${bookinfo.publisher}</small></p>
+          </div>  
+          </div>
+      </div>
+    </div>
+  </div>
+  `;
+}
+//메뉴 불러오기
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function menuinfo(storeid) {
+  storemenuinfo.innerHTML = '';
+  console.log(storeid);
+  axios
+    .get('/menu/storeid/' + storeid)
+    .then(function (response) {
+      //   console.log(response.data);
+      const menus = response.data;
+
+      menus.forEach((menu) => {
+        // console.log(menu);
+        menulists(menu);
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+const storemenuinfo = document.getElementById('storemenulist');
+//메뉴 화면에 출력
+function menulists(menu) {
+  let img = `${menu.food_img}`;
+
+  if (menu.food_img === '') {
+    img =
+      'http://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
+  }
+
+  storemenuinfo.innerHTML += `
+  <div id="menulistcard" class="card mb-3" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="${img}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">${menu.food_name}</h5>
+          <p class="card-text">${menu.food_desc}</p>
+          <div id="menucardbtn">
+          <p class="card-text"><small class="text-body-secondary">${menu.food_price}</small></p>
+          </div>  
+          </div>
+      </div>
+    </div>
+  </div>`;
 }
