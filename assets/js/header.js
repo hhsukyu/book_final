@@ -163,7 +163,7 @@ function loadHeader(page) {
               >
                 <li><a class="dropdown-item" href="mypage.html">내 정보</a></li>
                 <li><a class="dropdown-item" href="wishlist.html">위시리스트</a></li>              
-                <li><a class="dropdown-item" href="#" onclick="">Admin Site</a></li>
+                <li><a class="dropdown-item" href="adminsite.html" onclick="">Admin Site</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li><a onclick="logout()" class="dropdown-item">로그아웃</a></li>
               </ul>

@@ -10,7 +10,9 @@ window.onload = function () {
 
   const token = localStorage.getItem('accessToken');
 
-  if (token) {
+  if (!token) {
+    loadHeader('home'); // load the home page by default
+  } else if (token) {
     axios
       .get('/user/me', {
         headers: {
@@ -36,9 +38,6 @@ window.onload = function () {
       });
   }
 
-  if (!token) {
-    loadHeader('home'); // load the home page by default
-  }
   reviewfade();
 
   genrefade();
