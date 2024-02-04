@@ -33,32 +33,6 @@ body {
   padding: 20px;
   margin: 20px; /* Adjust margin as needed */
 }
-
-/* 사장님 리뷰부분 답글달기 버튼*/
-.bookboard > .btn {
-  margin-left: 90%;
-  position: relative;
-}
-
-/* 사장님 리뷰부분 작성자*/
-.bookboard > .author {
-  position: relative;
-  top: -32px; /* 위로 이동 */
-}
-
-/* 사장님 리뷰부분 내용*/
-.bookboard > .content {
-  position: relative;
-  top: -10px;
-}
-
-/* 사장님 리뷰부분 수정
-.ownerresult > a > .btn {
-  margin-left: 92%;
-  position: relative;
-  top: -32px;
-} */
-
 .logo-container {
   margin-bottom: 60px;
 }
@@ -124,29 +98,7 @@ body {
   box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
 }
 .update-container {
-  margin-left: 40%; /*이부분 바꿨습니다. 정중앙정렬을 위해*/
-  width: 20px;
-  height: 100px;
-  /* 상하좌우 정중앙 정렬하기 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/** 지점등록 모달에서 정중앙 정렬을 위해 id값 추가후 바꿈**/
-#store-update-container {
-  margin-left: 33%; /*이부분 바꿨습니다. 정중앙정렬을 위해*/
-  width: 20px;
-  height: 100px;
-  /* 상하좌우 정중앙 정렬하기 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/** 메뉴등록/수정 모달에서 정중앙 정렬을 위해 id값 추가후 바꿈**/
-#menu-update-container {
-  margin-left: 23%; /*이부분 바꿨습니다. 정중앙정렬을 위해*/
+  margin: 25px;
   width: 20px;
   height: 100px;
   /* 상하좌우 정중앙 정렬하기 */
@@ -175,17 +127,15 @@ body {
 .addressBtn {
   background-image: linear-gradient(to right, #ff269d, #47c7ff);
 }
-
-/*이부분 주석 했습니다. 위에 중복되어있습니다.*/
-/*.update-container {
+.update-container {
   margin: 25px;
   width: 20px;
   height: 100px;
-  /* 상하좌우 정중앙 정렬하기 
+  /* 상하좌우 정중앙 정렬하기 */
   display: flex;
   justify-content: center;
   align-items: center;
-} */
+}
 
 .addressBtn {
   width: 100px;
@@ -240,7 +190,7 @@ ul#pages > li {
 }
 
 /* 리뷰 부분 css */
-.storereviewrow {
+.reviewrow {
   display: flex;
   align-items: center;
 }
@@ -371,7 +321,7 @@ form .reviewbtn button {
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  margin-left: 43%; /*추가작성*/
+  margin-left: 40%; /*추가작성*/
   margin-bottom: 5%; /*추가작성*/
 }
 
@@ -381,8 +331,6 @@ form .reviewbtn button {
   border-radius: 15%;
   object-fit: cover;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  margin-left: 43%; /*추가작성*/
-  margin-bottom: 5%; /*추가작성*/
 }
 
 #upmenuimge {
@@ -391,8 +339,6 @@ form .reviewbtn button {
   border-radius: 15%;
   object-fit: cover;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  margin-left: 35%; /*추가작성*/
-  margin-bottom: 5%; /*추가작성*/
 }
 
 /* 스토어 부분 디자인 */
@@ -406,34 +352,6 @@ form .reviewbtn button {
   margin: 2px;
 }
 
-/*마이페이지 지점정보 높이 통일 */
-#storelistcard > .row {
-  height: 240px;
-}
-
-/*스토어 지점등록 위치 변경을 위해 class 추가함*/
-
-.store-container > .store-flex {
-  display: flex;
-  align-items: center; /* 수직 가운데 정렬 */
-}
-
-/*스토어 메뉴등록 위치 변경을 위해 class 추가함*/
-.menu-flex {
-  display: flex;
-  align-items: center; /* 수직 가운데 정렬 */
-}
-
-/*스토어 책등록 위치 변경을 위해 class 추가함*/
-.book-flex {
-  display: flex;
-  align-items: center; /* 수직 가운데 정렬 */
-}
-
-.book-flex > .btn {
-  margin-left: 70%;
-}
-
 /* 메뉴 부분 */
 #menulist {
   display: flex;
@@ -445,21 +363,7 @@ form .reviewbtn button {
   margin: 2px;
 }
 
-/* 이미지 틀에 맞게 100% */
-.img-fluid {
-  height: 100% !important;
-}
-
 #menucardbtn {
   display: flex;
   flex-wrap: wrap;
-}
-
-#menucardbtn > .btn {
-  margin-left: 70%;
-}
-
-#adminreviewbtn {
-  position: relative;
-  z-index: 9999;
 }
