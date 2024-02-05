@@ -1,3 +1,6 @@
+const apiUrl = 'http://localhost:3000';
+// const apiUrl = 'http://43.203.75.81:3000/';
+
 // 매장 정보를 가져와서 표시하는 함수
 function loadStores() {
   console.log('로드 스토어 실행됨!!!!!!!!!!!!');
@@ -335,9 +338,42 @@ function bookinfo(storeid) {
     });
 }
 
+// 키 입력 이벤트 발생 함수
+async function keyupEvent(event) {
+  const search = await document.getElementById('searchbox').value;
+
+  if (event.key === 'Enter' && search !== '') {
+    event.preventDefault();
+    // 수정: 서버에 검색 요청 보내기
+    axios
+      .get(`${apiUrl}/books/searchStoreBook?storeId=1&bookTitle=${search}`)
+      .then((response) => {
+        // 서버로부터 받은 도서 목록을 표시
+        console.log('response.data', response.data);
+        const book = response.data.data;
+        booklist(book);
+      })
+      .catch((error) => {
+        console.error('API 요청 중 에러 발생:', error);
+      });
+  }
+}
+
+//소장도서 검색
+async function mainkeyup(event) {
+  const search = await document.getElementById('searchbox').value;
+  if (search === '') {
+    event.preventDefault(); // 백스페이스 키이고 검색어가 없는 경우
+    const bookCard = document.getElementById('bookListContainer');
+    bookCard.innerHTML = '';
+    getBooksForStore();
+  }
+}
+
 function booklist(book) {
   const bookinfo = book.book;
   console.log(book);
+  console.log('bookinfo', bookinfo);
   storebookinfo.innerHTML += `
   <div id="booklistcard" class="card mb-3" >
     <div class="row g-0">

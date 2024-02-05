@@ -489,6 +489,24 @@
                     <h2>지점 소장도서</h2>
                   </div>
                   <div class="bookboard">
+                    <!-- 검색바 -->
+                    <div class="searchBar">
+                      <form
+                        class="col-12 col-md-6 d-flex mb-3 mb-lg-0"
+                        role="search"
+                      >
+                        <input
+                          type="search"
+                          onkeypress="keyupEvent(event)"
+                          onkeyup="mainkeyup(event)"
+                          class="form-control"
+                          placeholder="소장도서 검색"
+                          aria-label="Search"
+                          id="searchbox"
+                        />
+                      </form>
+                    </div>
+
                     <div id="storebooklist"></div>
                   </div>
                 </div>
