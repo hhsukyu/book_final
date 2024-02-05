@@ -6,7 +6,11 @@ function userlist() {
   axios
     .get('user/userinfo')
     .then(function (response) {
-      const user = response.data;
+      const users = response.data;
+
+      users.forEach((user) => {
+        console.log(user);
+      });
     })
     .catch(function (error) {
       console.log(error);
