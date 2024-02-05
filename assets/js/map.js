@@ -41,7 +41,7 @@ function addressToCoordinate(address, callback) {
   );
 }
 
-window.onload = function () {
+window.onload = async function () {
   const cookieaccess = getCookie('accessToken');
   const cookierefresh = getCookie('refreshToken');
 
@@ -67,6 +67,7 @@ window.onload = function () {
 
   // load the map by default
   if (!token) {
+    storeSearch('127.0280285, 37.4986253');
     return;
   }
 
@@ -78,11 +79,11 @@ window.onload = function () {
       },
     })
     .then(function (response) {
-      address = response.data.address;
-      if (!address) {
+      const newaddress = response.data.address;
+      if (!newaddress) {
         console.log('no address');
       } else {
-        onReq(address);
+        onReq(newaddress);
       }
     })
     .catch(function (error) {
@@ -92,18 +93,40 @@ window.onload = function () {
   function onReq(address) {
     addressToCoordinate(address, (point) => {
       map.setCenter(point);
+      storeSearch([point[1], point[0]]);
     });
   }
 };
 
-async function storeSearch(location) {
-  axios.get(`/map/${location}`, {}).then(async function (response) {
-    const stores = response.data;
-    let marker = new naver.maps.Marker({});
-    stores.forEach((element) => {
-      element.place;
+function storeSearch(location) {
+  axios
+    .get(`/map/${location}`)
+    .then(function (response) {
+      if (!response.data) {
+        console.log('no nearby store');
+        return;
+      }
+      const stores = response.data;
+      let latlngs = [];
+      stores.forEach((element) => {
+        const x = String(element.place).slice(6, -1);
+        const y = x.split(' ');
+        latlngs.push(y[1]); //위도 경도 순서 바꾸기
+        latlngs.push(y[0]);
+      });
+      let markers = [];
+      for (i = 0; i < latlngs.length; i = i + 2) {
+        const marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(latlngs[i], latlngs[i + 1]),
+          map: map,
+        });
+        markers.push(marker);
+      }
+      return markers;
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-  });
 }
 
 async function searchResult() {
@@ -120,7 +143,7 @@ async function searchResult() {
       let currentPage = 1;
 
       function numPages(cardsArray) {
-        const itemsPerPage = 16;
+        const itemsPerPage = 8;
         // returns the number of pages
         return Math.ceil(cardsArray.length / itemsPerPage);
       }
@@ -145,7 +168,7 @@ async function searchResult() {
       function changePage(page) {
         const output = document.getElementById('output');
         output.innerHTML = '';
-        const itemsPerPage = 16;
+        const itemsPerPage = 8;
 
         if (page < 1) page = 1;
         if (page > pages) page = pages;

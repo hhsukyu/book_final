@@ -11,16 +11,24 @@ export class MapController {
 
   //주위 매장 값 반환
   @Get('/:location')
-  async findNearCafe(@Param('location') location: Point) {
-    return await this.mapService.findNearCafe(location);
+  async findNearCafe(@Param('location') location: string) {
+    const dataArray = location.split(',');
+    const longitude = Number(dataArray[0]); // "126.8652937"
+    const latitude = Number(dataArray[1]); //
+    const newlocation = new Point(longitude, latitude).toWkt();
+    return await this.mapService.findNearCafe(newlocation);
   }
 
   //보유 도서 기반 주위 매장 값 반환
   @Get('/:location/keyword/:keyword')
   async findNearCafeSearch(
-    @Param('location') location: Point,
+    @Param('location') location: string,
     @Param('keyword') keyword: string,
   ) {
-    return await this.mapService.findNearCafeSearch(location, keyword);
+    const dataArray = location.split(',');
+    const longitude = Number(dataArray[0]); // "126.8652937"
+    const latitude = Number(dataArray[1]); //
+    const newlocation = new Point(longitude, latitude).toWkt();
+    return await this.mapService.findNearCafeSearch(newlocation, keyword);
   }
 }
