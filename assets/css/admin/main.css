@@ -21,7 +21,7 @@
   justify-content: center;
 }
 
-#userlist {
+#userinfoContain {
   width: 50%;
   height: 25vh;
 }
@@ -31,7 +31,7 @@
   justify-content: center;
 }
 
-#ownerlist {
+#ownerlistContain {
   width: 50%;
   height: 25vh;
 }

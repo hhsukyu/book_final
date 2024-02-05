@@ -46,11 +46,11 @@ function loadHeader(page) {
                 aria-label="Search"
               />
             </form>
-            <div style="display: flex; justify-content: center; align-items: center; margin-left: 5%">
-            <button type="button" class="btn" id="liveToastBtn"><i class="bi bi-bell-fill" style="color: white;"></i></button>
+            <div style="display: flex; justify-content: center; align-items: center; margin-left: 2%">
+            <button onclick="tostebtn()" type="button" class="btn" id="liveToastBtn"><i class="bi bi-bell-fill" style="color: white;"></i></button>
             </div>
             <div
-              class="col-1 dropdown text-end justify-content-lg-end justify-content-end"
+              class="col-1 dropdown justify-content-lg-end justify-content-end" style="margin-left: 2%"
             >
               <a
                 href="#"
@@ -177,4 +177,18 @@ function loadHeader(page) {
       `;
   }
   header.innerHTML = headerContent;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function tostebtn() {
+  const toastTrigger = document.getElementById('liveToastBtn');
+  const toastLiveExample = document.getElementById('liveToast');
+
+  if (toastTrigger) {
+    const toastBootstrap =
+      await bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+    toastTrigger.addEventListener('click', () => {
+      toastBootstrap.show();
+    });
+  }
 }
