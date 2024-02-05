@@ -8,6 +8,7 @@ import { UserService } from 'src/user/user.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([MyPage, User])],
+  exports: [MyPageService],
   providers: [MyPageService, UserService],
   controllers: [MyPageController],
 })

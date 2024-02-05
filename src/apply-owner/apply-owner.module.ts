@@ -7,10 +7,17 @@ import { ApplyOwner } from 'src/entity/applyOwner.entity';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from 'src/auth/auth.service';
 import { MyPage } from 'src/entity/my-page.entity';
+import { MyPageService } from 'src/my-page/my-page.service';
+import { UserModule } from 'src/user/user.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, ApplyOwner, MyPage])],
-  providers: [ApplyOwnerService, UserService, AuthService],
+  imports: [
+    TypeOrmModule.forFeature([ApplyOwner, MyPage]),
+    UserModule,
+    AuthModule,
+  ],
+  providers: [ApplyOwnerService, MyPageService],
   controllers: [ApplyOwnerController],
 })
 export class ApplyOwnerModule {}
