@@ -5,21 +5,12 @@ let allnextPage;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let allgotoPage;
 
-const query = new URLSearchParams(window.location.search).get('query');
+const query = new URLSearchParams(window.location.search).get('book');
 
 if (query) {
   // query를 사용하여 검색 결과를 가져와서 표시하는 함수 호출
   console.log(query);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function keyevent(event) {
-  const search = document.getElementById('search-box').value;
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    console.log(search);
-    searchresult(search);
-  }
+  searchresult(query);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -190,7 +181,7 @@ function bookreivew(bookid) {
     })
     .then(function (response) {
       const reviewbox1 = document.getElementById('reviewlist');
-      reviewcard.style.display = 'block';
+      reviewcard2.style.display = 'block';
       reviewbox1.innerHTML = '';
       const comments = response.data;
       console.log(comments);
@@ -241,10 +232,6 @@ function bookreivew(bookid) {
 //책 리뷰 등록 버튼 클릭 이벤트
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let submitreview;
-
-const reviewcard = document.getElementById('reviewlist');
-const addreview = document.getElementById('reviewadd');
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function addreviewbtn() {
@@ -254,8 +241,8 @@ async function addreviewbtn() {
   commentTextarea.value = '';
   let selectedStarValue = null;
   // 책 리뷰 부분 숨김
-  reviewcard.style.display = 'none';
-  addreview.style.display = 'block';
+  reviewcard2.style.display = 'none';
+  addreview2.style.display = 'block';
   console.log(reviewbookid);
   // 전송 처리 함수
 
@@ -298,7 +285,7 @@ async function addreviewbtn() {
       .then(function () {
         alert('댓글 등록');
         // reviewcard.style.display = 'block';
-        addreview.style.display = 'none';
+        addreview2.style.display = 'none';
         commentTextarea.value = '';
         starValue = null;
         bookreivew(reviewbookid);
