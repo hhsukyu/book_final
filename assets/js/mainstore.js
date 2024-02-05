@@ -3,7 +3,6 @@ const apiUrl = 'http://localhost:3000';
 
 // 매장 정보를 가져와서 표시하는 함수
 function loadStores() {
-  console.log('로드 스토어 실행됨!!!!!!!!!!!!');
   axios
     .get('/store')
     .then(async function (response) {
@@ -396,9 +395,8 @@ function showSearchingBooks(books) {
   // 각 도서를 도서 목록에 추가
   books.forEach((book) => {
     storebookinfo.innerHTML += `
-
-      <div class="col-3 mb-3">
-      <div class="col">
+ 
+      <div class="col-3 mb-3"> 
             <div class="card">
             <img src="${book.book_image}" alt="" />
             <div class="card-body">
@@ -406,7 +404,8 @@ function showSearchingBooks(books) {
             </div>
           </div>
         </div>
-        </div>
+
+      
      
    
     `;
