@@ -239,6 +239,7 @@ function searchresult(search) {
 function carddetail(bookid) {
   const booklabel = document.getElementById('bookmodallabel');
   const bodytitle = document.getElementById('modalcardtitle');
+
   const bodydesc = document.getElementById('modalcarddesc');
   const bodywr = document.getElementById('modalcardwr');
   const bodyil = document.getElementById('modalcardil');
@@ -263,6 +264,7 @@ function carddetail(bookid) {
 
       booklabel.innerHTML = book.title;
       bodytitle.innerHTML = book.title;
+      bodytitle.setAttribute('data-book-id', book.id);
       bodydesc.innerHTML = book.book_desc;
       bodywr.innerHTML = book.writer;
       bodyil.innerHTML = book.illustrator;

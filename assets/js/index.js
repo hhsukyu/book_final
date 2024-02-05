@@ -204,6 +204,7 @@ function carddetail(bookid) {
 
       booklabel.innerHTML = book.title;
       bodytitle.innerHTML = book.title;
+      bodytitle.setAttribute('data-book-id', book.id);
       bodydesc.innerHTML = book.book_desc;
       bodywr.innerHTML = book.writer;
       bodyil.innerHTML = book.illustrator;
