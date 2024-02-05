@@ -462,7 +462,11 @@
                       />
                     </div>
                     <!-- 지점 정보 -->
-                    <div class="book-details mt-3">
+                    <div class="book-details mt-3" style="position: relative">
+                      <!-- 하트 버튼 추가 -->
+                      <button id="addToLikestoreButton" class="likestore-btn">
+                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                      </button>
                       <h3 id="modalcardStorename">지점명</h3>
                       <p>
                         <strong>지점 설명</strong>:
@@ -673,6 +677,7 @@
     <script src="./js/mainstore.js"></script>
     <script src="./js/ownerAplication.js"></script>
     <script src="./js/wishlistButton.js"></script>
+    <script src="./js/likestoreButton.js"></script>
     <script src="./js/header.js"></script>
   </body>
   <!-- Google tag (gtag.js) -->

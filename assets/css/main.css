@@ -77,6 +77,15 @@ body {
   outline: none;
 }
 
+.likestore-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
 .reviewCardRow {
   display: flex;
   flex-wrap: wrap;
