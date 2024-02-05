@@ -31,6 +31,7 @@ export class UserService {
   async finduserlist() {
     const users = await this.userRepository.find({
       where: { role: Raw((role) => `${role} = '0'`) },
+      select: ['nickname', 'email', 'createdAt'],
     });
 
     console.log(typeof Role.User);
