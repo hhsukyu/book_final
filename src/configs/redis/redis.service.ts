@@ -60,4 +60,8 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   async setBookInfo(bookTitle: string, bookInfo: string): Promise<void> {
     await this.client.set(bookTitle, bookInfo, { EX: 60 * 2 });
   }
+
+  async setUserIdCode(userId: string, code: string): Promise<void> {
+    await this.client.set(userId, code, { EX: 60 * 1 });
+  }
 }

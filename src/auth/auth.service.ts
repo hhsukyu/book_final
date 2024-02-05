@@ -189,10 +189,10 @@ export class AuthService {
     });
 
     if (OAuthUser) {
-      res.redirect(
-        `http://localhost:3000/auth/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
-      );
-    } else res.redirect('http://localhost:3000/login&signup.html');
+      res.cookie('accessToken', accessToken);
+      res.cookie('refreshToken', refreshToken);
+      res.redirect('/index.html');
+    } else res.redirect('/login&signup.html');
   }
 
   //네이버 지점업주 회원가입/로그인
@@ -231,9 +231,9 @@ export class AuthService {
 
     if (OAuthUser)
       res.redirect(
-        `http://localhost:3000/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+        `/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
       );
-    else res.redirect('http://localhost:3000/login/failure');
+    else res.redirect('/login/failure');
   }
 
   //카카오 회원가입/로그인
@@ -263,7 +263,7 @@ export class AuthService {
       const mypage = await this.myPageService.create(OAuthUser.id);
       console.log(mypage);
     }
-    console.log('photo', photo);
+
     const accessToken = this.generateAccessToken(
       OAuthUser.id,
       OAuthUser.nickname,
@@ -274,11 +274,11 @@ export class AuthService {
       currentRefreshToken: refreshToken,
     });
 
-    if (OAuthUser)
-      res.redirect(
-        `http://localhost:3000/auth/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
-      );
-    else res.redirect('http://localhost:3000/login&signup.html');
+    if (OAuthUser) {
+      res.cookie('accessToken', accessToken);
+      res.cookie('refreshToken', refreshToken);
+      res.redirect('/index.html');
+    } else res.redirect('/login&signup.html');
   }
 
   //카카오 지점업주 회원가입/로그인
@@ -317,9 +317,9 @@ export class AuthService {
 
     if (OAuthUser)
       res.redirect(
-        `http://localhost:3000/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+        `/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
       );
-    else res.redirect('http://localhost:3000/login/failure');
+    else res.redirect('/login/failure');
   }
 
   //비밀번호 찾기- 이메일 인증번호 보내기

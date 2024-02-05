@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Like, Repository } from 'typeorm';
+import { Like, Raw, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entity/user.entity';
 import { ConfigService } from '@nestjs/config';
@@ -14,6 +14,7 @@ import { UpdateProfileDto } from './dto/update-profile.dto';
 
 import { MyPage } from '../entity/my-page.entity';
 import { MyPageService } from 'src/my-page/my-page.service';
+import { Role } from './types/userRole.type';
 
 @Injectable()
 export class UserService {
@@ -25,6 +26,26 @@ export class UserService {
     private readonly myPageRepository: Repository<MyPage>,
     private readonly myPageService: MyPageService,
   ) {}
+
+  //admin 페이지 유저리스트
+  async finduserlist() {
+    const users = await this.userRepository.find({
+      where: { role: Raw((role) => `${role} = '0'`) },
+      select: ['nickname', 'email', 'createdAt'],
+    });
+
+    console.log(typeof Role.User);
+    return users;
+  }
+  //admin 페이지 사장님리스트
+  async findownerlist() {
+    const users = await this.userRepository.find({
+      where: { role: Raw((role) => `${role} = '1'`) },
+    });
+
+    console.log(typeof Role.User);
+    return users;
+  }
 
   //유저 이름 확인
   async findusername(userid: number) {

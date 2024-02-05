@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookSurfing ADMIN</title>
+    <link rel="stylesheet" href="./css/admin/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <!-- axios.js -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <!-- 사이드 바 부분 -->
+
+    <div id="adminsidebar"></div>
+
+    <div id="adminmain">
+      <div id="first">
+        <div id="userinfoContain" class="boardcontain">
+          <h6>유저리스트</h6>
+          <div id="userlist"></div>
+        </div>
+        <div id="ownerlistContain" class="boardcontain">
+          <h6>유저리스트</h6>
+          <div id="ownerlist"></div>
+        </div>
+      </div>
+      <div id="second">
+        <div id="sitetraffic" class="boardcontain">sitetraffic</div>
+      </div>
+      <div id="three">
+        <div id="storelist" class="boardcontain">storelist</div>
+      </div>
+    </div>
+
+    <!-- 부트스트랩 js 파일 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/admin/main.js"></script>
+    <script src="./js/admin/sidebar.js"></script>
+    <script src="./js/admin/adminmain.js"></script>
+  </body>
+</html>

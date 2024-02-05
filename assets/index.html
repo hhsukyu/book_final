@@ -1,6 +1,22 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Google Tag Manager -->
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'G-8FHVJJ85S5');
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BOOKSURFING Mainpage</title>
@@ -14,6 +30,12 @@
     <link rel="stylesheet" href="./css/introduce.css" />
     <!-- storereview css -->
     <link rel="stylesheet" href="./css/storereview.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+
+    <!-- 구글 애널리틱스 -->
 
     <!-- axios.js -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -229,6 +251,10 @@
 
                 <!-- 도서 정보 -->
                 <div class="book-details mt-3">
+                  <!-- 하트 버튼 추가 -->
+                  <button id="addToWishlistButton" class="wishlist-btn">
+                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                  </button>
                   <h3 id="modalcardtitle">도서 제목</h3>
                   <p><strong>소개</strong>: <a id="modalcarddesc"></a></p>
                   <p><strong>글작가</strong>: <a id="modalcardwr"></a></p>
@@ -466,7 +492,7 @@
                 >
                   <div class="menu-flex">
                     <div class="col">
-                      <h4 class="mt-4 title-mypage">메뉴 정보</h4>
+                      <h2 class="mt-4 title-mypage">메뉴 정보</h2>
                     </div>
                   </div>
                   <div class="bookboard">
@@ -482,7 +508,7 @@
                 >
                   <!-- 스토어 책 부분 -->
                   <div class="book-flex">
-                    <h1>지점 소장도서</h1>
+                    <h2>지점 소장도서</h2>
                   </div>
                   <div class="bookboard">
                     <div id="storebooklist"></div>
@@ -501,12 +527,15 @@
                   <div id="ownerreviewlist" class="storemiddlecontain">
                     <div class="storeReviewCardRow row">
                       <div class="reviewrow">
-                        <h2 class="mb-4" style="display: inline-block">
+                        <h2
+                          class="mb-4 storereviewtitle"
+                          style="display: inline-block"
+                        >
                           지점리뷰
                         </h2>
-                        <div id="reviewicon" onclick="addstorereviewbtn()">
+                        <div id="storereviewicon" onclick="addstorereviewbtn()">
                           <i class="fa fa-comment"></i>&nbsp;<strong
-                            >Comment</strong
+                            >리뷰작성</strong
                           >
                         </div>
                       </div>
@@ -599,13 +628,37 @@
       </div>
     </div>
 
+    <!-- 알람 트리거 부분 -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <img src="..." class="rounded me-2" alt="..." />
+          <strong class="me-auto">Bootstrap</strong>
+          <small>11 mins ago</small>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Hello, world! This is a toast message.</div>
+      </div>
+    </div>
+
     <!-- 부트스트랩 js파일 -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
     <!-- 카드 슬라이드 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -619,5 +672,21 @@
     <script src="./js/genre.js"></script>
     <script src="./js/mainstore.js"></script>
     <script src="./js/ownerAplication.js"></script>
+    <script src="./js/wishlistButton.js"></script>
+    <script src="./js/header.js"></script>
   </body>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-8FHVJJ85S5"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-8FHVJJ85S5');
+  </script>
 </html>
