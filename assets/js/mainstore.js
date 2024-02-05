@@ -346,21 +346,33 @@ function bookinfo(storeid) {
 async function keyupEvent(event) {
   const search = await document.getElementById('searchbox').value;
 
-  if (event.key === 'Enter' && search !== '') {
+  if (event.key === 'Enter') {
     event.preventDefault();
-    // 수정: 서버에 검색 요청 보내기
-    axios
-      .get(`${apiUrl}/books/searchStoreBook?storeId=1&bookTitle=${search}`)
-      .then((response) => {
-        // 서버로부터 받은 도서 목록을 표시
-        console.log('response.data', response.data);
-        const books = response.data.data;
 
-        showSearchingBooks(books);
-      })
-      .catch((error) => {
-        console.error('API 요청 중 에러 발생:', error);
-      });
+    if (search === '') {
+      // 검색어가 없을 때의 처리
+      storebookinfo.innerHTML = '<p>검색 결과가 없습니다.</p>';
+    } else {
+      // 서버에 검색 요청 보내기
+      axios
+        .get(`${apiUrl}/books/searchStoreBook?storeId=1&bookTitle=${search}`)
+        .then((response) => {
+          // 서버로부터 받은 도서 목록을 표시
+          console.log('response.data', response.data);
+          const books = response.data.data;
+
+          if (books.length === 0) {
+            // 검색 결과가 없을 때의 처리
+            storebookinfo.innerHTML = '<p>검색 결과가 없습니다.</p>';
+          } else {
+            // 검색 결과가 있을 때의 처리
+            showSearchingBooks(books);
+          }
+        })
+        .catch((error) => {
+          console.error('API 요청 중 에러 발생:', error);
+        });
+    }
   }
 }
 
