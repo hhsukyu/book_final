@@ -24,6 +24,7 @@
 #userinfoContain {
   width: 50%;
   height: 25vh;
+  overflow: auto;
 }
 
 #second {
@@ -34,11 +35,17 @@
 #ownerlistContain {
   width: 50%;
   height: 25vh;
+  overflow: auto;
+}
+
+#sitetrafficContain {
+  width: 100%;
+  height: 25vh;
 }
 
 #sitetraffic {
-  width: 100%;
-  height: 15vh;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #three {
@@ -46,7 +53,22 @@
   justify-content: center;
 }
 
-#storelist {
+#storelistcontain {
   width: 100%;
-  height: 35vh;
+  height: 40vh;
+  overflow: auto;
+}
+
+#storelist {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#storelistcard {
+  width: 50%;
+}
+
+#storelistcard > .g-0 > .col-md-4 > img {
+  width: 280px;
+  height: 170px;
 }
