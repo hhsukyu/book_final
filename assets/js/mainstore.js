@@ -91,6 +91,26 @@ function loadStores() {
     });
 }
 
+// 사용자의 Like Store 목록을 저장할 변수
+let userLikeStores = [];
+
+// 사용자의 Like Store 목록을 가져오는 함수
+function loadUserLikeStores() {
+  axios
+    .get('/mypage', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function (response) {
+      userLikeStores = response.data.like_store;
+      console.log('라이크스토어 리스트', userLikeStores);
+    })
+    .catch(function (error) {
+      console.error('라이크스토어 리스트 로딩오류:', error);
+    });
+}
+
 //---------------지점자세히 보기---------------------------//
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -119,11 +139,28 @@ function storecarddetail(storeid) {
 
       storelabel.innerHTML = store.store_name;
       bodyname.innerHTML = store.store_name;
+      bodyname.setAttribute('data-store-id', store.id);
+      console.log('data-store-id', store.id);
       bodystoredesc.innerHTML = store.store_desc;
       bodyad.innerHTML = store.store_address;
       bodyopen.innerHTML = store.store_open;
       storecardimage.src = store.store_img;
       bodyclose.innerHTML = store.store_close;
+
+      // 매장이 사용자의 Like Store 목록에 있는지 확인
+      const isLiked = userLikeStores.includes(store.id.toString());
+      const likeStoreButton = document.getElementById('addToLikestoreButton');
+      const heartIcon = likeStoreButton.querySelector('.fa');
+
+      if (isLiked) {
+        heartIcon.classList.remove('fa-heart-o');
+        heartIcon.classList.add('fa-heart');
+        heartIcon.style.color = 'red';
+      } else {
+        heartIcon.classList.remove('fa-heart');
+        heartIcon.classList.add('fa-heart-o');
+        heartIcon.style.color = 'black';
+      }
     })
     .catch(function (error) {
       console.log(error);
@@ -408,3 +445,5 @@ function menulists(menu) {
     </div>
   </div>`;
 }
+
+loadUserLikeStores();
