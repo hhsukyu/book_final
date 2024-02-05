@@ -12,14 +12,37 @@ window.onload = function () {
 
   if (!token) {
     loadHeader('home'); // load the home page by default
-
-    reviewfade();
-    genrefade();
-  } else {
-    loadHeader('login');
-
-    genrefade();
+  } else if (token) {
+    axios
+      .get('/user/me', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then(function (response) {
+        console.log(response.data);
+        const user = response.data;
+        if (user.role === 0) {
+          console.log('유저');
+          loadHeader('login');
+          const userimg = document.getElementById('userimg');
+          userimg.src = user.photo;
+        } else if (user.role === 1) {
+          console.log('사장');
+          loadHeader('admin');
+        } else if (user.role === 2) {
+          console.log('사이트관리자');
+          loadHeader('siteadmin');
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
+
+  reviewfade();
+
+  genrefade();
   loadStores();
   mainBookcard();
 };
