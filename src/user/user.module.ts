@@ -11,6 +11,7 @@ import { Menu } from '../entity/menu.entity';
 import { MyPage } from 'src/entity/my-page.entity';
 import { MyPageModule } from 'src/my-page/my-page.module';
 import { MyPageService } from 'src/my-page/my-page.service';
+import { ApplyOwner } from 'src/entity/applyOwner.entity';
 
 @Module({
   imports: [
