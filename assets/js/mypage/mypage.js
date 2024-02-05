@@ -1,38 +1,4 @@
-window.onload = function () {
-  const token = localStorage.getItem('accessToken');
-
-  if (!token) {
-    loadHeader('home'); // load the home page by default
-  } else if (token) {
-    axios
-      .get('/user/me', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then(function (response) {
-        console.log(response.data);
-        const user = response.data;
-        if (user.role === 0) {
-          console.log('유저');
-          loadHeader('login');
-        } else if (user.role === 1) {
-          console.log('사장');
-          loadHeader('admin');
-        } else if (user.role === 2) {
-          console.log('사이트관리자');
-          loadHeader('siteadmin');
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
-  userme();
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+userme();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function userme() {
@@ -127,45 +93,6 @@ function myprofilebtn(event) {
 }
 
 //지점 신규 등록
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// async function storebtn(event) {
-//   event.preventDefault();
-//   resultaddress =
-//     document.getElementById('createstoreaddress').value +
-//     document.getElementById('storedetailaddress').value;
-//   addressToCoordinate(resultaddress);
-//   const storeimgInput = document.getElementById('createstoreimg');
-//   const storeimgFile = storeimgInput.files[0];
-
-//   const formData = new FormData();
-//   formData.append('store_name', document.getElementById('storename').value);
-//   formData.append('store_desc', document.getElementById('storedesc').value);
-//   formData.append('file', storeimgFile);
-//   formData.append('place', await addressToCoordinate(resultaddress));
-//   // formData.append('place', [0, 0]); // 추후 네이버 좌표변환 API 적용
-//   formData.append(
-//     'store_address',
-//     document.getElementById('createstoreaddress').value +
-//       document.getElementById('storedetailaddress').value,
-//   );
-//   formData.append('store_open', document.getElementById('opening-time').value);
-//   formData.append('store_close', document.getElementById('closing-time').value);
-
-//   axios
-//     .post('/store', formData, {
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-//       },
-//     })
-//     .then(function () {
-//       alert('지점이 등록되었습니다.');
-//       window.location.reload();
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
-
 //플레이스 지도 변환 js
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function storebtn(event) {
@@ -241,7 +168,6 @@ async function storebtn(event) {
 }
 
 //store 처음 저장
-
 const storelist = document.getElementById('mypagestores');
 const menulist = document.getElementById('menulist');
 
@@ -472,29 +398,3 @@ function updatestoreAddress() {
     },
   }).open();
 }
-
-//플레이스 지도 변환 js
-// async function addressToCoordinate(address) {
-//   return new Promise((resolve, reject) => {
-//     naver.maps.Service.geocode(
-//       {
-//         query: address,
-//       },
-//       function (status, response) {
-//         if (status === naver.maps.Service.Status.ERROR) {
-//           return reject('Something Wrong!');
-//         }
-
-//         if (response.v2.meta.totalCount === 0) {
-//           return reject('totalCount' + response.v2.meta.totalCount);
-//         }
-
-//         var item = response.v2.addresses[0],
-//           point = new naver.maps.Point(item.x, item.y);
-
-//         console.log(point);
-//         resolve(point);
-//       },
-//     );
-//   });
-// }

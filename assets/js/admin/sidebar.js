@@ -25,7 +25,7 @@ adminsidebar.innerHTML = `
             <svg class="bi pe-none me-2" width="16" height="16">
               <use xlink:href="#home"></use>
             </svg>
-            Home
+            OwnerList
           </a>
         </li>
         <li>
@@ -33,7 +33,7 @@ adminsidebar.innerHTML = `
             <svg class="bi pe-none me-2" width="16" height="16">
               <use xlink:href="#speedometer2"></use>
             </svg>
-            Dashboard
+            Comment
           </a>
         </li>
         <li>
@@ -44,22 +44,7 @@ adminsidebar.innerHTML = `
             Orders
           </a>
         </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#grid"></use>
-            </svg>
-            Products
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#people-circle"></use>
-            </svg>
-            Customers
-          </a>
-        </li>
+        
       </ul>
       <hr />
       <div class="dropdown">

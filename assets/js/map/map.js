@@ -42,14 +42,6 @@ function addressToCoordinate(address, callback) {
 }
 
 window.onload = function () {
-  const cookieaccess = getCookie('accessToken');
-  const cookierefresh = getCookie('refreshToken');
-
-  if (cookieaccess && cookierefresh) {
-    localStorage.setItem('accessToken', cookieaccess);
-    localStorage.setItem('refreshToken', cookierefresh);
-  }
-
   const token = localStorage.getItem('accessToken');
 
   if (!token) {
