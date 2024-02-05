@@ -25,6 +25,16 @@ export class UserController {
     private readonly menuService: MenuService,
   ) {}
 
+  @Get('userinfo')
+  async finduserlist() {
+    return await this.userService.finduserlist();
+  }
+
+  @Get('ownerinfo')
+  async findownerlist() {
+    return await this.userService.findownerlist();
+  }
+
   @Get('email')
   findEmail(@Query('email') email: string) {
     return this.userService.findEmail(email);

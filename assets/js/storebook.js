@@ -33,7 +33,7 @@ function booklist(book) {
           <p class="card-text">${bookinfo.writer}</p>
           <div id="menucardbtn">
           <p class="card-text"><small class="text-body-secondary">${bookinfo.publisher}</small></p>
-          </div>  
+          </div>
           </div>
       </div>
     </div>
