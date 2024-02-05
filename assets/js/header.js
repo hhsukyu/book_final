@@ -46,6 +46,9 @@ function loadHeader(page) {
                 aria-label="Search"
               />
             </form>
+            <div style="display: flex; justify-content: center; align-items: center; margin-left: 5%">
+            <button type="button" class="btn" id="liveToastBtn"><i class="bi bi-bell-fill" style="color: white;"></i></button>
+            </div>
             <div
               class="col-1 dropdown text-end justify-content-lg-end justify-content-end"
             >
@@ -56,11 +59,12 @@ function loadHeader(page) {
                 aria-expanded="false"
               >
                 <img
-                  src="https://github.com/mdo.png"
-                  alt="mdo"
-                  width="32"
-                  height="32"
-                  class="rounded-circle"
+                    id="userimg"
+                    src="https://github.com/mdo.png"
+                    alt="mdo"
+                    width="32"
+                    height="32"
+                    class="rounded-circle"
                 />
               </a>
               <ul

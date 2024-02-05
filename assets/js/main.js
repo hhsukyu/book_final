@@ -25,6 +25,8 @@ window.onload = function () {
         if (user.role === 0) {
           console.log('유저');
           loadHeader('login');
+          const userimg = document.getElementById('userimg');
+          userimg.src = user.photo;
         } else if (user.role === 1) {
           console.log('사장');
           loadHeader('admin');
