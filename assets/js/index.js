@@ -1,11 +1,10 @@
-//검색창 선택시 검색 페이지로 이동
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function onkeyevent(event) {
-  const search = document.getElementById('search-box').value;
-
+  const search = document.getElementById('search-box');
+  const result = search.value;
   if (event.key === 'Enter') {
     event.preventDefault();
-    window.location.href = `search.html?value=${search}`;
+    window.location.href = `search.html?book=${result}`;
   }
 }
 
@@ -76,7 +75,7 @@ function bookreivew(bookid) {
     })
     .then(function (response) {
       const reviewbox1 = document.getElementById('reviewlist');
-      reviewcard.style.display = 'block';
+      reviewcard2.style.display = 'block';
       reviewbox1.innerHTML = '';
       const comments = response.data;
       console.log(comments);
@@ -127,10 +126,10 @@ function bookreivew(bookid) {
 //책 리뷰 등록 버튼 클릭 이벤트
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let submitreview;
+let submitreview2;
 
-const reviewcard = document.getElementById('reviewlist');
-const addreview = document.getElementById('reviewadd');
+const reviewcard2 = document.getElementById('reviewlist');
+const addreview2 = document.getElementById('reviewadd');
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function addreviewbtn() {
@@ -140,8 +139,8 @@ async function addreviewbtn() {
   commentTextarea.value = '';
   let selectedStarValue = null;
   // 책 리뷰 부분 숨김
-  reviewcard.style.display = 'none';
-  addreview.style.display = 'block';
+  reviewcard2.style.display = 'none';
+  addreview2.style.display = 'block';
   console.log(reviewbookid);
   // 전송 처리 함수
 
@@ -163,6 +162,7 @@ async function addreviewbtn() {
     // 서버로 데이터 전송
     sendFeedback(selectedStarValue, comment);
   }
+  submitreview2 = handleSubmit;
 
   // 리뷰 데이터 저장
   function sendFeedback(starValue, comment) {
@@ -184,7 +184,7 @@ async function addreviewbtn() {
       .then(function () {
         alert('댓글 등록');
         // reviewcard.style.display = 'block';
-        addreview.style.display = 'none';
+        addreview2.style.display = 'none';
         commentTextarea.value = '';
         starValue = null;
         bookreivew(reviewbookid);
@@ -193,11 +193,4 @@ async function addreviewbtn() {
         alert(error);
       });
   }
-
-  // 이벤트 핸들러 등록
-  const submitBtn = document.getElementById('submitBtn');
-  submitBtn.addEventListener('click', handleSubmit);
-
-  // submitreview 변수에 handleSubmit 함수 할당
-  submitreview = handleSubmit;
 }
