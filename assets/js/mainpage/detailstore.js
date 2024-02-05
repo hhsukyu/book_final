@@ -1,119 +1,7 @@
-// 매장 정보를 가져와서 표시하는 함수
-function loadStores() {
-  console.log('로드 스토어 실행됨!!!!!!!!!!!!');
-  axios
-    .get('/store')
-    .then(async function (response) {
-      const stores = response.data;
-      const pages = numPages(stores);
-
-      //   const itemsPerPage = 16;
-
-      changePage(1); // set default page
-      await addPages(); // generate page navigation
-
-      // reference to keep track of current page
-      let currentPage = 1;
-
-      function numPages(cardsArray) {
-        const itemsPerPage = 8;
-        // returns the number of pages
-        return Math.ceil(cardsArray.length / itemsPerPage);
-      }
-
-      function createCardElement(store) {
-        const storeElement = `
-          <div class="album-item"onclick="storecarddetail(${store.id})">
-            <img src="${store.store_img || '기본 이미지 경로'}" alt="${store.store_name}" />
-            <div class="album-details">
-              <span class="album-title">${store.store_name}</span>
-              <span class="album-intro">${store.store_desc}</span>
-              <span class="album-location">${store.store_address}</span>
-              <span class="album-open">${store.store_open} ~ ${store.store_close}</span>
-            </div>
-          </div>
-        `;
-        return storeElement;
-      }
-      function changePage(page) {
-        const output = document.querySelector('.album-store');
-        output.innerHTML = '';
-        const itemsPerPage = 8;
-
-        if (page < 1) page = 1;
-        if (page > pages) page = pages;
-        output.innerHTML = '';
-
-        for (
-          let i = (page - 1) * itemsPerPage;
-          i < page * itemsPerPage && i < stores.length;
-          i++
-        ) {
-          // 검색 정보 배열로 저장
-
-          const store = stores[i];
-          output.innerHTML += createCardElement(store);
-        }
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      async function addPages() {
-        const el = document.getElementById('storepages');
-        el.innerHTML = '';
-        for (let i = 1; i < pages + 1; i++) {
-          el.innerHTML += `<li><a onclick="allgotoPage(${i})">${i}</a></li>`;
-        }
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      async function nextPage() {
-        console.log(pages);
-        console.log(changePage);
-        if (currentPage < pages) changePage(++currentPage);
-      }
-      allnextPage = nextPage;
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      async function prevPage() {
-        if (currentPage > 1) changePage(--currentPage);
-      }
-      allprevPage = prevPage;
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      async function gotoPage(page) {
-        currentPage = page;
-        changePage(page);
-      }
-      allgotoPage = gotoPage;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
-
-// 사용자의 Like Store 목록을 저장할 변수
-let userLikeStores = [];
-
-// 사용자의 Like Store 목록을 가져오는 함수
-function loadUserLikeStores() {
-  axios
-    .get('/mypage', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    })
-    .then(function (response) {
-      userLikeStores = response.data.like_store;
-      console.log('라이크스토어 리스트', userLikeStores);
-    })
-    .catch(function (error) {
-      console.error('라이크스토어 리스트 로딩오류:', error);
-    });
-}
-
 //---------------지점자세히 보기---------------------------//
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function storecarddetail(storeid) {
   const storelabel = document.getElementById('storemodallabel');
   const bodyname = document.getElementById('modalcardStorename');
@@ -194,8 +82,8 @@ async function username(userid) {
     const response = await axios.get(`/user/mypage/${userid}`);
     const user = response.data;
     let result = `
-        <a>${user.nickname}</a>
-      `;
+          <a>${user.nickname}</a>
+        `;
     return result;
   } catch (error) {
     console.log(error);
@@ -214,42 +102,42 @@ async function storereviewlist(comment) {
   );
   console.log('adminReviews', adminReviews);
   storereviewbox1.innerHTML += `
-  <div class="box-top">
-<!-- profile-box -->
-<div class="profile-box">
-  <!-- user-image -->
-  
-  <!-- username-Name -->
-  <div class="name-user">
-    <strong id="reviewname">${usernameResult}</strong>
+    <div class="box-top">
+  <!-- profile-box -->
+  <div class="profile-box">
+    <!-- user-image -->
+    
+    <!-- username-Name -->
+    <div class="name-user">
+      <strong id="reviewname">${usernameResult}</strong>
+    </div>
   </div>
-</div>
-
-<!-- review box -->
-<div id="review-box" class="review-box">
-  ${reviewstar(comment.rating)}
-  <!-- 별 부분 -->
-</div>
-</div>
-
-<!-- comment part -->
-<div class="client-comment">
-<h6 id="reviewcomment">
-  ${comment.content}
-</h6>
-</div>
-<!-- 리뷰에 대한 답글 표시 -->
-    ${adminReviews
-      .map(
-        (adminReview) => `
-      <div class="admin-review bookboard">
-      <p class="admin-comment-heading"><strong>사장님의 댓글:</strong></p>
-        <p>${adminReview.content}</p>
-      </div>
-    `,
-      )
-      .join('')}
-`;
+  
+  <!-- review box -->
+  <div id="review-box" class="review-box">
+    ${reviewstar(comment.rating)}
+    <!-- 별 부분 -->
+  </div>
+  </div>
+  
+  <!-- comment part -->
+  <div class="client-comment">
+  <h6 id="reviewcomment">
+    ${comment.content}
+  </h6>
+  </div>
+  <!-- 리뷰에 대한 답글 표시 -->
+      ${adminReviews
+        .map(
+          (adminReview) => `
+        <div class="admin-review bookboard">
+        <p class="admin-comment-heading"><strong>사장님의 댓글:</strong></p>
+          <p>${adminReview.content}</p>
+        </div>
+      `,
+        )
+        .join('')}
+  `;
   function reviewstar(rating) {
     let stars = '';
     for (let i = 1; i <= rating; i++) {
@@ -314,7 +202,7 @@ async function addstorereviewbtn() {
           },
         },
       )
-      .then(function (response) {
+      .then(function () {
         alert('댓글 등록');
         // reviewcard.style.display = 'block';
         addStoreReview.style.display = 'none';
@@ -376,25 +264,25 @@ function booklist(book) {
   const bookinfo = book.book;
   console.log(book);
   storebookinfo.innerHTML += `
-  <div id="booklistcard" class="card mb-3" >
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img src="${bookinfo.book_image}" class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-        <div>
-          <h5 class="card-title">${bookinfo.title}</h5>
-        </div>  
-          <p class="card-text">${bookinfo.writer}</p>
-          <div id="menucardbtn">
-          <p class="card-text"><small class="text-body-secondary">${bookinfo.publisher}</small></p>
+    <div id="booklistcard" class="card mb-3" >
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${bookinfo.book_image}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+          <div>
+            <h5 class="card-title">${bookinfo.title}</h5>
           </div>  
-          </div>
+            <p class="card-text">${bookinfo.writer}</p>
+            <div id="menucardbtn">
+            <p class="card-text"><small class="text-body-secondary">${bookinfo.publisher}</small></p>
+            </div>  
+            </div>
+        </div>
       </div>
     </div>
-  </div>
-  `;
+    `;
 }
 //메뉴 불러오기
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -428,22 +316,20 @@ function menulists(menu) {
   }
 
   storemenuinfo.innerHTML += `
-  <div id="menulistcard" class="card mb-3" >
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img src="${img}" class="img-fluid rounded-start" alt="...">
+    <div id="menulistcard" class="card mb-3" >
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${img}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">${menu.food_name}</h5>
+            <p class="card-text">${menu.food_desc}</p>
+            <div id="menucardbtn">
+            <p class="card-text"><small class="text-body-secondary">${menu.food_price}</small></p>
+            </div>  
+            </div>
+        </div>
       </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">${menu.food_name}</h5>
-          <p class="card-text">${menu.food_desc}</p>
-          <div id="menucardbtn">
-          <p class="card-text"><small class="text-body-secondary">${menu.food_price}</small></p>
-          </div>  
-          </div>
-      </div>
-    </div>
-  </div>`;
+    </div>`;
 }
-
-loadUserLikeStores();

@@ -5,33 +5,11 @@ let allnextPage;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let allgotoPage;
 
-window.onload = function () {
-  const cookieaccess = getCookie('accessToken');
-  const cookierefresh = getCookie('refreshToken');
-  const query = new URLSearchParams(window.location.search).get('query');
+const query = new URLSearchParams(window.location.search).get('query');
 
-  if (cookieaccess && cookierefresh) {
-    localStorage.setItem('accessToken', cookieaccess);
-    localStorage.setItem('refreshToken', cookierefresh);
-  }
-
-  const token = localStorage.getItem('accessToken');
-
-  if (!token) {
-    loadHeader('home'); // load the home page by default
-  } else {
-    loadHeader('login');
-  }
-
-  if (query) {
-    // query를 사용하여 검색 결과를 가져와서 표시하는 함수 호출
-  }
-};
-
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
+if (query) {
+  // query를 사용하여 검색 결과를 가져와서 표시하는 함수 호출
+  console.log(query);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

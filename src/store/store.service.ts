@@ -29,7 +29,7 @@ export class StoreService {
     return store;
   }
 
-  //지점 전체 조회.
+  //지점 관리자 전체 조회.
   async storefulllist() {
     const store = await this.storeRepository.find({});
 
