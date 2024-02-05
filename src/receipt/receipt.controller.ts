@@ -49,10 +49,12 @@ export class ReceiptController {
     @UserId() userId: number,
     @Body() createStoreReviewDto: CreateStoreReviewDto,
   ) {
+    const url = await this.receiptService.uploadFile(file);
     return await this.receiptService.createReceiptReview(
       file,
       userId,
       createStoreReviewDto,
+      url,
     );
   }
 }
