@@ -23,9 +23,6 @@ import { StorebookModule } from './store-book/store-book.module';
 import { TypeormModule } from './typeorm/typeorm.module';
 import { NotificationModule } from './notification/notification.module';
 import { SseModule } from './sse/sse.module';
-import { GoogleapiController } from './googleapi/googleapi.controller';
-import { GoogleapiService } from './googleapi/googleapi.service';
-import { GoogleapiModule } from './googleapi/googleapi.module';
 
 @Module({
   imports: [
@@ -51,10 +48,9 @@ import { GoogleapiModule } from './googleapi/googleapi.module';
     StorebookModule,
     SseModule,
     ReceiptModule,
-    GoogleapiModule,
   ],
-  controllers: [AppController, GoogleapiController],
-  providers: [AppService, ConfigService, GoogleapiService],
+  controllers: [AppController],
+  providers: [AppService, ConfigService],
   exports: [ConfigService],
 })
 export class AppModule {}
