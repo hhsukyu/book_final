@@ -12,8 +12,8 @@ import { StoreReview } from '../entity/storeReview.entity';
 import { UserService } from '../user/user.service';
 import { ImageAnnotatorClient } from '@google-cloud/vision';
 import { CreateStoreReviewDto } from '../store-review/dto/create-store-review.dto';
-import { Storage } from '@google-cloud/storage';
 import { ConfigService } from '@nestjs/config';
+import { Storage } from '@google-cloud/storage';
 
 @Injectable()
 export class ReceiptService {
@@ -33,64 +33,65 @@ export class ReceiptService {
     private storeReviewRepository: Repository<StoreReview>,
     private readonly configService: ConfigService,
   ) {
-    this.client = new ImageAnnotatorClient({
+    (this.client = new ImageAnnotatorClient({
       keyFilename: 'google_ocr_key.json',
-    });
-    this.storage = new Storage({
-      projectId: `${this.configService.get('receipt_projectId')}`,
-      keyFilename: `${this.configService.get('receipt_keyFilename')}`,
-    });
-    this.bucket = `${this.configService.get('receipt_bucket')}`;
+    })),
+      (this.storage = new Storage({
+        projectId: `${this.configService.get('receipt_projectId')}`,
+        keyFilename: `${this.configService.get('receit_keyfile')}`,
+      }));
+    this.bucket = `${this.configService.get('receipt_BUCKET_NAME')}`;
   }
 
   // 영수증 인증
-  // async analyzeFile(file: Express.Multer.File, userId: number, url: string) {
-  //   await this.checkUser(userId);
-  //   if (!file) {
-  //     throw new BadRequestException('영수증 파일이 없습니다.');
-  //   }
+  async analyzeFile(file: Express.Multer.File, userId: number, url: string) {
+    await this.checkUser(userId);
+    if (!file) {
+      throw new BadRequestException('영수증 파일이 없습니다.');
+    }
+    console.log(url);
+    // 이미지를 Google Cloud Vision API에 전송
+    const fileName = `gs://${this.configService.get('receipt_BUCKET_NAME')}/${url}`;
+    const [result] = await this.client.textDetection(fileName);
+    const detections = result.textAnnotations;
+    const keywords = [
+      '부가세',
+      '금액',
+      '품명',
+      '합계',
+      '카드',
+      '현금',
+      '주문',
+      '번호',
+      '사업자번호',
+      '점',
+    ];
 
-  //   // 이미지를 Google Cloud Vision API에 전송
+    // string으로 텍스트 추출
+    const receiptInfo = detections.map((text) => text.description).join();
+    const keywordResult = keywords.map((keyword) =>
+      receiptInfo.includes(keyword),
+    );
+    // keyword와 영수증정보에서 일치하는 개수
+    const keywordTrueCount = keywordResult.filter(
+      (value) => value === true,
+    ).length;
 
-  //   const [result] = await this.client.textDetection(file);
-  //   const detections = result.textAnnotations;
-  //   const keywords = [
-  //     '부가세',
-  //     '금액',
-  //     '품명',
-  //     '합계',
-  //     '카드',
-  //     '현금',
-  //     '주문',
-  //     '번호',
-  //     '사업자번호',
-  //     '점',
-  //   ];
+    if (keywordTrueCount < 7) {
+      throw new BadRequestException('영수증이 아닙니다.');
+    }
 
-  //   // string으로 텍스트 추출
-  //   const receiptInfo = detections.map((text) => text.description).join();
-  //   const keywordResult = keywords.map((keyword) =>
-  //     receiptInfo.includes(keyword),
-  //   );
-  //   // keyword와 영수증정보에서 일치하는 개수
-  //   const keywordTrueCount = keywordResult.filter(
-  //     (value) => value === true,
-  //   ).length;
+    const matchedStore = await this.verifyStoreNameAndAddress(receiptInfo);
+    await this.verifyReceipt(receiptInfo);
 
-  //   if (keywordTrueCount < 7) {
-  //     throw new BadRequestException('영수증이 아닙니다.');
-  //   }
-
-  //   const matchedStore = await this.verifyStoreNameAndAddress(receiptInfo);
-  //   await this.verifyReceipt(receiptInfo);
-
-  //   // OCR 결과를 데이터베이스에 저장
-  //   return await this.receiptRepository.save({
-  //     data: receiptInfo,
-  //     store: { id: matchedStore },
-  //     user: { id: userId },
-  //   });
-  // }
+    // OCR 결과를 데이터베이스에 저장
+    return await this.receiptRepository.save({
+      data: receiptInfo,
+      store: { id: matchedStore },
+      user: { id: userId },
+      // receipt_img: url,
+    });
+  }
 
   // 영수증 리뷰 작성
   async createReceiptReview(
@@ -118,23 +119,20 @@ export class ReceiptService {
     }
   }
 
-  // 파일 올리기
+  // 이미지 업로드 구글 스토리지
   async uploadFile(file: Express.Multer.File): Promise<string> {
-    console.log(file);
     const fileName = Date.now() + file.originalname;
     const bucket = this.storage.bucket(this.bucket);
-
     const blob = bucket.file(fileName.replace(/ /g, '_'));
-
     const blobStream = blob.createWriteStream({
       metadata: {
         contentType: file.mimetype,
       },
       public: true,
     });
-
     blobStream.end(file.buffer);
-
+    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+    console.log(publicUrl);
     console.log(blobStream.on);
     return new Promise((resolve, reject) => {
       blobStream.on('finish', () => {
@@ -147,7 +145,6 @@ export class ReceiptService {
       });
     });
   }
-
   // 추출한 정보를 바탕으로 가게 검증
   async verifyStoreNameAndAddress(receiptInfo: string) {
     const stores = await this.storeRepository.find();
