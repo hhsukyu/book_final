@@ -21,13 +21,18 @@ function mainBookcard() {
       const books = response.data;
       books.forEach((book) => {
         // console.log(book);
+        let img = book.book_image;
+        let defaultImg =
+          'http://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
+
         maincardlist.innerHTML += `
         <div onclick="carddetail(${book.id})" class="swiper-slide card">
         <div class="card-content">
           <div class="image">
             <img
-              src="${book.book_image}"
+              src="${img}"
               alt=""
+              onerror="this.src='${defaultImg}'"
             />
           </div>
 

@@ -60,10 +60,13 @@ function storebookdelete(bookid) {
     });
 }
 
+//csv loading 아이콘 부분
+var element = document.querySelector('.bookcsvloading');
 //csv 등록 부분
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function csvfile(event) {
   event.preventDefault();
+  element.classList.add('show');
   const csvInput = document.getElementById('csvfile');
   const csvFile = csvInput.files[0];
 
@@ -77,6 +80,7 @@ function csvfile(event) {
       },
     })
     .then(function () {
+      element.classList.remove('show');
       alert('csv 저장 성공');
     })
     .catch(function (error) {

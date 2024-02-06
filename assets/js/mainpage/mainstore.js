@@ -68,8 +68,6 @@ function loadStores() {
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       async function nextPage() {
-        console.log(pages);
-        console.log(changePage);
         if (currentPage < pages) changePage(++currentPage);
       }
       allnextPage = nextPage;
