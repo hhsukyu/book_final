@@ -4,12 +4,11 @@ body {
   padding: 0;
 }
 
-/* #wrap {
+#wrap {
   min-height: 100vh;
   position: relative;
   width: 100%;
-  background-color: #f2f2f2;
-} */
+}
 
 section {
   padding-bottom: 105px;
@@ -24,6 +23,7 @@ footer {
   padding-top: 15px;
   color: #808080;
   font-size: 11px;
+  z-index: 1;
 }
 
 footer a {
