@@ -59,6 +59,8 @@ window.onload = function () {
 
   // load the map by default
   if (!token) {
+    const mark = await storeSearch('127.0280285, 37.4986253');
+    console.log(mark);
     return;
   }
 
@@ -88,14 +90,35 @@ window.onload = function () {
   }
 };
 
-async function storeSearch(location) {
-  axios.get(`/map/${location}`, {}).then(async function (response) {
-    const stores = response.data;
-    let marker = new naver.maps.Marker({});
-    stores.forEach((element) => {
-      element.place;
+function storeSearch(location) {
+  axios
+    .get(`/map/${location}`)
+    .then(function (response) {
+      if (!response.data) {
+        console.log('no nearby store');
+        return;
+      }
+      const stores = response.data;
+      let latlngs = [];
+      stores.forEach((element) => {
+        const x = String(element.place).slice(6, -1);
+        const y = x.split(' ');
+        latlngs.push(y[1]); //위도 경도 순서 바꾸기
+        latlngs.push(y[0]);
+      });
+      let markers = [];
+      for (let i = 0; i < latlngs.length; i = i + 2) {
+        const marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(latlngs[i], latlngs[i + 1]),
+          map: map,
+        });
+        markers.push(marker);
+      }
+      return markers;
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-  });
 }
 
 async function searchResult() {
