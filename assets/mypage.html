@@ -6,6 +6,7 @@
     <title>My Page</title>
     <link rel="stylesheet" href="./css/mypage.css" />
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/loading.css" />
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- bootstrap -->
@@ -609,6 +610,12 @@
         <div class="modal-content" id="modalcontent">
           <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">책 등록하기</h5>
+            <div
+              class="spinner-border text-info bookcsvloading fade"
+              role="status"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
           <div class="modal-body">
             <label for="store-picture" class="form-label">책 파일</label>
@@ -618,7 +625,7 @@
           </div>
           <div class="modal-footer">
             <button class="btn btn-dark" onclick="csvfile(event)">
-              저장하기1
+              저장하기
             </button>
             <button
               class="btn btn-dark"
@@ -769,41 +776,6 @@
       </div>
     </div>
 
-    <!-- 사장님 전환 모달창 -->
-    <div class="modal fade" tabindex="-1" id="myModal">
-      <div class="modal-dialog modal-lg passwordSettingModal">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h5 class="modal-title">지점사장 전환</h5>
-          </div>
-
-          <!-- Modal Body -->
-          <div class="modal-body">
-            <!-- Verification Form -->
-            <div id="verificationForm">
-              <label for="verificationCode">인증번호</label>
-              <input
-                type="text"
-                class="form-control"
-                id="verificationCode"
-                placeholder="인증번호를 입력하세요"
-              />
-              <div class="text-center modalBtn">
-                <button
-                  class="btn-hover color-8"
-                  type="button"
-                  onclick="changeUserType()"
-                >
-                  사장님으로 전환하기
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- 관리자 댓글 달기 모달 -->
     <div
       class="modal fade"
@@ -890,6 +862,7 @@
         </div>
       </div>
     </div>
+    <div id="loading"></div>
     <!-- 관리자 댓글 수정 부분 -->
 
     <!-- </main> -->
@@ -912,6 +885,7 @@
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- index js파일 -->
+    <script src="./js/other/loading.js"></script>
     <script src="./js/header/header.js"></script>
     <script src="./js/header/mypageheader.js"></script>
     <script src="./js/mypage/mypage.js"></script>
