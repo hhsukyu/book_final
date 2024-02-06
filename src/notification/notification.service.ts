@@ -89,6 +89,30 @@ export class NotificationService {
     return notification;
   }
 
+  // 지점별 알림 생성
+  async storeNoti(
+    fromUserId: number,
+    storeId: number,
+    createNotificationDto: CreateNotificationDto,
+  ): Promise<Notification[]> {
+    // 관심 지점으로 설정한 사용자들을 찾습니다.
+    const userIds = await this.userService.findUsersByStoreInterest(storeId);
+
+    // 알림을 생성하고 저장합니다.
+    const notifications = userIds.map(async (userId) => {
+      const notificationData = {
+        ...createNotificationDto,
+        user: { id: userId },
+        from: fromUserId, // 메시지를 보내는 사용자
+        store_id: storeId, // 관련 지점
+      };
+      return await this.notificationRepository.save(notificationData);
+    });
+
+    // 모든 알림 저장 작업을 기다립니다.
+    return Promise.all(notifications);
+  }
+
   //알림수정
   async updatePartial(
     notificationId: number,

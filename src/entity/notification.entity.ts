@@ -34,7 +34,7 @@ export class Notification {
   store_id: number;
 
   @Column({ nullable: true })
-  from: number; // 메시지 작성자
+  from: number; // 메시지 작성자 //로그인accesstoken을 통해서 불러옴
 
   @ManyToOne(() => User, (user) => user.notifications, {
     nullable: true,

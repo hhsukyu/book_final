@@ -22,7 +22,7 @@ export class NotificationController {
   //전체알림(완료)
   @UseGuards(accessTokenGuard)
   @Post()
-  async create(
+  async allNoti(
     @UserId() userId: number,
     @Body() createNotificationDto: CreateNotificationDto,
   ) {
@@ -31,6 +31,21 @@ export class NotificationController {
       createNotificationDto,
     );
     return allNoti;
+  }
+
+  /// 지점알림
+  @UseGuards(accessTokenGuard)
+  @Post('/store/:storeId')
+  async storeNoti(
+    @UserId() fromUserId: number,
+    @Param('storeId') storeId: number,
+    @Body() createNotificationDto: CreateNotificationDto,
+  ) {
+    return await this.notificationsService.storeNoti(
+      fromUserId,
+      storeId,
+      createNotificationDto,
+    );
   }
 
   //알림수정(완료)
@@ -45,17 +60,19 @@ export class NotificationController {
     );
   }
 
-  //알림 전체 조회
+  //알림 전체 조회(완료)
   @Get()
   async findAll() {
     return this.notificationsService.findAll();
   }
 
-  //알림 사용자별조회
+  //알림 사용자별조회(완료)
   @Get('/user/:userId')
   async findByUser(@Param('userId') userId: number) {
     return this.notificationsService.findByUser(userId);
   }
 
   //알림 스토어별 조회
+
+  //알림 삭제
 }
