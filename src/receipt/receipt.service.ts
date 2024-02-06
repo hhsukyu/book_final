@@ -51,7 +51,8 @@ export class ReceiptService {
     }
     console.log(url);
     // 이미지를 Google Cloud Vision API에 전송
-    const fileName = `gs://${this.configService.get('receipt_BUCKET_NAME')}/${url}`;
+    const fileName = `${url}`;
+    console.log(fileName);
     const [result] = await this.client.textDetection(fileName);
     const detections = result.textAnnotations;
     const keywords = [
@@ -72,6 +73,8 @@ export class ReceiptService {
     const keywordResult = keywords.map((keyword) =>
       receiptInfo.includes(keyword),
     );
+    console.log('receiptInfo ', receiptInfo);
+    console.log('keywordResult', keywordResult);
     // keyword와 영수증정보에서 일치하는 개수
     const keywordTrueCount = keywordResult.filter(
       (value) => value === true,
@@ -89,7 +92,7 @@ export class ReceiptService {
       data: receiptInfo,
       store: { id: matchedStore },
       user: { id: userId },
-      // receipt_img: url,
+      receipt_img: url,
     });
   }
 
@@ -101,14 +104,17 @@ export class ReceiptService {
     url: string,
   ) {
     const receipt = await this.analyzeFile(file, userId, url);
-    const storeReview = await this.storeReviewRepository.save({
-      ...createStoreReviewDto,
-      user_id: userId,
-      store_id: receipt.store.id,
-      is_receipt: true,
-      receipt_id: receipt.id,
-    });
-    return storeReview;
+    if (receipt.status === 0) {
+      const storeReview = await this.storeReviewRepository.save({
+        ...createStoreReviewDto,
+        user_id: userId,
+        store_id: receipt.store.id,
+        is_receipt: false,
+        receipt_id: receipt.id,
+      });
+      // return storeReview;
+      return { message: '영수증을 검토중입니다.' };
+    }
   }
 
   // 유저 체크
@@ -131,8 +137,7 @@ export class ReceiptService {
       public: true,
     });
     blobStream.end(file.buffer);
-    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
-    console.log(publicUrl);
+
     console.log(blobStream.on);
     return new Promise((resolve, reject) => {
       blobStream.on('finish', () => {
