@@ -333,5 +333,3 @@ function menulists(menu) {
       </div>
     </div>`;
 }
-
-loadUserLikeStores();
