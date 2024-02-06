@@ -153,4 +153,28 @@ export class NotificationService {
       where: { user: { id: userId } },
     });
   }
+
+  // 스토어별 알림 조회
+  async findByStore(storeId: number) {
+    const storeNoti = this.notificationRepository.find({
+      where: { store_id: storeId },
+    });
+    return storeNoti;
+  }
+
+  // 알림 삭제
+  async delete(notificationId: number) {
+    const notification = await this.notificationRepository.findOne({
+      where: { id: notificationId },
+    });
+
+    if (!notification) {
+      throw new NotFoundException(
+        `${notificationId}번 알림메세지는 존재하지 않습니다`,
+      );
+    }
+
+    await this.notificationRepository.remove(notification);
+    return { message: '알림메세지가 삭제되었습니다.' };
+  }
 }

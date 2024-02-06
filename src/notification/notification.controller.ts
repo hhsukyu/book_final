@@ -2,6 +2,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -33,7 +34,7 @@ export class NotificationController {
     return allNoti;
   }
 
-  /// 지점알림
+  /// 지점알림(완료)
   @UseGuards(accessTokenGuard)
   @Post('/store/:storeId')
   async storeNoti(
@@ -73,6 +74,15 @@ export class NotificationController {
   }
 
   //알림 스토어별 조회
+  @Get('/store/:storeId')
+  async findByStore(@Param('storeId') storeId: number) {
+    return this.notificationsService.findByStore(storeId);
+  }
 
   //알림 삭제
+  @UseGuards(accessTokenGuard)
+  @Delete(':notificationId')
+  async delete(@Param('notificationId') notificationId: number) {
+    return this.notificationsService.delete(notificationId);
+  }
 }
