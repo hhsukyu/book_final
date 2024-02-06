@@ -44,52 +44,6 @@ function ownerlist() {
     });
 }
 
-// 구글 애널리틱스 API 클라이언트 라이브러리 로드
-gapi.load('client:auth2', initAnalytics);
-
-function initAnalytics() {
-  // API 클라이언트 초기화
-  gapi.client
-    .init({
-      apiKey: 'AIzaSyAxaM7EQsn_vYnuct4hqukbFqlZN3JeTwo', // 여기에 생성한 API 키를 입력하세요
-    })
-    .then(function () {
-      // API 호출
-      return gapi.client.request({
-        path: '/v4/reports:batchGet',
-        root: 'https://analyticsreporting.googleapis.com/',
-        method: 'POST',
-        body: {
-          reportRequests: [
-            {
-              viewId: 'G-8FHVJJ85S5', // 여기에 구글 애널리틱스 뷰 ID를 입력하세요
-              dateRanges: [
-                {
-                  startDate: '2024-02-04',
-                  endDate: '2024-02-04',
-                },
-              ],
-              metrics: [
-                {
-                  expression: 'ga:sessions',
-                },
-              ],
-            },
-          ],
-        },
-      });
-    })
-    .then(function (response) {
-      // API 호출 결과 처리
-      var data = response.result.reports[0].data;
-      var totalSessions = data.totals[0].values[0];
-      console.log('Total Sessions:', totalSessions);
-    })
-    .catch(function (error) {
-      console.error('Error:', error);
-    });
-}
-
 const storelist = document.getElementById('storelist');
 
 function storeinfo() {
