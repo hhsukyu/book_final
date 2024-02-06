@@ -104,7 +104,7 @@ function showSearchingBooks(books) {
   books.forEach((book) => {
     storebookinfo.innerHTML += `
 
-      <div class="col-3 mb-3">
+
       <div class="col">
             <div class="card">
             <img src="${book.book_image}" alt="" />
@@ -113,7 +113,7 @@ function showSearchingBooks(books) {
             </div>
           </div>
         </div>
-        </div>
+  
      
    
     `;

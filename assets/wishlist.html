@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="./css/wishlistpage.css" />
     <title>My Page</title>
     <link rel="stylesheet" href="./css/mypage.css" />
+    <!-- footer css -->
+    <link rel="stylesheet" href="./css/footer.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -22,68 +24,70 @@
     />
   </head>
   <body>
-    <!-- logo & 헤더 부분 -->
-    <header class="py-3 mb-3">
-      <div class="container">
-        <div class="row">
-          <div class="col text-center logo-container">
-            <img
-              src="./url/image.png"
-              id="logo"
-              onclick="window.location.href='index.html'"
+    <div id="wrap">
+      <!-- logo & 헤더 부분 -->
+      <header class="py-3 mb-3">
+        <div class="container">
+          <div class="row">
+            <div class="col text-center logo-container">
+              <img
+                src="./url/image.png"
+                id="logo"
+                onclick="window.location.href='index.html'"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="header"></div>
+      </header>
+
+      <!-- 위시리스트 부분 -->
+      <div id="userinfo" class="bookboard mt-4">
+        <div id="wishlistbox">
+          <label for="wishlist" class="form-label">만화 위시리스트</label>
+
+          <div class="form-group position-relative">
+            <input
+              type="text"
+              class="form-control"
+              onkeypress="wishkey(event)"
+              onkeyup="deletebox()"
+              id="wishlistInput"
+              autocomplete="off"
+              placeholder="위시리스트에 추가할 만화 검색"
             />
+            <div id="wishlistsearch">
+              <div id="searchResults"></div>
+            </div>
           </div>
         </div>
+        <div id="result-wish-box" class="wish-box"></div>
       </div>
+      <!-- 관심 지점 부분 -->
+      <div id="userinfo" class="bookboard mt-4">
+        <div id="storelistbox">
+          <label for="wishlist" class="form-label">지점 위시리스트</label>
 
-      <div id="header"></div>
-    </header>
-
-    <!-- 위시리스트 부분 -->
-    <div id="userinfo" class="bookboard mt-4">
-      <div id="wishlistbox">
-        <label for="wishlist" class="form-label">만화 위시리스트</label>
-
-        <div class="form-group position-relative">
-          <input
-            type="text"
-            class="form-control"
-            onkeypress="wishkey(event)"
-            onkeyup="deletebox()"
-            id="wishlistInput"
-            autocomplete="off"
-            placeholder="위시리스트에 추가할 만화 검색"
-          />
-          <div id="wishlistsearch">
-            <div id="searchResults"></div>
+          <div class="form-group position-relative">
+            <input
+              type="text"
+              class="form-control"
+              onkeypress="storykey(event)"
+              onkeyup="storydeletebox()"
+              id="storelistInput"
+              autocomplete="off"
+              placeholder="관심 지점 검색"
+            />
+            <div id="storelistsearch">
+              <div id="storesearchResults"></div>
+            </div>
           </div>
         </div>
+        <div id="result-store-box" class="store-box"></div>
       </div>
-      <div id="result-wish-box" class="wish-box"></div>
+      <div id="footer-placeholder"></div>
     </div>
-    <!-- 관심 지점 부분 -->
-    <div id="userinfo" class="bookboard mt-4">
-      <div id="storelistbox">
-        <label for="wishlist" class="form-label">지점 위시리스트</label>
-
-        <div class="form-group position-relative">
-          <input
-            type="text"
-            class="form-control"
-            onkeypress="storykey(event)"
-            onkeyup="storydeletebox()"
-            id="storelistInput"
-            autocomplete="off"
-            placeholder="관심 지점 검색"
-          />
-          <div id="storelistsearch">
-            <div id="storesearchResults"></div>
-          </div>
-        </div>
-      </div>
-      <div id="result-store-box" class="store-box"></div>
-    </div>
-
     <!-- 사장님 전환 모달창 -->
     <div class="modal fade" tabindex="-1" id="myModal">
       <div class="modal-dialog modal-lg passwordSettingModal">
@@ -133,5 +137,6 @@
     <script src="./js/header/header.js"></script>
     <script src="./js/other/ownerAplication.js"></script>
     <script src="./js/index.js"></script>
+    <script src="./js/other/footer.js"></script>
   </body>
 </html>
