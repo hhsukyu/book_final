@@ -203,7 +203,6 @@ export class UserService {
   }
 
   //위시리스트&관심지점일치 user 추출
-
   async UsersByWishedBook(bookid: number, storeid: number): Promise<number[]> {
     const bookIdString = bookid.toString();
     const storeIdString = storeid.toString();
@@ -213,6 +212,21 @@ export class UserService {
         { wish_list: Like(`%${bookIdString}%`) },
         { like_store: Like(`%${storeIdString}%`) },
       ], // 위시리스트에 해당 책이 포함된 레코드를 찾음
+      relations: ['user'], // 사용자 정보를 함께 로드
+    });
+
+    // 위시리스트에 해당 책을 가진 사용자들의 ID를 추출
+    const userIds = myPageRecords.map((list) => list.user.id);
+
+    return userIds;
+  }
+
+  //관심지점일치 user추출
+  async findUsersByStoreInterest(storeid: number): Promise<number[]> {
+    const storeIdString = storeid.toString();
+
+    const myPageRecords = await this.myPageRepository.find({
+      where: [{ like_store: Like(`%${storeIdString}%`) }],
       relations: ['user'], // 사용자 정보를 함께 로드
     });
 
