@@ -59,7 +59,7 @@ function searchresult(search) {
       function createCardElement(card) {
         let img = card.book_image;
         let defaultImg =
-          'http://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
+          'https://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
 
         let searchhtml = `
           <div onclick="carddetail(${card.id})" class="col-3 mb-3">

@@ -199,5 +199,5 @@ async function addreviewbtn() {
 function errorimg() {
   const errorbookimg = document.getElementById('bookcardImage');
   errorbookimg.src =
-    'http://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
+    'https://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
 }
