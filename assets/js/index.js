@@ -1,82 +1,11 @@
-const header = document.getElementById('header');
-const body = document.getElementById('card-list');
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const maincard = document.getElementById('maincard');
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const searchbox = document.getElementById('searchbox');
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const genreform = document.getElementById('genre');
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const storecontain = document.getElementById('stores');
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const genrecontain = document.getElementById('genrebox');
-let reviewbookid;
-
-//쿠키값을 로컬스토리지로 변경해주는 함수
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
-//메인 추천도서 카드 부분
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function mainBookcard() {
-  mainCardSlide();
-  axios
-    .get('/books/main')
-    .then(function (response) {
-      const books = response.data;
-      books.forEach((book) => {
-        // console.log(book);
-        body.innerHTML += `
-        <div onclick="carddetail(${book.id})" class="swiper-slide card">
-        <div class="card-content">
-          <div class="image">
-            <img
-              src="${book.book_image}"
-              alt=""
-            />
-          </div>
-
-          <div id="profession" class="name-profession">
-            <span class="name">${book.title}</span>
-            <span class="profession">${book.genre}</span>
-          </div> 
-        </div>
-      </div>`;
-      });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
-
-//슬라이드 스크립트 부분
-function mainCardSlide() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  var swiper = new Swiper('.mySwiper', {
-    slidesPerView: 5,
-    spaceBetween: 30,
-    slidesPerGroup: 5,
-    loop: true,
-    loopFillGroupWithBlank: true,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  });
-}
-
-//검색창 선택시 검색 페이지로 이동
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function onkeyevent(event) {
-  window.location.href = 'search.html';
+  const search = document.getElementById('search-box');
+  const result = search.value;
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    window.location.href = `search.html?book=${result}`;
+  }
 }
 
 //로그아웃
@@ -84,11 +13,6 @@ function onkeyevent(event) {
 function logout() {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
-
-  document.cookie =
-    'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-  document.cookie =
-    'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
   window.location.href = 'index.html';
 }
@@ -151,7 +75,7 @@ function bookreivew(bookid) {
     })
     .then(function (response) {
       const reviewbox1 = document.getElementById('reviewlist');
-      reviewcard.style.display = 'block';
+      reviewcard2.style.display = 'block';
       reviewbox1.innerHTML = '';
       const comments = response.data;
       console.log(comments);
@@ -202,10 +126,10 @@ function bookreivew(bookid) {
 //책 리뷰 등록 버튼 클릭 이벤트
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let submitreview;
+let submitreview2;
 
-const reviewcard = document.getElementById('reviewlist');
-const addreview = document.getElementById('reviewadd');
+const reviewcard2 = document.getElementById('reviewlist');
+const addreview2 = document.getElementById('reviewadd');
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function addreviewbtn() {
@@ -215,8 +139,8 @@ async function addreviewbtn() {
   commentTextarea.value = '';
   let selectedStarValue = null;
   // 책 리뷰 부분 숨김
-  reviewcard.style.display = 'none';
-  addreview.style.display = 'block';
+  reviewcard2.style.display = 'none';
+  addreview2.style.display = 'block';
   console.log(reviewbookid);
   // 전송 처리 함수
 
@@ -238,6 +162,7 @@ async function addreviewbtn() {
     // 서버로 데이터 전송
     sendFeedback(selectedStarValue, comment);
   }
+  submitreview2 = handleSubmit;
 
   // 리뷰 데이터 저장
   function sendFeedback(starValue, comment) {
@@ -256,10 +181,10 @@ async function addreviewbtn() {
           },
         },
       )
-      .then(function (response) {
+      .then(function () {
         alert('댓글 등록');
         // reviewcard.style.display = 'block';
-        addreview.style.display = 'none';
+        addreview2.style.display = 'none';
         commentTextarea.value = '';
         starValue = null;
         bookreivew(reviewbookid);
@@ -268,11 +193,4 @@ async function addreviewbtn() {
         alert(error);
       });
   }
-
-  // 이벤트 핸들러 등록
-  const submitBtn = document.getElementById('submitBtn');
-  submitBtn.addEventListener('click', handleSubmit);
-
-  // submitreview 변수에 handleSubmit 함수 할당
-  submitreview = handleSubmit;
 }

@@ -29,6 +29,13 @@ export class StoreService {
     return store;
   }
 
+  //지점 관리자 전체 조회.
+  async storefulllist() {
+    const store = await this.storeRepository.find({});
+
+    return store;
+  }
+
   //본인 지점 조회
   async findMystoreByid(userid: number) {
     const user = await this.userService.findUserByIdWithStore(userid);
