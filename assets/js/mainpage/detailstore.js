@@ -115,7 +115,6 @@ function loadUserLikeStores() {
 
 //---------------지점자세히 보기---------------------------//
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-
 function storecarddetail(storeid) {
   const storelabel = document.getElementById('storemodallabel');
   const bodyname = document.getElementById('modalcardStorename');
@@ -196,8 +195,8 @@ async function username(userid) {
     const response = await axios.get(`/user/mypage/${userid}`);
     const user = response.data;
     let result = `
-        <a>${user.nickname}</a>
-      `;
+          <a>${user.nickname}</a>
+        `;
     return result;
   } catch (error) {
     console.log(error);
@@ -216,42 +215,42 @@ async function storereviewlist(comment) {
   );
   console.log('adminReviews', adminReviews);
   storereviewbox1.innerHTML += `
-  <div class="box-top">
-<!-- profile-box -->
-<div class="profile-box">
-  <!-- user-image -->
-  
-  <!-- username-Name -->
-  <div class="name-user">
-    <strong id="reviewname">${usernameResult}</strong>
+    <div class="box-top">
+  <!-- profile-box -->
+  <div class="profile-box">
+    <!-- user-image -->
+    
+    <!-- username-Name -->
+    <div class="name-user">
+      <strong id="reviewname">${usernameResult}</strong>
+    </div>
   </div>
-</div>
-
-<!-- review box -->
-<div id="review-box" class="review-box">
-  ${reviewstar(comment.rating)}
-  <!-- 별 부분 -->
-</div>
-</div>
-
-<!-- comment part -->
-<div class="client-comment">
-<h6 id="reviewcomment">
-  ${comment.content}
-</h6>
-</div>
-<!-- 리뷰에 대한 답글 표시 -->
-    ${adminReviews
-      .map(
-        (adminReview) => `
-      <div class="admin-review bookboard">
-      <p class="admin-comment-heading"><strong>사장님의 댓글:</strong></p>
-        <p>${adminReview.content}</p>
-      </div>
-    `,
-      )
-      .join('')}
-`;
+  
+  <!-- review box -->
+  <div id="review-box" class="review-box">
+    ${reviewstar(comment.rating)}
+    <!-- 별 부분 -->
+  </div>
+  </div>
+  
+  <!-- comment part -->
+  <div class="client-comment">
+  <h6 id="reviewcomment">
+    ${comment.content}
+  </h6>
+  </div>
+  <!-- 리뷰에 대한 답글 표시 -->
+      ${adminReviews
+        .map(
+          (adminReview) => `
+        <div class="admin-review bookboard">
+        <p class="admin-comment-heading"><strong>사장님의 댓글:</strong></p>
+          <p>${adminReview.content}</p>
+        </div>
+      `,
+        )
+        .join('')}
+  `;
   function reviewstar(rating) {
     let stars = '';
     for (let i = 1; i <= rating; i++) {
@@ -316,7 +315,7 @@ async function addstorereviewbtn() {
           },
         },
       )
-      .then(function (response) {
+      .then(function () {
         alert('댓글 등록');
         // reviewcard.style.display = 'block';
         addStoreReview.style.display = 'none';
@@ -455,25 +454,25 @@ function booklist(book) {
   console.log(book);
   console.log('bookinfo', bookinfo);
   storebookinfo.innerHTML += `
-  <div id="booklistcard" class="card mb-3" >
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img src="${bookinfo.book_image}" class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-        <div>
-          <h5 class="card-title">${bookinfo.title}</h5>
-        </div>  
-          <p class="card-text">${bookinfo.writer}</p>
-          <div id="menucardbtn">
-          <p class="card-text"><small class="text-body-secondary">${bookinfo.publisher}</small></p>
+    <div id="booklistcard" class="card mb-3" >
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${bookinfo.book_image}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+          <div>
+            <h5 class="card-title">${bookinfo.title}</h5>
           </div>  
-          </div>
+            <p class="card-text">${bookinfo.writer}</p>
+            <div id="menucardbtn">
+            <p class="card-text"><small class="text-body-secondary">${bookinfo.publisher}</small></p>
+            </div>  
+            </div>
+        </div>
       </div>
     </div>
-  </div>
-  `;
+    `;
 }
 
 //메뉴
@@ -510,22 +509,22 @@ function menulists(menu) {
   }
 
   storemenuinfo.innerHTML += `
-  <div id="menulistcard" class="card mb-3" >
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img src="${img}" class="img-fluid rounded-start" alt="...">
+    <div id="menulistcard" class="card mb-3" >
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${img}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">${menu.food_name}</h5>
+            <p class="card-text">${menu.food_desc}</p>
+            <div id="menucardbtn">
+            <p class="card-text"><small class="text-body-secondary">${menu.food_price}</small></p>
+            </div>  
+            </div>
+        </div>
       </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">${menu.food_name}</h5>
-          <p class="card-text">${menu.food_desc}</p>
-          <div id="menucardbtn">
-          <p class="card-text"><small class="text-body-secondary">${menu.food_price}</small></p>
-          </div>  
-          </div>
-      </div>
-    </div>
-  </div>`;
+    </div>`;
 }
 
 loadUserLikeStores();

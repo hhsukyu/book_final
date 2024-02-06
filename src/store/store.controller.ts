@@ -35,6 +35,11 @@ export class StoreController {
     return await this.storeService.storelist();
   }
 
+  @Get('/admin')
+  async storefulllist() {
+    return await this.storeService.storefulllist();
+  }
+
   //마이페이지 스토어 부분 이름 검색
   @Get('/liststore/:storeid')
   findmypagestorename(@Param('storeid') storeid: number) {
