@@ -7,7 +7,7 @@ export class GoogleapiController {
 
   @Get('realtime/:viewId')
   async getRealtimeData(@Param('viewId') viewId: string) {
-    const metrics = ['ga:activeUsers']; // 가져올 메트릭을 필요에 맞게 수정해주세요
+    const metrics = ['ga:pageviews']; // 가져올 메트릭을 필요에 맞게 수정해주세요
 
     try {
       const data = await this.googleapiservice.getRealtimeData(viewId, metrics);
