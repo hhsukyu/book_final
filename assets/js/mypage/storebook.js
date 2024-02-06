@@ -1,6 +1,5 @@
 const storebookinfo = document.getElementById('booklist');
-const apiUrl = 'http://localhost:3000';
-// const apiUrl = 'http://43.203.75.81:3000/';
+
 let userbookstoreid;
 
 //지점소장도서 정보
@@ -63,7 +62,7 @@ async function keyupEvent(event) {
     } else {
       // 서버에 검색 요청 보내기
       axios
-        .get(`${apiUrl}/books/searchStoreBook?storeId=1&bookTitle=${search}`)
+        .get(`books/searchStoreBook?storeId=1&bookTitle=${search}`)
         .then((response) => {
           // 서버로부터 받은 도서 목록을 표시
           console.log('response.data', response.data);
