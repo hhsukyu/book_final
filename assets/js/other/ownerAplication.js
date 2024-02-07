@@ -1,5 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let ownerApplicationModal;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function openOwnerApplicationModal() {
   alert(
     '사장님으로의 신청 안내\n\n' +
@@ -21,6 +23,7 @@ function openOwnerApplicationModal() {
 
 // const userId = 11;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function changeUserType() {
   axios
     .put(

@@ -1,11 +1,3 @@
-const cookieaccess = getCookie('accessToken');
-const cookierefresh = getCookie('refreshToken');
-
-if (cookieaccess && cookierefresh) {
-  localStorage.setItem('accessToken', cookieaccess);
-  localStorage.setItem('refreshToken', cookierefresh);
-}
-
 const token = localStorage.getItem('accessToken');
 
 // if (!token) {
@@ -35,11 +27,3 @@ const token = localStorage.getItem('accessToken');
 //       console.log(error);
 //     });
 // }
-
-//쿠키값을 로컬스토리지로 변경해주는 함수
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}

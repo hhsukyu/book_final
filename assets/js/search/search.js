@@ -5,44 +5,18 @@ let allnextPage;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let allgotoPage;
 
-window.onload = function () {
-  const cookieaccess = getCookie('accessToken');
-  const cookierefresh = getCookie('refreshToken');
-  const query = new URLSearchParams(window.location.search).get('query');
+const query = new URLSearchParams(window.location.search).get('book');
 
-  if (cookieaccess && cookierefresh) {
-    localStorage.setItem('accessToken', cookieaccess);
-    localStorage.setItem('refreshToken', cookierefresh);
-  }
-
-  const token = localStorage.getItem('accessToken');
-
-  if (!token) {
-    loadHeader('home'); // load the home page by default
-  } else {
-    loadHeader('login');
-  }
-
-  if (query) {
-    // query를 사용하여 검색 결과를 가져와서 표시하는 함수 호출
-  }
-};
-
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
+if (query) {
+  // query를 사용하여 검색 결과를 가져와서 표시하는 함수 호출
+  console.log(query);
+  searchresult(query);
 }
+loadingshow();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function keyevent(event) {
-  const search = document.getElementById('search-box').value;
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    console.log(search);
-    searchresult(search);
-  }
-}
+setTimeout(function () {
+  loadingfade();
+}, 3000);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // async function mainkeyup() {
@@ -83,11 +57,15 @@ function searchresult(search) {
       }
 
       function createCardElement(card) {
+        let img = card.book_image;
+        let defaultImg =
+          'https://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
+
         let searchhtml = `
           <div onclick="carddetail(${card.id})" class="col-3 mb-3">
             <div class="col">
               <div class="card">
-                <img src="${card.book_image}" class="card-img-top" alt="...">
+                <img src="${img}" class="card-img-top" onerror="this.src='${defaultImg}'" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">${card.title}</h5>
                 </div>
@@ -212,7 +190,7 @@ function bookreivew(bookid) {
     })
     .then(function (response) {
       const reviewbox1 = document.getElementById('reviewlist');
-      reviewcard.style.display = 'block';
+      reviewcard2.style.display = 'block';
       reviewbox1.innerHTML = '';
       const comments = response.data;
       console.log(comments);
@@ -263,10 +241,6 @@ function bookreivew(bookid) {
 //책 리뷰 등록 버튼 클릭 이벤트
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let submitreview;
-
-const reviewcard = document.getElementById('reviewlist');
-const addreview = document.getElementById('reviewadd');
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function addreviewbtn() {
@@ -276,8 +250,8 @@ async function addreviewbtn() {
   commentTextarea.value = '';
   let selectedStarValue = null;
   // 책 리뷰 부분 숨김
-  reviewcard.style.display = 'none';
-  addreview.style.display = 'block';
+  reviewcard2.style.display = 'none';
+  addreview2.style.display = 'block';
   console.log(reviewbookid);
   // 전송 처리 함수
 
@@ -320,7 +294,7 @@ async function addreviewbtn() {
       .then(function () {
         alert('댓글 등록');
         // reviewcard.style.display = 'block';
-        addreview.style.display = 'none';
+        addreview2.style.display = 'none';
         commentTextarea.value = '';
         starValue = null;
         bookreivew(reviewbookid);
@@ -337,68 +311,3 @@ async function addreviewbtn() {
   // submitreview 변수에 handleSubmit 함수 할당
   submitreview = handleSubmit;
 }
-
-// // configuration variables
-// const itemsPerPage = 16;
-
-// // reference to keep track of current page
-// let currentPage = 1;
-
-// const pages = numPages(cards);
-
-// function numPages(cardsArray) {
-//   // returns the number of pages
-//   return Math.ceil(cardsArray.length / itemsPerPage);
-// }
-
-// function createCardElement(card) {
-//   return `
-//       <div class="col-3 mb-3">
-//         <div class="col">
-//           <div class="card">
-//             <img src="${card.image}" class="card-img-top" alt="...">
-//             <div class="card-body">
-//               <h5 class="card-title">${card.title}</h5>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     `;
-// }
-
-// function changePage(page) {
-//   const output = document.getElementById('output');
-//   if (page < 1) page = 1;
-//   if (page > pages) page = pages;
-//   output.innerHTML = '';
-
-//   for (
-//     let i = (page - 1) * itemsPerPage;
-//     i < page * itemsPerPage && i < cards.length;
-//     i++
-//   ) {
-//     // 검색 정보 배열로 저장
-//     const card = cards[i];
-//     output.innerHTML += createCardElement(card);
-//   }
-// }
-
-// function addPages() {
-//   const el = document.getElementById('pages');
-//   for (let i = 1; i < pages + 1; i++) {
-//     el.innerHTML += `<li><a href="javascript:gotoPage(${i})">${i}</a></li>`;
-//   }
-// }
-
-// function nextPage() {
-//   if (currentPage < pages) changePage(++currentPage);
-// }
-
-// function prevPage() {
-//   if (currentPage > 1) changePage(--currentPage);
-// }
-
-// function gotoPage(page) {
-//   currentPage = page;
-//   changePage(page);
-// }

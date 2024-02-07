@@ -1,4 +1,13 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateNotificationDto } from './create-notification.dto';
+// update-notification.dto.ts
+import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { NotificationType } from 'src/entity/notification.entity';
 
-export class UpdateNotificationDto extends PartialType(CreateNotificationDto) {}
+export class UpdateNotificationDto {
+  @IsOptional()
+  @IsEnum(NotificationType)
+  sort?: NotificationType; // '전체알림','입고알림','지점공지',
+
+  @IsOptional()
+  @IsString()
+  message?: string;
+}
