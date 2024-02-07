@@ -13,6 +13,7 @@ import { UserService } from 'src/user/user.service';
 import { RedisService } from '../configs/redis/redis.service';
 import { parse } from 'papaparse';
 import { StoreBook } from 'src/entity/storeBook.entity';
+import { NotificationService } from 'src/notification/notification.service';
 
 @Injectable()
 export class BookService {
@@ -22,6 +23,7 @@ export class BookService {
     @InjectRepository(StoreBook)
     private storeBookRepository: Repository<StoreBook>,
     private readonly userService: UserService,
+    private readonly notificationService: NotificationService,
     // private readonly storeBookService: StorebookService,
 
     private readonly redisService: RedisService,
@@ -321,6 +323,12 @@ export class BookService {
             book_id: book.id,
             setisbn: book.setisbn,
           });
+          console.log('storeBooks', storeBooks);
+          const notifyUser = await this.notificationService.createNotification(
+            book.id,
+            storeid,
+          );
+          console.log('notifyUserCSV한개한개', notifyUser);
         }
       }
 
@@ -351,6 +359,12 @@ export class BookService {
           book_id: book.id,
           setisbn: book.setisbn,
         });
+        console.log('storeBooksCSV한개한개', storeBooks);
+        const notifyUser = await this.notificationService.createNotification(
+          book.id,
+          storeid,
+        );
+        console.log('notifyUserCSV한개한개', notifyUser);
       }
 
       return { message: 'OK' };

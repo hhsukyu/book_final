@@ -208,10 +208,10 @@ export class UserService {
     const storeIdString = storeid.toString();
 
     const myPageRecords = await this.myPageRepository.find({
-      where: [
-        { wish_list: Like(`%${bookIdString}%`) },
-        { like_store: Like(`%${storeIdString}%`) },
-      ], // 위시리스트에 해당 책이 포함된 레코드를 찾음
+      where: {
+        wish_list: Like(`%${bookIdString}%`),
+        like_store: Like(`%${storeIdString}%`),
+      }, // 위시리스트에 해당 책이 포함된 레코드를 찾음
       relations: ['user'], // 사용자 정보를 함께 로드
     });
 

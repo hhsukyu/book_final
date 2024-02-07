@@ -49,9 +49,7 @@ export class NotificationService {
     const userIds = await this.userService.UsersByWishedBook(bookid, storeid);
 
     if (!userIds || userIds.length === 0) {
-      throw new NotFoundException(
-        `${storeid}에 ${bookid}서적을 원하는 이용자가 없습니다.`,
-      );
+      console.log(`${storeid}에 ${bookid}서적을 원하는 이용자가 없습니다.`);
     }
 
     //해당유저의 배열
@@ -67,6 +65,7 @@ export class NotificationService {
         store_id: storeid,
         message: `${storeid}에 ${bookid} 서적이 입고되었습니다`,
       };
+      console.log(`${storeid}에 ${bookid} 서적이 입고되었습니다`);
       // notificationRepository를 사용하여 데이터 저장
       await this.notificationRepository.save(notificationData);
       // 생성된 알림을 클라이언트에게 보냅니다.
