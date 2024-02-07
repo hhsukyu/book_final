@@ -10,7 +10,7 @@ import { MyPage } from 'src/entity/my-page.entity';
 import { RedisService } from '../configs/redis/redis.service';
 import { MyPageService } from 'src/my-page/my-page.service';
 import { NotificationService } from 'src/notification/notification.service';
-import { Notification } from 'src/entity/Notification.entity';
+import { Notification } from 'src/entity/notification.entity';
 import { StoreService } from 'src/store/store.service';
 import { SseService } from 'src/sse/sse.service';
 import { Store } from 'src/entity/store.entity';
