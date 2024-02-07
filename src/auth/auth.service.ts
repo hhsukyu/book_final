@@ -184,15 +184,23 @@ export class AuthService {
     );
     const refreshToken = this.generateRefreshToken(OAuthUser.id);
 
+    //만료된 accesstoken 갱신
     await this.userService.update(OAuthUser.id, {
       currentRefreshToken: refreshToken,
     });
 
     if (OAuthUser) {
-      res.cookie('accessToken', accessToken);
-      res.cookie('refreshToken', refreshToken);
+      res.setHeader('Authorization', `Bearer ${accessToken}`);
+      res.setHeader('refreshToken', refreshToken);
+
       res.redirect('/index.html');
     } else res.redirect('/login&signup.html');
+
+    return res.send({ accessToken, refreshToken });
+    // return {
+    //   accessToken,
+    //   refreshToken,
+    // };
   }
 
   //네이버 지점업주 회원가입/로그인
