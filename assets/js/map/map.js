@@ -59,7 +59,9 @@ searchResult();
 
 // load the map by default
 if (!token) {
-  storeSearch('127.0280285, 37.4986253');
+  const mark = await storeSearch('127.0280285, 37.4986253');
+  console.log(mark);
+  return;
 }
 
 // load userinfo
@@ -88,15 +90,15 @@ function onReq(address) {
   });
 }
 
-async function storeSearch(location) {
+function storeSearch(location) {
   axios
     .get(`/map/${location}`)
-    .then(async function (response) {
-      const stores = await response.data;
-      if (!stores) {
+    .then(function (response) {
+      if (!response.data) {
         console.log('no nearby store');
         return;
       }
+      const stores = response.data;
       let latlngs = [];
       stores.forEach((element) => {
         const x = String(element.place).slice(6, -1);
@@ -105,7 +107,7 @@ async function storeSearch(location) {
         latlngs.push(y[0]);
       });
       let markers = [];
-      for (i = 0; i < latlngs.length; i = i + 2) {
+      for (let i = 0; i < latlngs.length; i = i + 2) {
         const marker = new naver.maps.Marker({
           position: new naver.maps.LatLng(latlngs[i], latlngs[i + 1]),
           map: map,
