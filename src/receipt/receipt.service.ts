@@ -71,9 +71,9 @@ export class ReceiptService {
 
     // string으로 텍스트 추출
     const receiptInfo = detections.map((text) => text.description).join();
-    console.log(receiptInfo);
-    const receiptInfo1 = detections.map((text) => text.description);
-    console.log(receiptInfo1);
+    // console.log(receiptInfo);
+    // const receiptInfo1 = detections.map((text) => text.description);
+    // console.log(receiptInfo1);
 
     const keywordResult = keywords.map((keyword) =>
       receiptInfo.includes(keyword),
@@ -92,12 +92,16 @@ export class ReceiptService {
     await this.verifyReceipt(receiptInfo);
 
     // OCR 결과를 데이터베이스에 저장
-    return await this.receiptRepository.save({
+    const receipt = await this.receiptRepository.save({
       data: receiptInfo,
       store: { id: matchedStore },
       user: { id: userId },
       receipt_img: url,
     });
+    const receiptId = receipt.id;
+    await this.sendMessage(url, receiptId);
+
+    return receipt;
   }
 
   // 영수증 리뷰 작성
@@ -156,11 +160,11 @@ export class ReceiptService {
   }
 
   // 슬랙으로 보내기
-  async sendMessage() {
+  async sendMessage(url: string, receiptId: number) {
     // See: https://api.slack.com/methods/chat.postMessage
     const res = await this.web.chat.postMessage({
       channel: `${this.configService.get('slack_conversationId')}`,
-      text: 'Hello there',
+      text: `영수증 ID: ${receiptId}, 영수증 사진: ${url}`,
     });
 
     // `res` contains information about the posted message
