@@ -1,5 +1,4 @@
 //---------------지점자세히 보기---------------------------//
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function storecarddetail(storeid) {

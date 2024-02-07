@@ -14,7 +14,7 @@ function loadHeader(page) {
               <form class="col-12 col-md-6 d-flex mb-3 mb-lg-0" role="search">
                 <input   
                 type="search"
-                onclick="onkeyevent(event)"
+                onkeypress="onkeyevent(event)"
                 id="search-box"
                 class="form-control"
                 placeholder="Search..."
@@ -90,12 +90,12 @@ function loadHeader(page) {
             </ul>
             <form class="col-12 col-md-6 d-flex mb-3 mb-lg-0" role="search">
               <input
-                type="search"
-                onclick="onkeyevent(event)"
-                id="search-box"
-                class="form-control"
-                placeholder="Search..."
-                aria-label="Search"
+              type="search"
+              onkeypress="onkeyevent(event)"
+              id="search-box"
+              class="form-control"
+              placeholder="Search..."
+              aria-label="Search"
               />
             </form>
             <div
@@ -137,12 +137,12 @@ function loadHeader(page) {
             </ul>
             <form class="col-12 col-md-6 d-flex mb-3 mb-lg-0" role="search">
               <input
-                type="search"
-                onclick="onkeyevent(event)"
-                id="search-box"
-                class="form-control"
-                placeholder="Search..."
-                aria-label="Search"
+              type="search"
+              onkeypress="onkeyevent(event)"
+              id="search-box"
+              class="form-control"
+              placeholder="Search..."
+              aria-label="Search"
               />
             </form>
             <div

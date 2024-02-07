@@ -2,39 +2,13 @@ const wishlist = document.getElementById('result-wish-box');
 
 const storelist = document.getElementById('result-store-box');
 
-window.onload = function () {
-  const token = localStorage.getItem('accessToken');
+loadingshow();
 
-  if (!token) {
-    loadHeader('home'); // load the home page by default
-  } else if (token) {
-    axios
-      .get('/user/me', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then(function (response) {
-        console.log(response.data);
-        const user = response.data;
-        if (user.role === 0) {
-          console.log('유저');
-          loadHeader('login');
-        } else if (user.role === 1) {
-          console.log('사장');
-          loadHeader('admin');
-        } else if (user.role === 2) {
-          console.log('사이트관리자');
-          loadHeader('siteadmin');
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+setTimeout(function () {
+  loadingfade();
+}, 1200);
 
-  userme();
-};
+userme();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function userme() {
