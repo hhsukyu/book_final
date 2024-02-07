@@ -5,14 +5,24 @@ import { StoreService } from '../store/store.service';
 @Injectable()
 export class MapService {
   constructor(private readonly storeService: StoreService) {}
-  async findNearCafe(location: Point) {
-    const radiusNo = 10; //반경 10km 이내 점포 반환
+  async findNearCafe(location: string) {
+    const radiusNo = 3; //반경 3km 이내 점포 반환
     const storeList = await this.storeService.storelist();
     const nearCafe = [];
 
     // 모든 점포를 일일히 대조하는 비효율적인 로직.. 개선점 질문 필요
     storeList.forEach((element) => {
-      if (radiusNo >= this.getDistance(location, element.place)) {
+      if (!element.place) return [];
+      const newplace = String(element.place).split(' ');
+      const newlongitude = Number(newplace[0].substring(6));
+      const newlatitude = Number(newplace[1].slice(0, -1));
+      // console.log(
+      //   this.getDistance([longitude, latitude], [newlongitude, newlatitude]),
+      // );
+      if (
+        radiusNo >=
+        this.getDistance([longitude, latitude], [newlongitude, newlatitude])
+      ) {
         nearCafe.push(element);
       }
     });
@@ -41,12 +51,12 @@ export class MapService {
 
   getDistance(point1: Point, point2: Point) {
     const R = 6371; // Radius of the Earth in km
-    const dLat = this.deg2rad(point2[0] - point1[0]);
-    const dLon = this.deg2rad(point2[1] - point1[1]);
+    const dLat = this.deg2rad(point2[1] - point1[1]); //위도
+    const dLon = this.deg2rad(point2[0] - point1[0]); //경도
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(this.deg2rad(point1[0])) *
-        Math.cos(this.deg2rad(point2[0])) *
+      Math.cos(this.deg2rad(point1[1])) *
+        Math.cos(this.deg2rad(point2[1])) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
