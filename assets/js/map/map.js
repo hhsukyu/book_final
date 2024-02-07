@@ -1,4 +1,3 @@
-let mapDiv = document.getElementById('map');
 /**
  *
  * @callback addressToCoordinateCallback
@@ -41,61 +40,83 @@ function addressToCoordinate(address, callback) {
   );
 }
 
-window.onload = function () {
-  const token = localStorage.getItem('accessToken');
+// onload
+const mapDiv = document.getElementById('map');
+const token = localStorage.getItem('accessToken');
 
-  if (!token) {
-    loadHeader('home'); // load the home page by default
-  } else {
-    loadHeader('login');
-  }
+if (!token) {
+  loadHeader('home'); // load the home page by default
+} else {
+  loadHeader('login');
+}
 
-  let map = new naver.maps.Map(mapDiv, {
-    center: new naver.maps.LatLng(37.4986253, 127.0280285),
-    zoom: 16,
+let map = new naver.maps.Map(mapDiv, {
+  center: new naver.maps.LatLng(37.4986253, 127.0280285),
+  zoom: 16,
+});
+
+searchResult();
+
+// load the map by default
+if (!token) {
+  storeSearch('127.0280285, 37.4986253');
+}
+
+// load userinfo
+axios
+  .get('/mypage', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  })
+  .then(function (response) {
+    const newaddress = response.data.address;
+    if (!newaddress) {
+      console.log('no address');
+    } else {
+      onReq(newaddress);
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
   });
 
-  searchResult();
+function onReq(address) {
+  addressToCoordinate(address, (point) => {
+    map.setCenter(point);
+    storeSearch([point[1], point[0]]);
+  });
+}
 
-  // load the map by default
-  if (!token) {
-    return;
-  }
-
-  // load userinfo
+async function storeSearch(location) {
   axios
-    .get('/mypage', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    })
-    .then(function (response) {
-      address = response.data.address;
-      if (!address) {
-        console.log('no address');
-      } else {
-        onReq(address);
+    .get(`/map/${location}`)
+    .then(async function (response) {
+      const stores = await response.data;
+      if (!stores) {
+        console.log('no nearby store');
+        return;
       }
+      let latlngs = [];
+      stores.forEach((element) => {
+        const x = String(element.place).slice(6, -1);
+        const y = x.split(' ');
+        latlngs.push(y[1]); //위도 경도 순서 바꾸기
+        latlngs.push(y[0]);
+      });
+      let markers = [];
+      for (i = 0; i < latlngs.length; i = i + 2) {
+        const marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(latlngs[i], latlngs[i + 1]),
+          map: map,
+        });
+        markers.push(marker);
+      }
+      return markers;
     })
     .catch(function (error) {
       console.log(error);
     });
-
-  function onReq(address) {
-    addressToCoordinate(address, (point) => {
-      map.setCenter(point);
-    });
-  }
-};
-
-async function storeSearch(location) {
-  axios.get(`/map/${location}`, {}).then(async function (response) {
-    const stores = response.data;
-    let marker = new naver.maps.Marker({});
-    stores.forEach((element) => {
-      element.place;
-    });
-  });
 }
 
 async function searchResult() {
@@ -112,32 +133,29 @@ async function searchResult() {
       let currentPage = 1;
 
       function numPages(cardsArray) {
-        const itemsPerPage = 16;
+        const itemsPerPage = 8;
         // returns the number of pages
         return Math.ceil(cardsArray.length / itemsPerPage);
       }
 
-      function createCardElement(card) {
-        let searchhtml = `
-          <div onclick="carddetail(${card.id})" class="col-3 mb-3">
-            <div class="col">
-              <div class="card">
-                <img src="${card.store_image}" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">${card.store_name}</h5>
-                </div>
-              </div>
+      function createCardElement(store) {
+        const storeElement = `
+          <div class="album-item"onclick="storecarddetail(${store.id})">
+            <img src="${store.store_img || '기본 이미지 경로'}" alt="${store.store_name}" />
+            <div class="album-details">
+              <span class="album-title">${store.store_name}</span>
+              <span class="album-location">${store.store_address}</span>
             </div>
           </div>
         `;
 
-        return searchhtml;
+        return storeElement;
       }
 
       function changePage(page) {
         const output = document.getElementById('output');
         output.innerHTML = '';
-        const itemsPerPage = 16;
+        const itemsPerPage = 8;
 
         if (page < 1) page = 1;
         if (page > pages) page = pages;
