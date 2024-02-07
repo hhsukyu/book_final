@@ -219,7 +219,7 @@ function addstorelist(store) {
 
   if (store.store_img === '') {
     img =
-      'http://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
+      'https://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
   }
 
   // console.log(store);
@@ -268,7 +268,7 @@ function updatemodal(store) {
 
       if (store.store_img === '') {
         img =
-          'http://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
+          'https://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
       }
 
       storename.value = store.store_name;
