@@ -72,3 +72,40 @@
   width: 280px;
   height: 170px;
 }
+
+/* admin 리뷰 부분 css */
+
+#adminreview {
+  float: right;
+  width: 80%;
+}
+
+#reviewcontain {
+  width: 98%;
+  height: 97vh;
+}
+
+#reviewbtn {
+  float: right;
+}
+
+/* admin 신청 확인 */
+
+#adminowner {
+  float: right;
+  width: 80%;
+}
+
+#ownercontain {
+  width: 98%;
+  height: 97vh;
+}
+
+.ownerlist {
+  display: flex;
+  justify-content: center;
+}
+
+.ownercard {
+  width: 49%;
+}
