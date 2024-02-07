@@ -22,6 +22,9 @@ export class ApplyOwner {
   @Column()
   business_location: string;
 
+  @Column({ default: false })
+  Authorized: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 
