@@ -55,6 +55,7 @@ let allgotoPage;
 
 // onload
 async function start() {
+  const mapDiv = document.getElementById('map');
   const token = localStorage.getItem('accessToken');
 
   if (!token) {
@@ -172,32 +173,29 @@ async function searchResult() {
       let currentPage = 1;
 
       function numPages(cardsArray) {
-        const itemsPerPage = 16;
+        const itemsPerPage = 8;
         // returns the number of pages
         return Math.ceil(cardsArray.length / itemsPerPage);
       }
 
-      function createCardElement(card) {
-        let searchhtml = `
-          <div onclick="carddetail(${card.id})" class="col-3 mb-3">
-            <div class="col">
-              <div class="card">
-                <img src="${card.store_image}" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">${card.store_name}</h5>
-                </div>
-              </div>
+      function createCardElement(store) {
+        const storeElement = `
+          <div class="album-item"onclick="storecarddetail(${store.id})">
+            <img src="${store.store_img || '기본 이미지 경로'}" alt="${store.store_name}" />
+            <div class="album-details">
+              <span class="album-title">${store.store_name}</span>
+              <span class="album-location">${store.store_address}</span>
             </div>
           </div>
         `;
 
-        return searchhtml;
+        return storeElement;
       }
 
       function changePage(page) {
         const output = document.getElementById('output');
         output.innerHTML = '';
-        const itemsPerPage = 16;
+        const itemsPerPage = 8;
 
         if (page < 1) page = 1;
         if (page > pages) page = pages;
