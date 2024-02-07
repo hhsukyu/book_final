@@ -14,12 +14,14 @@ import { ImageAnnotatorClient } from '@google-cloud/vision';
 import { CreateStoreReviewDto } from '../store-review/dto/create-store-review.dto';
 import { ConfigService } from '@nestjs/config';
 import { Storage } from '@google-cloud/storage';
+import { WebClient } from '@slack/web-api';
 
 @Injectable()
 export class ReceiptService {
   private readonly client: ImageAnnotatorClient;
   private readonly storage: Storage;
   private readonly bucket: string;
+  private readonly web: WebClient;
 
   constructor(
     @InjectRepository(Receipt)
@@ -41,6 +43,7 @@ export class ReceiptService {
         keyFilename: `${this.configService.get('receit_keyfile')}`,
       }));
     this.bucket = `${this.configService.get('receipt_BUCKET_NAME')}`;
+    this.web = new WebClient(`${this.configService.get('slack_token')}`);
   }
 
   // 영수증 인증
@@ -49,10 +52,8 @@ export class ReceiptService {
     if (!file) {
       throw new BadRequestException('영수증 파일이 없습니다.');
     }
-    console.log(url);
-    // 이미지를 Google Cloud Vision API에 전송
+
     const fileName = `${url}`;
-    console.log(fileName);
     const [result] = await this.client.textDetection(fileName);
     const detections = result.textAnnotations;
     const keywords = [
@@ -70,11 +71,14 @@ export class ReceiptService {
 
     // string으로 텍스트 추출
     const receiptInfo = detections.map((text) => text.description).join();
+    console.log(receiptInfo);
+    const receiptInfo1 = detections.map((text) => text.description);
+    console.log(receiptInfo1);
+
     const keywordResult = keywords.map((keyword) =>
       receiptInfo.includes(keyword),
     );
-    console.log('receiptInfo ', receiptInfo);
-    console.log('keywordResult', keywordResult);
+
     // keyword와 영수증정보에서 일치하는 개수
     const keywordTrueCount = keywordResult.filter(
       (value) => value === true,
@@ -150,6 +154,19 @@ export class ReceiptService {
       });
     });
   }
+
+  // 슬랙으로 보내기
+  async sendMessage() {
+    // See: https://api.slack.com/methods/chat.postMessage
+    const res = await this.web.chat.postMessage({
+      channel: `${this.configService.get('slack_conversationId')}`,
+      text: 'Hello there',
+    });
+
+    // `res` contains information about the posted message
+    console.log('Message sent: ', res.ts);
+  }
+
   // 추출한 정보를 바탕으로 가게 검증
   async verifyStoreNameAndAddress(receiptInfo: string) {
     const stores = await this.storeRepository.find();

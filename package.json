@@ -33,6 +33,8 @@
     "@nestjs/schedule": "^4.0.0",
     "@nestjs/swagger": "^7.1.17",
     "@nestjs/typeorm": "^10.0.1",
+    "@slack/socket-mode": "^1.3.3",
+    "@slack/web-api": "^7.0.1",
     "@terraformer/wkt": "^2.2.0",
     "@types/navermaps": "^3.7.4",
     "@types/papaparse": "^5.3.14",
