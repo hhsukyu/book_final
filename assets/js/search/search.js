@@ -18,6 +18,8 @@ setTimeout(function () {
   loadingfade();
 }, 3000);
 
+loadUserLikeStores();
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // async function mainkeyup() {
 //   const search = await document.getElementById('search-box').value;

@@ -1,5 +1,6 @@
 // 사용자의 Like Store 목록을 저장할 변수
 let userLikeStores = [];
+let userWishList = [];
 
 // 사용자의 Like Store 목록을 가져오는 함수
 // 사용자의 위시리스트(wishlist) 목록을 가져오는 함수
