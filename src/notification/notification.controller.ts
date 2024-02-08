@@ -79,7 +79,7 @@ export class NotificationController {
     return this.notificationsService.findByStore(storeId);
   }
 
-  //알림 삭제
+  //알림 삭제(완료)
   @UseGuards(accessTokenGuard)
   @Delete(':notificationId')
   async delete(@Param('notificationId') notificationId: number) {

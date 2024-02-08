@@ -112,7 +112,7 @@ export class BookController {
   //   return await this.bookService.updateBook(bookid, updateBookDto, userid);
   // }
 
-  // 도서 생성 CSV
+  // 보유도서 생성 CSV
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
   @ApiConsumes('multipart/form-data')

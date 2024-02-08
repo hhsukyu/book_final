@@ -29,7 +29,7 @@ adminsidebar.innerHTML = `
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link text-white">
+          <a href="adminreview.html" class="nav-link text-white">
             <svg class="bi pe-none me-2" width="16" height="16">
               <use xlink:href="#speedometer2"></use>
             </svg>
@@ -37,11 +37,11 @@ adminsidebar.innerHTML = `
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link text-white">
+          <a href="adminowner.html" class="nav-link text-white">
             <svg class="bi pe-none me-2" width="16" height="16">
               <use xlink:href="#table"></use>
             </svg>
-            Orders
+            Owner
           </a>
         </li>
         
