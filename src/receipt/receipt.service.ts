@@ -12,6 +12,7 @@ import { StoreReview } from '../entity/storeReview.entity';
 import { UserService } from '../user/user.service';
 import { ImageAnnotatorClient } from '@google-cloud/vision';
 import { CreateStoreReviewDto } from '../store-review/dto/create-store-review.dto';
+import { UpdateReceiptDto } from '../receipt/dto/update-receipt.dto';
 import { ConfigService } from '@nestjs/config';
 import { Storage } from '@google-cloud/storage';
 import { WebClient } from '@slack/web-api';
@@ -44,6 +45,66 @@ export class ReceiptService {
       }));
     this.bucket = `${this.configService.get('receipt_BUCKET_NAME')}`;
     this.web = new WebClient(`${this.configService.get('slack_token')}`);
+  }
+
+  // 영수증 리뷰 작성
+  async createReceiptReview(
+    file: Express.Multer.File,
+    userId: number,
+    createStoreReviewDto: CreateStoreReviewDto,
+    url: string,
+  ) {
+    const receipt = await this.analyzeFile(file, userId, url);
+    if (receipt.status === 0) {
+      const storeReview = await this.storeReviewRepository.save({
+        ...createStoreReviewDto,
+        user_id: userId,
+        store_id: receipt.store.id,
+        is_receipt: false,
+        receipt_id: receipt.id,
+      });
+      // return storeReview;
+      return { message: '영수증을 검토중입니다.' };
+    }
+  }
+
+  // 전체 영수증 조회
+  async findReceipts(userId: number) {
+    await this.checkSiteAdmin(userId);
+    return await this.receiptRepository.find();
+  }
+
+  // 특정 영수증 조회
+  async findOneReceipts(userId: number, id: number) {
+    await this.checkSiteAdmin(userId);
+    const receipt = await this.receiptRepository.find({ where: { id: id } });
+    if (receipt.length === 0) {
+      throw new BadRequestException('영수증이 존재하지 않습니다.');
+    }
+    return receipt;
+  }
+
+  // 영수증 상태 수정
+  async updateReceipts(
+    userId: number,
+    id: number,
+    updateReceiptDto: UpdateReceiptDto,
+  ) {
+    await this.checkSiteAdmin(userId);
+    const receipt = await this.receiptRepository.save({
+      id,
+      ...updateReceiptDto,
+    });
+    const storeReviewByReceipt = await this.storeReviewRepository.findOne({
+      where: { receipt_id: id },
+    });
+    if (receipt.status === 1) {
+      await this.storeReviewRepository.update(
+        { id: storeReviewByReceipt.id },
+        { is_receipt: true },
+      );
+      return { message: 'OK' };
+    }
   }
 
   // 영수증 인증
@@ -104,27 +165,6 @@ export class ReceiptService {
     return receipt;
   }
 
-  // 영수증 리뷰 작성
-  async createReceiptReview(
-    file: Express.Multer.File,
-    userId: number,
-    createStoreReviewDto: CreateStoreReviewDto,
-    url: string,
-  ) {
-    const receipt = await this.analyzeFile(file, userId, url);
-    if (receipt.status === 0) {
-      const storeReview = await this.storeReviewRepository.save({
-        ...createStoreReviewDto,
-        user_id: userId,
-        store_id: receipt.store.id,
-        is_receipt: false,
-        receipt_id: receipt.id,
-      });
-      // return storeReview;
-      return { message: '영수증을 검토중입니다.' };
-    }
-  }
-
   // 유저 체크
   async checkUser(userId: number) {
     const user = await this.userService.findUserById(userId);
@@ -133,6 +173,13 @@ export class ReceiptService {
     }
   }
 
+  // 관리자 체크
+  async checkSiteAdmin(userId: number) {
+    const user = await this.userService.findUserById(userId);
+    if (user.role !== 2) {
+      throw new BadRequestException('관리자만 가능합니다.');
+    }
+  }
   // 이미지 업로드 구글 스토리지
   async uploadFile(file: Express.Multer.File): Promise<string> {
     const fileName = Date.now() + file.originalname;
