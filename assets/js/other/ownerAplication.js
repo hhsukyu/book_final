@@ -48,3 +48,69 @@ function changeUserType() {
       $('#myModal').modal('hide');
     });
 }
+
+const ownerchangemodal = document.getElementById('ownermodaldiv');
+
+function ownermodal() {
+  ownerchangemodal.innerHTML = `
+  <!-- 사장님 전환 모달창 -->
+  <div class="modal fade" tabindex="-1" id="myModal">
+    <div class="modal-dialog modal-lg passwordSettingModal">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">지점사장 전환</h5>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <!-- Verification Form -->
+          <div id="verificationForm">
+            <label for="store-desc" class="form-label">대표자 : </label>
+            <div class="mb-3">
+              <input
+                class="form-control"
+                id="ownercontent1"
+                placeholder="대표자 이름을 작성해주세요."
+              />
+            </div>
+            <label for="store-desc" class="form-label">지점명 : </label>
+            <div class="mb-3">
+              <input
+                class="form-control"
+                id="ownercontent2"
+                placeholder="지점 이름를 작성해주세요."
+              />
+            </div>
+            <label for="store-desc" class="form-label">지점장소 : </label>
+            <div class="mb-3">
+              <input
+                class="form-control"
+                id="ownercontent3"
+                placeholder="지점 장소를 작성해주세요."
+              />
+            </div>
+            <label for="store-desc" class="form-label">사업자등록증 : </label>
+            <div class="mb-3">
+              <input
+                class="form-control"
+                id="ownercontent4"
+                placeholder="사업자등록증 번호를 작성해주세요."
+              />
+            </div>
+            <div class="text-center modalBtn">
+              <button
+                class="btn-hover color-8"
+                type="button"
+                onclick="changeUserType()"
+              >
+                사장님으로 전환하기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+ownermodal();
