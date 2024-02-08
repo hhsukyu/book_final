@@ -1,7 +1,6 @@
 // 매장 정보를 가져와서 표시하는 함수
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function loadStores() {
-  console.log('로드 스토어 실행됨!!!!!!!!!!!!');
   axios
     .get('/store')
     .then(async function (response) {

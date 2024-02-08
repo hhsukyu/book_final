@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BOOKSURFING Mainpage</title>
+    <link rel="icon" href="./url/image.png" type="image/x-icon" />
     <!-- card slide css -->
     <link rel="stylesheet" href="./css/card-slide.css" />
     <!-- MenuBar css -->
@@ -12,6 +13,8 @@
     <link rel="stylesheet" href="./css/main.css" />
     <!-- introduce css -->
     <link rel="stylesheet" href="./css/introduce.css" />
+    <!-- footer css -->
+    <link rel="stylesheet" href="./css/footer.css" />
     <link rel="stylesheet" href="./css/loading.css" />
     <!-- search-bookCard css -->
     <link rel="stylesheet" href="./css/search-bookCard.css" />
@@ -32,144 +35,231 @@
     <script src="https://unpkg.com/scrollreveal"></script>
   </head>
   <body>
-    <header class="py-3 mb-3">
-      <div class="container">
-        <div class="row">
-          <div class="col text-center logo-container">
-            <img
-              src="./url/image.png"
-              id="logo"
-              onclick="window.location.href='index.html'"
-            />
+    <div id="wrap">
+      <header class="py-3 mb-3">
+        <div class="container">
+          <div class="row">
+            <div class="col text-center logo-container">
+              <img
+                src="./url/image.png"
+                id="logo"
+                onclick="window.location.href='index.html'"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="header"></div>
+      </header>
+
+      <!--검색결과 화면 -->
+      <div id="searchbox">
+        <div class="container bookboard">
+          <div class="row bookListTitle px-5 pt-5">
+            <h2 class="mb-5">도서 검색결과</h2>
+            <div id="output"></div>
+            <!-- 도서카드 양산용 라인 -->
+
+            <!-- 페이지네이션 -->
+
+            <div class="pagination">
+              <a onclick="allprevPage()" id="btn_prev">Prev</a>
+              <ul id="pages"></ul>
+              <a onclick="allnextPage()" id="btn_next">Next</a>
+            </div>
           </div>
         </div>
       </div>
 
-      <div id="header"></div>
-    </header>
-
-    <!--검색결과 화면 -->
-    <div id="searchbox">
-      <div class="container bookboard">
-        <div class="row bookListTitle px-5 pt-5">
-          <h2 class="mb-5">도서 검색결과</h2>
-          <div id="output"></div>
-          <!-- 도서카드 양산용 라인 -->
-
-          <!-- 페이지네이션 -->
-
-          <div class="pagination">
-            <a onclick="allprevPage()" id="btn_prev">Prev</a>
-            <ul id="pages"></ul>
-            <a onclick="allnextPage()" id="btn_next">Next</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 책 상세정보 모달창 -->
-    <div
-      class="modal fade"
-      id="bookModal"
-      tabindex="-1"
-      data-bs-keyboard="false"
-      aria-labelledby="detailbookdModal"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="bookmodallabel"></h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="container bookboard">
-              <div class="book-info">
-                <!-- 도서 이미지 -->
-
-                <img
-                  src=""
-                  id="bookcardImage"
-                  class="img-fluid"
-                  alt="Book Cover"
-                  onerror="errorimg()"
-                />
-
-                <!-- 도서 정보 -->
-                <div class="book-details mt-3">
-                  <!-- 하트 버튼 추가 -->
-                  <button id="addToWishlistButton" class="wishlist-btn">
-                    <i class="fa fa-heart-o" aria-hidden="true"></i>
-                  </button>
-                  <h3 id="modalcardtitle">도서 제목</h3>
-                  <p><strong>소개</strong>: <a id="modalcarddesc"></a></p>
-                  <p><strong>글작가</strong>: <a id="modalcardwr"></a></p>
-                  <p><strong>그림작가</strong>: <a id="modalcardil"></a></p>
-                  <p>
-                    <strong>출판사</strong>: <a id="modalcardpublisher"></a>
-                  </p>
-                  <p><strong>출판일</strong>: <a id="modalcardpudate"></a></p>
-                  <p><strong>장르</strong>: <a id="modalcardgenre"></a></p>
-                  <p><strong>연재여부</strong>: <a id="modalcardYn"></a></p>
-                </div>
-              </div>
+      <!-- 책 상세정보 모달창 -->
+      <div
+        class="modal fade"
+        id="bookModal"
+        tabindex="-1"
+        data-bs-keyboard="false"
+        aria-labelledby="detailbookdModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="bookmodallabel"></h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
-          </div>
-          <div class="reviewCardRow row pt-5">
-            <div class="reviewrow pt-5">
-              <h2 class="mb-4" style="display: inline-block">도서리뷰 목록</h2>
-              <div id="reviewicon" onclick="addreviewbtn()">
-                <i class="fa fa-comment"></i>&nbsp;<strong>리뷰작성</strong>
-              </div>
-            </div>
+            <div class="modal-body">
+              <div class="container bookboard">
+                <div class="book-info">
+                  <!-- 도서 이미지 -->
 
-            <div
-              id="reviewlist"
-              class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"
-            >
-              <div id="reviewcardbox" class="reviewcardbox">
-                <!-- 리뷰 내용 부분 -->
-              </div>
-            </div>
+                  <img
+                    src=""
+                    id="bookcardImage"
+                    class="img-fluid"
+                    alt="Book Cover"
+                  />
 
-            <!-- 리뷰 작성 폼 -->
-            <!-- <div class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"> -->
-            <div id="reviewadd" class="reivewcontain">
-              <div id="reviewaddbox" class="reviewaddbox">
-                <div class="review-box-container">
-                  <div class="star-widget">
-                    <input type="radio" name="rate" id="rate-5" />
-                    <label for="rate-5" class="fa fa-star"></label>
-                    <input type="radio" name="rate" id="rate-4" />
-                    <label for="rate-4" class="fa fa-star"></label>
-                    <input type="radio" name="rate" id="rate-3" />
-                    <label for="rate-3" class="fa fa-star"></label>
-                    <input type="radio" name="rate" id="rate-2" />
-                    <label for="rate-2" class="fa fa-star"></label>
-                    <input type="radio" name="rate" id="rate-1" />
-                    <label for="rate-1" class="fa fa-star"></label>
-                    <form action="#">
-                      <div class="reviewtextarea">
-                        <textarea
-                          id="comment"
-                          cols="30"
-                          placeholder="book review..."
-                        ></textarea>
-                      </div>
-                      <div class="reviewbtn">
-                        <button onclick="submitreview2()" type="button">
-                          등록하기
-                        </button>
-                      </div>
-                    </form>
+                  <!-- 도서 정보 -->
+                  <div class="book-details mt-3">
+                    <!-- 하트 버튼 추가 -->
+                    <button id="addToWishlistButton" class="wishlist-btn">
+                      <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    </button>
+                    <h3 id="modalcardtitle">도서 제목</h3>
+                    <p><strong>소개</strong>: <a id="modalcarddesc"></a></p>
+                    <p><strong>글작가</strong>: <a id="modalcardwr"></a></p>
+                    <p><strong>그림작가</strong>: <a id="modalcardil"></a></p>
+                    <p>
+                      <strong>출판사</strong>: <a id="modalcardpublisher"></a>
+                    </p>
+                    <p><strong>출판일</strong>: <a id="modalcardpudate"></a></p>
+                    <p><strong>장르</strong>: <a id="modalcardgenre"></a></p>
+                    <p><strong>연재여부</strong>: <a id="modalcardYn"></a></p>
+                  </div>
+                  <!-- 페이지네이션 -->
+
+                  <div class="pagination">
+                    <a onclick="allprevPage()" id="btn_prev">Prev</a>
+                    <ul id="pages"></ul>
+                    <a onclick="allnextPage()" id="btn_next">Next</a>
                   </div>
                 </div>
               </div>
+            </div>
+
+            <!-- 책 상세정보 모달창 -->
+            <div
+              class="modal fade"
+              id="bookModal"
+              tabindex="-1"
+              data-bs-keyboard="false"
+              aria-labelledby="detailbookdModal"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="bookmodallabel"></h1>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container bookboard">
+                      <div class="book-info">
+                        <!-- 도서 이미지 -->
+
+                        <img
+                          src=""
+                          id="bookcardImage"
+                          class="img-fluid"
+                          alt="Book Cover"
+                          onerror="errorimg()"
+                        />
+
+                        <!-- 도서 정보 -->
+                        <div class="book-details mt-3">
+                          <!-- 하트 버튼 추가 -->
+                          <button id="addToWishlistButton" class="wishlist-btn">
+                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                          </button>
+                          <h3 id="modalcardtitle">도서 제목</h3>
+                          <p>
+                            <strong>소개</strong>: <a id="modalcarddesc"></a>
+                          </p>
+                          <p>
+                            <strong>글작가</strong>: <a id="modalcardwr"></a>
+                          </p>
+                          <p>
+                            <strong>그림작가</strong>: <a id="modalcardil"></a>
+                          </p>
+                          <p>
+                            <strong>출판사</strong>:
+                            <a id="modalcardpublisher"></a>
+                          </p>
+                          <p>
+                            <strong>출판일</strong>:
+                            <a id="modalcardpudate"></a>
+                          </p>
+                          <p>
+                            <strong>장르</strong>: <a id="modalcardgenre"></a>
+                          </p>
+                          <p>
+                            <strong>연재여부</strong>: <a id="modalcardYn"></a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="reviewCardRow row pt-5">
+                      <div class="reviewrow pt-5">
+                        <h2 class="mb-4" style="display: inline-block">
+                          도서리뷰 목록
+                        </h2>
+                        <div id="reviewicon" onclick="addreviewbtn()">
+                          <i class="fa fa-comment"></i>&nbsp;<strong
+                            >리뷰작성</strong
+                          >
+                        </div>
+                      </div>
+
+                      <div
+                        id="reviewlist"
+                        class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"
+                      >
+                        <div id="reviewcardbox" class="reviewcardbox">
+                          <!-- 리뷰 내용 부분 -->
+                        </div>
+                      </div>
+
+                      <!-- 리뷰 작성 폼 -->
+                      <!-- <div class="row px-3 pt-2 container reviewcardbox2 reviewcontainer"> -->
+                      <div id="reviewadd" class="reivewcontain">
+                        <div id="reviewaddbox" class="reviewaddbox">
+                          <div class="review-box-container">
+                            <div class="star-widget">
+                              <input type="radio" name="rate" id="rate-5" />
+                              <label for="rate-5" class="fa fa-star"></label>
+                              <input type="radio" name="rate" id="rate-4" />
+                              <label for="rate-4" class="fa fa-star"></label>
+                              <input type="radio" name="rate" id="rate-3" />
+                              <label for="rate-3" class="fa fa-star"></label>
+                              <input type="radio" name="rate" id="rate-2" />
+                              <label for="rate-2" class="fa fa-star"></label>
+                              <input type="radio" name="rate" id="rate-1" />
+                              <label for="rate-1" class="fa fa-star"></label>
+                              <form action="#">
+                                <div class="reviewtextarea">
+                                  <textarea
+                                    id="comment"
+                                    cols="30"
+                                    placeholder="book review..."
+                                  ></textarea>
+                                </div>
+                                <div class="reviewbtn">
+                                  <button
+                                    onclick="submitreview2()"
+                                    type="button"
+                                  >
+                                    등록하기
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="footer-placeholder"></div>
             </div>
           </div>
         </div>
@@ -199,6 +289,8 @@
 
     <script src="./js/search/search.js"></script>
 
+    <script src="./js/index.js"></script>
+    <script src="./js/other/footer.js"></script>
     <script src="./js/other/wishlistButton.js"></script>
 
     <!-- <script src="./js/search.js"></script>
