@@ -669,7 +669,9 @@
       <div class="modal-dialog">
         <div class="modal-content" id="modalcontent">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">책 등록하기</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">
+              영수증 리뷰 등록하기
+            </h5>
             <div
               class="spinner-border text-info bookcsvloading fade"
               role="status"
@@ -678,17 +680,38 @@
             </div>
           </div>
           <div class="modal-body">
-            <label for="store-picture" class="form-label">책 파일</label>
+            <label for="store-picture" class="form-label">영수증 파일</label>
             <div class="mb-3">
               <input class="form-control" type="file" id="receiptimg" />
             </div>
             <label for="store-desc" class="form-label">리뷰</label>
             <div class="mb-3">
-              <input
+              <div class="star-widget1">
+                <input type="radio" name="receipt-rate" id="storerate-5" />
+                <label for="storerate-5" class="fa fa-star"></label>
+                <input type="radio" name="receipt-rate" id="storerate-4" />
+                <label for="storerate-4" class="fa fa-star"></label>
+                <input type="radio" name="receipt-rate" id="storerate-3" />
+                <label for="storerate-3" class="fa fa-star"></label>
+                <input type="radio" name="receipt-rate" id="storerate-2" />
+                <label for="storerate-2" class="fa fa-star"></label>
+                <input type="radio" name="receipt-rate" id="storerate-1" />
+                <label for="storerate-1" class="fa fa-star"></label>
+                <form action="#">
+                  <div class="reviewtextarea">
+                    <textarea
+                      id="receipt-storecomment"
+                      cols="30"
+                      placeholder="지점 리뷰를 작성해주세요."
+                    ></textarea>
+                  </div>
+                </form>
+              </div>
+              <!-- <input
                 class="form-control"
                 id="receiptreviewcontent"
                 placeholder="지점 리뷰를 작성해주세요."
-              />
+              /> -->
             </div>
           </div>
           <div class="modal-footer">
