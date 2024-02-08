@@ -413,3 +413,7 @@ form .reviewbtn button {
   position: relative;
   z-index: 9999;
 }
+
+.bookRegisterBtn {
+  margin-left: 90%;
+}

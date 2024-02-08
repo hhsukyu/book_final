@@ -225,6 +225,7 @@ body {
   margin: 20px; /* Adjust margin as needed */
   margin-left: 13.2%;
   margin-right: 13.2%;
+  margin-bottom: 13.2%;
 }
 
 .album-store {
@@ -518,4 +519,11 @@ ul#genrepages > li {
 
 #menulistcard > .g-0 .col-md-4 img {
   height: 150px;
+}
+/* 소장도서 서치바 */
+.searchBar {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
