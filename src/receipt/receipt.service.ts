@@ -16,6 +16,7 @@ import { UpdateReceiptDto } from '../receipt/dto/update-receipt.dto';
 import { ConfigService } from '@nestjs/config';
 import { Storage } from '@google-cloud/storage';
 import { WebClient } from '@slack/web-api';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class ReceiptService {
@@ -37,7 +38,7 @@ export class ReceiptService {
     private readonly configService: ConfigService,
   ) {
     (this.client = new ImageAnnotatorClient({
-      keyFilename: 'google_ocr_key.json',
+      keyFilename: `${this.configService.get('receit_keyfile')}`,
     })),
       (this.storage = new Storage({
         projectId: `${this.configService.get('receipt_projectId')}`,
@@ -132,9 +133,6 @@ export class ReceiptService {
 
     // string으로 텍스트 추출
     const receiptInfo = detections.map((text) => text.description).join();
-    // console.log(receiptInfo);
-    // const receiptInfo1 = detections.map((text) => text.description);
-    // console.log(receiptInfo1);
 
     const keywordResult = keywords.map((keyword) =>
       receiptInfo.includes(keyword),
@@ -151,10 +149,12 @@ export class ReceiptService {
 
     const matchedStore = await this.verifyStoreNameAndAddress(receiptInfo);
     await this.verifyReceipt(receiptInfo);
+    const receiptData = await this.receiptHash(receiptInfo);
+    console.log(receiptData);
 
     // OCR 결과를 데이터베이스에 저장
     const receipt = await this.receiptRepository.save({
-      data: receiptInfo,
+      data: receiptData,
       store: { id: matchedStore },
       user: { id: userId },
       receipt_img: url,
@@ -252,5 +252,11 @@ export class ReceiptService {
     if (receiptData.length > 0) {
       throw new ConflictException('이미 인증된 영수증 입니다.');
     }
+  }
+
+  // 영수증 데이터 해시
+  async receiptHash(receiptInfo: string) {
+    const salt = +this.configService.get<number>('RECEIT_SALT');
+    return await bcrypt.hash(receiptInfo, salt);
   }
 }
