@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
           const approveButton = document.createElement('button');
           approveButton.textContent = '승인';
           approveButton.classList.add('approve-button'); // 추가된 부분
-
+          approveButton.classList.add('btn'); // 추가된 부분
+          approveButton.classList.add('btn-outline-secondary'); // 추가된 부분
           approveButton.addEventListener('click', function () {
             approveOwner(preOwner.userid, preOwner.id);
           });
