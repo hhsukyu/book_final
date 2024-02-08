@@ -60,6 +60,22 @@ function carddetail(bookid) {
       } else {
         fnishYn.innerHTML = '완결';
       }
+
+      //해당 책이 사용자의 위시리스트 목록에 있는지 확인
+      //1. 라이크 스토어 목록이 뜨는 그런거 만들기(만들어짐)
+      const isLiked = userWishList.includes(bookid.toString());
+      const wishlistButton = document.getElementById('addToWishlistButton');
+      const heartIcon = wishlistButton.querySelector('.fa');
+
+      if (isLiked) {
+        heartIcon.classList.remove('fa-heart-o');
+        heartIcon.classList.add('fa-heart');
+        heartIcon.style.color = 'red';
+      } else {
+        heartIcon.classList.remove('fa-heart');
+        heartIcon.classList.add('fa-heart-o');
+        heartIcon.style.color = 'black';
+      }
     })
     .catch(function (error) {
       console.log(error);

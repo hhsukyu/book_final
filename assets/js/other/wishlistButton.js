@@ -20,6 +20,7 @@ document
           },
         })
         .then(function () {
+          loadUserLikeStores();
           console.log('삭제 성공');
           // 위시리스트에서 삭제 성공 시 하트 아이콘의 클래스 변경
           heartIcon.classList.remove('fa-heart');
@@ -43,6 +44,7 @@ document
           },
         )
         .then(function () {
+          loadUserLikeStores();
           console.log('수정 성공');
           // 위시리스트에 추가 성공 시 하트 아이콘의 클래스 변경
           heartIcon.classList.remove('fa-heart-o');
