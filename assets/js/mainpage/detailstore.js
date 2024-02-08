@@ -53,6 +53,7 @@ function storecarddetail(storeid) {
       console.log(error);
     });
 }
+
 const storereviewbox1 = document.getElementById('storereviewcardbox');
 function storereview(storeid) {
   axios
