@@ -16,7 +16,7 @@ import { UpdateReceiptDto } from '../receipt/dto/update-receipt.dto';
 import { ConfigService } from '@nestjs/config';
 import { Storage } from '@google-cloud/storage';
 import { WebClient } from '@slack/web-api';
-import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class ReceiptService {
@@ -52,10 +52,11 @@ export class ReceiptService {
   async createReceiptReview(
     file: Express.Multer.File,
     userId: number,
+    storeId: number,
     createStoreReviewDto: CreateStoreReviewDto,
     url: string,
   ) {
-    const receipt = await this.analyzeFile(file, userId, url);
+    const receipt = await this.analyzeFile(file, userId, storeId, url);
     if (receipt.status === 0) {
       const storeReview = await this.storeReviewRepository.save({
         ...createStoreReviewDto,
@@ -109,7 +110,12 @@ export class ReceiptService {
   }
 
   // 영수증 인증
-  async analyzeFile(file: Express.Multer.File, userId: number, url: string) {
+  async analyzeFile(
+    file: Express.Multer.File,
+    userId: number,
+    storeId: number,
+    url: string,
+  ) {
     await this.checkUser(userId);
     if (!file) {
       throw new BadRequestException('영수증 파일이 없습니다.');
@@ -147,10 +153,12 @@ export class ReceiptService {
       throw new BadRequestException('영수증이 아닙니다.');
     }
 
-    const matchedStore = await this.verifyStoreNameAndAddress(receiptInfo);
-    await this.verifyReceipt(receiptInfo);
+    const matchedStore = await this.verifyStoreNameAndAddress(
+      receiptInfo,
+      storeId,
+    );
     const receiptData = await this.receiptHash(receiptInfo);
-    console.log(receiptData);
+    await this.verifyReceipt(receiptInfo, receiptData);
 
     // OCR 결과를 데이터베이스에 저장
     const receipt = await this.receiptRepository.save({
@@ -219,16 +227,14 @@ export class ReceiptService {
   }
 
   // 추출한 정보를 바탕으로 가게 검증
-  async verifyStoreNameAndAddress(receiptInfo: string) {
-    const stores = await this.storeRepository.find();
-    const storeName = stores.map((store) => store.store_name);
-    const storeAddress = stores.map((store) => store.store_address);
+  async verifyStoreNameAndAddress(receiptInfo: string, storeId: number) {
+    const store = await this.storeRepository.find({ where: { id: storeId } });
 
-    const compareStoreName = storeName.some((name) =>
-      receiptInfo.includes(name),
+    const compareStoreName = store.every((store) =>
+      receiptInfo.includes(store.store_name),
     );
-    const compareStoreAddress = storeAddress.some((address) =>
-      receiptInfo.includes(address),
+    const compareStoreAddress = store.every((store) =>
+      receiptInfo.includes(store.store_address),
     );
     if (!compareStoreName || !compareStoreAddress) {
       throw new BadRequestException(
@@ -236,7 +242,7 @@ export class ReceiptService {
       );
     }
 
-    const matchedStore = stores.filter(
+    const matchedStore = store.filter(
       (store) =>
         receiptInfo.includes(store.store_name) &&
         receiptInfo.includes(store.store_address),
@@ -245,18 +251,19 @@ export class ReceiptService {
   }
 
   // 영수증 중복 체크
-  async verifyReceipt(receiptInfo: string) {
-    const receiptData = await this.receiptRepository.find({
-      where: { data: receiptInfo },
+  async verifyReceipt(receiptInfo: string, receiptData: string) {
+    console.log(receiptData);
+    const receipt = await this.receiptRepository.find({
+      where: { data: receiptData },
     });
-    if (receiptData.length > 0) {
+
+    if (receipt.length > 0) {
       throw new ConflictException('이미 인증된 영수증 입니다.');
     }
   }
 
   // 영수증 데이터 해시
   async receiptHash(receiptInfo: string) {
-    const salt = +this.configService.get<number>('RECEIT_SALT');
-    return await bcrypt.hash(receiptInfo, salt);
+    return crypto.createHash('sha256').update(receiptInfo).digest('base64');
   }
 }
