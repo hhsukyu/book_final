@@ -184,15 +184,18 @@ export class AuthService {
     );
     const refreshToken = this.generateRefreshToken(OAuthUser.id);
 
+    //만료된 accesstoken 갱신
     await this.userService.update(OAuthUser.id, {
       currentRefreshToken: refreshToken,
     });
 
     if (OAuthUser) {
-      res.cookie('accessToken', accessToken);
-      res.cookie('refreshToken', refreshToken);
-      res.redirect('/index.html');
-    } else res.redirect('/login&signup.html');
+      res.redirect(
+        `/login-success.html?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+      );
+    } else {
+      res.redirect('/login&signup.html');
+    }
   }
 
   //네이버 지점업주 회원가입/로그인
@@ -218,7 +221,7 @@ export class AuthService {
         role: 1,
       });
     }
-
+    //code,userid를 레디스 저장
     const accessToken = this.generateAccessToken(
       OAuthUser.id,
       OAuthUser.nickname,
@@ -231,7 +234,7 @@ export class AuthService {
 
     if (OAuthUser)
       res.redirect(
-        `/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+        `/login-success.html?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
       );
     else res.redirect('/login/failure');
   }
@@ -274,11 +277,11 @@ export class AuthService {
       currentRefreshToken: refreshToken,
     });
 
-    if (OAuthUser) {
-      res.cookie('accessToken', accessToken);
-      res.cookie('refreshToken', refreshToken);
-      res.redirect('/index.html');
-    } else res.redirect('/login&signup.html');
+    if (OAuthUser)
+      res.redirect(
+        `/login-success.html?accessToken=${accessToken}&refreshToken=${refreshToken}`,
+      );
+    else res.redirect('/login/failure');
   }
 
   //카카오 지점업주 회원가입/로그인

@@ -11,223 +11,233 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     /> -->
+    <link rel="icon" href="./url/image.png" type="image/x-icon" />
     <link rel="stylesheet" href="css/findingPassword.css" />
     <link rel="stylesheet" href="css/login&signup.css" />
+    <!-- footer css -->
+    <link rel="stylesheet" href="./css/footer.css" />
   </head>
   <body>
-    <header class="py-3 mb-3">
-      <div class="container">
-        <div class="row">
-          <div class="col text-center logo-container">
-            <img
-              src="./url/image.png"
-              id="logo"
-              onclick="window.location.href='index.html'"
-            />
+    <div id="wrap">
+      <header class="py-3 mb-3">
+        <div class="container">
+          <div class="row">
+            <div class="col text-center logo-container">
+              <img
+                src="./url/image.png"
+                id="logo"
+                onclick="window.location.href='index.html'"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </header>
-    <div class="hero">
-      <!-- <div id="logo-img">
+      </header>
+      <div class="hero">
+        <!-- <div id="logo-img">
         <img src="./url/image.png" />
       </div> -->
-      <div id="form-box" class="form-box">
-        <div class="button-box">
-          <div id="btn"></div>
-          <button type="button" class="toggle-btn" onclick="login()">
-            Log In
-          </button>
-          <button type="button" class="toggle-btn" onclick="register()">
-            Register
-          </button>
-        </div>
-
-        <div class="social-icons">
-          <img src="./url/kakao.png" onclick="kakaoLogin()" />
-          <img src="./url/naver.png" onclick="naverLogin()" />
-        </div>
-
-        <form
-          id="loginForm"
-          class="input-class"
-          action="/auth/login"
-          method="post"
-          onsubmit="loginForm(event)"
-        >
-          <!-- 이메일 -->
-          <input
-            type="email"
-            class="input-field"
-            id="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
-          <!-- 비밀번호 -->
-          <input
-            type="password"
-            class="input-field"
-            id="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
-          <div class="text-center">
-            <a href="#" onclick="openFindingPWModal()">Forgot your password?</a>
-          </div>
-          <button type="submit" class="submit-btn">Login</button>
-        </form>
-
-        <!-- 회원가입부분 -->
-        <form
-          class="input-class"
-          onsubmit="signupform(event)"
-          id="signupForm"
-          action="/signup"
-          method="post"
-        >
-          <!-- 닉네임 -->
-          <input
-            type="text"
-            id="Regnickname"
-            name="Regnickname"
-            class="input-field"
-            placeholder="Nickname"
-            required
-          />
-          <!-- 이메일 -->
-          <input
-            type="email"
-            id="Regemail"
-            name="Regemail"
-            class="input-field"
-            placeholder="Email"
-            required
-          />
-          <button type="button" onclick="checkDuplicateEmail(event)">
-            중복확인
-          </button>
-          <span id="emailError" class="error"></span>
-          <!-- 비밀번호 -->
-          <input
-            type="password"
-            id="Regpassword"
-            name="Regpassword"
-            class="input-field"
-            placeholder="Password"
-            required
-          />
-          <!-- 비밀번호 체크 -->
-          <input
-            type="password"
-            id="RegconfirmPassword"
-            name="RegpasswordConfirm"
-            class="input-field"
-            onkeyup="checkPasswordMatch()"
-            placeholder="Confirm Password"
-            required
-          />
-          <span id="passwordError" class="error"></span>
-          <!-- 나이 -->
-          <input
-            type="text"
-            class="input-field"
-            id="age"
-            name="age"
-            placeholder="Age"
-            required
-          />
-          <!-- 핸드폰번호 -->
-          <input
-            type="text"
-            id="phone"
-            name="phone"
-            class="input-field"
-            placeholder="Phone"
-            required
-          />
-
-          <div style="padding-top: 15px" class="submit_line">
-            <button type="submit" class="submit-btn">Signup</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <!-- 모달창 -->
-    <div class="modal" tabindex="-1" id="myModal">
-      <div class="modal-dialog modal-lg passwordSettingModal">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h5 class="modal-title">비밀번호 재설정</h5>
+        <div id="form-box" class="form-box">
+          <div class="button-box">
+            <div id="btn"></div>
+            <button type="button" class="toggle-btn" onclick="login()">
+              Log In
+            </button>
+            <button type="button" class="toggle-btn" onclick="register()">
+              Register
+            </button>
           </div>
 
-          <!-- Modal Body -->
-          <div class="modal-body">
-            <!-- Email Form -->
-            <div id="emailForm">
-              <label for="resetEmail">이메일</label>
-              <input
-                type="email"
-                class="form-control"
-                id="resetEmail"
-                placeholder="이메일을 입력하세요"
-              />
-              <div class="text-center modalBtn">
-                <button class="btn-hover color-8" onclick="sendEmail()">
-                  전송
-                </button>
-              </div>
+          <div class="social-icons">
+            <img src="./url/kakao.png" onclick="kakaoLogin()" />
+            <img src="./url/naver.png" onclick="naverLogin()" />
+          </div>
+
+          <form
+            id="loginForm"
+            class="input-class"
+            action="/auth/login"
+            method="post"
+            onsubmit="loginForm(event)"
+          >
+            <!-- 이메일 -->
+            <input
+              type="email"
+              class="input-field"
+              id="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+            <!-- 비밀번호 -->
+            <input
+              type="password"
+              class="input-field"
+              id="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <div class="text-center">
+              <a href="#" onclick="openFindingPWModal()"
+                >Forgot your password?</a
+              >
             </div>
+            <button type="submit" class="submit-btn">Login</button>
+          </form>
 
-            <!-- Verification Form -->
-            <div id="verificationForm" style="display: none">
-              <label for="verificationCode">인증번호</label>
-              <input
-                type="text"
-                class="form-control"
-                id="verificationCode"
-                placeholder="인증번호를 입력하세요"
-              />
-              <div class="text-center modalBtn">
-                <button class="btn-hover color-8" onclick="verifyCode()">
-                  인증
-                </button>
-              </div>
-            </div>
+          <!-- 회원가입부분 -->
+          <form
+            class="input-class"
+            onsubmit="signupform(event)"
+            id="signupForm"
+            action="/signup"
+            method="post"
+          >
+            <!-- 닉네임 -->
+            <input
+              type="text"
+              id="Regnickname"
+              name="Regnickname"
+              class="input-field"
+              placeholder="Nickname"
+              required
+            />
+            <!-- 이메일 -->
+            <input
+              type="email"
+              id="Regemail"
+              name="Regemail"
+              class="input-field"
+              placeholder="Email"
+              required
+            />
+            <button type="button" onclick="checkDuplicateEmail(event)">
+              중복확인
+            </button>
+            <span id="emailError" class="error"></span>
+            <!-- 비밀번호 -->
+            <input
+              type="password"
+              id="Regpassword"
+              name="Regpassword"
+              class="input-field"
+              placeholder="Password"
+              required
+            />
+            <!-- 비밀번호 체크 -->
+            <input
+              type="password"
+              id="RegconfirmPassword"
+              name="RegpasswordConfirm"
+              class="input-field"
+              onkeyup="checkPasswordMatch()"
+              placeholder="Confirm Password"
+              required
+            />
+            <span id="passwordError" class="error"></span>
+            <!-- 나이 -->
+            <input
+              type="text"
+              class="input-field"
+              id="age"
+              name="age"
+              placeholder="Age"
+              required
+            />
+            <!-- 핸드폰번호 -->
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              class="input-field"
+              placeholder="Phone"
+              required
+            />
 
-            <!-- Password Reset Form -->
-            <div id="passwordResetForm" style="display: none">
-              <label for="newPassword">새로운 비밀번호</label>
-              <input
-                type="password"
-                class="form-control"
-                id="newPassword"
-                placeholder="새로운 비밀번호를 입력하세요"
-              />
-              <label for="confirmPassword">비밀번호 확인</label>
-              <input
-                type="password"
-                class="form-control"
-                id="confirmPassword"
-                placeholder="비밀번호를 확인하세요"
-              />
-              <div class="text-center modalBtn">
-                <button class="btn-hover color-8" onclick="resetPassword()">
-                  비밀번호 재설정
-                </button>
-              </div>
+            <div style="padding-top: 15px" class="submit_line">
+              <button type="submit" class="submit-btn">Signup</button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
+      <!-- 모달창 -->
+      <div class="modal" tabindex="-1" id="myModal">
+        <div class="modal-dialog modal-lg passwordSettingModal">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">비밀번호 재설정</h5>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <!-- Email Form -->
+              <div id="emailForm">
+                <label for="resetEmail">이메일</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="resetEmail"
+                  placeholder="이메일을 입력하세요"
+                />
+                <div class="text-center modalBtn">
+                  <button class="btn-hover color-8" onclick="sendEmail()">
+                    전송
+                  </button>
+                </div>
+              </div>
+
+              <!-- Verification Form -->
+              <div id="verificationForm" style="display: none">
+                <label for="verificationCode">인증번호</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="verificationCode"
+                  placeholder="인증번호를 입력하세요"
+                />
+                <div class="text-center modalBtn">
+                  <button class="btn-hover color-8" onclick="verifyCode()">
+                    인증
+                  </button>
+                </div>
+              </div>
+
+              <!-- Password Reset Form -->
+              <div id="passwordResetForm" style="display: none">
+                <label for="newPassword">새로운 비밀번호</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="newPassword"
+                  placeholder="새로운 비밀번호를 입력하세요"
+                />
+                <label for="confirmPassword">비밀번호 확인</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirmPassword"
+                  placeholder="비밀번호를 확인하세요"
+                />
+                <div class="text-center modalBtn">
+                  <button class="btn-hover color-8" onclick="resetPassword()">
+                    비밀번호 재설정
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div id="footer-placeholder"></div> -->
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./js/login/login.js"></script>
     <script src="./js/login/signup.js"></script>
     <script src="./js/login/login&signup.js"></script>
     <script src="./js/login/findingPassword.js"></script>
+    <script src="./js/other/footer.js"></script>
   </body>
 </html>

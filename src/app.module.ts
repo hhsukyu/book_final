@@ -23,6 +23,7 @@ import { StorebookModule } from './store-book/store-book.module';
 import { TypeormModule } from './typeorm/typeorm.module';
 import { NotificationModule } from './notification/notification.module';
 import { SseModule } from './sse/sse.module';
+import { ApplyOwnerModule } from './apply-owner/apply-owner.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { SseModule } from './sse/sse.module';
     StorebookModule,
     SseModule,
     ReceiptModule,
+    ApplyOwnerModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
