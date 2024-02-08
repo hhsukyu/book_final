@@ -11,4 +11,4 @@ localStorage.setItem('accessToken', accessToken);
 localStorage.setItem('refreshToken', refreshToken);
 
 // index.html로 리다이렉트
-window.location.href = 'http://localhost:3000/index.html';
+window.location.href = '/index.html';
