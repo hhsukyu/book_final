@@ -68,29 +68,26 @@ function logout() {
 //   localStorage.setItem('accessToken', response.data.accessToken);
 //   localStorage.setItem('refreshToken', response.data.refreshToken);
 
-//   // 토큰을 이용한 추가적인 작업 수행 가능
-//   // ...
-
 //   // 리다이렉트 또는 화면 갱신 등 필요한 작업 수행
 //   window.location.href = 'index.html';
 // }
 
-function naverLoginCallback() {
-  axios
-    .get('/auth/naver/callback', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-    .then(function (response) {
-      localStorage.setItem('accessToken', response.data.accessToken);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
-      console.log('response.data.accessToken', response.data.accessToken);
-      // window.location.href = 'index.html';
-      // loadHeader('login');
-    })
-    .catch(function (error) {
-      console.log(error.request.response);
-      alert(error.request.response);
-    });
-}
+// function naverLoginCallback() {
+//   axios
+//     .get('/auth/naver/callback', {
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     })
+//     .then(function (response) {
+//       localStorage.setItem('accessToken', response.data.accessToken);
+//       localStorage.setItem('refreshToken', response.data.refreshToken);
+//       console.log('response.data.accessToken', response.data.accessToken);
+//       // window.location.href = 'index.html';
+//       // loadHeader('login');
+//     })
+//     .catch(function (error) {
+//       console.log(error.request.response);
+//       alert(error.request.response);
+//     });
+// }

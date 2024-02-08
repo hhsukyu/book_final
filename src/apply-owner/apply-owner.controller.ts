@@ -29,15 +29,15 @@ export class ApplyOwnerController {
   }
 
   //사장님 신청자 조회
-  // @ApiBearerAuth('accessToken')
-  // @UseGuards(accessTokenGuard)
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
   @Get('')
   async getPreOwners() {
     return await this.applyOwnerService.getPreOwners();
   }
   //사장님 신청자 승인
-  // @ApiBearerAuth('accessToken')
-  // @UseGuards(accessTokenGuard)
+  @ApiBearerAuth('accessToken')
+  @UseGuards(accessTokenGuard)
   @Put(':userid/:applyownerid')
   async approveOwner(
     @Param('userid') userid: number,

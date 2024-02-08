@@ -9,7 +9,7 @@ function bookinfo(storeid) {
     .then(function (response) {
       //   console.log(response.data);
       const books = response.data;
-
+      storebookinfo.innerHTML = '';
       books.forEach((book) => {
         // console.log(book);
         booklist(book);
@@ -26,6 +26,7 @@ function bookinfo(storeid) {
 function booklist(book) {
   const bookinfo = book.book;
   console.log(book);
+
   storebookinfo.innerHTML += `
   <div id="booklistcard" class="card mb-3" >
     <div class="row g-0">
