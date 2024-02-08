@@ -34,7 +34,13 @@
 }
 
 #storereviewicon {
-  margin-left: 66%;
+  /* margin-left: 66%; */
   padding: 20px;
+  cursor: pointer;
+}
+
+#storereviewicon2 {
+  /* margin-left: 66%; */
+  padding: 10px;
   cursor: pointer;
 }
