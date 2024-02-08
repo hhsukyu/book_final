@@ -63,6 +63,12 @@
         <div class="row bookboard mt-4 map-container" id="map-container">
           <div class="universe" id="map" tabindex="0"></div>
           <div class="output" id="output"></div>
+          <!-- 지점 페이지네이션 -->
+          <div class="store-pagination">
+            <a onclick="allprevPage()" id="btn_prev">Prev</a>
+            <ul id="storepages"></ul>
+            <a onclick="allnextPage()" id="btn_next">Next</a>
+          </div>
         </div>
       </div>
     </div>
@@ -85,9 +91,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <!-- index js파일 -->
-    <script src="./js/map.js"></script>
+    <script type="module" src="./js/map/map.js"></script>
     <script src="./js/index.js"></script>
-    <script src="./js/login.js"></script>
-    <script src="./js/header.js"></script>
+    <script src="./js/header/header.js"></script>
   </body>
 </html>
