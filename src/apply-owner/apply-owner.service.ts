@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ApplyOwner } from 'src/entity/applyOwner.entity';
 import { UserService } from 'src/user/user.service';
@@ -19,8 +19,8 @@ export class ApplyOwnerService {
   ) {}
 
   //사업자 전환하기 신청폼 제출
-  async userToOwner(applyOwnerDto: ApplyOwnerDto) {
-    // const user = await this.userService.findUserById(userid);
+  async userToOwner(applyOwnerDto: ApplyOwnerDto, userid: number) {
+    const user = await this.userService.findUserById(userid);
 
     // console.log('user', user);
 
@@ -31,7 +31,7 @@ export class ApplyOwnerService {
     try {
       const ownerApplication = await this.applyOwnerRepository.save({
         ...applyOwnerDto,
-        // email: user.email,
+        userid: user.id,
       });
 
       return ownerApplication;
@@ -43,17 +43,41 @@ export class ApplyOwnerService {
 
   //사장님 신청자 조회
   async getPreOwners() {
-    const preOwners = await this.applyOwnerRepository.find();
+    const preOwners = await this.applyOwnerRepository.find({
+      where: { Authorized: false },
+    });
     return preOwners;
   }
 
   //사장님 신청자 승인
-  async approveOwner(userid: number) {
+  async approveOwner(userid: number, applyownerid: number) {
+    console.log('userid', userid);
+    // ApplyOwner 엔터티 조회
+    const applyOwner = await this.applyOwnerRepository.findOne({
+      where: { id: applyownerid },
+    });
+
+    if (!applyOwner) {
+      // 해당 ID에 해당하는 사장님 신청자가 없을 경우 예외 처리
+      throw new NotFoundException('Owner not found');
+    }
+
+    // Authorized 필드를 true로 변경
+    applyOwner.Authorized = true;
+
+    // 해당 사장님 신청자 업데이트
+    await this.applyOwnerRepository.save(applyOwner);
+
     const user = await this.userService.findUserById(userid);
 
+    if (!user) {
+      // 해당 ID에 해당하는 사용자가 없을 경우 예외 처리
+      throw new NotFoundException('User not found');
+    }
     console.log('user', user);
 
     user.role = 1;
+
     return this.userRepository.save(user);
   }
 }

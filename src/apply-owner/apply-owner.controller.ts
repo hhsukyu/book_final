@@ -21,9 +21,13 @@ export class ApplyOwnerController {
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
   @Post('')
-  async userToOwner(@Body() applyOwnerDto: ApplyOwnerDto) {
-    return await this.applyOwnerService.userToOwner(applyOwnerDto);
+  async userToOwner(
+    @Body() applyOwnerDto: ApplyOwnerDto,
+    @UserId() userid: number,
+  ) {
+    return await this.applyOwnerService.userToOwner(applyOwnerDto, userid);
   }
+
   //사장님 신청자 조회
   // @ApiBearerAuth('accessToken')
   // @UseGuards(accessTokenGuard)
@@ -34,8 +38,11 @@ export class ApplyOwnerController {
   //사장님 신청자 승인
   // @ApiBearerAuth('accessToken')
   // @UseGuards(accessTokenGuard)
-  @Put(':userid')
-  async approveOwner(@Param('userid') userid: number) {
-    return await this.applyOwnerService.approveOwner(userid);
+  @Put(':userid/:applyownerid')
+  async approveOwner(
+    @Param('userid') userid: number,
+    @Param('applyownerid') applyownerid: number,
+  ) {
+    return await this.applyOwnerService.approveOwner(userid, applyownerid);
   }
 }

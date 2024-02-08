@@ -106,6 +106,35 @@
   justify-content: center;
 }
 
+.ownercard2 {
+  width: 80%;
+  margin: auto;
+}
+
 .ownercard {
-  width: 49%;
+  width: 50%;
+}
+
+.detailownercard {
+  display: flex;
+  justify-content: center;
+}
+
+/*승인버튼 css*/
+.approve-button {
+  background-color: #383838; /* 버튼 배경색 */
+  color: white; /* 글자 색상 */
+  padding: 10px 15px; /* 안쪽 여백 */
+  border: none; /* 테두리 없음 */
+  border-radius: 5px; /* 둥근 테두리 */
+  cursor: pointer; /* 커서 모양 변경 */
+  margin-left: 90%;
+}
+
+.approve-button:hover {
+  background-color: #ccc; /* 호버 상태일 때 배경색 변경 */
+}
+
+.ownercarddetail {
+  width: 50%;
 }

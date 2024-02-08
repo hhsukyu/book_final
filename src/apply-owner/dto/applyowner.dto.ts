@@ -13,4 +13,8 @@ export class ApplyOwnerDto {
   @IsString()
   @ApiProperty({ description: '사업장 소재지' })
   business_location: string;
+
+  @IsString()
+  @ApiProperty({ description: '사업장 이름' })
+  store_name: string;
 }
