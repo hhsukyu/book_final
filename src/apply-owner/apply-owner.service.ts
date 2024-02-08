@@ -22,7 +22,7 @@ export class ApplyOwnerService {
   async userToOwner(applyOwnerDto: ApplyOwnerDto, userid: number) {
     const user = await this.userService.findUserById(userid);
 
-    // console.log('user', user);
+    console.log('user', user);
 
     // await this.authService.sendVerificationCode(user.email);
 

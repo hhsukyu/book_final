@@ -55,12 +55,17 @@ function applyOwner() {
     business_location: storelocation,
     business_license_number: businessnumber,
   };
-
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  };
   axios
-    .post('/applyowner', requestData)
+    .post('/applyowner', requestData, config)
     .then((response) => {
+      console.log(response.data);
       alert('신청이 완료되었습니다.');
-      // 성공적으로 처리된 후에 원하는 동작 수행
+      $('#myModal').modal('hide');
     })
     .catch((error) => {
       alert('신청에 실패했습니다.');
