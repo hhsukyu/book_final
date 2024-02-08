@@ -221,6 +221,16 @@ async function addstorereviewbtn() {
   // submitstorereview 변수에 handleSubmit 함수 할당
   submitstorereview = handleSubmit;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function addreceiptreview(event) {
+  event.preventDefault();
+  axios
+    .post()
+    .then(function (response) {})
+    .catch(function (error) {});
+}
+
 // 특정 리뷰에 대한 사장님리뷰 답글 조회
 function findAdminReviewsByReview(storeid, storeReviewid) {
   return axios
