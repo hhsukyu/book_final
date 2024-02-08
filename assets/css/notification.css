@@ -1,0 +1,26 @@
+.notification-container {
+  position: fixed; /* 화면에 고정 */
+  top: 50px; /* 상단에서 얼마나 떨어지게 할지 */
+  right: 20px; /* 우측에서 얼마나 떨어지게 할지 */
+  width: 300px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  display: none; /* 기본적으로 숨김 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.notification-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notification-list li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-list li:last-child {
+  border-bottom: none;
+}
