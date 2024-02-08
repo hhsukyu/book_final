@@ -23,11 +23,13 @@ import { EmailService } from 'src/configs/mailer/email.service';
 import { Book } from '../entity/book.entity';
 import { MyPage } from 'src/entity/my-page.entity';
 import { MyPageService } from 'src/my-page/my-page.service';
+import { MyPageModule } from 'src/my-page/my-page.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Book, MyPage]),
     JwtModule,
+    MyPageModule,
     forwardRef(() => UserModule),
     JwtModule.registerAsync({
       useFactory: (config: ConfigService) => ({
@@ -48,6 +50,7 @@ import { MyPageService } from 'src/my-page/my-page.service';
     refreshTokenStrategy,
     JwtModule,
     PassportModule,
+    AuthService,
   ],
   controllers: [AuthController],
   providers: [
@@ -63,7 +66,6 @@ import { MyPageService } from 'src/my-page/my-page.service';
     KakaoAdminStrategy,
     KakaoAuthGuard,
     EmailService,
-    MyPageService,
   ],
 })
 export class AuthModule {}

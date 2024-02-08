@@ -17,13 +17,19 @@ export class ApplyOwner {
   owner_name: string;
 
   @Column()
-  business_license_number: boolean;
+  business_license_number: number;
 
   @Column()
   business_location: string;
 
   @Column()
-  photo: string;
+  store_name: string;
+
+  @Column({ default: false })
+  Authorized: boolean;
+
+  @Column()
+  userid: number;
 
   @CreateDateColumn()
   created_at: Date;
