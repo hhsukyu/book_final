@@ -73,13 +73,18 @@ export class ReceiptService {
   // 전체 영수증 조회
   async findReceipts(userId: number) {
     await this.checkSiteAdmin(userId);
-    return await this.receiptRepository.find();
+    return await this.receiptRepository.find({
+      relations: ['store_reviews', 'store'],
+    });
   }
 
   // 특정 영수증 조회
   async findOneReceipts(userId: number, id: number) {
     await this.checkSiteAdmin(userId);
-    const receipt = await this.receiptRepository.find({ where: { id: id } });
+    const receipt = await this.receiptRepository.find({
+      where: { id: id },
+      relations: ['store_reviews', 'store'],
+    });
     if (receipt.length === 0) {
       throw new BadRequestException('영수증이 존재하지 않습니다.');
     }
