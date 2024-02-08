@@ -1,3 +1,4 @@
+import { Status } from '../receipt/types/receiptStatus.type';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,6 +7,7 @@ import {
   OneToOne,
   Relation,
   CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { StoreReview } from './storeReview.entity';
@@ -21,8 +23,17 @@ export class Receipt {
   @Column({ type: 'text' })
   data: string;
 
+  @Column({ type: 'text' })
+  receipt_img: string;
+
+  @Column({ type: 'enum', enum: Status, default: Status.pendding })
+  status: Status;
+
   @CreateDateColumn()
   created_at: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.receipts)
   user: Relation<User>;

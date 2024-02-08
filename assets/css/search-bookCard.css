@@ -1,0 +1,7 @@
+#output > .col-3 > .col > .card > .card-img-top {
+  height: 550px;
+}
+
+#output > .col-3 > .col > .card {
+  height: 550px;
+}
