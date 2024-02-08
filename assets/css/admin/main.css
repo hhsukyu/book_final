@@ -109,3 +109,10 @@
 .ownercard {
   width: 49%;
 }
+
+/* 영수증 리뷰 자세히보기*/
+#receipt-modal-body > img {
+  width: 400px;
+  height: 400px;
+  margin-left: 7%;
+}

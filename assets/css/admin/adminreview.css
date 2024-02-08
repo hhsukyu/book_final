@@ -1,0 +1,24 @@
+/*store 페이지네이션*/
+.receipt-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Optional margin for spacing from other elements */
+  background-color: #4f4f4f;
+  color: #ffffff;
+}
+
+.receipt-pagination a {
+  margin: 0 5px; /* Optional margin for spacing between Prev/Next and page numbers */
+}
+
+ul#receiptpages,
+ul#receiptpages li {
+  display: inline-block;
+  padding: 0;
+  cursor: pointer;
+}
+
+ul#receiptpages > li {
+  margin: 0px 3px;
+}

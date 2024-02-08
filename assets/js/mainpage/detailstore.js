@@ -263,7 +263,7 @@ function addreceiptreview(event) {
     })
     .then(function () {
       alert(
-        '등록이 성공했습니다. 관리자의 검토 후 영수증 인증여부가 표시됩니다.',
+        '등록이 성공했습니다.관리자의 검토 후 영수증 인증여부가 표시됩니다.',
       );
       window.location.reload();
       //리뷰 등록 부분 초기화
