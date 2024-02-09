@@ -16,14 +16,14 @@ function userme() {
       },
     })
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
       user = response.data;
 
       useremail.innerHTML = `<p class="fs-6">${user.email}</p>`;
       usernickname.innerHTML = `<p class="fs-6">${user.nickname}</p>`;
       userimage.src = user.photo;
       useraddress.value = user.myPage.address;
-      console.log(user.photo);
+      // console.log(user.photo);
 
       if (user.role === 0) {
         storetab.style.display = 'none';
@@ -137,7 +137,7 @@ async function storebtn(event) {
   try {
     const coordinate = await addressToCoordinate(resultaddress);
 
-    console.log(coordinate);
+    // console.log(coordinate);
     const storeimgFile = storeimgInput.files[0];
 
     const formData = new FormData();
@@ -195,7 +195,7 @@ function storeinfo() {
             },
           })
           .then(function (response) {
-            console.log(response.data);
+            // console.log(response.data);
             const storeinfos = response.data;
             storeinfos.forEach((store) => {
               addstorelist(store);
@@ -227,7 +227,7 @@ function addstorelist(store) {
     <div id="storelistcard" class="card mb-3" onclick="updatemodal(${store.id})" >
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="${img}" class="img-fluid rounded-start" alt="...">
+          <img src="${img}" id="storelistcardimg" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -261,7 +261,7 @@ function updatemodal(store) {
   axios
     .get('store/' + store)
     .then(function (response) {
-      console.log(response.data[0]);
+      // console.log(response.data[0]);
       const store = response.data[0];
 
       let img = `${store.store_img}`;
@@ -278,7 +278,7 @@ function updatemodal(store) {
       opentime.value = store.store_open;
       closetime.value = store.store_close;
       checkstoreid = store.id;
-      console.log(checkstoreid);
+      // console.log(checkstoreid);
       menuinfo(checkstoreid);
       bookinfo(checkstoreid);
       reviewinfo(checkstoreid);

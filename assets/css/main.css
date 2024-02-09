@@ -314,10 +314,13 @@ ul#pages > li {
 
 /*store 페이지네이션*/
 .store-pagination {
+  width: 50%;
+  border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px; /* Optional margin for spacing from other elements */
+  margin-left: 25%;
   background-color: #4f4f4f;
   color: #ffffff;
 }

@@ -400,6 +400,10 @@ form .reviewbtn button {
   height: 100% !important;
 }
 
+#storelistcardimg {
+  height: 250px;
+}
+
 #menucardbtn {
   display: flex;
   flex-wrap: wrap;
@@ -416,4 +420,8 @@ form .reviewbtn button {
 
 .bookRegisterBtn {
   margin-left: 90%;
+}
+
+#storelistcard > .g-0 > .col-md-4 > #storelistcardimg {
+  height: 240px;
 }

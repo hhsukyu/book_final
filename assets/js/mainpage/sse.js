@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       eventSource.onmessage = (event) => {
         const message = event.data;
-        console.log('받은 데이터:', message);
+        // console.log('받은 데이터:', message);
         // 받은 알림 데이터를 토스트 메시지로 표시
         displayToastMessage(message); // 여기서 'data.data'는 서버에서 보낸 메시지가 들어있는 부분
       };

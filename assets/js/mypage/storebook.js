@@ -51,6 +51,7 @@ function booklist(book) {
 }
 
 // 키 입력 이벤트 발생 함수
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function keyupEvent(event) {
   const search = await document.getElementById('searchbox').value;
 
