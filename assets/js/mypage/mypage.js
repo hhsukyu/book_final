@@ -90,6 +90,11 @@ function myprofilebtn(event) {
   } else {
     console.log('넘어가기');
   }
+
+  setTimeout(function () {
+    alert('수정완료');
+    window.location.reload();
+  }, 1000);
 }
 
 //지점 신규 등록
