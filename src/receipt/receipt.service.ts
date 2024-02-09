@@ -144,7 +144,6 @@ export class ReceiptService {
 
     // string으로 텍스트 추출
     const receiptInfo = detections.map((text) => text.description).join();
-
     const keywordResult = keywords.map((keyword) =>
       receiptInfo.includes(keyword),
     );
@@ -153,8 +152,8 @@ export class ReceiptService {
     const keywordTrueCount = keywordResult.filter(
       (value) => value === true,
     ).length;
-
-    if (keywordTrueCount < 7) {
+    console.log(keywordTrueCount);
+    if (keywordTrueCount < 5) {
       throw new BadRequestException('영수증이 아닙니다.');
     }
 
