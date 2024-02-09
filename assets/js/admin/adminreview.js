@@ -10,7 +10,7 @@ function reviewinfo() {
       },
     })
     .then(function (response) {
-      console.log('response.data', response.data);
+      // console.log('response.data', response.data);
       const receipts = response.data;
 
       receipts.forEach((receipt) => {
@@ -30,7 +30,7 @@ function reviewinfo() {
     });
 }
 function addreceiptlists(receipt) {
-  console.log(receipt);
+  // console.log(receipt);
   review.innerHTML += `   <div class="boardcontain" id="boardcontain${receipt.id}">
     <div>
       <button
@@ -58,12 +58,6 @@ function addreceiptlists(receipt) {
                 <option value="1">승인</option>
                 <option value="2">미승인</option>
               </select>
-              <input
-               class="btn btn-outline-secondary btn-sm"
-               type="button"
-               id="submitReceipt${receipt.id}"
-               value="submit"
-              />
             </form>  
           </div>
       </div>
@@ -123,7 +117,7 @@ function selectdropbox(receipt) {
 function getValue(receipt) {
   const dropdown = document.getElementById(`choice${receipt.id}`);
   const selectedIndex = dropdown.selectedIndex;
-  console.log('index', selectedIndex);
+  // console.log('index', selectedIndex);
   const selectedValue = dropdown.options[selectedIndex].value;
   axios
     .patch(
