@@ -25,7 +25,7 @@ function bookinfo(storeid) {
 // const books = document.getElementById('booklist');
 function booklist(book) {
   const bookinfo = book.book;
-  console.log(book);
+  // console.log(book);
 
   storebookinfo.innerHTML += `
   <div id="booklistcard" class="card mb-3" >
@@ -99,7 +99,7 @@ async function mainkeyup(event) {
 
 // 검색도서를 표시하는 함수
 function showSearchingBooks(books) {
-  console.log('books', books);
+  // console.log('books', books);
   // 도서 목록 초기화
   storebookinfo.innerHTML = '';
 
@@ -126,7 +126,7 @@ function showSearchingBooks(books) {
 //store 보유 도서 삭제
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function storebookdelete(bookid) {
-  console.log(checkstoreid, bookid);
+  // console.log(checkstoreid, bookid);
   axios
     .delete(`storebook/${checkstoreid}/${bookid}`, {
       headers: {
