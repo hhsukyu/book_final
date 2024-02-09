@@ -17,7 +17,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="icon" href="./url/image.png" type="image/x-icon">
+    <link rel="icon" href="./url/image.png" type="image/x-icon" />
     <link rel="stylesheet" href="./css/map.css" />
     <!-- card slide css -->
     <link rel="stylesheet" href="./css/card-slide.css" />
@@ -60,6 +60,7 @@
             </div>
           </div>
         </div>
+
         <div id="header"></div>
       </header>
       <div class="row">
@@ -67,31 +68,18 @@
           <div class="row bookboard mt-4 map-container" id="map-container">
             <div class="universe" id="map" tabindex="0"></div>
             <div class="output" id="output"></div>
+            <!-- 지점 페이지네이션 -->
+            <div class="store-pagination">
+              <a onclick="allprevPage()" id="btn_prev">Prev</a>
+              <ul id="storepages"></ul>
+              <a onclick="allnextPage()" id="btn_next">Next</a>
+            </div>
           </div>
         </div>
       </div>
-
-      <div id="header"></div>
-    </header>
-    <div class="row">
-      <div class="col-8">
-        <div class="row bookboard mt-4 map-container" id="map-container">
-          <div class="universe" id="map" tabindex="0"></div>
-          <div class="output" id="output"></div>
-          <!-- 지점 페이지네이션 -->
-          <div class="store-pagination">
-            <a onclick="allprevPage()" id="btn_prev">Prev</a>
-            <ul id="storepages"></ul>
-            <a onclick="allnextPage()" id="btn_next">Next</a>
-          </div>
-        </div>
-      </div>
-    </div>
     </div>
     <div id="footer-placeholder"></div>
 
-  
-  
     <div id="loading"></div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -111,11 +99,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <!-- index js파일 -->
+    <script src="./js/header/header.js"></script>
+    <script src="./js/header/mypageheader.js"></script>
     <script type="module" src="./js/map/map.js"></script>
     <script src="./js/index.js"></script>
-    <script src="./js/login.js"></script>
-    <script src="./js/header.js"></script>
+    <script src="./js/login/signup.js"></script>
     <script src="./js/other/footer.js"></script>
-    <script src="./js/header/header.js"></script>
   </body>
 </html>
