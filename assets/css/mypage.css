@@ -137,6 +137,21 @@ body {
   align-items: center;
 }
 
+/**mypage 수정버튼 중앙배열**/
+#mypageform > .update-container > .updatebtn > button {
+  margin-left: 460px;
+}
+
+/**mypage 주소검색 끝배열**/
+#mypageform > .form-group > button {
+  margin-left: 90%;
+}
+
+/**store 수정버튼 중앙배열**/
+#pills-home > form > .update-container > .updatebtn > button {
+  margin-left: 430px;
+}
+
 .addressBtn {
   width: 100px;
   font-size: 16px;
