@@ -54,19 +54,9 @@ let allnextPage;
 let allgotoPage;
 
 // onload
-async function start() {
-  const token = localStorage.getItem('accessToken');
 
-  if (!token) {
-    loadHeader('home'); // load the home page by default
-  } else {
-    loadHeader('login');
-  }
-
-  introduce();
-  searchResult();
-}
-
+introduce();
+searchResult();
 function introduce() {
   const geo = navigator.geolocation;
   if (geo) {
