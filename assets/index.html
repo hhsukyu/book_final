@@ -824,7 +824,80 @@
       </div>
 
       <!-- 영수증 리뷰 전환 모달창 -->
-
+      <div
+        class="modal fade"
+        id="receiptmodal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="receiptmodal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content" id="modalcontent">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">
+                영수증 리뷰 등록하기
+              </h5>
+              <div
+                class="spinner-border text-info bookcsvloading fade"
+                role="status"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+            <div class="modal-body">
+              <label for="store-picture" class="form-label">영수증 파일</label>
+              <div class="mb-3">
+                <input class="form-control" type="file" id="receiptimg" />
+              </div>
+              <label for="store-desc" class="form-label">리뷰</label>
+              <div class="mb-3">
+                <div class="star-widget1">
+                  <input type="radio" name="receipt-rate" id="storerate-5" />
+                  <label for="storerate-5" class="fa fa-star"></label>
+                  <input type="radio" name="receipt-rate" id="storerate-4" />
+                  <label for="storerate-4" class="fa fa-star"></label>
+                  <input type="radio" name="receipt-rate" id="storerate-3" />
+                  <label for="storerate-3" class="fa fa-star"></label>
+                  <input type="radio" name="receipt-rate" id="storerate-2" />
+                  <label for="storerate-2" class="fa fa-star"></label>
+                  <input type="radio" name="receipt-rate" id="storerate-1" />
+                  <label for="storerate-1" class="fa fa-star"></label>
+                  <form action="#">
+                    <div class="reviewtextarea">
+                      <textarea
+                        id="receipt-storecomment"
+                        cols="30"
+                        placeholder="지점 리뷰를 작성해주세요."
+                      ></textarea>
+                    </div>
+                  </form>
+                </div>
+                <!-- <input
+                class="form-control"
+                id="receiptreviewcontent"
+                placeholder="지점 리뷰를 작성해주세요."
+              /> -->
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-dark" onclick="addreceiptreview(event)">
+                저장하기
+              </button>
+              <button
+                class="btn btn-dark"
+                data-bs-target="#storeModal"
+                data-bs-toggle="modal"
+              >
+                돌아가기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 영수증 리뷰 전환 모달창 -->
+      <!-- 
       <div
         class="modal fade"
         id="receiptmodal"
@@ -879,7 +952,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- 드롭다운 알림창 부분 -->
 

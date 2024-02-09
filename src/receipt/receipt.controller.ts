@@ -46,17 +46,19 @@ export class ReceiptController {
       },
     },
   })
-  @Post('review')
+  @Post('review/:storeId')
   @UseInterceptors(FileInterceptor('file'))
   async postReceiptReview(
     @UploadedFile() file: Express.Multer.File,
     @UserId() userId: number,
+    @Param('storeId') storeId: number,
     @Body() createStoreReviewDto: CreateStoreReviewDto,
   ) {
     const url = await this.receiptService.uploadFile(file);
     return await this.receiptService.createReceiptReview(
       file,
       userId,
+      storeId,
       createStoreReviewDto,
       url,
     );
