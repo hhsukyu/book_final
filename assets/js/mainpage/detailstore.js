@@ -223,13 +223,56 @@ async function addstorereviewbtn() {
   submitstorereview = handleSubmit;
 }
 
+// 영수증 리뷰 등록
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function addreceiptreview(event) {
   event.preventDefault();
+  // 영수증 이미지
+  const receiptImg = document.getElementById('receiptimg');
+  const receiptImgFile = receiptImg.files[0];
+
+  // 영수증 댓글
+  const receiptCommentTextarea = document.getElementById(
+    'receipt-storecomment',
+  );
+  const receiptComment = receiptCommentTextarea.value;
+  // 영수증 별점
+  const receiptStarInputs = document.querySelectorAll(
+    'input[name="receipt-rate"]',
+  );
+  receiptStarInputs.forEach((input) => {
+    if (input.checked) {
+      selectedReceiptStarValue = input.id.split('-')[1];
+    }
+  });
+
+  console.log(receiptImgFile, receiptComment, selectedReceiptStarValue);
+  const formData = new FormData();
+
+  formData.append('file', receiptImgFile);
+  formData.append('content', receiptComment);
+  formData.append('rating', selectedReceiptStarValue);
+
+  // 영수증에 데이터 저장
   axios
-    .post()
-    .then(function (response) {})
-    .catch(function (error) {});
+    .post(`receipts/review/` + reviewstoreid, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function () {
+      alert(
+        '등록이 성공했습니다.관리자의 검토 후 영수증 인증여부가 표시됩니다.',
+      );
+      window.location.reload();
+      //리뷰 등록 부분 초기화
+      receiptCommentTextarea.value = '';
+      selectedReceiptStarValue = null;
+    })
+    .catch(function (error) {
+      alert(error.response['data'].message);
+    });
 }
 
 // 특정 리뷰에 대한 사장님리뷰 답글 조회
