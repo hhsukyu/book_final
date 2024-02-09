@@ -85,11 +85,13 @@ let admincontentstoreid;
 let admincontentreviewid;
 let adminreviewid;
 //사장님 댓글 나기는 부분
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function openowner(reviewid, storeid) {
   admincontentstoreid = storeid;
   admincontentreviewid = reviewid;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function submitadminreview(event) {
   event.preventDefault();
   const admincontent = document.getElementById('ownerreview').value;
@@ -113,6 +115,7 @@ function submitadminreview(event) {
 }
 const admincontent = document.getElementById('upownerreview');
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function updateadminreview(event) {
   event.preventDefault();
   // console.log(adminreviewid, admincontentstoreid, admincontentreviewid);
@@ -136,6 +139,7 @@ function updateadminreview(event) {
     });
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function updatecommentinfo(reviewid, storeid) {
   // console.log(reviewid, storeid);
   axios

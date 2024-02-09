@@ -15,8 +15,6 @@ function reviewinfo() {
 
       receipts.forEach((receipt) => {
         addreceiptlists(receipt);
-        addreceiptimg(receipt);
-        selectdropbox(receipt);
 
         // const receiptOne = document.getElementById(`boardcontain${receipt.id}`);
         // const form = document.getElementById(`submitReceipt${receipt.id}`);
@@ -31,7 +29,9 @@ function reviewinfo() {
 }
 function addreceiptlists(receipt) {
   // console.log(receipt);
-  review.innerHTML += `   <div class="boardcontain" id="boardcontain${receipt.id}">
+
+  review.innerHTML += `   
+  <div class="boardcontain" id="boardcontain${receipt.id}">
     <div>
       <button
         type="button"
@@ -56,14 +56,17 @@ function addreceiptlists(receipt) {
            <form>
               <select class="form-select" name="languages" id="choice${receipt.id}">
                 <option value="1">승인</option>
-                <option value="2">미승인</option>
+                <option value="2" selected>미승인</option>
               </select>
+               <button onclick="testbtn(${receipt.id})" type="button" class="btn btn-outlin-secondary">Save changes</button>
             </form>  
           </div>
       </div>
       </div>
     </div>`;
+  addreceiptimg(receipt);
 }
+
 function addreceiptimg(receipt) {
   // receiptdetail.innerHTML = '';
   receiptdetail.innerHTML += `
@@ -100,46 +103,89 @@ function addreceiptimg(receipt) {
           >
             Close
           </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+         
         </div>
       </div>
     </div>
   </div>`;
 }
 
-function selectdropbox(receipt) {
-  const dropdown = document.getElementById(`choice${receipt.id}`);
-  dropdown.addEventListener('input', function () {
-    getValue(receipt);
-  });
-}
+// function selectdropbox(receipt) {
+//   const dropdown = document.getElementById(`choice${receipt.id}`);
+//   dropdown.addEventListener('input', function () {
+//     // getValue(receipt);
+//     console.log(receipt);
+//   });
+// }
 
-function getValue(receipt) {
-  const dropdown = document.getElementById(`choice${receipt.id}`);
-  const selectedIndex = dropdown.selectedIndex;
-  // console.log('index', selectedIndex);
-  const selectedValue = dropdown.options[selectedIndex].value;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function testbtn(receiptid) {
   axios
-    .patch(
-      `receipts/${receipt.id}`,
-      { status: selectedValue },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
+    .get('/receipts/' + receiptid, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-    )
+    })
     .then(function (response) {
-      const data = response.config.data;
-      const parsedData = JSON.parse(data);
-      const status = parsedData.status;
-      if (status === '1') {
-        alert('승인하였습니다.');
-      } else if (status === '2') {
-        alert('거절하였습니다.');
-      }
-      // const receiptOne = document.getElementById(`boardcontain${receipt.id}`);
-      // receiptOne.innerHTML = '';
+      // console.log(response);
+      const rece = response.data[0];
+
+      const dropdown = document.getElementById(`choice${receiptid}`);
+      const selectedIndex = dropdown.selectedIndex;
+      // console.log('index', selectedIndex);
+      const selectedValue = dropdown.options[selectedIndex].value;
+      console.log(selectedValue);
+
+      axios
+        .patch(
+          `receipts/${rece.id}`,
+          { status: selectedValue },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          },
+        )
+        .then(function (response) {
+          const data = response.config.data;
+          const parsedData = JSON.parse(data);
+          const status = parsedData.status;
+          if (status === '1') {
+            alert('승인하였습니다.');
+          } else if (status === '2') {
+            alert('거절하였습니다.');
+          }
+          // const receiptOne = document.getElementById(`boardcontain${receipt.id}`);
+          // receiptOne.innerHTML = '';
+        });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
 }
+
+// function getValue(receipt) {
+//   axios
+//     .patch(
+//       `receipts/${receipt.id}`,
+//       { status: selectedValue },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+//         },
+//       },
+//     )
+//     .then(function (response) {
+//       const data = response.config.data;
+//       const parsedData = JSON.parse(data);
+//       const status = parsedData.status;
+//       if (status === '1') {
+//         alert('승인하였습니다.');
+//       } else if (status === '2') {
+//         alert('거절하였습니다.');
+//       }
+//       // const receiptOne = document.getElementById(`boardcontain${receipt.id}`);
+//       // receiptOne.innerHTML = '';
+//     });
+// }
 reviewinfo();
