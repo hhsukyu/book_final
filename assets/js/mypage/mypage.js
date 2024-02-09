@@ -136,7 +136,7 @@ async function storebtn(event) {
   try {
     const coordinate = await addressToCoordinate(resultaddress);
 
-    // console.log(coordinate);
+    console.log(coordinate);
     const storeimgFile = storeimgInput.files[0];
 
     const formData = new FormData();
