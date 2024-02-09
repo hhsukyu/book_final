@@ -248,7 +248,7 @@ let checkstoreid;
 function updatemodal(store) {
   $('#updatestoremodal').modal('show');
   menulist.innerHTML = '';
-  books.innerHTML = '';
+  booklist.innerHTML = '';
   reviews.innerHTML = '';
   const storename = document.getElementById('upstorename');
   const storeimg = document.getElementById('storeImage');

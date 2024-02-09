@@ -248,9 +248,12 @@ function findAdminReviewsByReview(storeid, storeReviewid) {
       throw error;
     });
 }
-
+//
+//도서
+//
 const storebookinfo = document.getElementById('storebooklist');
 
+let userbookstoreid;
 //지점소장도서 정보
 function bookinfo(storeid) {
   storebookinfo.innerHTML = '';
@@ -264,15 +267,84 @@ function bookinfo(storeid) {
         // console.log(book);
         booklist(book);
       });
+      userbookstoreid = storeid;
     })
     .catch(function (error) {
       console.log(error);
     });
 }
 
+// 키 입력 이벤트 발생 함수
+async function keyupEvent(event) {
+  const search = await document.getElementById('searchbox').value;
+
+  if (event.key === 'Enter') {
+    event.preventDefault();
+
+    if (search === '') {
+      // 검색어가 없을 때의 처리
+      storebookinfo.innerHTML = '<p>검색 결과가 없습니다.</p>';
+    } else {
+      // 서버에 검색 요청 보내기
+      axios
+        .get(`books/searchStoreBook?storeId=1&bookTitle=${search}`)
+        .then((response) => {
+          // 서버로부터 받은 도서 목록을 표시
+          console.log('response.data', response.data);
+          const books = response.data.data;
+
+          if (books.length === 0) {
+            // 검색 결과가 없을 때의 처리
+            storebookinfo.innerHTML = '<p>검색 결과가 없습니다.</p>';
+          } else {
+            // 검색 결과가 있을 때의 처리
+            showSearchingBooks(books);
+          }
+        })
+        .catch((error) => {
+          console.error('API 요청 중 에러 발생:', error);
+        });
+    }
+  }
+}
+
+//소장도서 검색
+async function mainkeyup(event) {
+  const search = await document.getElementById('searchbox').value;
+  if (search === '') {
+    event.preventDefault(); // 백스페이스 키이고 검색어가 없는 경우
+    // const bookCard = document.getElementById('bookListContainer');
+    storebookinfo.innerHTML = '';
+    bookinfo(userbookstoreid);
+  }
+}
+
+// 검색도서를 표시하는 함수
+function showSearchingBooks(books) {
+  console.log('books', books);
+  // 도서 목록 초기화
+  storebookinfo.innerHTML = '';
+
+  // 각 도서를 도서 목록에 추가
+  books.forEach((book) => {
+    storebookinfo.innerHTML += `
+      <div class="col"> 
+            <div class="card">
+            <img src="${book.book_image}" alt="" />
+            <div class="card-body">
+              <h5 class="card-title">${book.title}</h5>
+            </div>
+          </div>
+        </div>
+    `;
+  });
+}
+
+//도서 상세정보
 function booklist(book) {
   const bookinfo = book.book;
   console.log(book);
+  console.log('bookinfo', bookinfo);
   storebookinfo.innerHTML += `
     <div id="booklistcard" class="card mb-3" >
       <div class="row g-0">
@@ -294,6 +366,9 @@ function booklist(book) {
     </div>
     `;
 }
+
+//메뉴
+//
 //메뉴 불러오기
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function menuinfo(storeid) {
@@ -343,3 +418,5 @@ function menulists(menu) {
       </div>
     </div>`;
 }
+
+loadUserLikeStores();
