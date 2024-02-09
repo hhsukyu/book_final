@@ -19,7 +19,7 @@ async function fetchNotifications() {
       },
     );
     const notifications = notificationResponse.data;
-    console.log('알림 데이터:', notifications);
+    // console.log('알림 데이터:', notifications);
 
     // 알림 데이터를 화면에 표시하는 로직 구현
     updateNotificationList(notifications);
