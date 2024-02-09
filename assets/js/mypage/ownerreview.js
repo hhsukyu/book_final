@@ -19,7 +19,7 @@ function reviewinfo(storeid) {
 const reviews = document.getElementById('ownerreviewlist');
 
 async function reviewlist(review, storeid) {
-  console.log(review.id);
+  // console.log(review.id);
   const usernameResult = await username(review.user_id);
 
   const adminReviews = await adminreviewslist(review.id, storeid);
@@ -44,7 +44,7 @@ async function reviewlist(review, storeid) {
       const response = await axios.get(
         `reviews/${storeid}/${reviewid}/adminReview`,
       );
-      console.log(response);
+      // console.log(response);
       const reviews = response.data;
 
       let result = '';
@@ -85,11 +85,13 @@ let admincontentstoreid;
 let admincontentreviewid;
 let adminreviewid;
 //사장님 댓글 나기는 부분
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function openowner(reviewid, storeid) {
   admincontentstoreid = storeid;
   admincontentreviewid = reviewid;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function submitadminreview(event) {
   event.preventDefault();
   const admincontent = document.getElementById('ownerreview').value;
@@ -113,6 +115,7 @@ function submitadminreview(event) {
 }
 const admincontent = document.getElementById('upownerreview');
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function updateadminreview(event) {
   event.preventDefault();
   console.log(adminreviewid, admincontentstoreid, admincontentreviewid);
@@ -136,6 +139,7 @@ function updateadminreview(event) {
     });
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function updatecommentinfo(reviewid, storeid) {
   console.log(reviewid, storeid);
   axios

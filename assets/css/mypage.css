@@ -397,11 +397,11 @@ form .reviewbtn button {
 
 /* 이미지 틀에 맞게 100% */
 .img-fluid {
-  height: 100% !important;
+  height: 222px !important;
 }
 
 #storelistcardimg {
-  height: 250px;
+  height: 240px !important;
 }
 
 #menucardbtn {
@@ -422,6 +422,6 @@ form .reviewbtn button {
   margin-left: 90%;
 }
 
-#storelistcard > .g-0 > .col-md-4 > #storelistcardimg {
-  height: 240px;
-}
+/* #storelistcard > .row g-0 > .col-md-4 > #storelistcardimg {
+  height: 240px !important;
+} */
