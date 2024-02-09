@@ -98,15 +98,14 @@ function myprofilebtn(event) {
 async function storebtn(event) {
   event.preventDefault();
   const createstoreaddressInput = document.getElementById('createstoreaddress');
-  const storedetailaddressInput = document.getElementById('storedetailaddress');
+  // const storedetailaddressInput = document.getElementById('storedetailaddress');
   const storenameInput = document.getElementById('storename');
   const storedescInput = document.getElementById('storedesc');
   const storeimgInput = document.getElementById('createstoreimg');
   const openingtimeInput = document.getElementById('opening-time');
   const closingtimeInput = document.getElementById('closing-time');
 
-  const resultaddress =
-    createstoreaddressInput.value + storedetailaddressInput.value;
+  const resultaddress = createstoreaddressInput.value;
 
   const addressToCoordinate = async (address) => {
     return new Promise((resolve, reject) => {
@@ -294,19 +293,18 @@ async function updatestorebtn(event) {
   event.preventDefault();
 
   const createstoreaddressInput2 = document.getElementById('upstoreaddress');
-  const storedetailaddressInput2 = document.getElementById(
-    'updatestoreaddress2',
-  );
+  // const storedetailaddressInput2 = document.getElementById(
+  //   'updatestoreaddress2',
+  // );
   const storenameInput = document.getElementById('upstorename');
   const storedescInput = document.getElementById('upstoredesc');
   const storeimgInput = document.getElementById('upstoreimg');
   const openingtimeInput = document.getElementById('upopening-time');
   const closingtimeInput = document.getElementById('upclosing-time');
 
-  console.log(createstoreaddressInput2, storedetailaddressInput2);
+  // console.log(createstoreaddressInput2, storedetailaddressInput2);
 
-  const resultaddress =
-    createstoreaddressInput2.value + storedetailaddressInput2.value;
+  const resultaddress = createstoreaddressInput2.value;
 
   const addressToCoordinate = async (address) => {
     return new Promise((resolve, reject) => {
