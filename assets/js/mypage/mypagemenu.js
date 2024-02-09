@@ -1,7 +1,7 @@
 //메뉴 불러오기
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function menuinfo(storeid) {
-  console.log(storeid);
+  // console.log(storeid);
   axios
     .get('/menu/storeid/' + storeid)
     .then(function (response) {
