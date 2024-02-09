@@ -57,6 +57,7 @@ let allgotoPage;
 
 introduce();
 searchResult();
+
 function introduce() {
   const geo = navigator.geolocation;
   if (geo) {
@@ -312,5 +313,3 @@ async function searchResult(storesResult) {
   }
   allgotoPage = gotoPage;
 }
-
-start();

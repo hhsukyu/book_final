@@ -1,10 +1,8 @@
-.root {
-}
-.root .map-container {
+.map-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 50vh;
   margin-left: 13.3%;
   margin-right: 13.3%;
 }
@@ -19,21 +17,46 @@
 
 /** 지도 store **/
 .output {
-  background-color: #ffff;
-  width: 80% !important;
-  position: relative;
-  bottom: 100%;
-  left: 95%;
-  border-radius: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
-.output > .col-3 {
+/* .output > .col-3 {
   background-color: #ffff;
   position: relative;
   bottom: 100%;
   width: 100%;
   margin-bottom: 8%;
+} */
+
+.mapstore {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px; /* Adjust margin as needed */
+  margin-left: 13.2%;
+  margin-right: 13.2%;
 }
 
 .output > .col-3 > .col > .card > .card-img-top {
   height: 50%; /*사진 불러옴에 따라 추후 수정 일단 50%로 맞춤*/
+}
+
+.store-pagination-map {
+  margin-top: 3%;
+  position: relative;
+  margin-left: 25%;
+  width: 50%;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 20px; Optional margin for spacing from other elements 
+  margin-left: 25%; */
+  background-color: #4f4f4f;
+  color: #ffffff;
+}
+
+.store-pagination-map a {
+  margin: 0 5px; /* Optional margin for spacing between Prev/Next and page numbers */
 }
