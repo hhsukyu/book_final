@@ -54,9 +54,9 @@ let allnextPage;
 let allgotoPage;
 
 // onload
-async function start() {
-  const token = localStorage.getItem('accessToken');
 
+introduce();
+searchResult();
 function introduce() {
   const geo = navigator.geolocation;
   if (geo) {
