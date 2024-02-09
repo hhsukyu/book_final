@@ -62,6 +62,17 @@ export class AuthController {
     return this.authService.refresh(userId);
   }
 
+  // @Post('refresh2')
+  // refresh2(@Body() refresh: string) {
+  //   // const userId: number = (req.user as any).userId;
+
+  //   // if (!userId) {
+  //   //   throw new UnauthorizedException('로그인 오류입니다.');
+  //   // }
+
+  //   return this.authService.refresh2(refresh);
+  // }
+
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
   @Post('logout')

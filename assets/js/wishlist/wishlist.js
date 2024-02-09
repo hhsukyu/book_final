@@ -19,14 +19,14 @@ function userme() {
       },
     })
     .then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
       const user = response.data;
       const mypage = response.data.myPage;
       const wishs = mypage.wish_list;
       const stores = mypage.like_store;
 
       if (user.mypage === null) {
-        console.log('test');
+        console.log('연결된 마이페이지가 없습니다.');
       } else if (user.mypage !== null) {
         if (stores) {
           Object.keys(stores).forEach(function (key) {
@@ -72,7 +72,7 @@ function storenamedb(storeid) {
   axios
     .get('store/liststore/' + storeid)
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
       const storeid = response.data.id;
       const storename = response.data.store_name;
       // console.log(storename);
@@ -140,7 +140,7 @@ async function wishResults(searchbox) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function addwish(bookid) {
   //위시리스트에 위시리스트 목록만 저장
-  console.log(bookid);
+  // console.log(bookid);
   axios
     .post(
       '/mypage/wishlist',
@@ -242,7 +242,7 @@ async function storeResults(searchbox) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function addstore(storeid) {
   //위시리스트에 위시리스트 목록만 저장
-  console.log(storeid);
+  // console.log(storeid);
   axios
     .post(
       '/mypage/likestore',
@@ -267,7 +267,7 @@ function addstore(storeid) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function removestore(storeid) {
   // 위시리스트만 삭제하는 api 구현
-  console.log(storeid);
+  // console.log(storeid);
   axios
     .delete('/mypage/likestore', {
       headers: {

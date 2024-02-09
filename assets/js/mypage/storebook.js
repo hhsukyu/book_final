@@ -51,6 +51,7 @@ function booklist(book) {
 }
 
 // 키 입력 이벤트 발생 함수
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function keyupEvent(event) {
   const search = await document.getElementById('searchbox').value;
 
@@ -85,6 +86,7 @@ async function keyupEvent(event) {
 }
 
 //소장도서 검색
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function mainkeyup(event) {
   const search = await document.getElementById('searchbox').value;
   if (search === '') {

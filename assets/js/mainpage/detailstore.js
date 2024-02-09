@@ -17,17 +17,17 @@ function storecarddetail(storeid) {
   axios
     .get('/store/' + storeid)
     .then(function (response) {
-      console.log('response.data', response.data);
+      // console.log('response.data', response.data);
       storereview(storeid);
       menuinfo(storeid);
       bookinfo(storeid);
       const store = response.data[0];
-      console.log('store', store);
+      // console.log('store', store);
 
       storelabel.innerHTML = store.store_name;
       bodyname.innerHTML = store.store_name;
       bodyname.setAttribute('data-store-id', store.id);
-      console.log('data-store-id', store.id);
+      // console.log('data-store-id', store.id);
       bodystoredesc.innerHTML = store.store_desc;
       bodyad.innerHTML = store.store_address;
       bodyopen.innerHTML = store.store_open;
@@ -66,7 +66,7 @@ function storereview(storeid) {
       storeReviewcard.style.display = 'block';
       storereviewbox1.innerHTML = '';
       const comments = response.data;
-      console.log('comments', comments);
+      // console.log('comments', comments);
       comments.forEach((comment) => {
         storereviewlist(comment);
       });
@@ -100,7 +100,7 @@ async function storereviewlist(comment) {
     reviewstoreid,
     comment.id,
   );
-  console.log('adminReviews', adminReviews);
+  // console.log('adminReviews', adminReviews);
   storereviewbox1.innerHTML += `
     <div class="box-top">
   <!-- profile-box -->
@@ -163,7 +163,7 @@ async function addstorereviewbtn() {
   // 책 리뷰 부분 숨김
   storeReviewcard.style.display = 'none';
   addStoreReview.style.display = 'block';
-  console.log('reviewstoreid', reviewstoreid);
+  // console.log('reviewstoreid', reviewstoreid);
   // 전송 처리 함수
 
   function handleSubmit(event) {
@@ -187,7 +187,7 @@ async function addstorereviewbtn() {
 
   // 지점리뷰 데이터 저장
   function sendStoreFeedback(starValue, comment) {
-    console.log('starValue', starValue, 'comment', comment);
+    // console.log('starValue', starValue, 'comment', comment);
 
     axios
       .post(
@@ -246,7 +246,7 @@ function addreceiptreview(event) {
     }
   });
 
-  console.log(receiptImgFile, receiptComment, selectedReceiptStarValue);
+  // console.log(receiptImgFile, receiptComment, selectedReceiptStarValue);
   const formData = new FormData();
 
   formData.append('file', receiptImgFile);
@@ -281,7 +281,7 @@ function findAdminReviewsByReview(storeid, storeReviewid) {
     .get(`/reviews/${storeid}/${storeReviewid}/adminReview`)
     .then((response) => {
       const adminReviews = response.data;
-      console.log('adminReviews', adminReviews);
+      // console.log('adminReviews', adminReviews);
 
       return adminReviews;
     })
@@ -318,6 +318,7 @@ function bookinfo(storeid) {
 }
 
 // 키 입력 이벤트 발생 함수
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function keyupEvent(event) {
   const search = await document.getElementById('searchbox').value;
 
@@ -333,7 +334,7 @@ async function keyupEvent(event) {
         .get(`books/searchStoreBook?storeId=1&bookTitle=${search}`)
         .then((response) => {
           // 서버로부터 받은 도서 목록을 표시
-          console.log('response.data', response.data);
+          // console.log('response.data', response.data);
           const books = response.data.data;
 
           if (books.length === 0) {
@@ -352,6 +353,7 @@ async function keyupEvent(event) {
 }
 
 //소장도서 검색
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function mainkeyup(event) {
   const search = await document.getElementById('searchbox').value;
   if (search === '') {
@@ -364,7 +366,7 @@ async function mainkeyup(event) {
 
 // 검색도서를 표시하는 함수
 function showSearchingBooks(books) {
-  console.log('books', books);
+  // console.log('books', books);
   // 도서 목록 초기화
   storebookinfo.innerHTML = '';
 
@@ -386,8 +388,8 @@ function showSearchingBooks(books) {
 //도서 상세정보
 function booklist(book) {
   const bookinfo = book.book;
-  console.log(book);
-  console.log('bookinfo', bookinfo);
+  // console.log(book);
+  // console.log('bookinfo', bookinfo);
   storebookinfo.innerHTML += `
     <div id="booklistcard" class="card mb-3" >
       <div class="row g-0">
@@ -416,7 +418,7 @@ function booklist(book) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function menuinfo(storeid) {
   storemenuinfo.innerHTML = '';
-  console.log(storeid);
+  // console.log(storeid);
   axios
     .get('/menu/storeid/' + storeid)
     .then(function (response) {
