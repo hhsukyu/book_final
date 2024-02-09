@@ -71,65 +71,7 @@
         </div>
       </div>
 
-      <!-- 책 상세정보 모달창 -->
-      <div
-        class="modal fade"
-        id="bookModal"
-        tabindex="-1"
-        data-bs-keyboard="false"
-        aria-labelledby="detailbookdModal"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="bookmodallabel"></h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="container bookboard">
-                <div class="book-info">
-                  <!-- 도서 이미지 -->
-
-                  <img
-                    src=""
-                    id="bookcardImage"
-                    class="img-fluid"
-                    alt="Book Cover"
-                  />
-
-                  <!-- 도서 정보 -->
-                  <div class="book-details mt-3">
-                    <!-- 하트 버튼 추가 -->
-                    <button id="addToWishlistButton" class="wishlist-btn">
-                      <i class="fa fa-heart-o" aria-hidden="true"></i>
-                    </button>
-                    <h3 id="modalcardtitle">도서 제목</h3>
-                    <p><strong>소개</strong>: <a id="modalcarddesc"></a></p>
-                    <p><strong>글작가</strong>: <a id="modalcardwr"></a></p>
-                    <p><strong>그림작가</strong>: <a id="modalcardil"></a></p>
-                    <p>
-                      <strong>출판사</strong>: <a id="modalcardpublisher"></a>
-                    </p>
-                    <p><strong>출판일</strong>: <a id="modalcardpudate"></a></p>
-                    <p><strong>장르</strong>: <a id="modalcardgenre"></a></p>
-                    <p><strong>연재여부</strong>: <a id="modalcardYn"></a></p>
-                  </div>
-                  <!-- 페이지네이션 -->
-
-                  <div class="pagination">
-                    <a onclick="allprevPage()" id="btn_prev">Prev</a>
-                    <ul id="pages"></ul>
-                    <a onclick="allnextPage()" id="btn_next">Next</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+      
 
             <!-- 책 상세정보 모달창 -->
             <div
@@ -258,6 +200,7 @@
                     </div>
                   </div>
                 </div>
+                
               </div>
               <div id="footer-placeholder"></div>
             </div>
