@@ -56,6 +56,6 @@ export class StoreReview {
   @Column({ default: false })
   is_receipt: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   receipt_id: number;
 }
