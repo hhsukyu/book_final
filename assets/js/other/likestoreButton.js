@@ -5,7 +5,7 @@ document
       .getElementById('modalcardStorename')
       .getAttribute('data-store-id');
 
-    console.log('버튼클릭후 storeId', storeId);
+    // console.log('버튼클릭후 storeId', storeId);
     const likestoreButton = document.getElementById('addToLikestoreButton');
     const heartIcon = likestoreButton.querySelector('.fa');
 

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .get('applyowner', config)
       .then(function (response) {
         const preOwners = response.data;
-        console.log('response.data', response.data);
+        // console.log('response.data', response.data);
         preOwners.forEach(function (preOwner, index) {
           // Create <div> for each owner card
           const ownerCardCol = document.createElement('div');

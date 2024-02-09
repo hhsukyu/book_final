@@ -63,7 +63,7 @@ function applyOwner() {
   axios
     .post('/applyowner', requestData, config)
     .then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       alert('신청이 완료되었습니다.');
       $('#myModal').modal('hide');
     })

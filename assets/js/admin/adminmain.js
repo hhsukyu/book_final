@@ -11,7 +11,7 @@ function userlist() {
       const users = response.data;
 
       users.forEach((user) => {
-        console.log(user);
+        // console.log(user);
         userinfo.innerHTML += `
         <ul">
         <li>${user.nickname}</li>

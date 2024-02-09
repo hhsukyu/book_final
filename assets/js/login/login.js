@@ -13,7 +13,7 @@ async function loginForm(event) {
     .then(function (response) {
       localStorage.setItem('accessToken', response.data.accessToken);
       localStorage.setItem('refreshToken', response.data.refreshToken);
-      console.log(response);
+      // console.log(response);
 
       window.location.href = 'index.html';
       loadHeader('login');

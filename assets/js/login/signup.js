@@ -14,7 +14,7 @@ async function signupform(event) {
       checkPassword: formData.get('RegpasswordConfirm'),
     })
     .then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
 
       alert('회원가입 완료');
       //로그인 토글로 이동하도록 수정

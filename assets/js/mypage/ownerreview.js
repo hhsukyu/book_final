@@ -19,7 +19,7 @@ function reviewinfo(storeid) {
 const reviews = document.getElementById('ownerreviewlist');
 
 async function reviewlist(review, storeid) {
-  console.log(review.id);
+  // console.log(review.id);
   const usernameResult = await username(review.user_id);
 
   const adminReviews = await adminreviewslist(review.id, storeid);
@@ -44,7 +44,7 @@ async function reviewlist(review, storeid) {
       const response = await axios.get(
         `reviews/${storeid}/${reviewid}/adminReview`,
       );
-      console.log(response);
+      // console.log(response);
       const reviews = response.data;
 
       let result = '';
@@ -93,7 +93,7 @@ function openowner(reviewid, storeid) {
 function submitadminreview(event) {
   event.preventDefault();
   const admincontent = document.getElementById('ownerreview').value;
-  console.log(admincontentreviewid, admincontentstoreid);
+  // console.log(admincontentreviewid, admincontentstoreid);
   axios
     .post(
       `reviews/${admincontentstoreid}/${admincontentreviewid}/adminReview`,
@@ -115,7 +115,7 @@ const admincontent = document.getElementById('upownerreview');
 
 function updateadminreview(event) {
   event.preventDefault();
-  console.log(adminreviewid, admincontentstoreid, admincontentreviewid);
+  // console.log(adminreviewid, admincontentstoreid, admincontentreviewid);
   const result = admincontent.value;
   axios
     .put(
@@ -137,12 +137,12 @@ function updateadminreview(event) {
 }
 
 function updatecommentinfo(reviewid, storeid) {
-  console.log(reviewid, storeid);
+  // console.log(reviewid, storeid);
   axios
     .get(`reviews/${storeid}/${reviewid}/adminReview`)
     .then(function (response) {
       const adminreviewcontent = response.data[0];
-      console.log(adminreviewcontent);
+      // console.log(adminreviewcontent);
       adminreviewid = adminreviewcontent.id;
       admincontentstoreid = storeid;
       admincontentreviewid = reviewid;
