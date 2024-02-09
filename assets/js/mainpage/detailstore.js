@@ -291,7 +291,7 @@ function findAdminReviewsByReview(storeid, storeReviewid) {
       throw error;
     });
 }
-//
+
 //도서
 //
 const storebookinfo = document.getElementById('storebooklist');

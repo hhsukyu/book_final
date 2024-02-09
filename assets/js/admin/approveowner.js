@@ -1,10 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
   const ownerCardContainer = document.getElementById('ownerCardContainer');
-
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  };
   //신청한 유저들 목록 조회
   function fetchPreOwners() {
     axios
-      .get('applyowner')
+      .get('applyowner', config)
       .then(function (response) {
         const preOwners = response.data;
         console.log('response.data', response.data);
@@ -55,40 +59,10 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  //   function fetchPreOwners() {
-  //     axios
-  //       .get('applyowner')
-  //       .then(function (response) {
-  //         const preOwners = response.data;
-
-  //         // Display pre-owners
-  //         preOwners.forEach((preOwner) => {
-  //           const ownerCard = document.createElement('div');
-  //           ownerCard.classList.add('col');
-  //           ownerCard.innerHTML += `
-  //               <div class="boardcontain">
-  //                 <strong>대표자: ${preOwner.owner_name}</strong><br>
-  //                 <strong>지점명: ${preOwner.store_name}</strong><br>
-  //                 <strong>지점 장소: ${preOwner.business_location}</strong><br>
-  //                 <strong>사업자 등록증 번호: ${preOwner.business_license_number}</strong><br>
-  //                 <div class="text-end">
-  //                   <button type="button" class="btn" onclick="approveOwner(${preOwner.userId}, ${preOwner.id})">승인하기</button>
-  //                 </div>
-  //               </div>
-  //             `;
-
-  //           ownerCardContainer.appendChild(ownerCard);
-  //         });
-  //       })
-  //       .catch(function (error) {
-  //         console.error('Error fetching pre-owners', error);
-  //       });
-  //   }
-
   //유저 지점사장님으로 승인
   function approveOwner(userid, applyownerid) {
     axios
-      .put(`applyowner/${userid}/${applyownerid}`)
+      .put(`applyowner/${userid}/${applyownerid}`, null, config)
       .then(function () {
         alert('승인이 완료되었습니다.');
 
