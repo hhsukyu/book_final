@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   Relation,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { Store } from './store.entity';
@@ -49,6 +50,7 @@ export class StoreReview {
   updated_at: Date;
 
   @OneToOne(() => Receipt, (receipt) => receipt.store_reviews)
+  @JoinColumn({ name: 'receipt_id', referencedColumnName: 'id' })
   receipt: Relation<Receipt>;
 
   @Column({ default: false })

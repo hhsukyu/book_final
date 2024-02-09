@@ -33,7 +33,7 @@ export class Receipt {
   created_at: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 
   @ManyToOne(() => User, (user) => user.receipts)
   user: Relation<User>;
