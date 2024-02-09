@@ -112,8 +112,8 @@
 }
 
 /* 영수증 리뷰 자세히보기*/
-#receipt-modal-body > img {
-  width: 400px;
-  height: 400px;
-  margin-left: 7%;
+#receipt-modal > img {
+  width: 400px !important;
+  height: 400px !important;
+  margin-left: 7% !important;
 }
