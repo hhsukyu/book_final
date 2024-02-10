@@ -152,7 +152,6 @@ export class ReceiptService {
     const keywordTrueCount = keywordResult.filter(
       (value) => value === true,
     ).length;
-    console.log(keywordTrueCount);
     if (keywordTrueCount < 5) {
       throw new BadRequestException('영수증이 아닙니다.');
     }
