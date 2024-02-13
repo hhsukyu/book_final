@@ -13,7 +13,9 @@ import { CreateBookReviewDto } from './dto/create-bookreview.dto';
 import { UpdateBookReviewDto } from './dto/update-bookreview.dto';
 import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
 import { UserId } from 'src/auth/decorators/userId.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('책리뷰')
 @Controller('bookreview')
 export class BookReviewController {
   constructor(private readonly bookReviewService: BookReviewService) {}

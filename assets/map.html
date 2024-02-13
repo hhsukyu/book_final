@@ -66,6 +66,20 @@
         <!-- 지점 페이지네이션 -->
       </div>
       <div class="mapstore">
+        <form
+          id="search-store-box"
+          class="col-12 col-md-6 d-flex mb-3"
+          role="search"
+        >
+          <input
+            type="search"
+            onkeypress="onkeyevent(event)"
+            id="search-store-box2"
+            class="form-control"
+            placeholder="Search..."
+            aria-label="Search"
+          />
+        </form>
         <div class="output" id="output"></div>
         <div class="store-pagination-map">
           <a onclick="allprevPage()" id="btn_prev">Prev</a>

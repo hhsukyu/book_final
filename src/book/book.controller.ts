@@ -13,11 +13,12 @@ import {
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 
-import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
 import { UserId } from 'src/auth/decorators/userId.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 
+@ApiTags('책')
 @Controller('books')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
