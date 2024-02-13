@@ -7,12 +7,13 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserId } from 'src/auth/decorators/userId.decorator';
 import { accessTokenGuard } from 'src/auth/guard/access-token.guard';
 import { ApplyOwnerDto } from './dto/applyowner.dto';
 import { ApplyOwnerService } from './apply-owner.service';
 
+@ApiTags('사징님 전환')
 @Controller('applyowner')
 export class ApplyOwnerController {
   constructor(private readonly applyOwnerService: ApplyOwnerService) {}

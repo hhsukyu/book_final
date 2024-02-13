@@ -37,6 +37,7 @@ export class UserService {
     console.log(typeof Role.User);
     return users;
   }
+
   //admin 페이지 사장님리스트
   async findownerlist() {
     const users = await this.userRepository.find({

@@ -13,8 +13,9 @@ import { UpdateAdminReviewDto } from './dto/update-adminReview.dto';
 import { AdminReviewService } from './adminReview.service';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('사장님 리뷰 (스토어 리뷰) ')
 @Controller('reviews')
 export class AdminReviewController {
   constructor(private readonly adminReviewService: AdminReviewService) {}
