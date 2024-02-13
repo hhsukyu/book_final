@@ -111,16 +111,21 @@ export class AuthController {
     return await this.authService.naverLoginCallback({ req, res });
   }
 
-  //네이버 지점업주 소셜로그인
-  @Get('naver-admin')
-  @UseGuards(AuthGuard('naver-admin'))
-  async naverAdminLogin(): Promise<void> {}
-
-  @Get('naver/admin/callback')
-  @UseGuards(AuthGuard('naver-admin'))
-  async naverAdminLoginCallback(@Req() req, @Res() res) {
-    return await this.authService.naverAdminLoginCallback({ req, res });
+  @Post('verifyCodeGetToken')
+  async verifyCodeGetToken(@Body('code') code: string) {
+    return await this.authService.verifyCodeGetToken(code);
   }
+
+  // //네이버 지점업주 소셜로그인
+  // @Get('naver-admin')
+  // @UseGuards(AuthGuard('naver-admin'))
+  // async naverAdminLogin(): Promise<void> {}
+
+  // @Get('naver/admin/callback')
+  // @UseGuards(AuthGuard('naver-admin'))
+  // async naverAdminLoginCallback(@Req() req, @Res() res) {
+  //   return await this.authService.naverAdminLoginCallback({ req, res });
+  // }
 
   //카카오 일반사용자 소셜로그인
   @Get('kakao')
@@ -133,16 +138,16 @@ export class AuthController {
     return await this.authService.kakaoLoginCallback({ req, res });
   }
 
-  //카카오 지점업주 소셜로그인
-  @Get('kakao-admin')
-  @UseGuards(AuthGuard('kakao-admin'))
-  async kakaoAdminLogin(): Promise<void> {}
+  // //카카오 지점업주 소셜로그인
+  // @Get('kakao-admin')
+  // @UseGuards(AuthGuard('kakao-admin'))
+  // async kakaoAdminLogin(): Promise<void> {}
 
-  @Get('kakao/admin/callback')
-  @UseGuards(AuthGuard('kakao-admin'))
-  async kakaoAdminLoginCallback(@Req() req, @Res() res) {
-    return await this.authService.kakaoAdminLoginCallback({ req, res });
-  }
+  // @Get('kakao/admin/callback')
+  // @UseGuards(AuthGuard('kakao-admin'))
+  // async kakaoAdminLoginCallback(@Req() req, @Res() res) {
+  //   return await this.authService.kakaoAdminLoginCallback({ req, res });
+  // }
 
   //비밀번호 찾기-이메일 인증번호 전송
   @Post('/send-verification')
