@@ -12,7 +12,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { StoreService } from './store.service';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
 import { CreateStoreDto } from './dto/create-store.dto';
@@ -20,6 +20,7 @@ import { UpdateStoreDto } from './dto/update-store.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MenuService } from '../menu/menu.service';
 
+@ApiTags('스토어')
 @Controller('store')
 export class StoreController {
   constructor(

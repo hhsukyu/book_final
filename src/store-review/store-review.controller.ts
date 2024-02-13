@@ -9,12 +9,13 @@ import {
   Put,
 } from '@nestjs/common';
 import { StoreReviewService } from './store-review.service';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
 import { CreateStoreReviewDto } from './dto/create-store-review.dto';
 import { UpdateStoreReviewDto } from './dto/update-store-review.dto';
 
+@ApiTags('스토어 리뷰')
 @Controller('reviews')
 export class StoreReviewController {
   constructor(private readonly storeReviewService: StoreReviewService) {}
