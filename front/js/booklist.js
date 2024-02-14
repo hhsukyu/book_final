@@ -24,7 +24,7 @@ function getBooksForStore(storeid) {
 // 소장도서 전체조회
 function showBooks(books) {
   // 도서 목록 초기화
-  console.log(books.book);
+  // console.log(books.book);
   const bookdata = books.book;
   if (!bookListContainer) {
     console.error('bookListContainer not found.');
@@ -65,7 +65,7 @@ async function keyupEvent(event) {
       .get(`${apiUrl}/books/searchStoreBook?storeId=1&bookTitle=${search}`)
       .then((response) => {
         // 서버로부터 받은 도서 목록을 표시
-        console.log('response.data', response.data);
+        // console.log('response.data', response.data);
         const books = response.data.data;
         showSearchingBooks(books);
       })

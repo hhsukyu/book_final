@@ -14,11 +14,11 @@ if (!token) {
       },
     })
     .then(function (response) {
-      // console.log(response.data);
+      console.log(response.data);
       const user = response.data;
 
       if (user.role === 0) {
-        // console.log('유저');
+        console.log('유저');
         loadHeader('login');
         loadUserLikeStores();
         const userimg = document.getElementById('userimg');

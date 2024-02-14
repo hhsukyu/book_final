@@ -19,6 +19,7 @@ import { RedisService } from 'src/configs/redis/redis.service';
 import { EmailService } from 'src/configs/mailer/email.service';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { MyPageService } from 'src/my-page/my-page.service';
+import { randomBytes } from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -177,67 +178,91 @@ export class AuthService {
       const mypage = await this.myPageService.create(OAuthUser.id);
       console.log(mypage);
     }
+    //code,userid를 레디스 저장
 
-    const accessToken = this.generateAccessToken(
-      OAuthUser.id,
-      OAuthUser.nickname,
-    );
-    const refreshToken = this.generateRefreshToken(OAuthUser.id);
+    const code = randomBytes(16).toString('hex');
+    const user = await this.userService.findUserByEmail(email);
+    const userId = user.id;
 
-    //만료된 accesstoken 갱신
-    await this.userService.update(OAuthUser.id, {
-      currentRefreshToken: refreshToken,
-    });
+    await this.redisService.setCodeUserId(code, userId);
+    // const accessToken = this.generateAccessToken(
+    //   OAuthUser.id,
+    //   OAuthUser.nickname,
+    // );
+    // const refreshToken = this.generateRefreshToken(OAuthUser.id);
+
+    // //만료된 accesstoken 갱신
+    // await this.userService.update(OAuthUser.id, {
+    //   currentRefreshToken: refreshToken,
+    // });
 
     if (OAuthUser) {
-      res.redirect(
-        `/login-success.html?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
-      );
+      res.redirect(`/login-success.html?code=${code}`);
     } else {
       res.redirect('/login&signup.html');
     }
   }
 
-  //네이버 지점업주 회원가입/로그인
-  async naverAdminLoginCallback({ req, res }) {
-    // 네이버 이메일로 사용자를 찾는다.
-    const email = req.user.userProfile.userEmail;
-    const nickname = req.user.userProfile.userNick;
-    let OAuthUser = await this.userRepository.findOne({
-      where: { email },
-    });
+  //code 맞으면 redis에서 userid가져옴
+  async verifyCodeGetToken(code: string) {
+    const userId = await this.redisService.getUserIdByCode(code);
+    const user = await this.userService.findUserById(userId);
 
-    // 네이버 사용자의 이메일 값을 변수 지정
-    // user의 아이디 값을 해시화 해서 변수 지정
-    const hashedNaverPassword = await bcrypt.hash(email, 10);
+    const accessToken = this.generateAccessToken(userId, user.nickname);
+    const refreshToken = this.generateRefreshToken(userId);
 
-    // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성
-    // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용
-    if (!OAuthUser) {
-      OAuthUser = await this.userRepository.save({
-        email,
-        nickname,
-        password: hashedNaverPassword,
-        role: 1,
-      });
-    }
-    //code,userid를 레디스 저장
-    const accessToken = this.generateAccessToken(
-      OAuthUser.id,
-      OAuthUser.nickname,
-    );
-    const refreshToken = this.generateRefreshToken(OAuthUser.id);
-
-    await this.userService.update(OAuthUser.id, {
+    //만료된 accesstoken 갱신
+    await this.userService.update(userId, {
       currentRefreshToken: refreshToken,
     });
 
-    if (OAuthUser)
-      res.redirect(
-        `/login-success.html?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
-      );
-    else res.redirect('/login/failure');
+    if (user) {
+      return { accessToken, refreshToken };
+    } else {
+      return '/login&signup.html';
+    }
   }
+
+  // //네이버 지점업주 회원가입/로그인
+  // async naverAdminLoginCallback({ req, res }) {
+  //   // 네이버 이메일로 사용자를 찾는다.
+  //   const email = req.user.userProfile.userEmail;
+  //   const nickname = req.user.userProfile.userNick;
+  //   let OAuthUser = await this.userRepository.findOne({
+  //     where: { email },
+  //   });
+
+  //   // 네이버 사용자의 이메일 값을 변수 지정
+  //   // user의 아이디 값을 해시화 해서 변수 지정
+  //   const hashedNaverPassword = await bcrypt.hash(email, 10);
+
+  //   // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성
+  //   // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용
+  //   if (!OAuthUser) {
+  //     OAuthUser = await this.userRepository.save({
+  //       email,
+  //       nickname,
+  //       password: hashedNaverPassword,
+  //       role: 1,
+  //     });
+  //   }
+
+  //   const accessToken = this.generateAccessToken(
+  //     OAuthUser.id,
+  //     OAuthUser.nickname,
+  //   );
+  //   const refreshToken = this.generateRefreshToken(OAuthUser.id);
+
+  //   await this.userService.update(OAuthUser.id, {
+  //     currentRefreshToken: refreshToken,
+  //   });
+
+  //   if (OAuthUser)
+  //     res.redirect(
+  //       `/login-success.html?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+  //     );
+  //   else res.redirect('/login/failure');
+  // }
 
   //카카오 회원가입/로그인
   async kakaoLoginCallback({ req, res }) {
@@ -267,63 +292,70 @@ export class AuthService {
       console.log(mypage);
     }
 
-    const accessToken = this.generateAccessToken(
-      OAuthUser.id,
-      OAuthUser.nickname,
-    );
-    const refreshToken = this.generateRefreshToken(OAuthUser.id);
+    //code,userid를 레디스 저장
 
-    await this.userService.update(OAuthUser.id, {
-      currentRefreshToken: refreshToken,
-    });
+    const code = randomBytes(16).toString('hex');
+    const user = await this.userService.findUserByEmail(email);
+    const userId = user.id;
 
-    if (OAuthUser)
-      res.redirect(
-        `/login-success.html?accessToken=${accessToken}&refreshToken=${refreshToken}`,
-      );
-    else res.redirect('/login/failure');
-  }
+    await this.redisService.setCodeUserId(code, userId);
+    // const accessToken = this.generateAccessToken(
+    //   OAuthUser.id,
+    //   OAuthUser.nickname,
+    // );
+    // const refreshToken = this.generateRefreshToken(OAuthUser.id);
 
-  //카카오 지점업주 회원가입/로그인
-  async kakaoAdminLoginCallback({ req, res }) {
-    // 카카오 이메일로 사용자를 찾는다.
-    const email = req.user.userProfile.userEmail;
-    const nickname = req.user.userProfile.userNick;
-    let OAuthUser = await this.userRepository.findOne({
-      where: { email },
-    });
+    // await this.userService.update(OAuthUser.id, {
+    //   currentRefreshToken: refreshToken,
+    // });
 
-    // 카카오 사용자의 이메일 값을 변수 지정
-    // user의 아이디 값을 해시화 해서 변수 지정
-    const hashedKakaoPassword = await bcrypt.hash(email, 10);
-
-    // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성
-    // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용
-    if (!OAuthUser) {
-      OAuthUser = await this.userRepository.save({
-        email,
-        nickname,
-        password: hashedKakaoPassword,
-        role: 1,
-      });
+    if (OAuthUser) {
+      res.redirect(`/login-success.html?code=${code}`);
+    } else {
+      res.redirect('/login&signup.html');
     }
-
-    const accessToken = this.generateAccessToken(
-      OAuthUser.id,
-      OAuthUser.nickname,
-    );
-    const refreshToken = this.generateRefreshToken(OAuthUser.id);
-
-    await this.userService.update(OAuthUser.id, {
-      currentRefreshToken: refreshToken,
-    });
-
-    if (OAuthUser)
-      res.redirect(
-        `/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
-      );
-    else res.redirect('/login/failure');
   }
+
+  // //카카오 지점업주 회원가입/로그인
+  // async kakaoAdminLoginCallback({ req, res }) {
+  //   // 카카오 이메일로 사용자를 찾는다.
+  //   const email = req.user.userProfile.userEmail;
+  //   const nickname = req.user.userProfile.userNick;
+  //   let OAuthUser = await this.userRepository.findOne({
+  //     where: { email },
+  //   });
+
+  //   // 카카오 사용자의 이메일 값을 변수 지정
+  //   // user의 아이디 값을 해시화 해서 변수 지정
+  //   const hashedKakaoPassword = await bcrypt.hash(email, 10);
+
+  //   // 해당 이메일 사용자가 없다면 회원가입 로직처럼 회원 생성
+  //   // 비밀번호는 user의 아이디 값을 해시화 해서 변수 지정한 값을 사용
+  //   if (!OAuthUser) {
+  //     OAuthUser = await this.userRepository.save({
+  //       email,
+  //       nickname,
+  //       password: hashedKakaoPassword,
+  //       role: 1,
+  //     });
+  //   }
+
+  //   const accessToken = this.generateAccessToken(
+  //     OAuthUser.id,
+  //     OAuthUser.nickname,
+  //   );
+  //   const refreshToken = this.generateRefreshToken(OAuthUser.id);
+
+  //   await this.userService.update(OAuthUser.id, {
+  //     currentRefreshToken: refreshToken,
+  //   });
+
+  //   if (OAuthUser)
+  //     res.redirect(
+  //       `/login/success?accessToken=${accessToken}&refreshToken=${refreshToken}`, //받아주는 페이지 만들어야함
+  //     );
+  //   else res.redirect('/login/failure');
+  // }
 
   //비밀번호 찾기- 이메일 인증번호 보내기
   async sendVerificationCode(email: string) {
