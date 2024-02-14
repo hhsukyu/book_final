@@ -41,6 +41,8 @@ async function updateNotificationList(notifications) {
       const storeIdMatches = [...message.matchAll(/storeId(\d+)/g)];
       const bookIdMatches = [...message.matchAll(/bookId(\d+)/g)];
 
+      const notificationId = notification.id; // 알림 아이디설정 추가작성
+
       for (const match of storeIdMatches) {
         const storeId = match[1];
         const storeName = await fetchStoreName(storeId);
@@ -54,7 +56,13 @@ async function updateNotificationList(notifications) {
       }
 
       const listItem = document.createElement('li');
+      const iconElement = document.createElement('i'); // 아이콘을 위해 추가작성
       listItem.textContent = message; // 치환된 메시지 설정
+      iconElement.className = 'fa fa-xing'; // 아이콘을 위해 추가작성
+      iconElement.onclick = function () {
+        notificationdelete(notificationId);
+      }; // 알림 삭제 추가작성
+      listItem.appendChild(iconElement); // 아이콘을 위해 추가작성
       notificationList.appendChild(listItem);
     }
   }
@@ -123,3 +131,20 @@ document.addEventListener('click', function (event) {
     notificationContainer.style.display = 'none';
   }
 });
+
+// 알림창 삭제
+async function notificationdelete(notificationId) {
+  axios
+    .delete(`notification/${notificationId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
+    .then(function () {
+      alert('알림 삭제 성공');
+      window.location.reload();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
