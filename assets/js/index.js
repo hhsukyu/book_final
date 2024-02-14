@@ -217,3 +217,8 @@ function errorimg() {
   errorbookimg.src =
     'https://kowpic.cafe24.com/wp-content/plugins/mangboard/includes/mb-file.php?path=2019%2F12%2F05%2FF7_1196096794_test.png';
 }
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function updating() {
+  alert('업데이트 예정 기능입니다.');
+}
