@@ -51,6 +51,16 @@ export class BookService {
     return books;
   }
 
+  //도서 작가별조회
+  async getBooksByAuthor(author: string) {
+    const book = this.bookRepository.find({
+      where: { writer: author },
+      select: ['id', 'book_image', 'title', 'writer', 'genre'],
+    });
+
+    return book;
+  }
+
   //도서 장르별
   async genrebook(bookgenre: string) {
     console.log(bookgenre);

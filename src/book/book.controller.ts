@@ -80,6 +80,12 @@ export class BookController {
     return await this.bookService.getBooksByRank();
   }
 
+  //도서 작가별 조회
+  @Get('author')
+  async getBooksByAuthor(@Query('author') author: string) {
+    return await this.bookService.getBooksByAuthor(author);
+  }
+
   //도서 조회
   @ApiBearerAuth('accessToken')
   @UseGuards(accessTokenGuard)
