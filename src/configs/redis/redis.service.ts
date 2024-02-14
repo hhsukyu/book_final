@@ -70,4 +70,14 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     //데이터타입 일치시키기 위해 명시적으로 변환
     return userIdString ? parseInt(userIdString, 10) : null;
   }
+
+  // async setRank(user_number: number) {
+  //   const user_score = await this.client.zscore('rank', `user:${user_number}`);
+  //   await this.client.zadd('rank', +user_score + 1, `user:${user_number}`);
+  // }
+
+  // async getRank() {
+  //   const result = await this.client.zrevrange('rank', 0, 6);
+  //   return result;
+  // }
 }
