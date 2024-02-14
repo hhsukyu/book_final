@@ -19,8 +19,23 @@
 .notification-list li {
   padding: 10px;
   border-bottom: 1px solid #eee;
+
+  /*추가작성*/
+  border-radius: 5px;
+  margin-bottom: 10px; /* 각 항목 사이에 여백 추가 */
+  background-color: white;
 }
 
 .notification-list li:last-child {
   border-bottom: none;
+}
+
+/*추가작성*/
+#notificationContainer {
+  background-color: #171717;
+}
+
+/*추가작성*/
+.notification-list > li > i {
+  margin-left: 120px;
 }
