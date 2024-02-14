@@ -16,7 +16,7 @@ let reviewbookid;
 function mainBookcard() {
   mainCardSlide();
   axios
-    .get('/books/main')
+    .get('/books/rank')
     .then(function (response) {
       const books = response.data;
       books.forEach((book) => {
