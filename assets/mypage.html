@@ -52,7 +52,18 @@
       <div id="userinfo" class="row bookboard mt-4">
         <div class="col">
           <h2 class="mt-4 title-mypage">마이페이지</h2>
+          <div class="text-end" id="giftlistbtn">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-toggle="modal"
+              data-target="#giftmodal"
+            >
+              이용권 확인하기
+            </button>
+          </div>
         </div>
+
         <ul class="nav nav-tabs" id="storetab" role="tablist">
           <li class="nav-item" role="presentation">
             <button
@@ -512,6 +523,45 @@
               >
                 Close
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 이용권 확인 모달 -->
+      <div class="modal fade" tabindex="-1" id="giftmodal">
+        <div class="modal-dialog modal-lg passwordSettingModal">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">보유 이용권</h5>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <!-- Verification Form -->
+
+              <div id="giftlist">
+                <div class="card text-bg-dark bookboard">
+                  <div class="">
+                    <h5 class="card-title">놀숲 5시간 이용권</h5>
+                    <p class="card-text">
+                      본 기프트 카드는 놀숲에서만 사용이 가능하며, 전국 놀숲
+                      지점에서 사용이 가능합니다.
+                    </p>
+                    <p class="card-text">
+                      <small>유효기간 : 2024.02.14 ~ 2025.02.14</small>
+                    </p>
+                  </div>
+                  <button
+                    style="margin-top: 3%"
+                    class="btn btn-outline-secondary"
+                    onclick="updating()"
+                  >
+                    사용하기
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

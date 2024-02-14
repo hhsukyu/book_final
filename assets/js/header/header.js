@@ -72,7 +72,8 @@ function loadHeader(page) {
                 class="dropdown-menu text-small justify-content-end text-end text-center"
               >
                 <li><a class="dropdown-item" href="mypage.html">내 정보</a></li>
-                <li><a class="dropdown-item" href="wishlist.html">위시리스트</a></li>              
+                <li><a class="dropdown-item" href="wishlist.html">위시리스트</a></li>
+                <li><a class="dropdown-item" href="giftcard.html">기프트카드 구매</a></li>                
                 <li><a class="dropdown-item" href="#" onclick="openOwnerApplicationModal()">사장님으로 전환하기</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li><a onclick="logout()" class="dropdown-item">로그아웃</a></li>
