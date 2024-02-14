@@ -67,7 +67,7 @@ async function keyupEvent(event) {
         .get(`books/searchStoreBook?storeId=1&bookTitle=${search}`)
         .then((response) => {
           // 서버로부터 받은 도서 목록을 표시
-          console.log('response.data', response.data);
+          // console.log('response.data', response.data);
           const books = response.data.data;
 
           if (books.length === 0) {

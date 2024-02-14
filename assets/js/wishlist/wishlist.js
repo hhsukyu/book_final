@@ -26,7 +26,7 @@ function userme() {
       const stores = mypage.like_store;
 
       if (user.mypage === null) {
-        console.log('연결된 마이페이지가 없습니다.');
+        // console.log('연결된 마이페이지가 없습니다.');
       } else if (user.mypage !== null) {
         if (stores) {
           Object.keys(stores).forEach(function (key) {
@@ -154,7 +154,7 @@ function addwish(bookid) {
       },
     )
     .then(function () {
-      console.log('수정 성공');
+      // console.log('수정 성공');
       window.location.reload();
     })
     .catch(function (error) {
@@ -167,7 +167,7 @@ function addwish(bookid) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function removewish(wishlist) {
   // 위시리스트만 삭제하는 api 구현
-  console.log(wishlist);
+  // console.log(wishlist);
   axios
     .delete('/mypage/wishlist', {
       headers: {

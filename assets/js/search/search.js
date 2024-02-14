@@ -9,7 +9,7 @@ const query = new URLSearchParams(window.location.search).get('book');
 
 if (query) {
   // query를 사용하여 검색 결과를 가져와서 표시하는 함수 호출
-  console.log(query);
+  // console.log(query);
   searchresult(query);
 }
 loadingshow();
@@ -36,7 +36,7 @@ loadUserLikeStores();
 
 //메인화면 검색 부분
 function searchresult(search) {
-  console.log('실행');
+  // console.log('실행');
   axios
     .get(`/books/search?booktitle=${search}`)
     .then(async function (response) {

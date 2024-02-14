@@ -18,7 +18,9 @@ import { CreateMyPageDto } from './dto/add-to-address.dto';
 import { AddToMyLikeStoreDto } from './dto/add-to-likestore';
 import { RemoveFromWishListDto } from './dto/remove-from-wishlist.dto';
 import { RemoveFromLikeStoreDto } from './dto/remove-from-likestore';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('마이페이지')
 @Controller('mypage')
 export class MyPageController {
   constructor(private readonly myPageService: MyPageService) {}

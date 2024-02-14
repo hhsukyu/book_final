@@ -9,7 +9,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { accessTokenGuard } from '../auth/guard/access-token.guard';
 import { UserId } from '../auth/decorators/userId.decorator';
@@ -18,6 +18,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { MenuService } from '../menu/menu.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 
+@ApiTags('유저')
 @Controller('user')
 export class UserController {
   constructor(

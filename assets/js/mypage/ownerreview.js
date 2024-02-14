@@ -95,7 +95,7 @@ function openowner(reviewid, storeid) {
 function submitadminreview(event) {
   event.preventDefault();
   const admincontent = document.getElementById('ownerreview').value;
-  console.log(admincontentreviewid, admincontentstoreid);
+  // console.log(admincontentreviewid, admincontentstoreid);
   axios
     .post(
       `reviews/${admincontentstoreid}/${admincontentreviewid}/adminReview`,
@@ -118,7 +118,7 @@ const admincontent = document.getElementById('upownerreview');
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function updateadminreview(event) {
   event.preventDefault();
-  console.log(adminreviewid, admincontentstoreid, admincontentreviewid);
+  // console.log(adminreviewid, admincontentstoreid, admincontentreviewid);
   const result = admincontent.value;
   axios
     .put(
@@ -141,12 +141,12 @@ function updateadminreview(event) {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function updatecommentinfo(reviewid, storeid) {
-  console.log(reviewid, storeid);
+  // console.log(reviewid, storeid);
   axios
     .get(`reviews/${storeid}/${reviewid}/adminReview`)
     .then(function (response) {
       const adminreviewcontent = response.data[0];
-      console.log(adminreviewcontent);
+      // console.log(adminreviewcontent);
       adminreviewid = adminreviewcontent.id;
       admincontentstoreid = storeid;
       admincontentreviewid = reviewid;

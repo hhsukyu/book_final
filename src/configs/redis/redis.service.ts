@@ -61,7 +61,13 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     await this.client.set(bookTitle, bookInfo, { EX: 60 * 2 });
   }
 
-  async setUserIdCode(userId: string, code: string): Promise<void> {
-    await this.client.set(userId, code, { EX: 60 * 1 });
+  async setCodeUserId(code: string, userId: number): Promise<void> {
+    await this.client.set(`verification_code:${code}`, userId, { EX: 30 });
+  }
+
+  async getUserIdByCode(code: string): Promise<number | null> {
+    const userIdString = await this.client.get(`verification_code:${code}`);
+    //데이터타입 일치시키기 위해 명시적으로 변환
+    return userIdString ? parseInt(userIdString, 10) : null;
   }
 }

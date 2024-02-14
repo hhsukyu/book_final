@@ -60,3 +60,8 @@
 .store-pagination-map a {
   margin: 0 5px; /* Optional margin for spacing between Prev/Next and page numbers */
 }
+
+#search-store-box {
+  margin: 3%;
+  margin-left: 25%;
+}

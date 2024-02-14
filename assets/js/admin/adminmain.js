@@ -11,7 +11,7 @@ function userlist() {
       const users = response.data;
 
       users.forEach((user) => {
-        console.log(user);
+        // console.log(user);
         userinfo.innerHTML += `
         <ul">
         <li>${user.nickname}</li>
@@ -53,7 +53,7 @@ function storeinfo() {
     .get('store/admin')
     .then(function (response) {
       // console.log(response);
-      console.log(response.data);
+      // console.log(response.data);
       const stores = response.data;
       stores.forEach((store) => {
         addstorelist(store);

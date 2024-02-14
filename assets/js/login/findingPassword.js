@@ -9,7 +9,7 @@ function sendEmail() {
     .post('/auth/send-verification', { email })
     .then((response) => {
       // 성공적으로 이메일을 보냈을 때의 로직
-      console.log(response.data);
+      // console.log(response.data);
       alert('인증번호를 전송했습니다.');
       document.getElementById('emailForm').style.display = 'none';
       document.getElementById('verificationForm').style.display = 'block';
@@ -31,14 +31,14 @@ function verifyCode() {
     .post('/auth/verify-code', { code, email })
     .then((response) => {
       // 성공적으로 코드를 확인했을 때의 로직
-      console.log('response.config.data', response.config.data);
+      // console.log('response.config.data', response.config.data);
       // response.config.data를 JSON 형식으로 파싱
       const requestData = JSON.parse(response.config.data);
 
       // email 속성에 접근
       const email = requestData.email;
       checkEmail = email;
-      console.log('email', email);
+      // console.log('email', email);
 
       document.getElementById('verificationForm').style.display = 'none';
       document.getElementById('passwordResetForm').style.display = 'block';
@@ -68,7 +68,7 @@ function resetPassword() {
       })
       .then((response) => {
         // 성공적으로 비밀번호를 재설정했을 때의 로직
-        console.log(response.data);
+        // console.log(response.data);
 
         alert('비밀번호가 성공적으로 재설정되었습니다.');
         $('#myModal').modal('hide');

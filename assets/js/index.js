@@ -40,7 +40,7 @@ function carddetail(bookid) {
   axios
     .get('/books/' + bookid)
     .then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
       bookreivew(bookid);
       const book = response.data;
 
@@ -94,7 +94,7 @@ function bookreivew(bookid) {
       reviewcard2.style.display = 'block';
       reviewbox1.innerHTML = '';
       const comments = response.data;
-      console.log(comments);
+      // console.log(comments);
 
       comments.forEach((comment) => {
         reviewbox1.innerHTML += `
@@ -157,7 +157,7 @@ async function addreviewbtn() {
   // 책 리뷰 부분 숨김
   reviewcard2.style.display = 'none';
   addreview2.style.display = 'block';
-  console.log(reviewbookid);
+  // console.log(reviewbookid);
   // 전송 처리 함수
 
   function handleSubmit(event) {
@@ -182,7 +182,7 @@ async function addreviewbtn() {
 
   // 리뷰 데이터 저장
   function sendFeedback(starValue, comment) {
-    console.log(starValue, comment);
+    // console.log(starValue, comment);
 
     axios
       .post(
