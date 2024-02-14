@@ -1,0 +1,12 @@
+.giftbox {
+  height: 75%;
+}
+
+.giftitem {
+  width: 45%;
+}
+
+.giftlist {
+  display: flex;
+  flex-wrap: wrap;
+}

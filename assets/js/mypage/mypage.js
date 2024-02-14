@@ -3,6 +3,7 @@ userme();
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function userme() {
   const storetab = document.getElementById('storetab');
+  const giftbtn = document.getElementById('giftlistbtn');
 
   const userimage = document.getElementById('profileImage');
   const useraddress = document.getElementById('addressSearch');
@@ -27,6 +28,8 @@ function userme() {
 
       if (user.role === 0) {
         storetab.style.display = 'none';
+      } else {
+        giftbtn.style.display = 'none';
       }
     })
     .catch(function (error) {

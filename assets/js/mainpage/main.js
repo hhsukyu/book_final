@@ -1,11 +1,14 @@
 const iconreview = document.getElementById('reviewicon');
 
+const storereviewbtn = document.getElementById('storereviewbox');
+
 const token = localStorage.getItem('accessToken');
 
 // console.log(refrsh);
 if (!token) {
   loadHeader('home'); // load the home page by default
   reviewfade();
+  storereviewbtn.style.display = 'none';
 } else {
   axios
     .get('/user/me', {
