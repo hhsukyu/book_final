@@ -1,6 +1,7 @@
 //마이페이지 헤더
 //메인페이지에 유저 라이크 리스트를 제거한 부분
 const token = localStorage.getItem('accessToken');
+const giftaddbtn = document.getElementById('addgiftbtn');
 
 if (!token) {
   loadHeader('home'); // load the home page by default
@@ -19,11 +20,13 @@ if (!token) {
         loadHeader('login');
         const userimg = document.getElementById('userimg');
         userimg.src = user.photo;
+        giftaddbtn.style.display = 'none';
       } else if (user.role === 1) {
         // console.log('사장');
         loadHeader('admin');
         const userimg = document.getElementById('userimg');
         userimg.src = user.photo;
+        giftaddbtn.style.display = 'none';
       } else if (user.role === 2) {
         // console.log('사이트관리자');
         loadHeader('siteadmin');

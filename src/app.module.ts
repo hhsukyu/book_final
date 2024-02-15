@@ -24,6 +24,12 @@ import { TypeormModule } from './typeorm/typeorm.module';
 import { NotificationModule } from './notification/notification.module';
 import { SseModule } from './sse/sse.module';
 import { ApplyOwnerModule } from './apply-owner/apply-owner.module';
+import { GiftController } from './gift/gift.controller';
+import { GiftService } from './gift/gift.service';
+import { GiftModule } from './gift/gift.module';
+import { GiftuserController } from './giftuser/giftuser.controller';
+import { GiftuserService } from './giftuser/giftuser.service';
+import { GiftuserModule } from './giftuser/giftuser.module';
 
 @Module({
   imports: [
@@ -50,6 +56,8 @@ import { ApplyOwnerModule } from './apply-owner/apply-owner.module';
     SseModule,
     ReceiptModule,
     ApplyOwnerModule,
+    GiftModule,
+    GiftuserModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],
