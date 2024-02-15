@@ -107,6 +107,7 @@ export class BookService {
   }
   //도서 검색하기
   async searchbook(booktitle: string) {
+    await this.redisService.setRank(booktitle);
     const cachedResult = await this.redisService.getBookInfo(booktitle);
 
     if (cachedResult || cachedResult !== null) {
@@ -162,6 +163,12 @@ export class BookService {
     });
 
     return book;
+  }
+
+  //인기 검색어 조회
+  async getTopTenSearchTerms() {
+    const topten = await this.redisService.getRank();
+    return topten;
   }
 
   //도서 수정
