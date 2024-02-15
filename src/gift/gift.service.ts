@@ -1,10 +1,13 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Gift } from 'src/entity/gift.entity';
 import { Repository } from 'typeorm';
 import { CreateGiftDto } from './dto/create-gift.dto';
 import { UserService } from 'src/user/user.service';
 import { UpdateGiftDto } from './dto/update-gift.dto';
+import axios from 'axios';
+import { ConfigService } from '@nestjs/config';
+import { ImpDto } from './dto/imp.dto';
 
 @Injectable()
 export class GiftService {
@@ -12,6 +15,7 @@ export class GiftService {
     private readonly userService: UserService,
     @InjectRepository(Gift)
     private readonly giftRepository: Repository<Gift>,
+    private readonly configService: ConfigService,
   ) {}
 
   async addgift(userId: number, creategiftdto: CreateGiftDto) {
@@ -77,5 +81,44 @@ export class GiftService {
     });
 
     return gift;
+  }
+
+  async giftcheck(impdto: ImpDto) {
+    const gift = await this.giftRepository.findOne({
+      where: { id: impdto.giftid },
+    });
+    axios
+      .post('https://api.iamport.kr/users/getToken', {
+        imp_key: `${this.configService.get('PORT_ONE_KEY')}`,
+        imp_secret: `${this.configService.get('PORT_ONE_SECRET_API')}`,
+      })
+      .then(function (response) {
+        console.log(response.data);
+        const access_token = response.data.response.access_token;
+        console.log(access_token);
+        axios
+          .get(`https://api.iamport.kr/payments/${impdto.imp_uid}`, {
+            headers: {
+              Authorization: access_token,
+            },
+          })
+          .then(function (response) {
+            console.log(response.data);
+            const checkgiftinfo = response.data;
+            if (gift.gift_price !== `${checkgiftinfo.response.amount}`) {
+              throw new BadRequestException('결제 서버에 문제가 있습니다.');
+            } else {
+              return HttpStatus.OK;
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+            throw new BadRequestException('결제 서버에 문제가 있습니다.');
+          });
+      })
+      .catch(function (error) {
+        console.log(error);
+        throw new BadRequestException('결제 서버에 문제가 있습니다.');
+      });
   }
 }

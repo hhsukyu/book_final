@@ -54,15 +54,25 @@ function giftbuybtn(giftid) {
           gift_id: giftid,
         },
         function (response) {
-          console.log(response);
-          const { status, success, error_msg } = response;
+          //   console.log(response);
+          const { status, success, error_msg, imp_uid } = response;
 
           if (success === false) {
             alert(error_msg);
           }
           if (status === 'paid') {
             alert('결제완료');
-            usergift(giftid);
+            giftcheck(imp_uid, giftid)
+              .then(function (result) {
+                if (result.status === 201) {
+                  usergift(giftid);
+                } else {
+                  alert('결제에 오류가 발생했습니다. 관리자에게 문의해주세요.');
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
           }
         },
       );
@@ -104,7 +114,22 @@ function usergift(id) {
     });
 }
 
-//결제 확인 부분
+async function giftcheck(imp_uid, giftid) {
+  try {
+    console.log(imp_uid);
+    const response = await axios.post('/gift/check', {
+      imp_uid: imp_uid,
+      giftid: giftid,
+    });
+    // console.log(response);
+    return response; // API 응답 데이터를 반환합니다.
+  } catch (error) {
+    console.log(error);
+    throw error; // 에러를 다시 던져서 호출한 측에서 처리할 수 있도록 합니다.
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function addgiftinfo() {
   const giftname = document.getElementById('inputgiftname').value;
   const giftdesc = document.getElementById('inputgiftdesc').value;
