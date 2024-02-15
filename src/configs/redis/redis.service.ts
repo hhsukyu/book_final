@@ -28,7 +28,12 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   }
 
   async setVerificationCode(email: string, code: string): Promise<void> {
-    await this.client.set(`verification_code:${email}`, code, { EX: 60 * 3 });
+    const expirationTimeSeconds = this.configService.get<number>(
+      'REDIS_EXPIRATION_TIME_SECONDS',
+    );
+    await this.client.set(`verification_code:${email}`, code, {
+      EX: expirationTimeSeconds,
+    });
   }
 
   async getVerificationCode(email: string): Promise<string | null> {
@@ -52,7 +57,12 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   }
 
   async setCodeUserId(code: string, userId: number): Promise<void> {
-    await this.client.set(`verification_code:${code}`, userId, { EX: 10 });
+    const expirationTimeSeconds = this.configService.get<number>(
+      'REDIS_CODE_EXPIRATION_TIME_SECONDS',
+    );
+    await this.client.set(`verification_code:${code}`, userId, {
+      EX: expirationTimeSeconds,
+    });
   }
 
   async getUserIdByCode(code: string): Promise<number | null> {
