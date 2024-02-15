@@ -106,8 +106,6 @@ function showSearchingBooks(books) {
   // 각 도서를 도서 목록에 추가
   books.forEach((book) => {
     storebookinfo.innerHTML += `
-
-
       <div class="col">
             <div class="card">
             <img src="${book.book_image}" alt="" />
@@ -116,9 +114,6 @@ function showSearchingBooks(books) {
             </div>
           </div>
         </div>
-  
-     
-   
     `;
   });
 }

@@ -17,6 +17,8 @@ import { BookReview } from './bookreview.entity';
 import { MyPage } from './my-page.entity';
 import { Notification } from './notification.entity';
 import { Receipt } from './receipt.entity';
+import { userGift } from './usergift.entity';
+import { Gift } from './gift.entity';
 
 @Entity({
   name: 'users', // 데이터베이스 테이블의 이름
@@ -76,4 +78,10 @@ export class User {
 
   @OneToMany(() => Receipt, (receipt) => receipt.user)
   receipts: Relation<Receipt>[];
+
+  @OneToMany(() => userGift, (usergift) => usergift.user)
+  giftcard: Relation<userGift>[];
+
+  @OneToMany(() => Gift, (gift) => gift.user)
+  gift: Relation<Gift>[];
 }

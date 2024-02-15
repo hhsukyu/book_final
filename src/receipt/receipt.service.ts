@@ -111,6 +111,12 @@ export class ReceiptService {
         { is_receipt: true },
       );
       return { message: 'OK' };
+    } else if (receipt.status === 2) {
+      await this.storeReviewRepository.update(
+        { id: storeReviewByReceipt.id },
+        { is_receipt: false },
+      );
+      return { message: 'OK' };
     }
   }
 
@@ -161,7 +167,7 @@ export class ReceiptService {
       storeId,
     );
     const receiptData = await this.receiptHash(receiptInfo);
-    await this.verifyReceipt(receiptInfo, receiptData);
+    await this.verifyReceipt(receiptData);
 
     // OCR 결과를 데이터베이스에 저장
     const receipt = await this.receiptRepository.save({
@@ -219,14 +225,10 @@ export class ReceiptService {
 
   // 슬랙으로 보내기
   async sendMessage(url: string, receiptId: number) {
-    // See: https://api.slack.com/methods/chat.postMessage
     const res = await this.web.chat.postMessage({
       channel: `${this.configService.get('slack_conversationId')}`,
       text: `영수증 ID: ${receiptId}, 영수증 사진: ${url}`,
     });
-
-    // `res` contains information about the posted message
-    console.log('Message sent: ', res.ts);
   }
 
   // 추출한 정보를 바탕으로 가게 검증
@@ -254,8 +256,7 @@ export class ReceiptService {
   }
 
   // 영수증 중복 체크
-  async verifyReceipt(receiptInfo: string, receiptData: string) {
-    console.log(receiptData);
+  async verifyReceipt(receiptData: string) {
     const receipt = await this.receiptRepository.find({
       where: { data: receiptData },
     });
