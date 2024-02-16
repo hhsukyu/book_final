@@ -112,6 +112,11 @@ async function storereviewlist(comment) {
       <strong id="reviewname">${usernameResult}</strong>
     </div>
   </div>
+
+  <!-- is_receipt -->
+  <div class="is-receipt-img">
+   <img id="isreceiptimg"></img>
+  </div>
   
   <!-- review box -->
   <div id="review-box" class="review-box">
@@ -145,6 +150,7 @@ async function storereviewlist(comment) {
     }
     return stars;
   }
+  isreceipt(comment.is_receipt); // 영수증 상태 이미지 추가작성
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let submitstorereview;
@@ -273,6 +279,16 @@ function addreceiptreview(event) {
     .catch(function (error) {
       alert(error.response['data'].message);
     });
+}
+
+// 영수증 인증 뱃지 추가작성
+function isreceipt(is_receipt) {
+  const receiptimage = document.getElementById('isreceiptimg');
+  if (is_receipt) {
+    receiptimage.src = './url/trusted.png';
+  } else {
+    return '';
+  }
 }
 
 // 특정 리뷰에 대한 사장님리뷰 답글 조회
