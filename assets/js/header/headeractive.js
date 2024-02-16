@@ -39,5 +39,6 @@ if (!token) {
     })
     .catch(function (error) {
       console.log(error);
+      removeTokens();
     });
 }

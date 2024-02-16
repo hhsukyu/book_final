@@ -15,6 +15,8 @@ import { UserId } from 'src/auth/decorators/userId.decorator';
 import { CreateGiftDto } from './dto/create-gift.dto';
 import { UpdateGiftDto } from './dto/update-gift.dto';
 
+import { ImpDto } from './dto/imp.dto';
+
 @ApiTags('(admin) 기프트카트')
 @Controller('gift')
 export class GiftController {
@@ -61,5 +63,10 @@ export class GiftController {
   @Get('/:giftid')
   async giftdetail(@Param('giftid') giftid: number) {
     return await this.giftService.giftdetail(giftid);
+  }
+
+  @Post('/check')
+  async giftcheck(@Body() impdto: ImpDto) {
+    return await this.giftService.giftcheck(impdto);
   }
 }

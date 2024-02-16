@@ -4,12 +4,18 @@ const storereviewbtn = document.getElementById('storereviewbox');
 
 const token = localStorage.getItem('accessToken');
 
+genrefade();
+loadStores();
+mainBookcard();
+
 // console.log(refrsh);
 if (!token) {
   loadHeader('home'); // load the home page by default
   reviewfade();
   storereviewbtn.style.display = 'none';
 } else {
+  // window.location.reload();
+
   axios
     .get('/user/me', {
       headers: {
@@ -39,51 +45,13 @@ if (!token) {
         userimg.src = user.photo;
       }
     })
-    .catch(function () {
-      // alert('다시 로그인 해주세요!');
-      const refreshToken1 = localStorage.getItem('refreshToken');
-      refreshToken(refreshToken1);
-    });
-}
-
-function refreshToken(reftoken) {
-  // 토큰 갱신 요청을 보내는 코드를 작성해야 합니다.
-  axios
-    .post(
-      '/auth/refresh',
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${reftoken}`,
-        },
-      },
-    )
-    .then(function (response) {
-      removeTokens();
-      const newAccessToken = response.data.accessToken;
-      const newRefreshToken = response.data.refreshToken;
-
-      localStorage.setItem('accessToken', newAccessToken);
-      localStorage.setItem('refreshToken', newRefreshToken);
-
-      window.location.reload();
-    })
     .catch(function (error) {
-      console.log(error);
-      alert('토큰 갱신에 실패했습니다. 다시 로그인 해주세요!');
+      // alert('다시 로그인 해주세요!');
       removeTokens();
-      window.location.href = 'index.html';
+      console.log(error);
+      window.location.reload();
     });
 }
-
-function removeTokens() {
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
-}
-
-genrefade();
-loadStores();
-mainBookcard();
 
 // 검색 결과창 메인 화면에서 실행하지 않으면 안보이도록 작업
 
@@ -94,3 +62,17 @@ function reviewfade() {
 function genrefade() {
   genrecontain.style.display = 'none';
 }
+
+// const tokens = localStorage.getItem('refreshToken');
+// const decodedToken = jwt.decode(tokens);
+
+// // 만료 시간 확인
+// const expirationTime = decodedToken.exp;
+// const currentTime = Math.floor(Date.now() / 1000); // 현재 시간을 초 단위로 변환
+
+// // 현재 시간과 비교
+// if (expirationTime < currentTime) {
+//   console.log('토큰이 만료되었습니다.');
+// } else {
+//   console.log('토큰이 유효합니다.');
+// }
