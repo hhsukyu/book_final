@@ -91,11 +91,6 @@ export class BookController {
   async getBooksByAuthor(@Query('author') author: string) {
     return await this.bookService.getBooksByAuthor(author);
   }
-  //인기 검색어 조회
-  @Get('getTopTenSearchTerms')
-  async getTopTenSearchTerms() {
-    return await this.bookService.getTopTenSearchTerms();
-  }
 
   //도서 조회
   @ApiBearerAuth('accessToken')
