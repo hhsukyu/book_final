@@ -46,7 +46,7 @@
 }
 
 /*영수증 여부 추가작성*/
-#isreceiptimg {
+.isreceiptimg {
   /* margin-right: 470px; */
   width: 5%;
   height: auto;
