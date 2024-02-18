@@ -115,7 +115,7 @@ async function storereviewlist(comment) {
 
   <!-- is_receipt -->
   <div class="is-receipt-img">
-   <img id="isreceiptimg"></img>
+   <img class="isreceiptimg" id="isreceiptimg${comment.id}"></img>
   </div>
   
   <!-- review box -->
@@ -150,7 +150,7 @@ async function storereviewlist(comment) {
     }
     return stars;
   }
-  isreceipt(comment.is_receipt); // 영수증 상태 이미지 추가작성
+  isreceipt(comment.is_receipt, comment.id); // 영수증 상태 이미지 추가작성
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let submitstorereview;
@@ -229,10 +229,13 @@ async function addstorereviewbtn() {
   submitstorereview = handleSubmit;
 }
 
+// 영수증 loading 아이콘 부분
+var element = document.querySelector('.bookcsvloading');
 // 영수증 리뷰 등록
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function addreceiptreview(event) {
   event.preventDefault();
+  element.classList.add('show');
   // 영수증 이미지
   const receiptImg = document.getElementById('receiptimg');
   const receiptImgFile = receiptImg.files[0];
@@ -282,8 +285,8 @@ function addreceiptreview(event) {
 }
 
 // 영수증 인증 뱃지 추가작성
-function isreceipt(is_receipt) {
-  const receiptimage = document.getElementById('isreceiptimg');
+function isreceipt(is_receipt, id) {
+  const receiptimage = document.getElementById(`isreceiptimg${id}`);
   if (is_receipt) {
     receiptimage.src = './url/trusted.png';
   } else {
