@@ -177,14 +177,16 @@ async function addreviewbtn() {
 
     // 서버로 데이터 전송
     sendFeedback(selectedStarValue, comment);
+
+    window.location.reload();
   }
   submitreview2 = handleSubmit;
 
   // 리뷰 데이터 저장
-  function sendFeedback(starValue, comment) {
+  async function sendFeedback(starValue, comment) {
     // console.log(starValue, comment);
 
-    axios
+    await axios
       .post(
         '/bookreview/' + reviewbookid,
         {
