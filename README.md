@@ -139,7 +139,7 @@
 
 # 🔧 아키텍쳐
 
- <img src="./assets/url/service_architecture.jpg" alt="...">
+ <img src="./assets/url/book_service_architecture.jpg" alt="...">
 <br>
 <br>
 
