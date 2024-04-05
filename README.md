@@ -351,7 +351,7 @@ TypeORM에서 지원하는 Queryselector를 이용해 실제 SQL 쿼리와 비�
 
 ## 🎥 시연 영상
 
-[[🎞시연 영상]](https://youtu.be/h2sHEe_xnmU?si=SxImY96eu9YnSxGP)
+[[🎞시연 영상]](https://youtu.be/3JnPYKvuIuc)
 
 ## 🍏 환경 변수
 
